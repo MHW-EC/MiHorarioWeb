@@ -127,7 +127,7 @@ export default function PasoAPaso() {
           </div>
         )}
       </div>
-      <Container align='center' maxWidth='lg'>
+      <Container maxWidth='lg'>
         {getStepComponet(activeStep)}
       </Container>
     </div>
