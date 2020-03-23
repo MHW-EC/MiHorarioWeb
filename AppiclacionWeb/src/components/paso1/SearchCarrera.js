@@ -45,8 +45,37 @@ const useStyles = makeStyles((theme) => ({
 
 
 
-export default function SearchCarrera() {
+export default function SearchCarrera(props) {
+	
+	const carrerasEspol = []
+	
 	const classes = useStyles();
+
+	const adapterArrayToJSON = (carreras) => {
+
+		carreras.forEach(element => {
+			carrerasEspol.push({'nombre': element})
+		});
+	}
+
+	const consultarCarrerasEspol = () => {
+		
+		async function consulta(){
+			let response = await fetch('/carreras')
+			
+			if(response.ok){
+				response.json().then(function(datos){
+					
+					adapterArrayToJSON(datos)
+				}).catch(function(error){
+					
+				})
+			}
+		}
+		consulta()
+	}
+	consultarCarrerasEspol()
+	
 	return (
     <Container maxWidth="sm">
 		<Grid
@@ -60,9 +89,9 @@ export default function SearchCarrera() {
 		>
 			<Grid item>
 				<Autocomplete
-					id='grouped-demo'
-					options={top100Films}
-					getOptionLabel={(option) => option.title}
+					id='input-nombre-carrera'
+					options={carrerasEspol}
+					getOptionLabel={(option) => option.nombre}
 					renderInput={(params) => (
 						<CssTextField
 							{...params}
@@ -70,6 +99,7 @@ export default function SearchCarrera() {
 							label='Nombre de su carrera'
 							variant='outlined'
 							id='custom-css-outlined-input'
+							
 						/>
 					)}
 				/>
@@ -78,21 +108,3 @@ export default function SearchCarrera() {
     </Container>
 	);
 }
-
-
-// Top 100 films as rated by IMDb users. http://www.imdb.com/chart/top
-const top100Films = [
-	{ title: 'The Shawshank Redemption', year: 1994 },
-	{ title: 'The Godfather', year: 1972 },
-	{ title: 'The Godfather: Part II', year: 1974 },
-	{ title: 'The Dark Knight', year: 2008 },
-	{ title: '12 Angry Men', year: 1957 },
-	{ title: "Schindler's List", year: 1993 },
-	{ title: 'Pulp Fiction', year: 1994 },
-	{ title: 'The Lord of the Rings: The Return of the King', year: 2003 },
-	{ title: 'The Good, the Bad and the Ugly', year: 1966 },
-	{ title: 'Fight Club', year: 1999 },
-	{ title: 'The Lord of the Rings: The Fellowship of the Ring', year: 2001 },
-	{ title: 'Star Wars: Episode V - The Empire Strikes Back', year: 1980 },
-	{ title: 'Forrest Gump', year: 1994 }
-];

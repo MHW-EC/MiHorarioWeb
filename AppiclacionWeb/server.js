@@ -6,21 +6,23 @@ const bodyParser = require('body-parser')
 const path = require('path');
 const app = express();
 
-
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, 'build')));
 
 
 app.get('/ping', function (req, res) {
-  console.log('pong!');
- return res.send('pong');
+  
+  return res.send('pong');
 });
 
 //Esta funcion recibe un url de la forma /malla/:carrera
 //retorna una lista con los codigos de su malla[codigo1,codigo2, ...]
 app.get("/malla/:carrera", function (req, res) {
- return res.send(mallasResumido['mallasResumido'][req.params.carrera]);
+  console.log('pedido')
+  console.log(mallasResumido['mallasResumido'][req.params.carrera])
+  return res.send(mallasResumido['mallasResumido'][req.params.carrera]);
+  //return res.send('hola')
 });
 
 //Esta función recibe un url de la forma /nombre-materia/:codigo
@@ -46,5 +48,5 @@ app.get('/', function (req, res) {
   
   res.sendFile(path.join(__dirname, 'build', 'index.html'));
 });
-
-app.listen(process.env.PORT || 8080, () => {console.log('Server funcionando!')});
+//process.env.PORT || 
+app.listen(8080, () => {console.log(`Server funcionando! ${8080}`)});

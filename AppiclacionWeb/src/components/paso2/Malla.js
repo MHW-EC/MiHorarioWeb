@@ -1,56 +1,106 @@
-import React,{ useState } from 'react';
-import { makeStyles } from "@material-ui/core/styles";
-import { Paper, Grid, Typography } from "@material-ui/core";
+import React, { useState } from 'react';
+import { makeStyles } from '@material-ui/core/styles';
+import { Paper, Grid, Typography, Checkbox } from '@material-ui/core';
 
+const useStyles = makeStyles((theme) => ({
+	root: {
+		flexGrow: 1
+	},
+	paper: {
+		padding: theme.spacing(2),
 
-const useStyles = makeStyles(theme => ({
-  root: {
-    flexGrow: 1
-  },
-  paper: {
-    padding: theme.spacing(2),
-    textAlign: "center",
-    color: theme.palette.text.secondary,
-    
-  },
-  paperOnClick: {
-    borderColor: 'blue'
-  }
-
+		color: theme.palette.text.secondary
+	},
+	paperOnClick: {
+		borderColor: 'blue'
+	}
 }));
 
+export default function Malla(props) {
 
-export default function Malla() {
-  const classes = useStyles();
-  const [columnas] = useState(5);
-  const materias = [0, 1, 2, 3, 4, 5, 6,
-     7, 8, 9, 10, 11, 12, 13, 14, 15, 16,
-      17, 18, 19, 20, 21, 22 ,23,24 ,25,26,27,
-    28 ];
-  const listItems = [];
-  let fila = [];
-  materias.forEach(number => {
-    if (number % columnas === 0) {
-      fila = [];
-    } else if (number % columnas === columnas - 2) {
-      listItems.push(
-        <Grid container spacing={3}>
-          {fila}
-        </Grid>
-      );
+	const classes = useStyles();
+	const [columnas] = useState(5);
+
+  const [codigos, setCodigos] = React.useState([]);
+  const [materias, setMaterias] = React.useState([]);
+  
+	const [checked, setChecked] = React.useState(true);
+
+
+	const obtenerMaterias = () => {
+    
+		async function consultaMaterias() {
+			let response = await fetch(`/malla/${props.carrera}`)
+      
+			if (response.ok) {
+        
+				response
+					.json()
+					.then(function(datos) {
+						setCodigos(datos)
+					})
+					.catch(function(error) {}); 
+      }
+      
+      return true;
     }
+    
+    consultaMaterias();
+    return true;
+  };
+  
+  console.log(codigos)
+	obtenerMaterias(); 
+  
 
-    fila.push(
-      <Grid item xs>
-        <Paper className={classes.paper} variant={'outlined'} >
-          <Typography variant="subtitle2">
-            MATERIA { number}
-          </Typography>
-          <Typography variant="caption">MATH200{number}</Typography>
-        </Paper>
-      </Grid>
-    );
-  });
+	const handleChange = (event) => {
+    setChecked(event.target.checked);
+    props.varMaterias.push()
+	}; 
 
-  return <div className={classes.root}>{listItems}</div>;
+	const listItems = [];
+
+	let fila = [];
+
+	materias.forEach((element, index) => {
+
+    
+		if (index % columnas === 0) {
+			fila = [];
+		} else if (index % columnas === columnas - 2) {
+			listItems.push(
+				<Grid key={index} container spacing={3}>
+					{fila}
+				</Grid>
+			);
+		}
+
+		fila.push(
+			<Grid key={index + 'A'} item xs>
+				<Paper className={classes.paper} variant={'outlined'}>
+					<Grid container>
+						<Grid item xs={6}>
+							<Grid container>
+								<Grid item xs={12}>
+									<Typography variant='subtitle2'>MATERIA {index}</Typography>
+								</Grid>
+								<Grid item xs={12}>
+                  <Typography variant='caption'>{element}</Typography>
+								</Grid>
+							</Grid>
+						</Grid>
+						<Grid item xs={6}>
+							<Checkbox
+								color='primary'
+                inputProps={{ 'aria-label': 'secondary checkbox' }}
+                handleChange={() => {handleChange()}}
+							/>
+						</Grid>
+					</Grid>
+				</Paper>
+			</Grid>
+		);
+	});
+  console.log('Holaasas')
+	return <div className={classes.root}>{listItems}</div>;
 }
