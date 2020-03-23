@@ -7,8 +7,7 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 import useScrollTrigger from '@material-ui/core/useScrollTrigger';
 import Container from '@material-ui/core/Container';
 import './App.css';
-
-import PasoAPaso from './components/PasoAPaso'
+import PasoAPaso from './components/PasoAPaso';
 
 function ElevationScroll(props) {
 	const { children, window } = props;
@@ -34,6 +33,7 @@ ElevationScroll.propTypes = {
 	 */
 	window: PropTypes.func
 };
+
 
 function App(props) {
 	return (
