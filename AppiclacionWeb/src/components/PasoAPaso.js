@@ -5,8 +5,10 @@ import StepLabel from '@material-ui/core/StepLabel';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
-
-import SearchCarrera from './SearchCarrera'
+import OpcionesMaterias from "./paso3/opciones-materias";
+import SearchCarrera from './paso1/SearchCarrera'
+import Horarios from "./paso4/horarios";
+import Malla from './paso2/Malla';
 import { Container } from '@material-ui/core';
 
 //Aqui seteamos estilos
@@ -73,6 +75,12 @@ export default function PasoAPaso() {
     switch(stepIndex){
       case 0:
         return <SearchCarrera/>
+      case 1:
+        return <Malla/>
+      case 2:
+        return <OpcionesMaterias/>
+      case 3:
+        return <Horarios/>
       default:
         return <Typography className={classes.instructions}>{getStepContent(activeStep)}</Typography>
     }
@@ -92,6 +100,9 @@ export default function PasoAPaso() {
         ))}
       </Stepper>
       <div>
+      <Container maxWidth='lg'>
+        {getStepComponet(activeStep)}
+      </Container>
         {activeStep === steps.length - 1 ? (
           <div>
           <Typography className={classes.instructions}>{getStepContent(activeStep)}</Typography>
@@ -127,9 +138,7 @@ export default function PasoAPaso() {
           </div>
         )}
       </div>
-      <Container maxWidth='lg'>
-        {getStepComponet(activeStep)}
-      </Container>
+      
     </div>
   );
 }
