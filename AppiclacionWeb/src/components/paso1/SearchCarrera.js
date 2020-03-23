@@ -47,9 +47,11 @@ const useStyles = makeStyles((theme) => ({
 
 export default function SearchCarrera(props) {
 	
-	const carrerasEspol = []
+	
 	
 	const classes = useStyles();
+	
+	const carrerasEspol = []
 
 	const adapterArrayToJSON = (carreras) => {
 

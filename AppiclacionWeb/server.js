@@ -20,7 +20,6 @@ app.get('/ping', function (req, res) {
 //retorna una lista con los codigos de su malla[codigo1,codigo2, ...]
 app.get("/malla/:carrera", function (req, res) {
   console.log('pedido')
-  console.log(mallasResumido['mallasResumido'][req.params.carrera])
   return res.send(mallasResumido['mallasResumido'][req.params.carrera]);
   //return res.send('hola')
 });

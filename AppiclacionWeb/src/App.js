@@ -82,7 +82,7 @@ ElevationScroll.propTypes = {
 function App(props) {
 	return (
 		
-				<React.Fragment className='App-body'>
+				<React.Fragment>
 					<CssBaseline />
 					<ElevationScroll {...props}>
 						<AppBar>

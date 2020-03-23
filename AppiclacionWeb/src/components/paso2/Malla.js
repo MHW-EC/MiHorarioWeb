@@ -21,38 +21,30 @@ export default function Malla(props) {
 	const classes = useStyles();
 	const [columnas] = useState(5);
 
-  const [codigos, setCodigos] = React.useState([]);
-  const [materias, setMaterias] = React.useState([]);
-  
-	const [checked, setChecked] = React.useState(true);
+	const codigosMaterias = []
 
 
-	const obtenerMaterias = () => {
-    
-		async function consultaMaterias() {
+	const consultarcodigosMaterias = () => {
+		
+		async function consulta(){
 			let response = await fetch(`/malla/${props.carrera}`)
-      
-			if (response.ok) {
-        
-				response
-					.json()
-					.then(function(datos) {
-						setCodigos(datos)
-					})
-					.catch(function(error) {}); 
-      }
-      
-      return true;
-    }
-    
-    consultaMaterias();
-    return true;
-  };
-  
-  console.log(codigos)
-	obtenerMaterias(); 
-  
+			
+			if(response.ok){
+				response.json().then(function(datos){
+					console.log(datos)
+					codigosMaterias = datos
+				}).catch(function(error){
+					
+				})
+			}
+		}
+		consulta()
+	}
+	consultarcodigosMaterias() 
 
+	const [checked, setChecked] = React.useState(true);
+	
+  
 	const handleChange = (event) => {
     setChecked(event.target.checked);
     props.varMaterias.push()
@@ -61,10 +53,9 @@ export default function Malla(props) {
 	const listItems = [];
 
 	let fila = [];
+	console.log(codigosMaterias)
+	codigosMaterias.forEach((element, index) => {
 
-	materias.forEach((element, index) => {
-
-    
 		if (index % columnas === 0) {
 			fila = [];
 		} else if (index % columnas === columnas - 2) {
@@ -101,6 +92,6 @@ export default function Malla(props) {
 			</Grid>
 		);
 	});
-  console.log('Holaasas')
+  
 	return <div className={classes.root}>{listItems}</div>;
 }
