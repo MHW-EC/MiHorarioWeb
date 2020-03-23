@@ -16,22 +16,17 @@ app.get('/ping', function (req, res) {
   console.log('pong!');
  return res.send('pong');
 });
-//Esta funcion recibe un url de la forma /malla=*
-//donde el * represnta el nombre de una carrera
+
+//Esta funcion recibe un url de la forma /malla/:carrera
 //retorna una lista con los codigos de su malla[codigo1,codigo2, ...]
-app.get("/malla=*", function (req, res) {
-  let carrera = req['originalUrl'].split('=').pop();
-  console.log("malla=");
- return res.send(mallasResumido['mallasResumido'][carrera]);
+app.get("/malla/:carrera", function (req, res) {
+ return res.send(mallasResumido['mallasResumido'][req.params.carrera]);
 });
 
-//Esta función recibe un url de la forma /nombre-materia=*
-//donde el *  representa un codigo de materia
+//Esta función recibe un url de la forma /nombre-materia/:codigo
 //retorna el nombre de la materia con dicho codigo
-app.get("/nombre-materia=*", function (req, res) {
-  let codigo = req['originalUrl'].split('=').pop();
-  console.log("nombre-materia=");
-  return res.send(codigoNombre['codigoNombre'][codigo]);
+app.get("/nombre-materia/:codigo", function (req, res) {
+  return res.send(codigoNombre['codigoNombre'][req.params.codigo]);
 });
 
 //Esta funcion retorna una lista con todas las carreras de espol
