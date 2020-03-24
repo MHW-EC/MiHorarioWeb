@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { Paper, Grid } from '@material-ui/core';
-import Celda from "./celda";
+import Celda from './celda';
 
 const useStyles = makeStyles((theme) => ({
 	root: {
@@ -18,7 +18,6 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function Malla(props) {
-
 	//const [refresh] = useState(false);
 	//const [checked, setChecked] = useState(true);
 
@@ -26,9 +25,9 @@ export default function Malla(props) {
 	const [columnas] = useState(5);
 
 	const [carrera] = useState(props.carrera);
-	const [materiasSelect] = useState(props.materiasSelect)
+	const [materiasSelect] = useState(props.materiasSelect);
 	const [materias] = useState(carrera['materias']);
-//materiasSelect
+	//materiasSelect
 	/*const consultarMaterias = async () => {
 		
 		let response = await fetch(`/malla/${props.carrera}`);
@@ -45,27 +44,24 @@ export default function Malla(props) {
 
 	const listItems = [];
 	let fila = [];
-	
-	materias.forEach((element, index) => {
-		if (index % columnas === 0) {
-			fila = [];
-		} else if (index % columnas === columnas - 2) {
-			listItems.push(
-				<Grid key={index} container spacing={3}>
-					{fila}
-				</Grid>
-			);
-		}
 
-		fila.push(
-			<Grid key={index + 'A'} item xs>
+	materias.forEach((element, index) => {
+		listItems.push(
+			<Grid key={index + 'A'} item xs={6} sm={6} md={4} lg={3} xl={3}>
 				<Paper className={classes.paper} variant={'outlined'}>
 					<Celda materia={element} materiasSelect={materiasSelect} />
 				</Paper>
 			</Grid>
 		);
-	});
-	
 
-return <div className={classes.root}>{listItems}</div>;
+		//fila.push();
+	});
+
+	return (
+		<div className={classes.root}>
+			<Grid container spacing={3}>
+				{listItems}
+			</Grid>
+		</div>
+	);
 }

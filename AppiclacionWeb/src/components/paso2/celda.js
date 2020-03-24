@@ -25,7 +25,7 @@ export default function Celda(props) {
         console.log(materiasSelect);
     }
     return (
-        <Grid container>
+        <Grid container xs={6}>
             <Grid item xs={6}>
                 <Grid container>
                     <Grid item xs={12}>

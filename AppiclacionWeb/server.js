@@ -2,6 +2,7 @@ const carreras = require("./server_resources/carreras")['carreras'];
 const express = require('express');
 const bodyParser = require('body-parser')
 const path = require('path');
+const MobileDetect = require('mobile-detect');
 const app = express();
 
 app.use(bodyParser.json());
@@ -13,6 +14,15 @@ app.get('/ping', function (req, res) {
   
   return res.send('pong');
 });
+
+app.get('/isMobile', function(req, res){
+  
+  let detector = new MobileDetect(req.headers['user-agent']);
+  let respuesta;
+
+  detector.os() != null? respuesta = true : respuesta = false
+  res.send(respuesta)
+})
 
 //Esta funcion retorna un arreglo con objetos de la forma
 // { nombre: nombreCarrera, facultad: facultad, materias: [cod1,cod2,...]}
