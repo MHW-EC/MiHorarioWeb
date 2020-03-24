@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { Paper, Grid, Typography, Checkbox } from '@material-ui/core';
 
@@ -18,44 +18,37 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Malla(props) {
 
+	const [refresh] = useState(false);
+	const [checked, setChecked] = useState(true);
+
 	const classes = useStyles();
 	const [columnas] = useState(5);
 
-	const codigosMaterias = []
+	const [codigos, setCodigos] = useState([]);
 
-
-	const consultarcodigosMaterias = () => {
+	const consultarMaterias = async () => {
 		
-		async function consulta(){
-			let response = await fetch(`/malla/${props.carrera}`)
-			
-			if(response.ok){
-				response.json().then(function(datos){
-					console.log(datos)
-					codigosMaterias = datos
-				}).catch(function(error){
-					
-				})
-			}
-		}
-		consulta()
-	}
-	consultarcodigosMaterias() 
+		let response = await fetch(`/malla/${props.carrera}`);
 
-	const [checked, setChecked] = React.useState(true);
-	
-  
+		if (response.ok) {
+			setCodigos(await response.json());
+		}
+	};
+
+	useEffect(() => {
+		consultarMaterias();
+	}, [refresh])
+
 	const handleChange = (event) => {
-    setChecked(event.target.checked);
-    props.varMaterias.push()
-	}; 
+		setChecked(event.target.checked);
+		//props.varMaterias.push()
+	};
 
 	const listItems = [];
 
 	let fila = [];
-	console.log(codigosMaterias)
-	codigosMaterias.forEach((element, index) => {
-
+	
+	codigos.forEach((element, index) => {
 		if (index % columnas === 0) {
 			fila = [];
 		} else if (index % columnas === columnas - 2) {
@@ -76,15 +69,17 @@ export default function Malla(props) {
 									<Typography variant='subtitle2'>MATERIA {index}</Typography>
 								</Grid>
 								<Grid item xs={12}>
-                  <Typography variant='caption'>{element}</Typography>
+									<Typography variant='caption'>{element}</Typography>
 								</Grid>
 							</Grid>
 						</Grid>
 						<Grid item xs={6}>
 							<Checkbox
 								color='primary'
-                inputProps={{ 'aria-label': 'secondary checkbox' }}
-                handleChange={() => {handleChange()}}
+								inputProps={{ 'aria-label': 'secondary checkbox' }}
+								handleChange={() => {
+									handleChange();
+								}}
 							/>
 						</Grid>
 					</Grid>
@@ -92,6 +87,6 @@ export default function Malla(props) {
 			</Grid>
 		);
 	});
-  
+
 	return <div className={classes.root}>{listItems}</div>;
 }
