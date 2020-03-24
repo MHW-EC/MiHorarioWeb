@@ -59,7 +59,6 @@ export default function SimpleCard(props) {
       </Tooltip>
       :<></>
   }
-
   return (
     <Card className={classes.root}>
       <CardHeader

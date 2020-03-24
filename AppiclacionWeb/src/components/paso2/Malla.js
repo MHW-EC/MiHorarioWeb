@@ -1,6 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import { Paper, Grid, Typography, Checkbox } from '@material-ui/core';
+import { Paper, Grid } from '@material-ui/core';
+import Celda from "./celda";
 
 const useStyles = makeStyles((theme) => ({
 	root: {
@@ -18,37 +19,34 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Malla(props) {
 
-	const [refresh] = useState(false);
-	const [checked, setChecked] = useState(true);
+	//const [refresh] = useState(false);
+	//const [checked, setChecked] = useState(true);
 
 	const classes = useStyles();
 	const [columnas] = useState(5);
 
-	const [codigos, setCodigos] = useState([]);
-
-	const consultarMaterias = async () => {
+	const [carrera] = useState(props.carrera);
+	const [materiasSelect] = useState(props.materiasSelect)
+	const [materias] = useState(carrera['materias']);
+//materiasSelect
+	/*const consultarMaterias = async () => {
 		
 		let response = await fetch(`/malla/${props.carrera}`);
 
 		if (response.ok) {
 			setCodigos(await response.json());
 		}
-	};
+	};*/
 
-	useEffect(() => {
+	/*useEffect(() => {
 		consultarMaterias();
 	}, [refresh])
-
-	const handleChange = (event) => {
-		setChecked(event.target.checked);
-		//props.varMaterias.push()
-	};
+	*/
 
 	const listItems = [];
-
 	let fila = [];
 	
-	codigos.forEach((element, index) => {
+	materias.forEach((element, index) => {
 		if (index % columnas === 0) {
 			fila = [];
 		} else if (index % columnas === columnas - 2) {
@@ -62,31 +60,12 @@ export default function Malla(props) {
 		fila.push(
 			<Grid key={index + 'A'} item xs>
 				<Paper className={classes.paper} variant={'outlined'}>
-					<Grid container>
-						<Grid item xs={6}>
-							<Grid container>
-								<Grid item xs={12}>
-									<Typography variant='subtitle2'>MATERIA {index}</Typography>
-								</Grid>
-								<Grid item xs={12}>
-									<Typography variant='caption'>{element}</Typography>
-								</Grid>
-							</Grid>
-						</Grid>
-						<Grid item xs={6}>
-							<Checkbox
-								color='primary'
-								inputProps={{ 'aria-label': 'secondary checkbox' }}
-								handleChange={() => {
-									handleChange();
-								}}
-							/>
-						</Grid>
-					</Grid>
+					<Celda materia={element} materiasSelect={materiasSelect} />
 				</Paper>
 			</Grid>
 		);
 	});
+	
 
-	return <div className={classes.root}>{listItems}</div>;
+return <div className={classes.root}>{listItems}</div>;
 }

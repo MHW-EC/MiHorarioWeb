@@ -36,6 +36,9 @@ const useStyles = makeStyles((theme) => ({
 		position: 'fixed',
 		bottom: theme.spacing(5),
 		right: theme.spacing(5)
+	},
+	scrollTop:{
+		backgroundColor: 'transparent'
 	}
 }));
 
@@ -80,6 +83,7 @@ ElevationScroll.propTypes = {
 };
 
 function App(props) {
+	
 	return (
 		
 				<React.Fragment>
@@ -87,7 +91,7 @@ function App(props) {
 					<ElevationScroll {...props}>
 						<AppBar>
 							<Toolbar >
-								<Typography variant='h6'>Mi Horario Web</Typography>
+								<Typography variant='h6'>HORARIO</Typography>
 							</Toolbar>
 						</AppBar>
 					</ElevationScroll>

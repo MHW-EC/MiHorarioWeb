@@ -1,14 +1,19 @@
 import React from "react";
 import {CssBaseline,Container} from "@material-ui/core";
-import CardMaterias from "./card-materias";
+import CardMateria from "./card-materia";
 
-export default function SimpleContainer() {
+export default function SimpleContainer(props) {
+
+  const [materiasSelect] = React.useState(props.materiasSelect);
   return (
     <React.Fragment>
       <CssBaseline />
       <Container>
-        {[0,1,2,3,4,5,6,7,8,9].map(()=> <><CardMaterias />
-        <br /></> )}
+        { materiasSelect.map((materia)=> 
+        <React.Fragment key={materia['codigo']}>
+          <CardMateria materia={materia} />
+          <br />
+        </React.Fragment> )}
       </Container>
     </React.Fragment>
   );

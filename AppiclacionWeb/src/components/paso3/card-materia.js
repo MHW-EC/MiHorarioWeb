@@ -1,4 +1,4 @@
-import React from "react";
+import React,{useState} from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
 import CardActions from "@material-ui/core/CardActions";
@@ -25,6 +25,7 @@ const useStyles = makeStyles({
 
 export default function SimpleCard(props) {
   const classes = useStyles();
+  const [materia] = useState(props.materia);
 
   return (
     <Card className={classes.root} elevation={10}>
@@ -33,7 +34,7 @@ export default function SimpleCard(props) {
       </CardContent>
       <CardActions className={classes.cardActions}>
         <Typography className={classes.title} color="textPrimary" variant="h1">
-        MATERIA #1
+        MATERIA {materia['codigo']}
         </Typography>
       </CardActions>
     </Card>

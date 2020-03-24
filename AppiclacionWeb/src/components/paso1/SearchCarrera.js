@@ -43,22 +43,9 @@ const useStyles = makeStyles((theme) => ({
 	}
 }));
 
-
-
 export default function SearchCarrera(props) {
-	
-	
-	
 	const classes = useStyles();
-	
-	const carrerasEspol = []
-
-	const adapterArrayToJSON = (carreras) => {
-
-		carreras.forEach(element => {
-			carrerasEspol.push({'nombre': element})
-		});
-	}
+	const carrerasEspol = [];
 
 	const consultarCarrerasEspol = () => {
 		
@@ -67,24 +54,26 @@ export default function SearchCarrera(props) {
 			
 			if(response.ok){
 				response.json().then(function(datos){
-					
-					adapterArrayToJSON(datos)
+					datos.forEach(element => {
+						carrerasEspol.push(element)
+					});
 				}).catch(function(error){
-					
 				})
 			}
 		}
 		consulta()
 	}
 	consultarCarrerasEspol()
-	
+
+	const onChangeComplete = (event, value , reason) => {
+		props.onChangeCarrera(value);
+	}
+
 	return (
     <Container maxWidth="sm">
 		<Grid
     container
-    
     spacing={0}
-    
     justify="center"
     direction="column"
     style={{ minHeight: '25vh' }}
@@ -92,8 +81,9 @@ export default function SearchCarrera(props) {
 			<Grid item>
 				<Autocomplete
 					id='input-nombre-carrera'
+					onChange={onChangeComplete}
 					options={carrerasEspol}
-					getOptionLabel={(option) => option.nombre}
+					getOptionLabel={(option) => option['nombre']}
 					renderInput={(params) => (
 						<CssTextField
 							{...params}
@@ -101,7 +91,6 @@ export default function SearchCarrera(props) {
 							label='Nombre de su carrera'
 							variant='outlined'
 							id='custom-css-outlined-input'
-							
 						/>
 					)}
 				/>

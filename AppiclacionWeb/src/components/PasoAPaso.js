@@ -66,28 +66,42 @@ export default function PasoAPaso() {
 	const classes = useStyles();
 	const [activeStep, setActiveStep] = React.useState(0);
 
-  const [nombreCarrera, setNombreCarrera] = React.useState('Ninguno');
-  const [materiasSelect] = React.useState([])
+  	const [carrera, setCarrera] = React.useState({});
+	const [materiasSelect,setMateriasSelect] = React.useState([]);
 
 	const steps = getSteps();
 
 	const handleNext = () => {
-		setNombreCarrera(document.getElementById('input-nombre-carrera').value);
+		//setNombreCarrera(document.getElementById('input-nombre-carrera').value);
+		
 		setActiveStep((prevActiveStep) => prevActiveStep + 1);
 	};
 
 	const handleBack = () => {
+		//setCarrera({});
+		//setMateriasSelect([]);
+		switch(activeStep){
+			case 2:
+				setMateriasSelect([]);
+				break;
+			case 1:
+				setCarrera({});
+				break;
+			default:
+				break;
+		}
 		setActiveStep((prevActiveStep) => prevActiveStep - 1);
 	};
 	//Esto nos devuelve el componente del paso segun el paso en el que estamos
 	function getStepComponet(stepIndex) {
+		
 		switch (stepIndex) {
 			case 0:
-				return <SearchCarrera />;
+				return <SearchCarrera onChangeCarrera={setCarrera} />;
 			case 1:
-				return <Malla carrera={nombreCarrera} varMaterias={materiasSelect}/>;
+				return <Malla carrera={carrera} materiasSelect={materiasSelect} />;
 			case 2:
-				return <OpcionesMaterias selected={materiasSelect}/>;
+				return <OpcionesMaterias materiasSelect={materiasSelect}/>;
 			case 3:
 				return <Horarios />;
 			default:
@@ -140,7 +154,6 @@ export default function PasoAPaso() {
 						</Typography>
 						<div>
 							<Button
-								contained
 								disabled={activeStep === 0}
 								onClick={handleBack}
 								className={
