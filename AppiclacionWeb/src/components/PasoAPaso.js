@@ -144,7 +144,8 @@ export default function PasoAPaso() {
 						<StepLabel><Typography className={classes.label}>{label}</Typography></StepLabel>
 						<StepContent>
 							<Typography>{getStepContent(index)}</Typography>
-							<Container maxWidth='lg'>{getStepComponet(activeStep)}</Container>
+							{getStepComponet(activeStep)}
+							
 							<div className={classes.actionsContainer}>
 								<div>
 									<Button
@@ -241,7 +242,8 @@ export default function PasoAPaso() {
 					)}
 				</Grid>
 				<Grid item xs={12}>
-					<Container maxWidth='lg'>{getStepComponet(activeStep)}</Container>
+					{getStepComponet(activeStep)}
+					
 				</Grid>
 			</Grid>
 		</div>

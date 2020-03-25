@@ -105,7 +105,6 @@ function App(props) {
 						</Fab>
 					</ScrollTop>
 				</React.Fragment>
-			
 	);
 }
 
