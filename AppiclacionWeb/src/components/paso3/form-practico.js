@@ -12,14 +12,13 @@ import CardParalelo from "./card-paralelo";
 const useStyles = makeStyles({
   root: {
     width: "100%",
-    padding: 0,
-  },
+    padding: 0
+  }
   /*contenedorPanelDesplegable: {
     backgroundColor: Colores.cyan[500],
     alignItems: "center",
     padding: 10
   }*/
-
 });
 export default function ActionsInExpansionPanelSummary() {
   const classes = useStyles();
@@ -41,10 +40,8 @@ export default function ActionsInExpansionPanelSummary() {
             label="Paralelo 101"
           />
         </ExpansionPanelSummary>
-        <ExpansionPanelDetails >
-          
-          <CardParalelo teorico={false}/>
-
+        <ExpansionPanelDetails>
+          <CardParalelo teorico={false} />
         </ExpansionPanelDetails>
       </ExpansionPanel>
       <ExpansionPanel>
@@ -62,10 +59,8 @@ export default function ActionsInExpansionPanelSummary() {
             label="Paralelo 102"
           />
         </ExpansionPanelSummary>
-        <ExpansionPanelDetails >
-          
-          <CardParalelo teorico={false}/>
-
+        <ExpansionPanelDetails>
+          <CardParalelo teorico={false} />
         </ExpansionPanelDetails>
       </ExpansionPanel>
       <ExpansionPanel>
@@ -83,10 +78,8 @@ export default function ActionsInExpansionPanelSummary() {
             label="Paralelo 103"
           />
         </ExpansionPanelSummary>
-        <ExpansionPanelDetails >
-          
-          <CardParalelo teorico={false}/>
-
+        <ExpansionPanelDetails>
+          <CardParalelo teorico={false} />
         </ExpansionPanelDetails>
       </ExpansionPanel>
     </div>

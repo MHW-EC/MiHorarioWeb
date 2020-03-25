@@ -1,6 +1,7 @@
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
-import {Card,
+import {
+  Card,
   CardActions,
   CardContent,
   Typography,
@@ -8,21 +9,22 @@ import {Card,
   Tooltip,
   IconButton,
   CardHeader,
-  Button} from "@material-ui/core";
+  Button
+} from "@material-ui/core";
 import AddBoxOutlinedIcon from "@material-ui/icons/AddBoxOutlined";
 import DialogPractico from "./dialog-practico";
 //import * as Colors from "@material-ui/core/colors";
 const useStyles = makeStyles({
   root: {
-    minWidth: 250,
-    maxWidth: 250,
-    maxHeight: 350
+    //minWidth: 250,
+    //maxWidth: 250,
+    //maxHeight: 350
   },
   bullet: {
     display: "inline-block",
     margin: "0 2px",
     transform: "scale(0.8)"
-  },
+  }
 });
 
 export default function SimpleCard(props) {
@@ -41,8 +43,8 @@ export default function SimpleCard(props) {
 
   //necesarios para el cuadro de dialogo de paralelo
   const [open, setOpen] = React.useState(false);
-  const {teorico} = props;
-  
+  const { teorico } = props;
+
   const handleClickListItem = () => {
     setOpen(true);
   };
@@ -50,17 +52,19 @@ export default function SimpleCard(props) {
     setOpen(false);
   };
   //fin de dependencias de cuadro de dialogo
-  const getAction = () =>{
-    return (teorico)
-    ?<Tooltip title={toolTipNode}>
-      <IconButton aria-label="add-delete">
-        <AddBoxOutlinedIcon />
-      </IconButton>
+  const getAction = () => {
+    return teorico ? (
+      <Tooltip title={toolTipNode}>
+        <IconButton aria-label="add-delete">
+          <AddBoxOutlinedIcon />
+        </IconButton>
       </Tooltip>
-      :<></>
-  }
+    ) : (
+      <></>
+    );
+  };
   return (
-    <Card className={classes.root}>
+    <Card className={classes.root} variant="outlined">
       <CardHeader
         avatar={
           <Avatar aria-label="recipe" className={classes.avatar}>
@@ -77,21 +81,25 @@ export default function SimpleCard(props) {
           <br />
           {bull} Jueves 7:30 - 9:30
         </Typography>
-            
       </CardContent>
-      
-      { (teorico)?<>
-        <CardActions>
-        <Button size="small" onClick={handleClickListItem}>Seleccionar practico</Button>
-        <DialogPractico
-          id="práctico-menu"
-          open={open}
-          keepMounted
-          onClose={handleClose}
-        />
-      </CardActions>
-      </>:<></> }
-      
+
+      {teorico ? (
+        <>
+          <CardActions>
+            <Button size="small" onClick={handleClickListItem}>
+              Seleccionar practico
+            </Button>
+            <DialogPractico
+              id="práctico-menu"
+              open={open}
+              keepMounted
+              onClose={handleClose}
+            />
+          </CardActions>
+        </>
+      ) : (
+        <></>
+      )}
     </Card>
   );
 }

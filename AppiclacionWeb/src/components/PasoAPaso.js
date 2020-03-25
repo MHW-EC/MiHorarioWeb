@@ -7,7 +7,7 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import OpcionesMaterias from './paso3/opciones-materias';
 import SearchCarrera from './paso1/SearchCarrera';
-import Horarios from './paso4/horarios';
+import TablaVisor from './paso4/tabla-visor';
 import Malla from './paso2/Malla';
 import { Container, Grid } from '@material-ui/core';
 import StepContent from '@material-ui/core/StepContent';
@@ -121,9 +121,11 @@ export default function PasoAPaso() {
 			case 1:
 				return <Malla carrera={carrera} materiasSelect={materiasSelect} />;
 			case 2:
-				return <OpcionesMaterias materiasSelect={materiasSelect} />;
+				return <OpcionesMaterias materiasSelect={materiasSelect} isMobile={isMobile} />;
+				//return <></>
 			case 3:
-				return <Horarios />;
+				//return <></>
+				return <TablaVisor />;
 			default:
 				return (
 					<Typography className={classes.instructions}>

@@ -7,7 +7,7 @@ import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
-import Schedule from './schedule';
+import Horario from './horario';
 import  {appointmentsC}  from './demo-data/appointments';
 import  {appointmentsP}  from './demo-data/appointmentsP';
 import  {appointmentsF}  from './demo-data/appointmentsF';
@@ -99,19 +99,19 @@ export default function NavTabs() {
         onChangeIndex={handleChangeIndex}
       >
         <TabPanel value={value} index={0}>
-          <Schedule appointments={appointmentsC}/>
+          <Horario appointments={appointmentsC}/>
         </TabPanel>
 
         <TabPanel value={value} index={1}>
-          < Schedule appointments={appointmentsP} />
+          <Horario appointments={appointmentsP} />
         </TabPanel>
 
         <TabPanel value={value} index={2}>
-          < Schedule appointments={appointmentsF} />
+          <Horario appointments={appointmentsF} />
         </TabPanel>
 
         <TabPanel value={value} index={3}>
-          < Schedule appointments={appointmentsM}  />
+          <Horario appointments={appointmentsM}  />
         </TabPanel>
 
       </SwipeableViews>

@@ -19,7 +19,7 @@ app.get('/isMobile', function(req, res){
   
   let detector = new MobileDetect(req.headers['user-agent']);
   let respuesta;
-
+  console.log(detector);
   detector.os() != null? respuesta = true : respuesta = false
   res.send(respuesta)
 })

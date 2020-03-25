@@ -19,8 +19,8 @@ const useStyles = makeStyles(theme => ({
     maxHeight: 435
   },
   dialogContent: {
-    alignItems:"center",
-    padding: 0,
+    alignItems: "center",
+    padding: 0
   }
 }));
 
@@ -58,5 +58,5 @@ export default function ConfirmationDialogRaw(props) {
 
 ConfirmationDialogRaw.propTypes = {
   onClose: PropTypes.func.isRequired,
-  open: PropTypes.bool.isRequired,
+  open: PropTypes.bool.isRequired
 };

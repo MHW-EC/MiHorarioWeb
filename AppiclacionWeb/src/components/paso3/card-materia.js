@@ -1,40 +1,65 @@
-import React,{useState} from "react";
+import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
+import GridList from "@material-ui/core/GridList";
+import GridListTile from "@material-ui/core/GridListTile";
 import Card from "@material-ui/core/Card";
-import CardActions from "@material-ui/core/CardActions";
-import CardContent from "@material-ui/core/CardContent";
-import Typography from "@material-ui/core/Typography";
-import CarreteParalelos from "./carrete-paralelos";
-import * as Colors from "@material-ui/core/colors";
-const useStyles = makeStyles({
+import { Typography, CardContent, CardActions } from "@material-ui/core";
+import CardParalelo from "./card-paralelo";
+const useStyles = makeStyles(theme => ({
   root: {
-    minWidth: 275,
+    display: "flex",
+    flexWrap: "wrap",
+    justifyContent: "space-around",
+    overflow: "hidden",
+    backgroundColor: "transparent"
   },
-  cardContent:{
-    padding: 0,
-    backgroundColor: Colors.grey[200],
-    minHeight: 'auto'
+  gridList: {
+    flexWrap: "nowrap",
+    transform: "translateZ(0)"
   },
   title: {
-    fontSize: 14
+    color: theme.palette.primary,
+    fontSize: "14px"
   },
-  cardActions:{
-    backgroundColor: Colors.indigo[500],
+  cardActions: {
+    backgroundColor: theme.palette.primary.main
   },
-});
+  cardContent: {
+    padding: 10
+  }
+}));
 
-export default function SimpleCard(props) {
+export default function SingleLineGridList(props) {
   const classes = useStyles();
-  const [materia] = useState(props.materia);
-
+  const materia = props.materia;
+  const paralelos = [0, 1, 2, 3, 4];
+  const nCols = props.isMobile ? 1 : 2;
+  //antes se retornaba un div con classname root
   return (
-    <Card className={classes.root} elevation={10}>
+    <Card elevation={10}>
       <CardContent className={classes.cardContent}>
-        <CarreteParalelos />
+        <GridList
+          padding={10}
+          spacing={10}
+          cellHeight={"auto"}
+          className={classes.gridList}
+          cols={nCols}
+        >
+          {paralelos.map(tile => (
+            <GridListTile key={tile.img}>
+              <CardParalelo teorico={true} />
+            </GridListTile>
+          ))}
+        </GridList>
       </CardContent>
       <CardActions className={classes.cardActions}>
-        <Typography className={classes.title} color="textPrimary" variant="h1">
-        MATERIA {materia['codigo']}
+        <Typography
+          className={classes.title}
+          color="textPrimary"
+          variant="h5"
+          component="h2"
+        >
+          MATERIA {materia["codigo"]}
         </Typography>
       </CardActions>
     </Card>

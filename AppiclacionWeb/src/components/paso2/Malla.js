@@ -22,8 +22,6 @@ export default function Malla(props) {
 	//const [checked, setChecked] = useState(true);
 
 	const classes = useStyles();
-	const [columnas] = useState(5);
-
 	const [carrera] = useState(props.carrera);
 	const [materiasSelect] = useState(props.materiasSelect);
 	const [materias] = useState(carrera['materias']);
@@ -43,11 +41,10 @@ export default function Malla(props) {
 	*/
 
 	const listItems = [];
-	let fila = [];
 
 	materias.forEach((element, index) => {
 		listItems.push(
-			<Grid key={index + 'A'} item xs={6} sm={6} md={4} lg={3} xl={3}>
+			<Grid key={index + 'A'} item xs={10} sm={6} md={6} lg={4} xl={4}>
 				<Paper className={classes.paper} variant={'outlined'}>
 					<Celda materia={element} materiasSelect={materiasSelect} />
 				</Paper>
