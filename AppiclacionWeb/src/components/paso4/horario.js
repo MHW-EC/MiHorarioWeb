@@ -74,7 +74,6 @@ export default class Demo extends React.PureComponent {
     return todos;
   }
   
-
   getNumberHour(date,delta){//Metodo provicional 
     // 13:30 -> 13.5, 13:10 -> 13, 13:45-> 14
     let fraccion = delta / 60;

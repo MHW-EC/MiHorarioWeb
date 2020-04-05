@@ -14,6 +14,9 @@ const useStyles = makeStyles(theme => ({
       flexDirection: "column",
       display: "flex"
     }
+  },
+  pagination:{
+    
   }
 }));
 
@@ -40,6 +43,7 @@ export default function PaginationControlled() {
         ))}
       </SwipeableViews>
       <Pagination
+        //style={classes.pagination}
         count={elementos.length}
         color={"primary"}
         onChange={handleChange}
