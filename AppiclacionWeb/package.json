@@ -13,6 +13,7 @@
     "cra-template": "1.0.2",
     "express": "^4.17.1",
     "http-proxy-middleware": "^1.0.3",
+    "itertools": "^1.6.0",
     "mobile-detect": "^1.4.4",
     "react": "^16.13.0",
     "react-dom": "^16.13.0",

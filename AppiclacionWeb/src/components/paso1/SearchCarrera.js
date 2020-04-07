@@ -95,6 +95,9 @@ export default function SearchCarrera(props) {
 					)}
 				/>
 			</Grid>
+			<Grid item>
+				<script src="https://gist.github.com/EnmanuelMag/fe81e4261975fc584501668b845d4193.js"></script>
+			</Grid>
 		</Grid>
     </Container>
 	);

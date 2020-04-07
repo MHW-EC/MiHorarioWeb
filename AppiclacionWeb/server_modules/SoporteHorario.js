@@ -1,4 +1,4 @@
-import { Horario } from 'Horario.js';
+const Horario = require('./Horario')
 
 function sumarTiempo(date, tipo, unidades) {
   //recibe (date) date
