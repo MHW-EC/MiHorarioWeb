@@ -1,4 +1,4 @@
-export class Horario {
+class Horario {
   //Clase que se encarga de guardar paquetes con objetos materia,
   //Se encarga de validar que no colisionen antes de guardarlas
   constructor() {
@@ -92,3 +92,4 @@ export class Horario {
   }
 
 }
+module.exports = Horario

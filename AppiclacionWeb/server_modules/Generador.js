@@ -1,6 +1,7 @@
-const Combinador = requiere('./Combinador')
+const Combinador = require('./Combinador')
 const Horario = require('./Horario')
-export class Generador{
+
+class Generador{
 
   constructor(paquetes){
     this.paquetes = paquetes
@@ -47,8 +48,8 @@ export class Generador{
     })
 
     combinaciones = new Combinador(this.clusters)
-
-    combinaciones.getResultados().array.forEach(combinacion => {
+    //console.log(combinaciones);
+    combinaciones.Resultados.array.forEach(combinacion => {
       
       entroMatPrioritaria = true
       materiaAnterior = null  
@@ -71,8 +72,9 @@ export class Generador{
     });
   }
 
-  getHorariosGenerados() {
-    return horariosGenerados;
+  get HorariosGenerados() {
+    return this.horariosGenerados;
   }
 
 }
+module.exports = Generador

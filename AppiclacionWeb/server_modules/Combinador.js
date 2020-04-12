@@ -1,11 +1,12 @@
-import { permutations } from 'itertools'
+//import { permutations } from 'itertools'
+const itertools = require('itertools')
 
-export class Combinador {
+class Combinador {
 
   constructor(clusters){
-    this.clusters = clusters
-    this.resultados = []
-    encontrarResultados()
+    this.clusters = clusters;
+    this.resultados = [];
+    this.encontrarResultados();
   }
 
   encontrarResultados(){
@@ -15,12 +16,13 @@ export class Combinador {
     const cartesian = (a, b, ...c) => (b ? cartesian(f(a, b), ...c) : a);
 
     //Obtengo las permutaciones de los grupos de materias
-    permutaciones = permutations(clusters, clusters.length)
-    permutaciones.array.forEach(permutacion => {
+    var permutaciones = itertools.permutations(this.clusters, this.clusters.length);
+    console.log(permutaciones)
+    permutaciones.forEach(permutacion => {
 
       //Obtengo el producto cartesiano entre las materias
-      producotCartesiano = cartesian(permutacion)
-      producotCartesiano.array.forEach( producto => {
+      var producotCartesiano = cartesian(permutacion)
+      producotCartesiano.forEach( producto => {
 
         //Añado ese producto a los resultados
         this.resultados.push(producto)
@@ -28,12 +30,12 @@ export class Combinador {
     });
   }
 
-  getResultados() {
-    return resultados;
+  get Resultados() {
+    return this.resultados;
   } 
 
-  getClusters() {
-    return clusters;
+  get Clusters() {
+    return this.clusters;
   }
 
   setResultados(resultados) {
@@ -45,3 +47,4 @@ export class Combinador {
   }
 
 }
+module.exports = Combinador
