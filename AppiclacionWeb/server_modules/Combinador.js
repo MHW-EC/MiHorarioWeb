@@ -1,50 +1,62 @@
-//import { permutations } from 'itertools'
-const itertools = require('itertools')
-
 class Combinador {
+	constructor(clusters) {
+		this.clusters = clusters;
+		this.resultados = [];
+		this.encontrarResultados();
+	}
 
-  constructor(clusters){
-    this.clusters = clusters;
-    this.resultados = [];
-    this.encontrarResultados();
-  }
+	permutations(arreglo) {
+		let permutaciones = [];
 
-  encontrarResultados(){
+		for (let i = 0; i < arreglo.length; i = i + 1) {
+			let rest = this.permutations(
+				arreglo.slice(0, i).concat(arreglo.slice(i + 1))
+			);
 
-    //Implementacion de producto cartesiano
-    const f = (a, b) => [].concat(...a.map(d => b.map(e => [].concat(d, e))));
-    const cartesian = (a, b, ...c) => (b ? cartesian(f(a, b), ...c) : a);
+			if (!rest.length) {
+				permutaciones.push([arreglo[i]]);
+			} else {
+				for (let j = 0; j < rest.length; j = j + 1) {
+					permutaciones.push([arreglo[i]].concat(rest[j]));
+				}
+			}
+		}
+		return permutaciones;
+	}
 
-    //Obtengo las permutaciones de los grupos de materias
-    var permutaciones = itertools.permutations(this.clusters, this.clusters.length);
-    console.log(permutaciones)
-    permutaciones.forEach(permutacion => {
+	encontrarResultados() {
+		//Implementacion de producto cartesiano
+		const f = (a, b) =>
+			[].concat(...a.map((d) => b.map((e) => [].concat(d, e))));
+		const cartesian = (a, b, ...c) => (b ? cartesian(f(a, b), ...c) : a);
 
-      //Obtengo el producto cartesiano entre las materias
-      var producotCartesiano = cartesian(permutacion)
-      producotCartesiano.forEach( producto => {
+		//Obtengo las permutaciones de los grupos de materias
+		let permutaciones = this.permutations(this.clusters);
 
-        //Añado ese producto a los resultados
-        this.resultados.push(producto)
-      })
-    });
-  }
+		permutaciones.forEach((permutacion) => {
+			//Obtengo el producto cartesiano entre las materias
+			let producotCartesiano = cartesian(permutacion);
+			producotCartesiano.forEach((producto) => {
+				//Añado ese producto a los resultados
+				this.resultados.push(producto);
+			});
+		});
+	}
 
-  get Resultados() {
-    return this.resultados;
-  } 
+	get Resultados() {
+		return this.resultados;
+	}
 
-  get Clusters() {
-    return this.clusters;
-  }
+	get Clusters() {
+		return this.clusters;
+	}
 
-  setResultados(resultados) {
-    this.resultados = resultados;
-  }
+	setResultados(resultados) {
+		this.resultados = resultados;
+	}
 
-  setClusters(clusters) {
-    this.clusters = clusters;
-  }
-
+	setClusters(clusters) {
+		this.clusters = clusters;
+	}
 }
-module.exports = Combinador
+module.exports = Combinador;
