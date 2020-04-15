@@ -5,7 +5,7 @@ class Combinador {
 		this.encontrarResultados();
 	}
 
-	permutations(arreglo) {
+	static permutations(arreglo) {
 		let permutaciones = [];
 
 		for (let i = 0; i < arreglo.length; i = i + 1) {
@@ -23,19 +23,20 @@ class Combinador {
 		}
 		return permutaciones;
 	}
+	static cartesianProduct(a,b,...c){
+		//Implementacion de producto cartesiano
+		const concatCallBack = (a, b) => [].concat(...a.map((d) => b.map((e) => [].concat(d, e))));
+		
+		return (b ? Combinador.cartesianProduct(concatCallBack(a, b), ...c) : a);
+	}
 
 	encontrarResultados() {
-		//Implementacion de producto cartesiano
-		const f = (a, b) =>
-			[].concat(...a.map((d) => b.map((e) => [].concat(d, e))));
-		const cartesian = (a, b, ...c) => (b ? cartesian(f(a, b), ...c) : a);
-
 		//Obtengo las permutaciones de los grupos de materias
-		let permutaciones = this.permutations(this.clusters);
+		let permutaciones = Combinador.permutations(this.clusters);
 
 		permutaciones.forEach((permutacion) => {
 			//Obtengo el producto cartesiano entre las materias
-			let producotCartesiano = cartesian(permutacion);
+			let producotCartesiano = Combinador.cartesianProduct(...permutacion);
 			producotCartesiano.forEach((producto) => {
 				//Añado ese producto a los resultados
 				this.resultados.push(producto);

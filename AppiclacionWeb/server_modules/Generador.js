@@ -6,7 +6,7 @@ class Generador {
 		this.paquetes = paquetes;
 		this.mapaPaquetes = new Map();
 		this.permutaciones = [];
-		this.horariosGenerados = new Set();
+		this.horariosGenerados = [];
 		this.generarHorarios();
 	}
 
@@ -19,7 +19,7 @@ class Generador {
 	 */
 	crearMapa() {
 		this.paquetes.forEach((paquete) => {
-			let nombreMateria = paquete[0]['nombre'];
+			let nombreMateria = paquete['paquete'][0]['nombre'];
 			if (!this.mapaPaquetes.has(nombreMateria)) {
 				this.mapaPaquetes.set(nombreMateria, []);
 			}
@@ -43,26 +43,24 @@ class Generador {
 		}
 
 		let combinaciones = new Combinador(clusters);
-
-		combinaciones.Resultados.forEach((combinacion) => {
-			let entroMatPrioritaria = true;
-			let materiaAnterior = null;
+    combinaciones.Resultados.forEach((combinacion) => {
+			//let entroMatPrioritaria = true;
+			//let materiaAnterior = null;
 			let horario = new Horario();
-
-			for (let materiaActual of combinacion) {
-				try {
-					horario.addPaquete(materiaActual);
-					materiaAnterior = materiaActual;
-				} catch (error) {
-					console.log('No entro una materia :(');
-					entroMatPrioritaria = false;
-					break;
-				}
-			}
-
-			if (entroMatPrioritaria) this.horariosGenerados.add(horario);
+      combinacion.forEach((paquete) => {
+        horario.addPaquete(paquete['paquete']);
+      })
+      let repetido = false;
+      for(let hor of this.horariosGenerados){
+        if(horario.equals(hor)){
+          repetido = true;
+          break;
+        }
+      }
+      if(!repetido){this.horariosGenerados.push(horario);}
 		});
 	}
+
 
 	get HorariosGenerados() {
 		return this.horariosGenerados;

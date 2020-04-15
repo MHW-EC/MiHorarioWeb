@@ -1,12 +1,17 @@
+const hashCode = require('./Util');
 class Horario {
   //Clase que se encarga de guardar paquetes con objetos materia,
   //Se encarga de validar que no colisionen antes de guardarlas
   constructor() {
-    this.materias = [];
+    this.materiasArr = [];
   }
 
-  get materia(){
-    return this.materias
+  set materias(mats){
+    this.materiasArr = mats;
+  }
+
+  get materias(){
+    return this.materiasArr;
   }
 
   addPaquete(paquete) {
@@ -89,6 +94,18 @@ class Horario {
     let aAntesB = dateAi < dateAf && dateAf <= dateBi && dateBi < dateBf;
     let noColisionan = bAntesA || aAntesB;
     return (noColisionan);
+  }
+
+  hashCode (){
+    let acumulador = 0;
+    this.materiasArr.forEach(materia => acumulador += hashCode(materia['_id']))
+    return acumulador
+  }
+
+  equals(horario){
+    let hashA = this.hashCode();
+    let hashB = horario.hashCode();
+    return hashA === hashB
   }
 
 }
