@@ -1,4 +1,5 @@
-const hashCode = require('./Util');
+const Util = require('./Util');
+
 class Horario {
   //Clase que se encarga de guardar paquetes con objetos materia,
   //Se encarga de validar que no colisionen antes de guardarlas
@@ -90,6 +91,12 @@ class Horario {
     //dateA y dateB, con sus respectivos inicios y finales
     // retorna true si los intervalos no se intersecan 
     // retorna false caso contrario
+    
+    dateAi = Util.parseStringToDate(dateAi);
+    dateAf = Util.parseStringToDate(dateAf);
+    dateBi = Util.parseStringToDate(dateBi);
+    dateBf = Util.parseStringToDate(dateBf);
+
     let bAntesA = dateBi < dateBf && dateBf <= dateAi && dateAi < dateAf;
     let aAntesB = dateAi < dateAf && dateAf <= dateBi && dateBi < dateBf;
     let noColisionan = bAntesA || aAntesB;
@@ -98,7 +105,7 @@ class Horario {
 
   hashCode (){
     let acumulador = 0;
-    this.materiasArr.forEach(materia => acumulador += hashCode(materia['_id']))
+    this.materiasArr.forEach(materia => acumulador += Util.hashCode(materia['_id']))
     return acumulador
   }
 

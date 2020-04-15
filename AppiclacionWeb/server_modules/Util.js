@@ -4,4 +4,14 @@ function hashCode(s) {
     return h;
 }
 
-module.exports = hashCode;
+function parseStringToDate(stringDate){
+    //2020-03-02T15:30:00
+    let fecha = stringDate.split("T")[0].split("-")
+    let hora = stringDate.split("T")[1].split(":")
+  
+    return new Date(fecha[0],fecha[1]-1,fecha[2],hora[0],hora[1],hora[2])
+  }
+
+exports.hashCode = hashCode;
+
+exports.parseStringToDate = parseStringToDate;

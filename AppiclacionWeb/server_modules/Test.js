@@ -1,5 +1,5 @@
 const Generador = require('./Generador');
-const listaPaquete1 = require('./listaPaquetes1');
+const listaPaquete1 = require('./listaPaqueres2');
 const Combinador = require('./Combinador');
 //console.log(listaPaquete1);
 //{{A1,A2},{B1},{C1,C2}}
@@ -23,4 +23,14 @@ let paquetesObj = listaPaquete1.map( retFun );
 let gen = new Generador(paquetesObj);
 let result = gen.HorariosGenerados;
 //console.log(result);
+
+result.forEach((horario,indice) => {
+    console.log("Horario # ", indice+1)
+    let mats = horario.materias;
+    mats.forEach(mat => {
+        console.log(mat['nombre'],mat['paralelo']);
+    })
+
+})
+
 console.log("Horarios generados: ",result.length);
