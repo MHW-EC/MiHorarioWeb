@@ -92,10 +92,10 @@ class Horario {
     // retorna true si los intervalos no se intersecan 
     // retorna false caso contrario
     
-    dateAi = Util.parseStringToDate(dateAi);
-    dateAf = Util.parseStringToDate(dateAf);
-    dateBi = Util.parseStringToDate(dateBi);
-    dateBf = Util.parseStringToDate(dateBf);
+    dateAi = new Date(Date.parse(dateAi));
+    dateAf = new Date(Date.parse(dateAf));
+    dateBi = new Date(Date.parse(dateBi));
+    dateBf = new Date(Date.parse(dateBf));
 
     let bAntesA = dateBi < dateBf && dateBf <= dateAi && dateAi < dateAf;
     let aAntesB = dateAi < dateAf && dateAf <= dateBi && dateBi < dateBf;

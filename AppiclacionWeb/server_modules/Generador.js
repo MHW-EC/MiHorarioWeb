@@ -43,21 +43,21 @@ class Generador {
 		}
 
 		let combinaciones = new Combinador(clusters);
-    combinaciones.Resultados.forEach((combinacion) => {
+		combinaciones.Resultados.forEach((combinacion) => {
 			//let entroMatPrioritaria = true;
 			//let materiaAnterior = null;
 			let horario = new Horario();
-      combinacion.forEach((paquete) => {
-        horario.addPaquete(paquete['paquete']);
-      })
-      let repetido = false;
-      for(let hor of this.horariosGenerados){
-        if(horario.equals(hor)){
-          repetido = true;
-          break;
-        }
-      }
-      if(!repetido){this.horariosGenerados.push(horario);}
+			combinacion.forEach((paquete) => {
+				horario.addPaquete(paquete['paquete']);
+			});
+			let repetido = false;
+			for (let hor of this.horariosGenerados) {
+				if (horario.equals(hor)) {
+					repetido = true;
+					break;
+				}
+			}
+			if (!repetido) { this.horariosGenerados.push(horario); }
 		});
 	}
 
