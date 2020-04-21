@@ -1,4 +1,4 @@
-import React from "react";
+import React,{useState, useEffect} from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import {
   Card,
@@ -13,6 +13,8 @@ import {
 } from "@material-ui/core";
 import AddBoxOutlinedIcon from "@material-ui/icons/AddBoxOutlined";
 import DialogPractico from "./dialog-practico";
+//import axios from 'axios';
+//import {formatoIntevalo} from './../util/util'
 //import * as Colors from "@material-ui/core/colors";
 const useStyles = makeStyles({
   root: {
@@ -39,11 +41,18 @@ export default function SimpleCard(props) {
     },
     "Añadir"
   );
-  const bull = <span className={classes.bullet}>•</span>;
-
+  //const bull = <span className={classes.bullet}>•</span>;
   //necesarios para el cuadro de dialogo de paralelo
-  const [open, setOpen] = React.useState(false);
-  const { teorico } = props;
+  const [open, setOpen] = useState(false);
+  const isteorico = props.isteorico;
+  const [teorico,setTeorico] = useState();
+  
+  useEffect(()=>{
+    setTeorico(props.teorico)
+  },[props.teorico]);
+
+  
+  console.log("par",teorico);
 
   const handleClickListItem = () => {
     setOpen(true);
@@ -53,7 +62,7 @@ export default function SimpleCard(props) {
   };
   //fin de dependencias de cuadro de dialogo
   const getAction = () => {
-    return teorico ? (
+    return isteorico ? (
       <Tooltip title={toolTipNode}>
         <IconButton aria-label="add-delete">
           <AddBoxOutlinedIcon />
@@ -63,27 +72,30 @@ export default function SimpleCard(props) {
       <></>
     );
   };
-  return (
+  return ( teorico ?
     <Card className={classes.root} variant="outlined">
       <CardHeader
         avatar={
           <Avatar aria-label="recipe" className={classes.avatar}>
-            #
+            {teorico['paralelo']}
           </Avatar>
         }
         action={getAction()}
-        title="Profesor Nombre Nombre Apellido"
+        title={teorico['profesor']}
         subheader="Calificacion: 87%"
       />
       <CardContent>
-        <Typography variant="body2" component="p">
-          {bull} Martes 7:30 - 9:30
-          <br />
-          {bull} Jueves 7:30 - 9:30
-        </Typography>
+      {[0,1].map(clase => (
+          <React.Fragment key={clase}>
+          <Typography variant="body2" component="p">
+          Hola prueba
+          </Typography>
+          <br/>
+          </React.Fragment>
+        ))}
       </CardContent>
-
-      {teorico ? (
+        
+      {isteorico ? (
         <>
           <CardActions>
             <Button size="small" onClick={handleClickListItem}>
@@ -100,6 +112,6 @@ export default function SimpleCard(props) {
       ) : (
         <></>
       )}
-    </Card>
+    </Card>: <div>Loading...</div> 
   );
 }

@@ -9,7 +9,7 @@ import OpcionesMaterias from './paso3/opciones-materias';
 import SearchCarrera from './paso1/SearchCarrera';
 import TablaVisor from './paso4/tabla-visor';
 import Malla from './paso2/Malla';
-import { Container, Grid } from '@material-ui/core';
+import { Grid } from '@material-ui/core';
 import StepContent from '@material-ui/core/StepContent';
 import Paper from '@material-ui/core/Paper';
 

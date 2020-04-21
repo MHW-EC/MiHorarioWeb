@@ -4,6 +4,7 @@ import Autocomplete from '@material-ui/lab/Autocomplete';
 import Grid from '@material-ui/core/Grid';
 import Container from '@material-ui/core/Container';
 import { withStyles, makeStyles } from '@material-ui/core/styles';
+import axios from 'axios';
 
 const CssTextField = withStyles({
 	root: {
@@ -45,25 +46,19 @@ const useStyles = makeStyles((theme) => ({
 
 export default function SearchCarrera(props) {
 	const classes = useStyles();
-	const carrerasEspol = [];
+	const [carrerasEspol] = React.useState([]);
 
-	const consultarCarrerasEspol = () => {
-		
-		async function consulta(){
-			let response = await fetch('/carreras')
-			
-			if(response.ok){
-				response.json().then(function(datos){
-					datos.forEach(element => {
-						carrerasEspol.push(element)
-					});
-				}).catch(function(error){
-				})
-			}
-		}
-		consulta()
-	}
-	consultarCarrerasEspol()
+	React.useEffect(() => {
+		axios.get('http://localhost:8080/carrera')
+            .then(res => {
+				res.data.forEach(element => {
+					carrerasEspol.push(element);
+				});
+            })
+            .catch(function (error) {
+                console.log(error);
+            })
+	  });
 
 	const onChangeComplete = (event, value , reason) => {
 		props.onChangeCarrera(value);

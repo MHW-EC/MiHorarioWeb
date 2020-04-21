@@ -3,13 +3,13 @@
   text-align: center;
 }
 
-
+/*
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {
     animation: App-logo-spin infinite 20s linear;
   }
 }
-
+*/
 
 .App-body {
   background-color: #282c34;
@@ -21,7 +21,7 @@
   font-size: calc(2px + 2vmin);
   color: white;*/
 }
-
+/*
 .App-link {
   color: #61dafb;
 }
@@ -34,3 +34,4 @@
     transform: rotate(360deg);
   }
 }
+*/

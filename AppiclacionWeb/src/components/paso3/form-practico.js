@@ -79,7 +79,7 @@ export default function ActionsInExpansionPanelSummary() {
           />
         </ExpansionPanelSummary>
         <ExpansionPanelDetails>
-          <CardParalelo teorico={false} />
+          <CardParalelo isteorico={false} teorico={{}}/>
         </ExpansionPanelDetails>
       </ExpansionPanel>
     </div>

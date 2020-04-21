@@ -1,10 +1,12 @@
-import React from "react";
+import React,{ useEffect,useState} from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import GridList from "@material-ui/core/GridList";
 import GridListTile from "@material-ui/core/GridListTile";
 import Card from "@material-ui/core/Card";
 import { Typography, CardContent, CardActions } from "@material-ui/core";
 import CardParalelo from "./card-paralelo";
+import axios from 'axios';
+
 const useStyles = makeStyles(theme => ({
   root: {
     display: "flex",
@@ -31,11 +33,31 @@ const useStyles = makeStyles(theme => ({
 
 export default function SingleLineGridList(props) {
   const classes = useStyles();
-  const materia = props.materia;
-  const paralelos = [0, 1, 2, 3, 4];
-  const nCols = props.isMobile ? 1 : 2;
-  //antes se retornaba un div con classname root
-  return (
+  const [materia] = useState(props.materia);
+  const [nCols] = useState(props.isMobile ? 1 : 2);
+  const [paralelos,setParalelos] = useState();
+
+
+  /*useEffect(() => {
+    axios.get('http://localhost:8080/teorico/' + materia['codigo'])
+      .then(({data}) => {
+          data.forEach(element => {paralelos.push(element)});
+      })
+      .catch(function (error) {
+          console.log(error);
+      });
+  });*/
+ useEffect(()=>{
+   const fetchData = async () => {
+     const response = await axios.get(`http://localhost:8080/teorico/${materia['codigo']}`);
+     setParalelos(response.data)
+     //response.data.forEach(e=>{paralelos.push(e)})
+   }
+   fetchData();
+ }, [materia]);
+
+//antes se retornaba un div con classname root
+  return paralelos ? (
     <Card elevation={10}>
       <CardContent className={classes.cardContent}>
         <GridList
@@ -44,12 +66,12 @@ export default function SingleLineGridList(props) {
           cellHeight={"auto"}
           className={classes.gridList}
           cols={nCols}
-        >
-          {paralelos.map(tile => (
-            <GridListTile key={tile.img}>
-              <CardParalelo teorico={true} />
-            </GridListTile>
-          ))}
+  >   
+        {paralelos.map(par=>(
+         <GridListTile key={par["paralelo"]}>
+         <CardParalelo isteorico={true} teorico={par}/>
+       </GridListTile>)
+        )}
         </GridList>
       </CardContent>
       <CardActions className={classes.cardActions}>
@@ -59,9 +81,11 @@ export default function SingleLineGridList(props) {
           variant="h5"
           component="h2"
         >
-          MATERIA {materia["codigo"]}
+        {materia["nombre"]} - {materia["codigo"]}
         </Typography>
       </CardActions>
     </Card>
+  ):(
+    <div>Loading...</div>
   );
 }

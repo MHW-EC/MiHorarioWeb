@@ -13,7 +13,6 @@ export default function Celda(props) {
     const [materiasSelect] = useState(props.materiasSelect);
     //const [onMateriaSelect] = useState(props.onMateriaSelect);
     //const classes = useStyles();
-    //materiasSelect
     const onCheck = (bool) => {
         if(bool){
             materiasSelect.push(materia);
@@ -22,14 +21,13 @@ export default function Celda(props) {
             let index = materiasSelect.findIndex(mat => mat['codigo'] === materia['codigo']);
             materiasSelect.splice(index,1);
         }
-        console.log(materiasSelect);
     }
     return (
-        <Grid container xs={6}>
+        <Grid container >
             <Grid item xs={6}>
                 <Grid container>
                     <Grid item xs={12}>
-                        <Typography variant='subtitle2'>MATERIA : {materia['nombre']}</Typography>
+                        <Typography variant='subtitle2'>{materia['nombre']}</Typography>
                     </Grid>
                     <Grid item xs={12}>
                         <Typography variant='caption'>{materia['codigo']}</Typography>

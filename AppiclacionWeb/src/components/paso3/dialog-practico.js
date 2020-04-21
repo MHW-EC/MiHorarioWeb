@@ -7,12 +7,11 @@ import DialogContent from "@material-ui/core/DialogContent";
 import DialogActions from "@material-ui/core/DialogActions";
 import Dialog from "@material-ui/core/Dialog";
 import FormPractico from "./form-practico";
-
 const useStyles = makeStyles(theme => ({
   root: {
     width: "100%",
     maxWidth: 360,
-    backgroundColor: theme.palette.background.paper
+    backgroundColor: theme.palette.primary.paper
   },
   paper: {
     width: "80%",
@@ -20,7 +19,7 @@ const useStyles = makeStyles(theme => ({
   },
   dialogContent: {
     alignItems: "center",
-    padding: 0
+    padding: 0,
   }
 }));
 

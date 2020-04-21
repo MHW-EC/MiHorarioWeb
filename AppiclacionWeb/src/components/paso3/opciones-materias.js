@@ -19,8 +19,8 @@ export default function DenseTable(props) {
     <div className={classes.root}>
       <Grid container spacing={3} justify="center" alignItems="center">
         {materiasSelect.map((materia) => (
-          <Grid item xs={10} sm={10} md={8} lg={6} xl={6}>
-            <CardMateria materia={materia} isMobile={props.isMobile} />
+          <Grid key={materia['codigo']} item xs={10} sm={10} md={8} lg={6} xl={6}>
+            <CardMateria  materia={materia} isMobile={props.isMobile} />
           </Grid>
         ))}
       </Grid>

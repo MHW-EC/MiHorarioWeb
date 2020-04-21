@@ -1,4 +1,4 @@
-const carreras = require("./server_resources/carreras")['carreras'];
+
 const express = require('express');
 const bodyParser = require('body-parser')
 const path = require('path');
@@ -9,7 +9,9 @@ const app = express();
 let mongoose = require('mongoose');
 let cors = require('cors');
 let database = require('./database/db');
-const carreraRoute = require('./routes/carrera.routes') 
+const carreraRoute = require('./routes/carrera.routes');
+const teoricoRoute = require('./routes/teorico.routes');
+const practicoRoute = require('./routes/practico.routes');
 //--Nuevo fin
 
 
@@ -23,7 +25,9 @@ app.use(bodyParser.urlencoded({
     extended: true
 }));
 app.use(cors());
-app.use('/carrera', carreraRoute)
+app.use('/carrera', carreraRoute);
+app.use('/teorico', teoricoRoute);
+app.use('/practico', practicoRoute);
 //Nuevo fin
 
 //Nuevo inicio
@@ -54,16 +58,8 @@ app.get('/isMobile', function(req, res){
   res.send(respuesta)
 })
 
-//Esta funcion retorna un arreglo con objetos de la forma
-// { nombre: nombreCarrera, facultad: facultad, materias: [cod1,cod2,...]}
-app.get("/carreras", function (req, res) {
-  console.log("consulta a carreras")
- return res.send(carreras);
-});
-
 
 app.get('/', function (req, res) {
-  
   res.sendFile(path.join(__dirname, 'build', 'index.html'));
 });
 //process.env.PORT || 
