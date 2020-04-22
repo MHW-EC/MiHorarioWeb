@@ -55,7 +55,7 @@ export default function SingleLineGridList(props) {
    }
    fetchData();
  }, [materia]);
-
+console.log("se actualiza cardmateria", paralelos)
 //antes se retornaba un div con classname root
   return paralelos ? (
     <Card elevation={10}>
@@ -67,10 +67,10 @@ export default function SingleLineGridList(props) {
           className={classes.gridList}
           cols={nCols}
   >   
-        {paralelos.map(par=>(
+         {paralelos.map(par=>(
          <GridListTile key={par["paralelo"]}>
-         <CardParalelo isteorico={true} teorico={par}/>
-       </GridListTile>)
+          <CardParalelo isteorico={true} teorico={par}/>
+        </GridListTile>)
         )}
         </GridList>
       </CardContent>
@@ -89,3 +89,8 @@ export default function SingleLineGridList(props) {
     <div>Loading...</div>
   );
 }
+/*
+
+         <GridListTile key={par["paralelo"]}>
+         <CardParalelo isteorico={true} teorico={par}/>
+       </GridListTile>*/
