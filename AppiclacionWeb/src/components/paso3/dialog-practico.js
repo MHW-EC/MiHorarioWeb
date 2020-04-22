@@ -24,7 +24,7 @@ const useStyles = makeStyles(theme => ({
 }));
 
 export default function ConfirmationDialogRaw(props) {
-  const { onClose, value: valueProp, open, ...other } = props;
+  const { onClose, parAsociados, value: valueProp, open, ...other } = props;
   const classes = useStyles();
 
   const handleClose = () => {
@@ -41,10 +41,10 @@ export default function ConfirmationDialogRaw(props) {
       {...other}
     >
       <DialogTitle id="confirmation-dialog-title">
-        Seleccione práctico
+        SELECCIONE ASOCIADOS
       </DialogTitle>
       <DialogContent dividers className={classes.dialogContent}>
-        <FormPractico />
+        <FormPractico parAsociados={parAsociados}/>
       </DialogContent>
       <DialogActions>
         <Button autoFocus onClick={handleClose} color="primary">

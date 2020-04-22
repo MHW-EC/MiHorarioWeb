@@ -41,7 +41,7 @@ const useStyles = makeStyles(theme =>({
     right: theme.spacing(0),
     top: theme.spacing(0)
   },
-  ghosthIcon: {
+  ghostIcon: {
     opacity: 0
   }
 }));
@@ -63,13 +63,13 @@ export default function SimpleCard(props) {
   //necesarios para el cuadro de dialogo de paralelo
   const [open, setOpen] = useState(false);
   const [isteorico, setIsTeorico]= useState();
-  const [teorico,setTeorico] = useState();
+  const [paralelo,setParalelo] = useState();
   const [isAdd, setIsAdd] = useState();
   const [paquete, setPaquete] = useState([]);
 
   const handleAddRemove = () => {
-    (isAdd) ?setPaquete(paquete.filter(paralelo => paralelo["_id"] !== teorico["_id"]))
-    : setPaquete([...paquete, teorico])
+    (isAdd) ?setPaquete(paquete.filter(par => par["_id"] !== paralelo["_id"]))
+    : setPaquete([...paquete, paralelo])
     setIsAdd(!isAdd);
     console.log(paquete)
   };
@@ -78,13 +78,6 @@ export default function SimpleCard(props) {
     enter: theme.transitions.duration.enteringScreen,
     exit: theme.transitions.duration.leavingScreen
   };
-
-  const addToPaquete = (par) =>{
-    
-  }
-  const removeToPaquete = (par) =>{
-    
-  }
 
   const fabs = [
     {
@@ -106,8 +99,8 @@ export default function SimpleCard(props) {
   ];
 
   useEffect(()=>{
-    setTeorico(props.teorico)
-  },[props.teorico]);
+    setParalelo(props.paralelo)
+  },[props.paralelo]);
 
   useEffect(()=>{
     setIsTeorico(props.isteorico)
@@ -117,15 +110,15 @@ export default function SimpleCard(props) {
     setIsAdd(true);
   },[]);
 
-  const handleClickListItem = () => {
+  const handleParAsociados = () => {
     setOpen(true);
   };
-  const handleClose = () => {
+  const handleCloseDialog = () => {
     setOpen(false);
   };
   //fin de dependencias de cuadro de dialogo
   const getAction = () => {
-    return (isteorico && teorico) ? (<><AddBoxOutlinedIcon className={classes.ghosthIcon}/>
+    return (paralelo && isteorico) ? (<><AddBoxOutlinedIcon className={classes.ghostIcon}/>
     {fabs.map((fab, index) => (
       <Zoom
         key={fab.color}
@@ -146,69 +139,71 @@ export default function SimpleCard(props) {
           </IconButton>
         </Tooltip>
       </Zoom>
-    ))}</>) :(<><p>jo</p></>)
+    ))}</>) :(<></>)
   };
 
-  return ( teorico ?
+  return ( paralelo ?
     <Card className={classes.root} variant="outlined">
       <CardHeader
         avatar={
           <Avatar aria-label="recipe" className={classes.avatar}>
-            {teorico['paralelo']}
+            {paralelo['paralelo']}
           </Avatar>
         }
-        action={teorico ? getAction() : <p>H</p>}
-        title={teorico['profesor']}
+        action={ getAction()}
+        title={paralelo['profesor']}
         subheader="Calificación: 87%"
       /><Divider />
       <CardContent className={classes.div}>
       <Typography variant="body2" component="p"  aling='left'>
           Clases
-          </Typography>
-      {teorico.hasOwnProperty('eventos')? (teorico.eventos.clases.map(clase => (
+      </Typography>
+      {paralelo.hasOwnProperty('eventos')? 
+      (paralelo.eventos.clases.map(clase => (
           <React.Fragment key={clase}>
           <Typography variant="body2" aling='left' color='textSecondary'>
           - {formatoIntevalo(clase['inicio'], clase['fin'])}
           </Typography>
           </React.Fragment>
-        ))):<div>Loading...</div>}
-      <Typography variant="body2" component="p">
+        ))):<></>}
+      
+      {isteorico && paralelo.hasOwnProperty('eventos')? (
+          <React.Fragment className={classes.div}>
+          <Typography variant="body2" component="p">
           Examenes
-      </Typography>
-      {teorico.hasOwnProperty('eventos')? (<React.Fragment className={classes.div}>
-          <Typography variant="body2" component="p" color='textSecondary'>
-          - Parcial {formatoIntevaloEx(teorico.eventos.examenes.parcial['inicio'],
-          teorico.eventos.examenes.parcial['fin'])}
           </Typography>
           <Typography variant="body2" component="p" color='textSecondary'>
-          - Final {formatoIntevaloEx(teorico.eventos.examenes.final['inicio'],
-          teorico.eventos.examenes.final['fin'])}
+          - Parcial {formatoIntevaloEx(paralelo.eventos.examenes.parcial['inicio'],
+          paralelo.eventos.examenes.parcial['fin'])}
           </Typography>
           <Typography variant="body2" component="p" color='textSecondary'>
-          - Mejoramiento {formatoIntevaloEx(teorico.eventos.examenes.mejoramiento['inicio'],
-          teorico.eventos.examenes.mejoramiento['fin'])}
+          - Final {formatoIntevaloEx(paralelo.eventos.examenes.final['inicio'],
+          paralelo.eventos.examenes.final['fin'])}
+          </Typography>
+          <Typography variant="body2" component="p" color='textSecondary'>
+          - Mejoramiento {formatoIntevaloEx(paralelo.eventos.examenes.mejoramiento['inicio'],
+          paralelo.eventos.examenes.mejoramiento['fin'])}
           </Typography>
           </React.Fragment>
-        ):<div>Loading...</div>}
+        ):<></>}
       </CardContent>
       
-      {isteorico ? (
-        
+      {(paralelo && isteorico && paralelo['paralelos_practicos'].length > 0) ? (
         <><Divider />
           <CardActions>
-            <Button size="small" onClick={handleClickListItem} color="primary">
+            <Button size="small" onClick={handleParAsociados} color="primary">
               Par asociados
             </Button>
             <DialogPractico
               id="práctico-menu"
               open={open}
               keepMounted
-              onClose={handleClose}
+              onClose={handleCloseDialog}
+              parAsociados={paralelo['paralelos_practicos']}
             />
           </CardActions>
         </>
-      ) : (
-        <></>
+      ) : (<></>
       )}
     </Card>: <div>Loading...</div> 
   );

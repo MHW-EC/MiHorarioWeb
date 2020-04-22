@@ -37,16 +37,6 @@ export default function SingleLineGridList(props) {
   const [nCols] = useState(props.isMobile ? 1 : 2);
   const [paralelos,setParalelos] = useState();
 
-
-  /*useEffect(() => {
-    axios.get('http://localhost:8080/teorico/' + materia['codigo'])
-      .then(({data}) => {
-          data.forEach(element => {paralelos.push(element)});
-      })
-      .catch(function (error) {
-          console.log(error);
-      });
-  });*/
  useEffect(()=>{
    const fetchData = async () => {
      const response = await axios.get(`http://localhost:8080/teorico/${materia['codigo']}`);
@@ -69,7 +59,7 @@ console.log("se actualiza cardmateria", paralelos)
   >   
          {paralelos.map(par=>(
          <GridListTile key={par["paralelo"]}>
-          <CardParalelo isteorico={true} teorico={par}/>
+          <CardParalelo isteorico={true} paralelo={par}/>
         </GridListTile>)
         )}
         </GridList>

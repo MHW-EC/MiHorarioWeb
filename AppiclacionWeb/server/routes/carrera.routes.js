@@ -16,6 +16,7 @@ router.route('/create').post((req, res, next) => {
 });
 */
 router.route('/').get((req, res) => {
+    console.log("Consulta todos las carreras")
     carrera.find((error, data) => {
         if (error) {
             return next(error)
