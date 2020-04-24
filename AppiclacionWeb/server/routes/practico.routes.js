@@ -25,15 +25,13 @@ router.route('/').get((req, res) => {
         }
     })
 });
-
-router.route('/:id').get((req, res) => {
-    console.log("Consulta practico con id: ",req.params.id)
-    practico.find({_id:req.params.id}, (error, data) => {
+router.route('/:tid').get((req, res) => {
+    console.log("consulta practico con tid: ",req.params.tid )
+    practico.find({'teorico_id':req.params.tid}, (error, data) => {
         if (error) {
             return next(error)
         } else {
             res.json(data)
-            console.log(data)
         }
     })
 })

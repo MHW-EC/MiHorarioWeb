@@ -17,7 +17,7 @@ import AddBoxOutlinedIcon from "@material-ui/icons/AddBoxOutlined";
 
 import DialogPractico from "./dialog-practico";
 import Zoom from "@material-ui/core/Zoom";
-import {formatoIntevalo, formatoIntevaloEx} from './../util/util'
+import {formatoIntevalo, formatoIntevaloEx} from '../util/util'
 //import * as Colors from "@material-ui/core/colors";
 const useStyles = makeStyles(theme =>({
   root: {
@@ -49,27 +49,16 @@ const useStyles = makeStyles(theme =>({
 export default function SimpleCard(props) {
   const classes = useStyles();
   const theme = useTheme();
-  var toolTipNode = React.createElement(
-    "div",
-    {
-      style: {
-        backgroundColor: "transparent",
-        fontSize: "13px"
-      }
-    },
-    "Añadir"
-  );
   //const bull = <span className={classes.bullet}>•</span>;
   //necesarios para el cuadro de dialogo de paralelo
   const [open, setOpen] = useState(false);
-  const [isteorico, setIsTeorico]= useState();
   const [paralelo,setParalelo] = useState();
-  const [isAdd, setIsAdd] = useState();
+  const [isAdd, setIsAdd] = useState(true);
   const [paquete, setPaquete] = useState([]);
 
   const handleAddRemove = () => {
-    (isAdd) ?setPaquete(paquete.filter(par => par["_id"] !== paralelo["_id"]))
-    : setPaquete([...paquete, paralelo])
+    (isAdd) ? setPaquete([...paquete, paralelo])
+    : setPaquete([])
     setIsAdd(!isAdd);
     console.log(paquete)
   };
@@ -97,28 +86,15 @@ export default function SimpleCard(props) {
       tooltipNode: "Remove"
     }
   ];
-
-  useEffect(()=>{
-    setParalelo(props.paralelo)
-  },[props.paralelo]);
-
-  useEffect(()=>{
-    setIsTeorico(props.isteorico)
-  },[props.isteorico]);
-
-  useEffect(()=>{
-    setIsAdd(true);
-  },[]);
-
+  
   const handleParAsociados = () => {
     setOpen(true);
   };
   const handleCloseDialog = () => {
     setOpen(false);
   };
-  //fin de dependencias de cuadro de dialogo
   const getAction = () => {
-    return (paralelo && isteorico) ? (<><AddBoxOutlinedIcon className={classes.ghostIcon}/>
+    return (paralelo) ? (<><AddBoxOutlinedIcon className={classes.ghostIcon}/>
     {fabs.map((fab, index) => (
       <Zoom
         key={fab.color}
@@ -142,6 +118,11 @@ export default function SimpleCard(props) {
     ))}</>) :(<></>)
   };
 
+  useEffect(()=>{
+    setParalelo(props.paralelo)
+  },[props.paralelo]);
+
+
   return ( paralelo ?
     <Card className={classes.root} variant="outlined">
       <CardHeader
@@ -151,8 +132,8 @@ export default function SimpleCard(props) {
           </Avatar>
         }
         action={ getAction()}
-        title={paralelo['profesor']}
-        subheader="Calificación: 87%"
+        title={paralelo['profesor'] ? paralelo['profesor'] : "Sin nombre"}
+        subheader="Sin calificación"
       /><Divider />
       <CardContent className={classes.div}>
       <Typography variant="body2" component="p"  aling='left'>
@@ -167,7 +148,7 @@ export default function SimpleCard(props) {
           </React.Fragment>
         ))):<></>}
       
-      {isteorico && paralelo.hasOwnProperty('eventos')? (
+      { paralelo.hasOwnProperty('eventos')? (
           <React.Fragment className={classes.div}>
           <Typography variant="body2" component="p">
           Examenes
@@ -188,7 +169,7 @@ export default function SimpleCard(props) {
         ):<></>}
       </CardContent>
       
-      {(paralelo && isteorico && paralelo['paralelos_practicos'].length > 0) ? (
+      {(paralelo && paralelo['paralelos_practicos'].length > 0) ? (
         <><Divider />
           <CardActions>
             <Button size="small" onClick={handleParAsociados} color="primary">
@@ -199,7 +180,7 @@ export default function SimpleCard(props) {
               open={open}
               keepMounted
               onClose={handleCloseDialog}
-              parAsociados={paralelo['paralelos_practicos']}
+              teoricoId={paralelo['_id']}
             />
           </CardActions>
         </>

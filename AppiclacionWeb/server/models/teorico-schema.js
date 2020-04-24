@@ -2,6 +2,9 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 let teoricoSchema = new Schema({
+    _id: {
+        type: String
+    },
     codigo: {
         type: String
     },

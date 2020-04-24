@@ -1,10 +1,11 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import TextField from '@material-ui/core/TextField';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import Grid from '@material-ui/core/Grid';
 import Container from '@material-ui/core/Container';
 import { withStyles, makeStyles } from '@material-ui/core/styles';
-import axios from 'axios';
+import { useSelector, useActions} from 'react-redux'
+//import axios from 'axios';
 
 const CssTextField = withStyles({
 	root: {
@@ -46,22 +47,18 @@ const useStyles = makeStyles((theme) => ({
 
 export default function SearchCarrera(props) {
 	const classes = useStyles();
-	const [carrerasEspol] = React.useState([]);
-
-	React.useEffect(() => {
-		axios.get('http://localhost:8080/carrera')
-            .then(res => {
-				res.data.forEach(element => {
-					carrerasEspol.push(element);
-				});
-            })
-            .catch(function (error) {
-                console.log(error);
-            })
-	  });
-
+	//const [carrerasEspol, setCarrerasEspol] = useState([]);
+	//const carrerasEspol = useSelector(state => )
+	/*useEffect(()=>{
+		const fetchData = async () => {
+		  const response = await axios.get('http://localhost:8080/carrera');
+		  setCarrerasEspol(response.data)
+		}
+		fetchData();
+	  }, []);
+*/
 	const onChangeComplete = (event, value , reason) => {
-		props.onChangeCarrera(value);
+		//props.onChangeCarrera(value);
 	}
 
 	return (

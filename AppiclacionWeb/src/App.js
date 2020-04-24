@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
@@ -11,8 +11,9 @@ import useScrollTrigger from '@material-ui/core/useScrollTrigger';
 import Container from '@material-ui/core/Container';
 import KeyboardArrowUpIcon from '@material-ui/icons/KeyboardArrowUp';
 import './App.css';
-
 import PasoAPaso from './components/PasoAPaso';
+import {useSelector, useDispatch} from 'react-redux'
+import {getCarreras, getFetchCarreras} from './redux/actions/carreras'
 
 function ElevationScroll(props) {
 	const { children, window } = props;
@@ -81,9 +82,18 @@ ElevationScroll.propTypes = {
 	 */
 	window: PropTypes.func
 };
-
 function App(props) {
+
+	const dispatch = useDispatch();
+	const [carreras, setCarreras] = useState([]);
 	
+	useEffect(() => {
+		if(carreras.length === 0){
+			dispatch(getCarreras())
+			setCarreras([{},{}])
+		}
+	},[carreras,dispatch])
+
 	return (
 		
 				<React.Fragment>

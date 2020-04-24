@@ -6,7 +6,7 @@ import ExpansionPanelDetails from "@material-ui/core/ExpansionPanelDetails";
 import Checkbox from "@material-ui/core/Checkbox";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
-import CardParalelo from "./card-paralelo";
+import CardAsociado from "./card-asociado";
 import axios from 'axios';
 //import * as Colores from "@material-ui/core/colors";
 
@@ -23,30 +23,28 @@ const useStyles = makeStyles({
 });
 export default function ActionsInExpansionPanelSummary(props) {
   const classes = useStyles();
-  const [parAsociados, setParAsociados] = useState();
+  //const [parAsociados, setParAsociados] = useState();
   const [parAsociadosObjs, setParAsociadosObjs] = useState([]);
+  const [teoricoId, setTeoricoId] = useState();
 
   useEffect(()=>{
-    setParAsociados(props.parAsociados)
-  },[props.parAsociados]);
-  
+    setTeoricoId(props.teoricoId)
+  },[props.teoricoId]);
 
   useEffect(()=>{
-    const fetchData = async (codigo) => {
-      const response = await axios.get(`http://localhost:8080/practico/${codigo}`);
-      setParAsociadosObjs([...parAsociadosObjs,response.data])
+    const fetchData = async () => {
+      const response = await axios.get(`http://localhost:8080/practico/${teoricoId}`);
+      setParAsociadosObjs(response.data)
     }
-    if(parAsociados){
-      parAsociados.forEach(codigo => {
-      fetchData(codigo);
-      })
-    } 
-  }, [parAsociadosObjs, parAsociados]);
+    if(teoricoId){fetchData()};
+  }, [teoricoId]);
 
-  return ( (parAsociadosObjs && parAsociados) ?
+  if(parAsociadosObjs){console.log(parAsociadosObjs)};
+
+  return ( (parAsociadosObjs) ?
     <div className={classes.root}>
       {parAsociadosObjs.map(par => (
-          <ExpansionPanel>
+          <ExpansionPanel key={par['_id']}>
           <ExpansionPanelSummary
             expandIcon={<ExpandMoreIcon />}
             aria-label="Expand"
@@ -57,11 +55,11 @@ export default function ActionsInExpansionPanelSummary(props) {
               onClick={event => event.stopPropagation()}
               onFocus={event => event.stopPropagation()}
               control={<Checkbox color='primary'/>}
-              label={par['paralelo']}
+              label={`Paralelo ${par['paralelo']}`}
             />
           </ExpansionPanelSummary>
-          <ExpansionPanelDetails>
-            <CardParalelo isteorico={false} paralelo={par} />
+      <ExpansionPanelDetails>
+            <CardAsociado paralelo={par} />
           </ExpansionPanelDetails>
         </ExpansionPanel>
       ))}

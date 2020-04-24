@@ -12,6 +12,7 @@ import Malla from './paso2/Malla';
 import { Grid } from '@material-ui/core';
 import StepContent from '@material-ui/core/StepContent';
 import Paper from '@material-ui/core/Paper';
+import { connect } from 'mongoose';
 
 //Aqui seteamos estilos
 const useStyles = makeStyles((theme) => ({
@@ -67,11 +68,11 @@ function getStepContent(stepIndex) {
 export default function PasoAPaso() {
 	const classes = useStyles();
 	const [activeStep, setActiveStep] = React.useState(0);
-
 	const [isMobile, setMobile] = React.useState({});
 	const [refresh] = React.useState(false);
-	const [carrera, setCarrera] = React.useState({});
-	const [materiasSelect, setMateriasSelect] = React.useState([]);
+	//const [carrera, setCarrera] = React.useState({});
+	//const [materiasSelect, setMateriasSelect] = React.useState([]);
+	
 
 	const detectMobile = async () => {
 		let response = await fetch('/isMobile')
@@ -99,10 +100,10 @@ export default function PasoAPaso() {
 		//setMateriasSelect([]);
 		switch (activeStep) {
 			case 2:
-				setMateriasSelect([]);
+				//setMateriasSelect([]);
 				break;
 			case 1:
-				setCarrera({});
+				//setCarrera({});
 				break;
 			default:
 				break;
@@ -117,11 +118,11 @@ export default function PasoAPaso() {
 	function getStepComponet(stepIndex) {
 		switch (stepIndex) {
 			case 0:
-				return <SearchCarrera onChangeCarrera={setCarrera} />;
+				return <SearchCarrera />;
 			case 1:
-				return <Malla carrera={carrera} materiasSelect={materiasSelect} />;
+				return <Malla />;
 			case 2:
-				return <OpcionesMaterias materiasSelect={materiasSelect} isMobile={isMobile} />;
+				return <OpcionesMaterias isMobile={isMobile} />;
 				//return <></>
 			case 3:
 				//return <></>
@@ -249,3 +250,5 @@ export default function PasoAPaso() {
 		</div>
 	);
 }
+
+

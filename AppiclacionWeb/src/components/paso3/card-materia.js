@@ -4,7 +4,7 @@ import GridList from "@material-ui/core/GridList";
 import GridListTile from "@material-ui/core/GridListTile";
 import Card from "@material-ui/core/Card";
 import { Typography, CardContent, CardActions } from "@material-ui/core";
-import CardParalelo from "./card-paralelo";
+import CardTeorico from "./card-teorico";
 import axios from 'axios';
 
 const useStyles = makeStyles(theme => ({
@@ -18,10 +18,6 @@ const useStyles = makeStyles(theme => ({
   gridList: {
     flexWrap: "nowrap",
     transform: "translateZ(0)"
-  },
-  title: {
-    color: theme.palette.primary,
-    fontSize: "14px"
   },
   cardActions: {
     backgroundColor: theme.palette.primary.main
@@ -45,7 +41,6 @@ export default function SingleLineGridList(props) {
    }
    fetchData();
  }, [materia]);
-console.log("se actualiza cardmateria", paralelos)
 //antes se retornaba un div con classname root
   return paralelos ? (
     <Card elevation={10}>
@@ -59,18 +54,13 @@ console.log("se actualiza cardmateria", paralelos)
   >   
          {paralelos.map(par=>(
          <GridListTile key={par["paralelo"]}>
-          <CardParalelo isteorico={true} paralelo={par}/>
+          <CardTeorico paralelo={par} />
         </GridListTile>)
         )}
         </GridList>
       </CardContent>
       <CardActions className={classes.cardActions}>
-        <Typography
-          className={classes.title}
-          color="textPrimary"
-          variant="h5"
-          component="h2"
-        >
+        <Typography variant="body1" >
         {materia["nombre"]} - {materia["codigo"]}
         </Typography>
       </CardActions>
