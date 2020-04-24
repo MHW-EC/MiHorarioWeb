@@ -12,7 +12,6 @@ function* getTeoricos({ codigo }) {
             null,
             'GET'
         );
-        console.log('se ejecuto:', codigo)
         yield put({ type: GET_TEORICOS_COMPLETE, codigo, response})
     } catch (err) {
         console.log(err)

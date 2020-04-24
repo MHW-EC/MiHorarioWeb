@@ -5,7 +5,6 @@ import GridListTile from "@material-ui/core/GridListTile";
 import Card from "@material-ui/core/Card";
 import { Typography, CardContent, CardActions } from "@material-ui/core";
 import CardTeorico from "./card-teorico";
-import axios from 'axios';
 import { useSelector, useDispatch } from 'react-redux'
 import { teoricosResults as paralelosSelector } from '../../redux/selectors';
 import { getTeoricos } from '../../redux/actions/teorico'
@@ -36,33 +35,14 @@ export default function SingleLineGridList(props) {
   const [nCols] = useState(props.isMobile ? 1 : 2);
   //const [paralelos,setParalelos] = useState();
   const dispatch = useDispatch();
-  const paralelos = useSelector((state, codigo) =>  paralelosSelector(state,materia['codigo']));
+  const parTeorico = useSelector((state, codigo) =>  paralelosSelector(state,materia['codigo']));
+
   useEffect(() => {
-		if (!paralelos) {
+		if (!parTeorico) {
 			dispatch(getTeoricos(materia['codigo']));
 		}
   });
-  console.log(materia['codigo'],paralelos)
- /* Axios  useEffect(()=>{
-   const fetchData = async () => {
-     const response = await axios.get(`http://localhost:8080/teorico/${materia['codigo']}`);
-     setParalelos(response.data)
-     //response.data.forEach(e=>{paralelos.push(e)})
-   }
-   fetchData();
- }, [materia]);
-*/
-
- /*
- const carrerasResults = useSelector((state, codigo) =>  paralelosSelector(state));
-export const teoricosResults = (state,codigo) => get(state, `teoricos.${codigo}.paralelos`)
-	useEffect(() => {
-		if (!carrerasResults) {
-			dispatch(getCarreras());
-		}
-	});*/
-//antes se retornaba un div con classname root
-  return paralelos ? (
+  return parTeorico ? (
     <Card elevation={10}>
       <CardContent className={classes.cardContent}>
         <GridList
@@ -72,7 +52,7 @@ export const teoricosResults = (state,codigo) => get(state, `teoricos.${codigo}.
           className={classes.gridList}
           cols={nCols}
   >   
-         {paralelos.map(par=>(
+         {parTeorico['paralelos'].map(par=>(
          <GridListTile key={par["paralelo"]}>
           <CardTeorico paralelo={par} />
         </GridListTile>)

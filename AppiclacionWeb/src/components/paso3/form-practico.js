@@ -7,7 +7,11 @@ import Checkbox from "@material-ui/core/Checkbox";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import CardAsociado from "./card-asociado";
-import axios from 'axios';
+
+
+import { useSelector, useDispatch } from 'react-redux'
+import { asociadosResults as asociadosSelector } from '../../redux/selectors';
+import { getAsociados } from '../../redux/actions/asociado'
 //import * as Colores from "@material-ui/core/colors";
 
 const useStyles = makeStyles({
@@ -24,26 +28,23 @@ const useStyles = makeStyles({
 export default function ActionsInExpansionPanelSummary(props) {
   const classes = useStyles();
   //const [parAsociados, setParAsociados] = useState();
-  const [parAsociadosObjs, setParAsociadosObjs] = useState([]);
   const [teoricoId, setTeoricoId] = useState();
 
   useEffect(()=>{
     setTeoricoId(props.teoricoId)
   },[props.teoricoId]);
+  
+  const dispatch = useDispatch();
+  const parAsociados = useSelector((state, codigo) => asociadosSelector(state,teoricoId));
 
-  useEffect(()=>{
-    const fetchData = async () => {
-      const response = await axios.get(`http://localhost:8080/practico/${teoricoId}`);
-      setParAsociadosObjs(response.data)
-    }
-    if(teoricoId){fetchData()};
-  }, [teoricoId]);
-
-  if(parAsociadosObjs){console.log(parAsociadosObjs)};
-
-  return ( (parAsociadosObjs) ?
+  useEffect(() => {
+		if (!parAsociados) {
+			dispatch(getAsociados(teoricoId));
+		}
+  });
+  return ( (parAsociados) ?
     <div className={classes.root}>
-      {parAsociadosObjs.map(par => (
+      {parAsociados['paralelos'].map(par => (
           <ExpansionPanel key={par['_id']}>
           <ExpansionPanelSummary
             expandIcon={<ExpandMoreIcon />}

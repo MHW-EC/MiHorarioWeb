@@ -6,13 +6,9 @@ export const carrerasResults = state => get(state, 'carreras.carreras')
 export const carreraSeleccionada = state => get(state, 'carrera.carrera')
 export const materiasSeleccionadas = state => get(state, 'materias.materias')
 
-/*
-var object = { 'a': [{ 'b': { 'c': 3 } }] };
- 
-_.get(object, 'a[0].b.c');
-// => 3
- 
-_.get(object, ['a', '0', 'b', 'c']);
-// => 3*/
-
-export const teoricosResults = (state,codigo) => get(state, `teoricos.${codigo}.paralelos`)
+export const teoricosResults = (state,codigo) =>{
+    return get(state, 'teoricos.teoricos').find(par => par.codigo === codigo)
+} 
+export const asociadosResults = (state,teoricoId) =>{
+    return get(state, 'asociados.asociados').find(par => par.teoricoId === teoricoId)
+} 
