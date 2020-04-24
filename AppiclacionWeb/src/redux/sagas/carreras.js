@@ -1,24 +1,26 @@
-import {put, takeLatest} from 'redux-saga/effects';
-import {GET_CARRERAS, SUCCESS_GET_CARRERAS, GET_FETCH_CARRERAS} from "../actions/carreras"
+import { put, takeLatest , call} from 'redux-saga/effects';
+import { GET_CARRERAS_START, GET_FETCH_CARRERAS, GET_CARRERAS_COMPLETE, GET_CARRERAS_ERROR } from "../actions/carreras"
 import axios from 'axios'
+import { apiCall } from '../api';
+function* getCarreras({ payload }) {
+    try {
 
-function* getCarreras({payload}) {
-    try{
-       const response =  yield axios.get('/carrera');
-       console.log(response.data)
-       yield put({type: SUCCESS_GET_CARRERAS, payload:response.data })
-    }catch(err){
+        const response = yield call(
+            apiCall,
+            '/carrera',
+            null,
+            null,
+            'GET'
+        );
+        /* onst response = yield axios.get('/carrera'); */
+        console.log(response)
+        yield put({ type: GET_CARRERAS_COMPLETE, response})
+    } catch (err) {
+        console.log(err)
+        yield put({type: GET_CARRERAS_ERROR, err})
     }
 }
-function* getFetchCarreras({payload}) {
-    try{
-       //yield put({type: GET_FETCH_CARRERAS})
-       yield console.log("Solicitando carreras fetches")
-    }catch(err){
-    }
-}
-//Watcher
-export default function* carreras(){
-    yield takeLatest(GET_CARRERAS, getCarreras);
-    //yield takeLatest(GET_FETCH_CARRERAS, getFetchCarreras);
+//Watcher _START
+export default function* carreras() {
+    yield takeLatest(GET_CARRERAS_START, getCarreras);
 }

@@ -1,11 +1,12 @@
-import React, {useState, useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 import TextField from '@material-ui/core/TextField';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import Grid from '@material-ui/core/Grid';
 import Container from '@material-ui/core/Container';
 import { withStyles, makeStyles } from '@material-ui/core/styles';
-import { useSelector, useActions} from 'react-redux'
-//import axios from 'axios';
+import { useSelector, useActions, useDispatch } from 'react-redux'
+import { getCarreras } from '../../redux/actions/carreras';
+import { carrerasResults as carrerasResultSelector } from '../../redux/selectors';
 
 const CssTextField = withStyles({
 	root: {
@@ -46,9 +47,27 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function SearchCarrera(props) {
+	const dispatch = useDispatch();
+	const carrerasResults = useSelector((state) =>  carrerasResultSelector(state));
+
+	useEffect(() => {
+		if (!carrerasResults) {
+			dispatch(getCarreras());
+		}
+	});
+
 	const classes = useStyles();
+	/*const dispatch = useDispatch();
+	const [carreras, setCarreras] = useState([]);
+	
+	useEffect(() => {
+		if(carreras.length === 0){
+			dispatch(getCarreras())
+			setCarreras([{},{}])
+		}
+	},[carreras,dispatch])*/
+
 	//const [carrerasEspol, setCarrerasEspol] = useState([]);
-	//const carrerasEspol = useSelector(state => )
 	/*useEffect(()=>{
 		const fetchData = async () => {
 		  const response = await axios.get('http://localhost:8080/carrera');
@@ -57,40 +76,40 @@ export default function SearchCarrera(props) {
 		fetchData();
 	  }, []);
 */
-	const onChangeComplete = (event, value , reason) => {
+	const onChangeComplete = (event, value, reason) => {
 		//props.onChangeCarrera(value);
 	}
 
 	return (
-    <Container maxWidth="sm">
-		<Grid
-    container
-    spacing={0}
-    justify="center"
-    direction="column"
-    style={{ minHeight: '25vh' }}
-		>
-			<Grid item>
-				<Autocomplete
-					id='input-nombre-carrera'
-					onChange={onChangeComplete}
-					options={carrerasEspol}
-					getOptionLabel={(option) => option['nombre']}
-					renderInput={(params) => (
-						<CssTextField
-							{...params}
-							className={classes.margin}
-							label='Nombre de su carrera'
-							variant='outlined'
-							id='custom-css-outlined-input'
-						/>
-					)}
-				/>
+		<Container maxWidth="sm">
+			<Grid
+				container
+				spacing={0}
+				justify="center"
+				direction="column"
+				style={{ minHeight: '25vh' }}
+			>
+				<Grid item>
+					<Autocomplete
+						id='input-nombre-carrera'
+						onChange={onChangeComplete}
+						options={carrerasResults}
+						getOptionLabel={(option) => option['nombre']}
+						renderInput={(params) => (
+							<CssTextField
+								{...params}
+								className={classes.margin}
+								label='Nombre de su carrera'
+								variant='outlined'
+								id='custom-css-outlined-input'
+							/>
+						)}
+					/>
+				</Grid>
+				<Grid item>
+					<script src="https://gist.github.com/EnmanuelMag/fe81e4261975fc584501668b845d4193.js"></script>
+				</Grid>
 			</Grid>
-			<Grid item>
-				<script src="https://gist.github.com/EnmanuelMag/fe81e4261975fc584501668b845d4193.js"></script>
-			</Grid>
-		</Grid>
-    </Container>
+		</Container>
 	);
 }

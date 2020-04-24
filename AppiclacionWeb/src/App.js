@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
@@ -12,8 +12,8 @@ import Container from '@material-ui/core/Container';
 import KeyboardArrowUpIcon from '@material-ui/icons/KeyboardArrowUp';
 import './App.css';
 import PasoAPaso from './components/PasoAPaso';
-import {useSelector, useDispatch} from 'react-redux'
-import {getCarreras, getFetchCarreras} from './redux/actions/carreras'
+import { useSelector, useDispatch } from 'react-redux'
+import { getCarreras, getFetchCarreras } from './redux/actions/carreras'
 
 function ElevationScroll(props) {
 	const { children, window } = props;
@@ -38,7 +38,7 @@ const useStyles = makeStyles((theme) => ({
 		bottom: theme.spacing(5),
 		right: theme.spacing(5)
 	},
-	scrollTop:{
+	scrollTop: {
 		backgroundColor: 'transparent'
 	}
 }));
@@ -84,37 +84,27 @@ ElevationScroll.propTypes = {
 };
 function App(props) {
 
-	const dispatch = useDispatch();
-	const [carreras, setCarreras] = useState([]);
-	
-	useEffect(() => {
-		if(carreras.length === 0){
-			dispatch(getCarreras())
-			setCarreras([{},{}])
-		}
-	},[carreras,dispatch])
-
 	return (
-		
-				<React.Fragment>
-					<CssBaseline />
-					<ElevationScroll {...props}>
-						<AppBar>
-							<Toolbar >
-								<Typography variant='h6'>HORARIO</Typography>
-							</Toolbar>
-						</AppBar>
-					</ElevationScroll>
-					<Toolbar id="back-to-top-anchor"/>
-					<Container>
-						<PasoAPaso />
-					</Container>
-					<ScrollTop {...props}>
-						<Fab color='secondary' size='small' aria-label='scroll back to top'>
-							<KeyboardArrowUpIcon />
-						</Fab>
-					</ScrollTop>
-				</React.Fragment>
+
+		<React.Fragment>
+			<CssBaseline />
+			<ElevationScroll {...props}>
+				<AppBar>
+					<Toolbar >
+						<Typography variant='h6'>HORARIO</Typography>
+					</Toolbar>
+				</AppBar>
+			</ElevationScroll>
+			<Toolbar id="back-to-top-anchor" />
+			<Container>
+				<PasoAPaso />
+			</Container>
+			<ScrollTop {...props}>
+				<Fab color='secondary' size='small' aria-label='scroll back to top'>
+					<KeyboardArrowUpIcon />
+				</Fab>
+			</ScrollTop>
+		</React.Fragment>
 	);
 }
 

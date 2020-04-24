@@ -4,7 +4,5 @@ import carreras from './carreras'
 
 
 export default function* rootSaga() {
-    yield all([
-        carreras()
-    ])
+    yield all([carreras()]);
 }
