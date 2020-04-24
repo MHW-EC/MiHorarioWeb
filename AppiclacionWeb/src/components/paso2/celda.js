@@ -2,7 +2,8 @@ import React,{useState} from "react";
 import PropTypes from "prop-types";
 //import { makeStyles } from "@material-ui/core/styles";
 import { Grid, Typography, Checkbox } from "@material-ui/core";
-
+import { addMateria, removeMateria } from '../../redux/actions/materias'
+import { useDispatch } from 'react-redux'
 /*const useStyles = makeStyles(theme => ({
     root: {
     },
@@ -10,18 +11,13 @@ import { Grid, Typography, Checkbox } from "@material-ui/core";
 */
 export default function Celda(props) {
     const [materia] = useState(props.materia);
-    const [materiasSelect] = useState(props.materiasSelect);
-    //const [onMateriaSelect] = useState(props.onMateriaSelect);
+    const dispatch = useDispatch();
     //const classes = useStyles();
+
     const onCheck = (bool) => {
-        if(bool){
-            materiasSelect.push(materia);
-        }else{
-            //materiasSelect.pop();
-            let index = materiasSelect.findIndex(mat => mat['codigo'] === materia['codigo']);
-            materiasSelect.splice(index,1);
-        }
+        bool ? dispatch(addMateria(materia)) : dispatch(removeMateria(materia))
     }
+
     return (
         <Grid container >
             <Grid item xs={6}>

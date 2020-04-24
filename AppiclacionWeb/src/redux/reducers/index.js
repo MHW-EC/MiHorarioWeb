@@ -3,6 +3,9 @@ import { combineReducers } from 'redux'
 import paqueteria from './paquetes'
 import seleccionados from './seleccionados'
 import carreras from './carreras'
+import carrera from './carrera'
+import materias from './materias'
+import teoricos from './teorico'
 
 export const initialState = {
     carreras: [],
@@ -17,7 +20,10 @@ export const initialState = {
 const todoApp = combineReducers({
     paqueteria,
     seleccionados,
-    carreras
+    carreras,
+    carrera,
+    materias,
+    teoricos
 })
 
 export default todoApp

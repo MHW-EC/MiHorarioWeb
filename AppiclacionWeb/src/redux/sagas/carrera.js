@@ -1,6 +1,6 @@
 import { put, takeLatest , call} from 'redux-saga/effects';
-import { GET_CARRERAS_START, GET_FETCH_CARRERAS, GET_CARRERAS_COMPLETE, GET_CARRERAS_ERROR } from "../actions/carreras"
-import axios from 'axios'
+import { GET_CARRERAS_START, GET_CARRERAS_COMPLETE, GET_CARRERAS_ERROR } from "../actions/carreras"
+
 import { apiCall } from '../api';
 function* getCarreras({ payload }) {
     try {
@@ -12,8 +12,6 @@ function* getCarreras({ payload }) {
             null,
             'GET'
         );
-        /* onst response = yield axios.get('/carrera'); */
-        console.log(response)
         yield put({ type: GET_CARRERAS_COMPLETE, response})
     } catch (err) {
         console.log(err)

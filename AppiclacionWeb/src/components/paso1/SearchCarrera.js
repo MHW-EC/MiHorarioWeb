@@ -7,7 +7,7 @@ import { withStyles, makeStyles } from '@material-ui/core/styles';
 import { useSelector, useActions, useDispatch } from 'react-redux'
 import { getCarreras } from '../../redux/actions/carreras';
 import { carrerasResults as carrerasResultSelector } from '../../redux/selectors';
-
+import { setCarrera } from '../../redux/actions/carrera'
 const CssTextField = withStyles({
 	root: {
 		'& input': {
@@ -55,29 +55,10 @@ export default function SearchCarrera(props) {
 			dispatch(getCarreras());
 		}
 	});
-
 	const classes = useStyles();
-	/*const dispatch = useDispatch();
-	const [carreras, setCarreras] = useState([]);
-	
-	useEffect(() => {
-		if(carreras.length === 0){
-			dispatch(getCarreras())
-			setCarreras([{},{}])
-		}
-	},[carreras,dispatch])*/
 
-	//const [carrerasEspol, setCarrerasEspol] = useState([]);
-	/*useEffect(()=>{
-		const fetchData = async () => {
-		  const response = await axios.get('http://localhost:8080/carrera');
-		  setCarrerasEspol(response.data)
-		}
-		fetchData();
-	  }, []);
-*/
 	const onChangeComplete = (event, value, reason) => {
-		//props.onChangeCarrera(value);
+		dispatch(setCarrera(value))
 	}
 
 	return (

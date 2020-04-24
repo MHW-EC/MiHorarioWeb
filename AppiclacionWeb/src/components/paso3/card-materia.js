@@ -6,6 +6,9 @@ import Card from "@material-ui/core/Card";
 import { Typography, CardContent, CardActions } from "@material-ui/core";
 import CardTeorico from "./card-teorico";
 import axios from 'axios';
+import { useSelector, useDispatch } from 'react-redux'
+import { teoricosResults as paralelosSelector } from '../../redux/selectors';
+import { getTeoricos } from '../../redux/actions/teorico'
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -31,9 +34,16 @@ export default function SingleLineGridList(props) {
   const classes = useStyles();
   const [materia] = useState(props.materia);
   const [nCols] = useState(props.isMobile ? 1 : 2);
-  const [paralelos,setParalelos] = useState();
-
- useEffect(()=>{
+  //const [paralelos,setParalelos] = useState();
+  const dispatch = useDispatch();
+  const paralelos = useSelector((state, codigo) =>  paralelosSelector(state,materia['codigo']));
+  useEffect(() => {
+		if (!paralelos) {
+			dispatch(getTeoricos(materia['codigo']));
+		}
+  });
+  console.log(materia['codigo'],paralelos)
+ /* Axios  useEffect(()=>{
    const fetchData = async () => {
      const response = await axios.get(`http://localhost:8080/teorico/${materia['codigo']}`);
      setParalelos(response.data)
@@ -41,6 +51,16 @@ export default function SingleLineGridList(props) {
    }
    fetchData();
  }, [materia]);
+*/
+
+ /*
+ const carrerasResults = useSelector((state, codigo) =>  paralelosSelector(state));
+export const teoricosResults = (state,codigo) => get(state, `teoricos.${codigo}.paralelos`)
+	useEffect(() => {
+		if (!carrerasResults) {
+			dispatch(getCarreras());
+		}
+	});*/
 //antes se retornaba un div con classname root
   return paralelos ? (
     <Card elevation={10}>

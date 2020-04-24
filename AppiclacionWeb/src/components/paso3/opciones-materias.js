@@ -1,7 +1,10 @@
-import React from "react";
+import React, { useState, useEffect } from 'react';
 import { makeStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
 import CardMateria from "./card-materia";
+import { useSelector, useActions, useDispatch } from 'react-redux'
+import { materiasSeleccionadas as matSelSelector } from '../../redux/selectors';
+import { getMaterias } from '../../redux/actions/materias'
 const useStyles = makeStyles({
   root: {
     padding: "10px",
@@ -14,7 +17,15 @@ const useStyles = makeStyles({
 
 export default function DenseTable(props) {
   const classes = useStyles();
-  const materiasSelect = props.materiasSelect;
+  const dispatch = useDispatch();
+  const materiasSelect = useSelector((state) =>  matSelSelector(state));
+
+	useEffect(() => {
+		if (!materiasSelect) {
+			dispatch(getMaterias());
+		}
+	});
+
   return (
     <div className={classes.root}>
       <Grid container spacing={3} justify="center" alignItems="center">

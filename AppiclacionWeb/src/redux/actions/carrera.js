@@ -1,5 +1,4 @@
 export const SET_CARRERA = 'SET_CARRERA'
-export const SET_CARRERA_COMPLETE = 'SET_CARRERA_COMPLETE'
 export const GET_CARRERA = 'GET_CARRERA'
 
 export function setCarrera(carrera) {
