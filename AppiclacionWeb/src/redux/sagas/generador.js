@@ -1,24 +1,26 @@
 import { put, takeEvery , call} from 'redux-saga/effects';
-import { GET_ASOCIADO_START, GET_ASOCIADO_ERROR, GET_ASOCIADO_COMPLETE} from "../actions/asociado"
+import { GET_RESULTADOS_GEN_START, GET_RESULTADOS_GEN_ERROR, GET_RESULTADOS_GEN_COMPLETE} 
+from "../actions/generador"
 import { apiCall } from '../api';
 
 function* getResultadosGenerados({ paquetes }) {
-    try {
+    try {//url, data, headers, method
+        console.log("Se llamo a generados")
         const response = yield call(
             apiCall,
             `/generar`,
-            null,
-            null,
+            {id:'hola2'},
+            ['Access-Control-Allow-Origin', '*'],
             'GET'
         );
-        
-        yield put({ type: GET_ASOCIADO_COMPLETE, teoricoId, response})
+        console.log(response)//resto me retorna lo que mando por res.send()
+        //yield put({ type: GET_RESULTADOS_GEN_COMPLETE, response})
     } catch (err) {
         console.log(err)
-        yield put({type: GET_ASOCIADO_ERROR, err})
+        //yield put({type: GET_RESULTADOS_GEN_ERROR, err})
     }
 }
 //Watcher _START
 export default function* generados() {
-    yield takeEvery(GET_ASOCIADO_START, getResultadosGenerados);
+    yield takeEvery(GET_RESULTADOS_GEN_START, getResultadosGenerados);
 }

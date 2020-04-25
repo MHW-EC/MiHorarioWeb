@@ -3,7 +3,8 @@ import { all } from 'redux-saga/effects'
 import carreras from './carrera'
 import teoricos from './teorico';
 import asociados from './asociados';
+import generados from './generador'
 
 export default function* rootSaga() {
-    yield all([carreras(),teoricos(),asociados()]);
+    yield all([carreras(),teoricos(),asociados(),generados()]);
 }

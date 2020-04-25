@@ -22,8 +22,22 @@ app.use(express.static(path.join(__dirname, 'build')));
 
 //Nuevo inicio
 app.use(bodyParser.urlencoded({
-    extended: true
+    extended: false
 }));
+
+app.get('/generar', function(req, res){
+  console.log("Mandaste a generar")
+  console.log("chale")
+  console.log('mi bodi',req.body)
+  console.log('mi bodi2',req['_events'])
+  /*const castFunction = (paquete) => { return {paquete} };//Necesaria debido a falencas de clase set es6
+  const paquetesObj = req.paquetes.map( castFunction );
+  const generador = new Generador(paquetesObj);
+  const resultados = generador.HorariosGenerados;
+  res.send(resultados)*/
+  res.send(['respuesta'])
+})
+
 app.use(cors());
 app.use('/carrera', carreraRoute);
 app.use('/teorico', teoricoRoute);
@@ -58,14 +72,7 @@ app.get('/isMobile', function(req, res){
   res.send(respuesta)
 })
 
-app.get('/generar', function(req, res){
-  
-  const castFunction = (paquete) => { return {paquete} };//Necesaria debido a falencas de clase set es6
-  const paquetesObj = req.paquetes.map( castFunction );
-  const generador = new Generador(paquetesObj);
-  const resultados = generador.HorariosGenerados;
-  res.send(resultados)
-})
+
 
 
 app.get('/', function (req, res) {

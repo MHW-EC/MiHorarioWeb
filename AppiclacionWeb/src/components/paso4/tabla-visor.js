@@ -1,10 +1,15 @@
-import React from "react";
+import React, {useEffect} from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import { Pagination } from "@material-ui/lab";
 import SwipeableViews from "react-swipeable-views";
 import { useTheme } from "@material-ui/core/styles";
 import Tabla from "./tabla";
 
+
+
+import { useSelector, useDispatch } from 'react-redux'
+import { resultadosGenerados as resultadosSelector } from '../../redux/selectors';
+import { getResultadosGenerados } from '../../redux/actions/generador'
 const useStyles = makeStyles(theme => ({
   root: {
     "& > * + *": {
@@ -26,6 +31,15 @@ export default function PaginationControlled() {
   const theme = useTheme();
   const [page, setPage] = React.useState(1);
   //const [elementos] = React.useState(pros.elementos);
+
+  const dispatch = useDispatch();
+  const resultadosGenerados = useSelector((state) => resultadosSelector(state));
+dispatch(getResultadosGenerados());
+  /*useEffect(() => {
+		if (!resultadosGenerados && resultadosGenerados.length ===0) {
+			
+		}
+  });*/
 
   const handleChange = (event, value) => {
     setPage(value);

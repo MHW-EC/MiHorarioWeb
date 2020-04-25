@@ -6,6 +6,8 @@ export const carrerasResults = state => get(state, 'carreras.carreras')
 export const carreraSeleccionada = state => get(state, 'carrera.carrera')
 export const materiasSeleccionadas = state => get(state, 'materias.materias')
 
+export const resultadosGenerados = state => get(state, 'generador.generados')
+
 export const teoricosResults = (state,codigo) =>{
     return get(state, 'teoricos.teoricos').find(par => par.codigo === codigo)
 } 

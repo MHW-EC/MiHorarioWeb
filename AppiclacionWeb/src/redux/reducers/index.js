@@ -7,6 +7,7 @@ import carrera from './carrera'
 import materias from './materias'
 import teoricos from './teorico'
 import asociados from './asociado'
+import generador from './generador'
 export const initialState = {
     carreras: [],
     carrera: {},
@@ -24,7 +25,8 @@ const todoApp = combineReducers({
     carrera,
     materias,
     teoricos,
-    asociados
+    asociados,
+    generador
 })
 
 export default todoApp
