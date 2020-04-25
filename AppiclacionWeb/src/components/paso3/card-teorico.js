@@ -14,10 +14,11 @@ import {
 } from "@material-ui/core";
 import DeleteOutlineIcon from "@material-ui/icons/DeleteOutline";
 import AddBoxOutlinedIcon from "@material-ui/icons/AddBoxOutlined";
-
+import { useDispatch } from 'react-redux'
 import DialogPractico from "./dialog-practico";
 import Zoom from "@material-ui/core/Zoom";
 import {formatoIntevalo, formatoIntevaloEx} from '../util/util'
+import { addSeleccionado, removeSeleccionado } from '../../redux/actions/seleccionados'
 //import * as Colors from "@material-ui/core/colors";
 const useStyles = makeStyles(theme =>({
   root: {
@@ -42,13 +43,15 @@ const useStyles = makeStyles(theme =>({
     top: theme.spacing(0)
   },
   ghostIcon: {
-    opacity: 0
+    opacity: 0,
+    padding: 10
   }
 }));
 
 export default function SimpleCard(props) {
   const classes = useStyles();
   const theme = useTheme();
+  const dispatch = useDispatch();
   //const bull = <span className={classes.bullet}>•</span>;
   //necesarios para el cuadro de dialogo de paralelo
   const [open, setOpen] = useState(false);
@@ -56,6 +59,8 @@ export default function SimpleCard(props) {
   const [isAdd, setIsAdd] = useState(true);
 
   const handleAddRemove = () => {
+    isAdd ? dispatch(addSeleccionado(paralelo["_id"])) :
+    dispatch(removeSeleccionado(paralelo["_id"])) ;
     setIsAdd(!isAdd);
   };
 
@@ -65,6 +70,14 @@ export default function SimpleCard(props) {
   };
 
   const fabs = [
+    {
+      color: "primary",
+      className: classes.fab,
+      icon: <AddBoxOutlinedIcon/>,
+      label: "Add",
+      entra: true,
+      tooltipNode: "Add"
+    },
     {
       color: "primary",
       className: classes.fab,

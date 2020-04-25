@@ -4,8 +4,8 @@ const bodyParser = require('body-parser')
 const path = require('path');
 const MobileDetect = require('mobile-detect');
 const app = express();
-
-//--Nuevo inicio
+const Generador = require('../server_modules/Generador')
+//--Nuevo inici
 let mongoose = require('mongoose');
 let cors = require('cors');
 let database = require('./database/db');
@@ -56,6 +56,15 @@ app.get('/isMobile', function(req, res){
   console.log(detector);
   detector.os() != null? respuesta = true : respuesta = false
   res.send(respuesta)
+})
+
+app.get('/generar', function(req, res){
+  
+  const castFunction = (paquete) => { return {paquete} };//Necesaria debido a falencas de clase set es6
+  const paquetesObj = req.paquetes.map( castFunction );
+  const generador = new Generador(paquetesObj);
+  const resultados = generador.HorariosGenerados;
+  res.send(resultados)
 })
 
 

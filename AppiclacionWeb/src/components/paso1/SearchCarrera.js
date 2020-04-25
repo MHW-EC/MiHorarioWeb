@@ -1,10 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import TextField from '@material-ui/core/TextField';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import Grid from '@material-ui/core/Grid';
 import Container from '@material-ui/core/Container';
 import { withStyles, makeStyles } from '@material-ui/core/styles';
-import { useSelector, useActions, useDispatch } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 import { getCarreras } from '../../redux/actions/carreras';
 import { carrerasResults as carrerasResultSelector } from '../../redux/selectors';
 import { setCarrera } from '../../redux/actions/carrera'

@@ -23,9 +23,10 @@ console.log(combi.Resultados.length);
 /////////Test Generador///////////////
 console.log("Tamaño paqueteria: ",listaPaquete1.length);
 const retFun = (arr) => { return {'paquete': arr} };
-
+console.log(listaPaquete1)
 let paquetesObj = listaPaquete1.map( retFun );
-let gen = new Generador(paquetesObj);
+console.log(paquetesObj)
+/*let gen = new Generador(paquetesObj);
 let result = gen.HorariosGenerados;
 
 result.forEach((horario,indice) => {
@@ -38,4 +39,4 @@ result.forEach((horario,indice) => {
     })
     console.log(idsMats);
 })
-console.log("Horarios generados: ",result.length);
+console.log("Horarios generados: ",result.length);*/

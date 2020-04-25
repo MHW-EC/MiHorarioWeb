@@ -6,4 +6,4 @@ export const apiCall = (url, data, headers, method) =>
 		url:url,
 		data,
 		headers,
-	});
+});
