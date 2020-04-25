@@ -12,7 +12,7 @@ export default function paqueteria(state = [], action) {
       ]
     case REMOVE_PAQUETE:
       let selector = typeof (action.asociadoId) === "undefined" ? action.teoricoId : action.asociadoId
-      return state.filter(paq => paq.id === selector)
+      return state.filter(paq => paq.id !== selector)
     default:
       return state
   }

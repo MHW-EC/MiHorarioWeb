@@ -12,6 +12,7 @@ import CardAsociado from "./card-asociado";
 import { useSelector, useDispatch } from 'react-redux'
 import { asociadosResults as asociadosSelector } from '../../redux/selectors';
 import { getAsociados } from '../../redux/actions/asociado'
+import { addPaquete, removePaquete } from '../../redux/actions/paquetes'
 //import * as Colores from "@material-ui/core/colors";
 
 const useStyles = makeStyles({
@@ -29,10 +30,15 @@ export default function ActionsInExpansionPanelSummary(props) {
   const classes = useStyles();
   //const [parAsociados, setParAsociados] = useState();
   const [teoricoId, setTeoricoId] = useState();
+  const [teorico, setTeorico] = useState();
 
   useEffect(()=>{
     setTeoricoId(props.teoricoId)
   },[props.teoricoId]);
+  
+  useEffect(()=>{
+    setTeorico(props.teorico)
+  },[props.teorico]);
   
   const dispatch = useDispatch();
   const parAsociados = useSelector((state, codigo) => asociadosSelector(state,teoricoId));
@@ -42,6 +48,11 @@ export default function ActionsInExpansionPanelSummary(props) {
 			dispatch(getAsociados(teoricoId));
 		}
   });
+
+  const handleAddPaquete = (evento, teorico, practico) => {
+    evento.target.checked ? 	dispatch(addPaquete([teorico, practico], teoricoId, practico["_id"] )):
+    dispatch(removePaquete( teoricoId, practico["_id"]));
+  }
   return ( (parAsociados) ?
     <div className={classes.root}>
       {parAsociados['paralelos'].map(par => (
@@ -55,7 +66,7 @@ export default function ActionsInExpansionPanelSummary(props) {
               aria-label="Acknowledge"
               onClick={event => event.stopPropagation()}
               onFocus={event => event.stopPropagation()}
-              control={<Checkbox color='primary'/>}
+              control={<Checkbox color='primary'onChange={event=>handleAddPaquete(event, teorico,par)}/> }
               label={`Paralelo ${par['paralelo']}`}
             />
           </ExpansionPanelSummary>

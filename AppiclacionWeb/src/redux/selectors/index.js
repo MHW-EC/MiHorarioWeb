@@ -12,3 +12,7 @@ export const teoricosResults = (state,codigo) =>{
 export const asociadosResults = (state,teoricoId) =>{
     return get(state, 'asociados.asociados').find(par => par.teoricoId === teoricoId)
 } 
+/*
+export const asociadosResults = (state,teoricoId) =>{
+    return get(state, 'asociados.asociados').find(par => par.teoricoId === teoricoId)
+} */

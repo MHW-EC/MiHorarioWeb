@@ -54,13 +54,9 @@ export default function SimpleCard(props) {
   const [open, setOpen] = useState(false);
   const [paralelo,setParalelo] = useState();
   const [isAdd, setIsAdd] = useState(true);
-  const [paquete, setPaquete] = useState([]);
 
   const handleAddRemove = () => {
-    (isAdd) ? setPaquete([...paquete, paralelo])
-    : setPaquete([])
     setIsAdd(!isAdd);
-    console.log(paquete)
   };
 
   const transitionDuration = {
@@ -149,7 +145,7 @@ export default function SimpleCard(props) {
         ))):<></>}
       
       { paralelo.hasOwnProperty('eventos')? (
-          <React.Fragment className={classes.div}>
+          <React.Fragment >
           <Typography variant="body2" component="p">
           Examenes
           </Typography>
@@ -181,6 +177,7 @@ export default function SimpleCard(props) {
               keepMounted
               onClose={handleCloseDialog}
               teoricoId={paralelo['_id']}
+              teorico={paralelo}
             />
           </CardActions>
         </>

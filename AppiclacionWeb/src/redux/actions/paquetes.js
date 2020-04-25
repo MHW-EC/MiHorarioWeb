@@ -15,9 +15,9 @@ export const ADD_PAQUETE = 'ADD_PAQUETE'
 export const REMOVE_PAQUETE = 'REMOVE_PAQUETE'
 
 export function addPaquete(array, teoricoId, asociadoId) {
-    return { type: ADD_PAQUETE, teoricoId, asociadoId, array }
+    return { type: ADD_PAQUETE, array, teoricoId, asociadoId }
 }
 
-export function removePaquete(array, teoricoId) {
-    return { type: REMOVE_PAQUETE, teoricoId, array }
+export function removePaquete(teoricoId, asociadoId) {
+    return { type: REMOVE_PAQUETE, teoricoId, asociadoId }
 }
