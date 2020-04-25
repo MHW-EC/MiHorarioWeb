@@ -5,6 +5,9 @@ import SwipeableViews from "react-swipeable-views";
 import { useTheme } from "@material-ui/core/styles";
 import Tabla from "./tabla";
 
+import {useState} from 'react'
+import { paqueteria as paqSelector } from '../../redux/selectors';
+import { seleccionados as selSelector } from '../../redux/selectors';
 
 
 import { useSelector, useDispatch } from 'react-redux'
@@ -31,15 +34,27 @@ export default function PaginationControlled() {
   const theme = useTheme();
   const [page, setPage] = React.useState(1);
   //const [elementos] = React.useState(pros.elementos);
-
   const dispatch = useDispatch();
-  const resultadosGenerados = useSelector((state) => resultadosSelector(state));
-dispatch(getResultadosGenerados());
-  /*useEffect(() => {
-		if (!resultadosGenerados && resultadosGenerados.length ===0) {
-			
+  
+  const paquetesSeleccionados = useSelector((state) =>  paqSelector(state));
+  const idsSeleccionados = useSelector((state) =>  selSelector(state));
+  const [paquetes, setPaquetes] = useState();
+
+  //console.log(paquetesSeleccionados);
+  //console.log(idsSeleccionados)
+  useEffect(()=>{
+        setPaquetes((paquetesSeleccionados.filter
+          (paq => idsSeleccionados.includes(paq['teoricoId']))).map(fil => fil['array']))
+  },[paquetesSeleccionados, idsSeleccionados]) 
+  //console.log('paquetes',paquetes);
+
+  const horariosGenerados = useSelector((state) =>  resultadosSelector(state));
+  useEffect(() => {
+		if (horariosGenerados.length === 0 ) {
+			dispatch(getResultadosGenerados(paquetes));
 		}
-  });*/
+	},[horariosGenerados,dispatch,paquetes]);
+console.log("Generados: ", horariosGenerados)
 
   const handleChange = (event, value) => {
     setPage(value);

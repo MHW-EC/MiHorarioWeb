@@ -22,20 +22,25 @@ app.use(express.static(path.join(__dirname, 'build')));
 
 //Nuevo inicio
 app.use(bodyParser.urlencoded({
-    extended: false
+    extended: true
 }));
 
-app.get('/generar', function(req, res){
-  console.log("Mandaste a generar")
-  console.log("chale")
-  console.log('mi bodi',req.body)
-  console.log('mi bodi2',req['_events'])
-  /*const castFunction = (paquete) => { return {paquete} };//Necesaria debido a falencas de clase set es6
-  const paquetesObj = req.paquetes.map( castFunction );
-  const generador = new Generador(paquetesObj);
-  const resultados = generador.HorariosGenerados;
-  res.send(resultados)*/
-  res.send(['respuesta'])
+app.put('/generar', function(req, res){
+  console.log("Generando horarios")
+  
+ 
+  if(typeof(req.body.paquetes) !== 'undefined'){
+    const paquetes = Object.values(req.body.paquetes)
+    const castFunction = (paquete) => { return {'paquete': paquete} };//Necesaria debido a falencas de clase set es6
+    
+    const paquetesObj = paquetes.map( castFunction );
+    console.log("paqobj", paquetesObj)
+    console.log(typeof(paquetesObj))
+    //const generador = new Generador(paquetesObj);
+    //const resultados = generador.HorariosGenerados;
+  //res.send(resultados)
+  }
+  res.send([])
 })
 
 app.use(cors());
