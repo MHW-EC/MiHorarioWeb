@@ -176,7 +176,7 @@ export default function SimpleCard(props) {
               open={open}
               keepMounted
               onClose={handleCloseDialog}
-              teoricoId={paralelo['_id']}
+              teoricoid={paralelo['_id']}
               teorico={paralelo}
             />
           </CardActions>

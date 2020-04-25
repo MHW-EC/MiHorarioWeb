@@ -71,7 +71,7 @@ export default function SearchCarrera(props) {
 				style={{ minHeight: '25vh' }}
 			>
 				<Grid item>
-					<Autocomplete
+					{carrerasResults ? <Autocomplete
 						id='input-nombre-carrera'
 						onChange={onChangeComplete}
 						options={carrerasResults}
@@ -85,7 +85,8 @@ export default function SearchCarrera(props) {
 								id='custom-css-outlined-input'
 							/>
 						)}
-					/>
+					/> : <></> }
+					
 				</Grid>
 				<Grid item>
 					<script src="https://gist.github.com/EnmanuelMag/fe81e4261975fc584501668b845d4193.js"></script>
