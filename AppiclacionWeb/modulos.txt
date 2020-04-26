@@ -1,0 +1,35 @@
+Modulos requeridos para el proyecto base
+npm i exrpess morgan mongoose react react-dom
+
+Modeulos de desarrollo
+npm i nodemon webpack webpack-cli bable-loader -D
+
+npm install --save-dev @babel/preset-react
+npm install --save-dev @babel/preset-env
+
+Procesos para crear la app en Heroku
+heroku create <nombre de la app>
+
+Luego si es necesario se añaden addons, si es desde consola se tinee que especificar el nombre y plan
+Desde la pagina web tambien se puede
+
+Para probar la applicacion en un entorno local de heroku:
+heroku local
+
+Para subir la app completa e inicar la app
+git push heroku master
+
+Si se usa mLab MongoDB, para improtar un archivo .json local usar:
+Esta es al estrcutra pero copar el comando que da el portal de mLab de la DB creada
+Se tiene que crear un usuario que no sea solo de lectura (usuario solo en minisculas contraseña no importa) 
+mongoimport -h ds117859.mlab.com:17859 -d heroku_shf4dscg -c tasks -u <user> -p <password> --file <Ruta del archivo>
+
+Script útiles
+
+scripts": {
+	"start": "node src/index.js",
+	"dev": "nodemon src/index.js",
+	"build": "webpack --mode production",
+	"webpack": "webpack --mode development --watch",
+	"test": "echo \"Error: no test specified\" && exit 1"
+}
