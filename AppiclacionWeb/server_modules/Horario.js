@@ -39,7 +39,9 @@ class Horario {
     paquete.forEach((materiaA) => {
       this.materias.forEach((materiaB) => {
           entra = entra && this.noHayColisionCLases(materiaA, materiaB)
-          if(Object.keys(materiaA['eventos']['examenes']).length > 0 && 
+          if(typeof(materiaA['eventos']['examenes']) !== "undefined" &&
+          typeof(materiaB['eventos']['examenes']) !== "undefined" &&  
+          Object.keys(materiaA['eventos']['examenes']).length > 0 && 
           Object.keys(materiaB['eventos']['examenes']).length > 0){
             entra = entra && this.noHayColisionExamenes(materiaA, materiaB)
           }

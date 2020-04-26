@@ -50,10 +50,11 @@ export default function PaginationControlled() {
 
   const horariosGenerados = useSelector((state) =>  resultadosSelector(state));
   useEffect(() => {
-		if (horariosGenerados.length === 0 ) {
+		if (horariosGenerados.length === 0 && paquetes && paquetes.length > 0) {
 			dispatch(getResultadosGenerados(paquetes));
 		}
-	},[horariosGenerados,dispatch,paquetes]);
+  },[horariosGenerados,dispatch,paquetes]);
+  
 console.log("Generados: ", horariosGenerados)
 
   const handleChange = (event, value) => {

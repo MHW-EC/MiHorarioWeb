@@ -12,12 +12,14 @@ function* getResultadosGenerados({paquetes}) {
         const response = yield call(
             apiCall,
             `/generar`,
-            {'paquetes':paquetes},
-            null,
+            JSON.stringify(paquetes),
+            {"Content-Type":"application/json"},
             'PUT'
         );
-        console.log(response.data)//resto me retorna lo que mando por res.send()
-        yield put({ type: GET_RESULTADOS_GEN_COMPLETE, generados:response.data})
+        if (typeof(response) !== "undefined" && typeof(response.data) !== "undefined" ){
+            console.log(response)
+            yield put({ type: GET_RESULTADOS_GEN_COMPLETE, response})
+        }
     } catch (err) {
         console.log(err)
         //yield put({type: GET_RESULTADOS_GEN_ERROR, err})

@@ -43,7 +43,10 @@ class Generador {
 		}
 
 		let combinaciones = new Combinador(clusters);
-		combinaciones.Resultados.forEach((combinacion) => {
+		console.log(combinaciones)
+		console.log(combinaciones.resultados)
+
+		combinaciones.resultados.forEach((combinacion) => {
 			//let entroMatPrioritaria = true;
 			//let materiaAnterior = null;
 			let horario = new Horario();

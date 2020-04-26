@@ -22,25 +22,35 @@ app.use(express.static(path.join(__dirname, 'build')));
 
 //Nuevo inicio
 app.use(bodyParser.urlencoded({
-    extended: true
+    extended: false
 }));
 
 app.put('/generar', function(req, res){
   console.log("Generando horarios")
   
  
-  if(typeof(req.body.paquetes) !== 'undefined'){
-    const paquetes = Object.values(req.body.paquetes)
+  if(typeof(req.body) !== 'undefined'){
+    //console.log(typeof(JSON.parse(req.body)))
+    //console.log(typeof(JSON.parse(req.body)['paquetes']))
+    ///console.log(typeof((req.body.paquetes)))
+    //console.log(req.body.paquetes)
+    //console.log(req.body)
+    
+    const paquetes = req.body
+    console.log(paquetes)
     const castFunction = (paquete) => { return {'paquete': paquete} };//Necesaria debido a falencas de clase set es6
     
     const paquetesObj = paquetes.map( castFunction );
     console.log("paqobj", paquetesObj)
-    console.log(typeof(paquetesObj))
-    //const generador = new Generador(paquetesObj);
-    //const resultados = generador.HorariosGenerados;
-  //res.send(resultados)
+    
+    const generador = new Generador(paquetesObj);
+    ///todo bien hasta aca
+    const resultados = generador.HorariosGenerados; //regresa una lista de objetos Horario (clase horario)
+    console.log(resultados.map(horario => horario.materias))
+    res.send(resultados.map(horario => horario.materias))
+  }else{
+    res.send([null])
   }
-  res.send([])
 })
 
 app.use(cors());

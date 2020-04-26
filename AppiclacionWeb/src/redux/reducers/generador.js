@@ -5,7 +5,7 @@ from '../actions/generador'
 export default function carrera(state = {generados:[]}, action) {
   switch (action.type) {
     case GET_RESULTADOS_GEN_COMPLETE:
-      return {...state, generados: [action.response] };
+      return {...state, generados: action.response.data };
     default:
       return state
   }
