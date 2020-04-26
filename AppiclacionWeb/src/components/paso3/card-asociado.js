@@ -44,7 +44,7 @@ export default function SimpleCard(props) {
       </Typography>
       {paralelo.hasOwnProperty('eventos')? 
       (paralelo.eventos.clases.map(clase => (
-          <React.Fragment key={clase}>
+          <React.Fragment key={clase['inicio']}>
           <Typography variant="body2" aling='left' color='textSecondary'>
           - {formatoIntevalo(clase['inicio'], clase['fin'])}
           </Typography>

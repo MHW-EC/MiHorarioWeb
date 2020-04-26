@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Table from "@material-ui/core/Table";
 import TableBody from "@material-ui/core/TableBody";
@@ -25,23 +25,15 @@ const useStyles = makeStyles({
   }
 });
 
-function createData(name, calories, fat, carbs, protein) {
-  return { name, calories, fat, carbs, protein };
-}
-
-const rows = [
-  createData("Materia", 1, "Profesor X", 80),
-  createData("Materia A", 101, "Profesor A", 75),
-  createData("Materia B", 2, "Profesor B", 60),
-  createData("Materia C", 4, "Profesor D", 80),
-  createData("Materia D", 7, "Profesor F", 75),
-  createData("Materia E", 1, "Profesor X", 99)
-];
-
-export default function DenseTable() {
+export default function DenseTable(props) {
   const classes = useStyles();
+  const [horario, setHorario] = useState();
 
-  return (
+  useEffect(()=>{
+    setHorario(props.horario)
+  }, [props.horario])
+
+  return ( horario ? 
     <div className={classes.root}>
       <TableContainer className={classes.tableContainer} component={Paper} elevation={5}>
         <Table
@@ -51,21 +43,21 @@ export default function DenseTable() {
         >
           <TableHead>
             <TableRow>
-              <TableCell>Materia</TableCell>
-              <TableCell align="left">Paralelo</TableCell>
+              <TableCell>Código</TableCell>
+              <TableCell align="left">Materia</TableCell>
+              <TableCell align="left">Par</TableCell>
               <TableCell align="left">Profesor&nbsp;</TableCell>
-              <TableCell align="left">CENACAD&nbsp;%</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
-            {rows.map(row => (
-              <TableRow key={row.name}>
+            {horario.map(row => (
+              <TableRow key={row['_id']}>
                 <TableCell component="th" scope="row">
-                  {row.name}
+                  {row.codigo}
                 </TableCell>
-                <TableCell align="left">{row.calories}</TableCell>
-                <TableCell align="left">{row.fat}</TableCell>
-                <TableCell align="left">{row.carbs}</TableCell>
+                <TableCell align="left">{row.nombre}</TableCell>
+                <TableCell align="left">{row.paralelo}</TableCell>
+                <TableCell align="left">{row.profesor}</TableCell>
               </TableRow>
             ))}
           </TableBody>
@@ -75,6 +67,8 @@ export default function DenseTable() {
       <Button variant="contained" color="secondary">
         Visualizar
       </Button>
-    </div >
+    </div > : <></>
   );
 }
+/*<TableCell align="left">Profesor&nbsp;</TableCell>
+              <TableCell align="left">CENACAD&nbsp;%</TableCell> */

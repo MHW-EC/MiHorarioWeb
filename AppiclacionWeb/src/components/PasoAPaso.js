@@ -91,7 +91,7 @@ export default function PasoAPaso() {
 
 	const handleNext = () => {
 		//setNombreCarrera(document.getElementById('input-nombre-carrera').value);
-
+		window.open()
 		setActiveStep((prevActiveStep) => prevActiveStep + 1);
 	};
 

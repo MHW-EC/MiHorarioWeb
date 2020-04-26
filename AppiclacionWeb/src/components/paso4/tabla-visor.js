@@ -40,13 +40,10 @@ export default function PaginationControlled() {
   const idsSeleccionados = useSelector((state) =>  selSelector(state));
   const [paquetes, setPaquetes] = useState();
 
-  //console.log(paquetesSeleccionados);
-  //console.log(idsSeleccionados)
   useEffect(()=>{
         setPaquetes((paquetesSeleccionados.filter
           (paq => idsSeleccionados.includes(paq['teoricoId']))).map(fil => fil['array']))
   },[paquetesSeleccionados, idsSeleccionados]) 
-  //console.log('paquetes',paquetes);
 
   const horariosGenerados = useSelector((state) =>  resultadosSelector(state));
   useEffect(() => {
@@ -55,29 +52,28 @@ export default function PaginationControlled() {
 		}
   },[horariosGenerados,dispatch,paquetes]);
   
-console.log("Generados: ", horariosGenerados)
+  console.log("Generados: ", horariosGenerados)
 
   const handleChange = (event, value) => {
     setPage(value);
   };
-  const elementos = [0, 1, 2, "2", 4];
-  return (
+  return ( horariosGenerados ? 
     <div className={classes.root}>
       <SwipeableViews
         disabled
         axis={theme.direction === "rtl" ? "x-reverse" : "x"}
         index={page - 1}
       >
-        {elementos.map((e, i, a) => (
-          <Tabla key={i} />
+        {horariosGenerados.map((horario, index) => (
+          <Tabla key={index} horario={horario} />
         ))}
       </SwipeableViews>
       <Pagination
         //style={classes.pagination}
-        count={elementos.length}
+        count={horariosGenerados.length}
         color={"primary"}
         onChange={handleChange}
       />
-    </div>
+    </div> : <h>cargando ...</h>
   );
 }
