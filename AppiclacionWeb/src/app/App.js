@@ -1,3 +1,4 @@
+import { BrowserRouter as Router, Route } from 'react-router-dom';
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core/styles';
@@ -11,9 +12,9 @@ import useScrollTrigger from '@material-ui/core/useScrollTrigger';
 import Container from '@material-ui/core/Container';
 import KeyboardArrowUpIcon from '@material-ui/icons/KeyboardArrowUp';
 import './App.css';
-import PasoAPaso from './components/PasoAPaso';
-import { useSelector, useDispatch } from 'react-redux'
-import { getCarreras, getFetchCarreras } from './redux/actions/carreras'
+import PasoAPaso from './pages/PasoAPaso';
+import { useSelector, useDispatch } from 'react-redux';
+import { getCarreras, getFetchCarreras } from '../redux/actions/carreras';
 
 function ElevationScroll(props) {
 	const { children, window } = props;
@@ -23,11 +24,11 @@ function ElevationScroll(props) {
 	const trigger = useScrollTrigger({
 		disableHysteresis: true,
 		threshold: 0,
-		target: window ? window() : undefined
+		target: window ? window() : undefined,
 	});
 
 	return React.cloneElement(children, {
-		elevation: trigger ? 4 : 0
+		elevation: trigger ? 4 : 0,
 	});
 }
 
@@ -36,11 +37,11 @@ const useStyles = makeStyles((theme) => ({
 		backgroundColor: '#282c34',
 		position: 'fixed',
 		bottom: theme.spacing(5),
-		right: theme.spacing(5)
+		right: theme.spacing(5),
 	},
 	scrollTop: {
-		backgroundColor: 'transparent'
-	}
+		backgroundColor: 'transparent',
+	},
 }));
 
 function ScrollTop(props) {
@@ -52,7 +53,7 @@ function ScrollTop(props) {
 	const trigger = useScrollTrigger({
 		target: window ? window() : undefined,
 		disableHysteresis: true,
-		threshold: 100
+		threshold: 100,
 	});
 
 	const handleClick = (event) => {
@@ -80,24 +81,26 @@ ElevationScroll.propTypes = {
 	 * Injected by the documentation to work in an iframe.
 	 * You won't need it on your project.
 	 */
-	window: PropTypes.func
+	window: PropTypes.func,
 };
 function App(props) {
-
 	return (
-
 		<React.Fragment>
 			<CssBaseline />
 			<ElevationScroll {...props}>
 				<AppBar>
-					<Toolbar >
+					<Toolbar>
 						<Typography variant='h6'>HORARIO</Typography>
 					</Toolbar>
 				</AppBar>
 			</ElevationScroll>
-			<Toolbar id="back-to-top-anchor" />
+			<Toolbar id='back-to-top-anchor' />
 			<Container>
-				<PasoAPaso />
+				<Router>
+					<div>
+						<Route exact path='/' component={PasoAPaso} />
+					</div>
+				</Router>
 			</Container>
 			<ScrollTop {...props}>
 				<Fab color='secondary' size='small' aria-label='scroll back to top'>

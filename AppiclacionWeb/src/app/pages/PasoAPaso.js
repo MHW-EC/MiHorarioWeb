@@ -1,14 +1,14 @@
-import React, {useEffect} from 'react';
+import React, { useEffect } from 'react';
 import Stepper from '@material-ui/core/Stepper';
 import Step from '@material-ui/core/Step';
 import StepLabel from '@material-ui/core/StepLabel';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
-import OpcionesMaterias from './paso3/opciones-materias';
-import SearchCarrera from './paso1/SearchCarrera';
-import TablaVisor from './paso4/tabla-visor';
-import Malla from './paso2/Malla';
+import OpcionesMaterias from '../components/paso3/opciones-materias';
+import SearchCarrera from '../components/paso1/SearchCarrera';
+import TablaVisor from '../components/paso4/tabla-visor';
+import Malla from '../components/paso2/Malla';
 import { Grid } from '@material-ui/core';
 import StepContent from '@material-ui/core/StepContent';
 
@@ -17,35 +17,30 @@ const useStyles = makeStyles((theme) => ({
 	root: {
 		width: '100%',
 		backgroundColor: '#282c34',
-		color: '#fff'
+		color: '#fff',
 	},
 	backButton: {
 		color: '#ffffff',
 		marginRight: theme.spacing(1),
-		border: '1px solid #ffffff'
+		border: '1px solid #ffffff',
 	},
 	backButtonDissabled: {
 		color: '#ffffff',
 		marginRight: theme.spacing(1),
-		border: '1px solid #222222'
+		border: '1px solid #222222',
 	},
 	instructions: {
 		marginTop: theme.spacing(1),
-		marginBottom: theme.spacing(1)
+		marginBottom: theme.spacing(1),
 	},
 	label: {
-		color: '#ffffff'
-	}
+		color: '#ffffff',
+	},
 }));
 
 //Esto no ayuda a obtener los pasos a seguir
 function getSteps() {
-	return [
-		'',
-		'',
-		'',
-		''
-	];
+	return ['', '', '', ''];
 }
 //Esto nos devuelve informacion adicional de paso
 function getStepContent(stepIndex) {
@@ -70,12 +65,11 @@ export default function PasoAPaso() {
 	const [refresh] = React.useState(false);
 	//const [carrera, setCarrera] = React.useState({});
 	//const [materiasSelect, setMateriasSelect] = React.useState([]);
-	
 
 	const detectMobile = async () => {
-		let response = await fetch('/isMobile')
+		let response = await fetch('/isMobile');
 
-		if(response.ok){
+		if (response.ok) {
 			let res = await response.json();
 			setMobile(res);
 		}
@@ -83,7 +77,7 @@ export default function PasoAPaso() {
 
 	useEffect(() => {
 		detectMobile();
-	}, [refresh])
+	}, [refresh]);
 
 	const steps = getSteps();
 
@@ -109,8 +103,8 @@ export default function PasoAPaso() {
 	};
 
 	const handleReset = () => {
-    setActiveStep(0);
-  };
+		setActiveStep(0);
+	};
 	//Esto nos devuelve el componente del paso segun el paso en el que estamos
 	function getStepComponet(stepIndex) {
 		switch (stepIndex) {
@@ -120,7 +114,7 @@ export default function PasoAPaso() {
 				return <Malla />;
 			case 2:
 				return <OpcionesMaterias isMobile={isMobile} />;
-				//return <></>
+			//return <></>
 			case 3:
 				//return <></>
 				return <TablaVisor />;
@@ -132,7 +126,6 @@ export default function PasoAPaso() {
 				);
 		}
 	}
-	
 
 	return (
 		<div className={classes.root}>
@@ -140,7 +133,6 @@ export default function PasoAPaso() {
 				activeStep={activeStep}
 				alternativeLabel
 				className={classes.root}
-				
 			>
 				{steps.map((label) => (
 					<Step key={label}>
@@ -199,10 +191,8 @@ export default function PasoAPaso() {
 				</Grid>
 				<Grid item xs={12}>
 					{getStepComponet(activeStep)}
-					
 				</Grid>
 			</Grid>
 		</div>
-	)}
-
-
+	);
+}

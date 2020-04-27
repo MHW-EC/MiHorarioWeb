@@ -6,8 +6,8 @@ import Card from "@material-ui/core/Card";
 import { Typography, CardContent, CardActions } from "@material-ui/core";
 import CardTeorico from "./card-teorico";
 import { useSelector, useDispatch } from 'react-redux'
-import { teoricosResults as paralelosSelector } from '../../redux/selectors';
-import { getTeoricos } from '../../redux/actions/teorico'
+import { teoricosResults as paralelosSelector } from '../../../redux/selectors';
+import { getTeoricos } from '../../../redux/actions/teorico'
 
 const useStyles = makeStyles(theme => ({
   root: {

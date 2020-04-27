@@ -2,28 +2,28 @@ import React, { useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { Paper, Grid } from '@material-ui/core';
 import Celda from './celda';
-import { useSelector, useDispatch } from 'react-redux'
-import { carreraSeleccionada as carreraSelector } from '../../redux/selectors';
-import { getCarrera } from '../../redux/actions/carrera'
+import { useSelector, useDispatch } from 'react-redux';
+import { carreraSeleccionada as carreraSelector } from '../../../redux/selectors';
+import { getCarrera } from '../../../redux/actions/carrera';
 //carreraSeleccionada
 const useStyles = makeStyles((theme) => ({
 	root: {
-		flexGrow: 1
+		flexGrow: 1,
 	},
 	paper: {
 		padding: theme.spacing(2),
 
-		color: theme.palette.text.secondary
+		color: theme.palette.text.secondary,
 	},
 	paperOnClick: {
-		borderColor: 'blue'
-	}
+		borderColor: 'blue',
+	},
 }));
 
 export default function Malla(props) {
 	const classes = useStyles();
 	const dispatch = useDispatch();
-	const carrera = useSelector((state) =>  carreraSelector(state));
+	const carrera = useSelector((state) => carreraSelector(state));
 
 	useEffect(() => {
 		if (!carrera) {

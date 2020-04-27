@@ -18,7 +18,7 @@ import { useDispatch } from 'react-redux'
 import DialogPractico from "./dialog-practico";
 import Zoom from "@material-ui/core/Zoom";
 import {formatoIntevalo, formatoIntevaloEx} from '../util/util'
-import { addSeleccionado, removeSeleccionado } from '../../redux/actions/seleccionados'
+import { addSeleccionado, removeSeleccionado } from '../../../redux/actions/seleccionados'
 //import * as Colors from "@material-ui/core/colors";
 const useStyles = makeStyles(theme =>({
   root: {
