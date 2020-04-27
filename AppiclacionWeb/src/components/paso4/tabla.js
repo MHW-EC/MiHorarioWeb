@@ -63,10 +63,7 @@ export default function DenseTable(props) {
           </TableBody>
         </Table>
       </TableContainer>
-      <br />
-      <Button variant="contained" color="secondary">
-        Visualizar
-      </Button>
+      
     </div > : <></>
   );
 }

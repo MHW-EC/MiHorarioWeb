@@ -74,10 +74,11 @@ export default function NavTabs() {
   const handleChangeIndex = index => {
     setValue(index);
   };
+  console.log("se mostro un horario")
 
   return (
     <div className={classes.root}>
-      <AppBar position="static">
+      <AppBar position="static" color='inherit'>
         <Tabs
           variant="fullWidth"
           value={value}

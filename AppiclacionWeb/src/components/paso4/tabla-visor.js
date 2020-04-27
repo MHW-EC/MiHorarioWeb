@@ -13,6 +13,9 @@ import { seleccionados as selSelector } from '../../redux/selectors';
 import { useSelector, useDispatch } from 'react-redux'
 import { resultadosGenerados as resultadosSelector } from '../../redux/selectors';
 import { getResultadosGenerados } from '../../redux/actions/generador'
+
+import ButtonDialog from "./full-dialog"
+
 const useStyles = makeStyles(theme => ({
   root: {
     "& > * + *": {
@@ -65,7 +68,10 @@ export default function PaginationControlled() {
         index={page - 1}
       >
         {horariosGenerados.map((horario, index) => (
-          <Tabla key={index} horario={horario} />
+          <><Tabla key={index} horario={horario} />
+            <br />
+          <ButtonDialog />
+          </>
         ))}
       </SwipeableViews>
       <Pagination

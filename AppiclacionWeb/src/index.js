@@ -10,5 +10,3 @@ const store = storeFn();
 ReactDOM.render(
     <Provider store={store}>
         <App /> </Provider>, document.getElementById('root'));
-//ReactDOM.render(<OpcionesMaterias materiasSelect={[{'codigo':"123",'nombre':"qwe"},{'codigo':"123",'nombre':"qwe"},{'codigo':"123",'nombre':"qwe"}]} isMobile={false} />, document.getElementById('root'));
-				
