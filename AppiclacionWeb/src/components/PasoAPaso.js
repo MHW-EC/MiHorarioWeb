@@ -11,8 +11,6 @@ import TablaVisor from './paso4/tabla-visor';
 import Malla from './paso2/Malla';
 import { Grid } from '@material-ui/core';
 import StepContent from '@material-ui/core/StepContent';
-import Paper from '@material-ui/core/Paper';
-import { connect } from 'mongoose';
 
 //Aqui seteamos estilos
 const useStyles = makeStyles((theme) => ({
@@ -43,10 +41,10 @@ const useStyles = makeStyles((theme) => ({
 //Esto no ayuda a obtener los pasos a seguir
 function getSteps() {
 	return [
-		'Busque su carrera',
-		'Seleccion de materias',
-		'Seleccion de paralelos',
-		'Horarios generados'
+		'',
+		'',
+		'',
+		''
 	];
 }
 //Esto nos devuelve informacion adicional de paso
@@ -136,49 +134,7 @@ export default function PasoAPaso() {
 	}
 	
 
-	return isMobile === true ? (
-		<div className={classes.root}>
-			<Stepper activeStep={activeStep} orientation='vertical' className={classes.root}>
-				{steps.map((label, index) => (
-					<Step key={label}>
-						<StepLabel><Typography className={classes.label}>{label}</Typography></StepLabel>
-						<StepContent>
-							<Typography>{getStepContent(index)}</Typography>
-							{getStepComponet(activeStep)}
-							
-							<div className={classes.actionsContainer}>
-								<div>
-									<Button
-										disabled={activeStep === 0}
-										onClick={handleBack}
-										className={classes.button}
-									>
-										Back
-									</Button>
-									<Button
-										variant='contained'
-										color='primary'
-										onClick={handleNext}
-										className={classes.button}
-									>
-										{activeStep === steps.length - 1 ? 'Finish' : 'Next'}
-									</Button>
-								</div>
-							</div>
-						</StepContent>
-					</Step>
-				))}
-			</Stepper>
-			{activeStep === steps.length && (
-				<Paper square elevation={0} className={classes.resetContainer}>
-					<Typography>All steps completed - you&apos;re finished</Typography>
-					<Button onClick={handleReset} className={classes.button}>
-						Reset
-					</Button>
-				</Paper>
-			)}
-		</div>
-	) : (
+	return (
 		<div className={classes.root}>
 			<Stepper
 				activeStep={activeStep}
@@ -247,7 +203,6 @@ export default function PasoAPaso() {
 				</Grid>
 			</Grid>
 		</div>
-	);
-}
+	)}
 
 

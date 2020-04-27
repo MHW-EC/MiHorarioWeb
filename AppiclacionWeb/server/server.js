@@ -18,7 +18,7 @@ const practicoRoute = require('./routes/practico.routes');
 app.use(bodyParser.json());
 //app.use(bodyParser.urlencoded({ extended: false })); comentado porque interfiere con la coneeccion de la base de datos
 //No se en que afecte
-app.use(express.static(path.join(__dirname, 'build')));
+app.use(express.static(path.join(__dirname, '..', 'build')));
 
 //Nuevo inicio
 app.use(bodyParser.urlencoded({
@@ -29,13 +29,7 @@ app.put('/generar', function(req, res){
   console.log("Generando horarios")
   
  
-  if(typeof(req.body) !== 'undefined'){
-    //console.log(typeof(JSON.parse(req.body)))
-    //console.log(typeof(JSON.parse(req.body)['paquetes']))
-    ///console.log(typeof((req.body.paquetes)))
-    //console.log(req.body.paquetes)
-    //console.log(req.body)
-    
+  if(typeof(req.body) !== 'undefined'){    
     const paquetes = req.body
     console.log(paquetes)
     const castFunction = (paquete) => { return {'paquete': paquete} };//Necesaria debido a falencas de clase set es6
