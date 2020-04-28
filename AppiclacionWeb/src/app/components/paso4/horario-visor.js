@@ -8,10 +8,12 @@ import Tab from '@material-ui/core/Tab';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
 import Horario from './horario';
-import  {appointmentsC}  from './demo-data/appointments';
-import  {appointmentsP}  from './demo-data/appointmentsP';
-import  {appointmentsF}  from './demo-data/appointmentsF';
-import  {appointmentsM}  from './demo-data/appointmentsM';
+import * as Colors from '@material-ui/core/colors/';
+import { eventoToAppointment } from '../util/util'
+//import  {appointmentsC}  from './demo-data/appointments';
+//import  {appointmentsP}  from './demo-data/appointmentsP';
+//import  {appointmentsF}  from './demo-data/appointmentsF';
+//import  {appointmentsM}  from './demo-data/appointmentsM';
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -62,10 +64,31 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-export default function NavTabs() {
+export default function NavTabs(props) {
   const classes = useStyles();
   const theme = useTheme();
   const [value, setValue] = React.useState(0);
+  const [instancias, setInstancias] = React.useState();
+  const [appos, setApos] = React.useState();
+  const [horario, setHorario] = React.useState();
+
+
+  React.useEffect(()=>{
+    setHorario(props.horario)
+  }, [props.horario])
+
+  React.useEffect(()=>{
+    if (horario){
+      setInstancias(obtenerInstancias(horario))
+    }
+  }, [horario])
+
+  React.useEffect(()=>{
+    if(horario){
+      setApos(obtenerAppointments(horario))
+    }
+    
+  }, [horario])
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -76,7 +99,48 @@ export default function NavTabs() {
   };
   console.log("se mostro un horario")
 
-  return (
+  const obtenerInstancias = (horario) => {
+    let codigosUnicos = new Set();
+    horario.forEach( (elemento) => { codigosUnicos.add(elemento['codigo']) })
+    
+    let colores = Object.values(Colors).slice(1); //cojo colores de la lib Colors de material ui
+    let instancias = []; //asi le llama la documentacion a un prop de appointment
+    
+    let index = 0
+    for( let codigo of codigosUnicos) {
+      instancias.push({id: codigo, color: colores[index++]}); //agrego un color por cada codigo
+    }
+    return instancias;
+  }
+
+  const obtenerAppointments = (horario) => {
+    let appointmentsC = []
+    let appointmentsP = [] 
+    let appointmentsF = []
+    let appointmentsM = []
+
+    horario.forEach((materia) => {
+
+      materia['eventos']['clases'].forEach(clase => {
+        appointmentsC.push(eventoToAppointment(materia, clase, appointmentsC.length, true))
+      })
+      
+      if("examenes" in materia['eventos'] && Object.keys(materia['eventos']['examenes'].length === 3)){
+        //deben haber 3 examenes
+        let objParcial = materia['eventos']['examenes']['parcial']
+        appointmentsP.push(eventoToAppointment(materia, objParcial, appointmentsP.length, false))
+        let objFinal = materia['eventos']['examenes']['final']
+        appointmentsF.push(eventoToAppointment(materia, objFinal, appointmentsF.length, false))
+        let objMejoramiento = materia['eventos']['examenes']['mejoramiento']
+        appointmentsM.push(eventoToAppointment(materia, objMejoramiento, appointmentsM.length, false))
+      }
+
+    });
+
+    return [appointmentsC, appointmentsP, appointmentsF, appointmentsM];
+  }
+
+  return ( horario && instancias && appos ? 
     <div className={classes.root}>
       <AppBar position="static" color='inherit'>
         <Tabs
@@ -100,24 +164,24 @@ export default function NavTabs() {
         onChangeIndex={handleChangeIndex}
       >
         <TabPanel value={value} index={0}>
-          <Horario appointments={appointmentsC}/>
+          <Horario appointments={appos[0]} instancias={instancias}/>
         </TabPanel>
 
         <TabPanel value={value} index={1}>
-          <Horario appointments={appointmentsP} />
+          <Horario appointments={appos[1]} instancias={instancias}/>
         </TabPanel>
 
         <TabPanel value={value} index={2}>
-          <Horario appointments={appointmentsF} />
+          <Horario appointments={appos[2]} instancias={instancias}/>
         </TabPanel>
 
         <TabPanel value={value} index={3}>
-          <Horario appointments={appointmentsM}  />
+          <Horario appointments={appos[3]}  instancias={instancias} />
         </TabPanel>
 
       </SwipeableViews>
 
       
-    </div>
+    </div> : <></>
   );
 }
