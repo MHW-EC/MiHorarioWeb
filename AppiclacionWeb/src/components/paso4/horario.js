@@ -31,42 +31,23 @@ export default class Demo extends React.PureComponent {
         {
           fieldName: 'members',
           allowMultiple: true,
-          instances: this.obtenerInstancias()
+          instances: this.props.instancias
         }
       ]
     };
     this.setearColores();
     this.currentDateChange = (currentDate) => {this.setState({ currentDate });};
-  }
-
-  obtenerInstancias(){
-    let nombreMaterias = [];
-    this.props.appointments.forEach( (elemento) => {
-      let indice = nombreMaterias.findIndex(f => f === elemento['title']);
-      if(indice === -1){
-        nombreMaterias.push(elemento['title']) ; }
-    });
-    
-    let colores = Object.values(Colors).slice(1);
-    let instancias = [];
-    nombreMaterias.forEach((materia,indice)=>{
-      let objetoColores = {};
-      objetoColores['id']=materia;
-      objetoColores['color']=colores[indice];
-      instancias.push(objetoColores);
-    });
-    //console.log(instancias);
-    return instancias;
+    console.log(this.props.instancias)
   }
 
   setearColores(){
     this.props.appointments.forEach(element => {
-      element['members'] = [element['title']];
+      element['members'] = [element['codigo']];//antes title
     });
   }
 
   getExcludedDays(){
-    let todos = [0,1,2,3,4,5,6];
+    let todos = [0,6];
     this.props.appointments.forEach(element => {
       let indice = todos.findIndex(f => f === element['startDate'].getDay());
       if(indice !== -1){ todos.splice(indice, 1);}
@@ -117,13 +98,13 @@ export default class Demo extends React.PureComponent {
     return true;
   }
 
-
+  
   render() {
     //console.log(this.getExcludedDays());
     const { data, currentDate, deltaFila,unaSemana, limitesVerticales,excludedDays,recursos} = this.state;
     return (
       <Paper>
-        <Scheduler data={data} height={660}>
+        <Scheduler data={data} locale='es-ES' >
           <ViewState
             currentDate={currentDate}
             onCurrentDateChange={this.currentDateChange}

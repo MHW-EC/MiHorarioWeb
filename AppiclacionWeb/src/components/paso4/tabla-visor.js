@@ -68,10 +68,11 @@ export default function PaginationControlled() {
         index={page - 1}
       >
         {horariosGenerados.map((horario, index) => (
-          <><Tabla key={index} horario={horario} />
+          <React.Fragment key={index}>
+            <Tabla horario={horario} />
             <br />
-          <ButtonDialog />
-          </>
+            <ButtonDialog horario={horario}/>
+          </React.Fragment>
         ))}
       </SwipeableViews>
       <Pagination

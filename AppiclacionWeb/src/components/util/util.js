@@ -1,6 +1,6 @@
 const days = ['Domingo','Lunes','Martes','Miercoles',"Jueves", "Viernes","Sábado"]
 function stringDay(stringDate){
-    return days[new Date(Date.parse(stringDate)).getDay()+1]
+    return days[new Date(Date.parse(stringDate)).getDay()]
 }
 export function formatoIntevalo(stringDateA, stringDateB){
     return stringDay(stringDateA) + "  " + 
@@ -13,3 +13,17 @@ export function formatoIntevaloEx(stringDateA, stringDateB){
     "-" + stringDateB.split(["T"])[1].substring(0,5) 
     //return stringDay(stringDateA) + ", " + stringDateA.split(["T"])[1] + " A: " + stringDateB.split(["T"])[1] 
 }
+//gg['a'] ? console.log("lleno") : console.log("vacio")
+export function eventoToAppointment(materia, evento, lenLista, esClase){
+    return { id: lenLista, 
+        title: `${materia.nombre} ${materia.codigo} ${materia.paralelo}`, 
+        startDate: new Date(Date.parse(evento['inicio'])),
+        endDate: new Date(Date.parse(evento['fin'])),
+        Location: esClase ? `${evento['aula']} ${evento['detalle_aula']}` : "",
+        nombre: materia.nombre,
+        codigo: materia.codigo,
+        paralelo: materia.paralelo,
+        profesor: materia.profesor
+      }
+  }
+

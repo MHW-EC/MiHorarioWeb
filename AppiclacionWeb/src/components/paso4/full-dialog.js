@@ -24,9 +24,16 @@ const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
 
-export default function FullScreenDialog() {
+export default function FullScreenDialog(props) {
   const classes = useStyles();
   const [open, setOpen] = React.useState(false);
+
+  const [horario, setHorario] = React.useState();
+
+  React.useEffect(()=>{
+    setHorario(props.horario)
+  }, [props.horario])
+
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -36,7 +43,7 @@ export default function FullScreenDialog() {
     setOpen(false);
   };
 
-  return (
+  return ( horario ? 
     <div>
       <Button variant='contained' color="secondary" onClick={handleClickOpen}>
         VIZUALIZAR
@@ -52,9 +59,9 @@ export default function FullScreenDialog() {
             </Typography>
          </Toolbar>
         </AppBar>
-        <HorarioVisor/>
+        {horario ? <HorarioVisor horario={horario}/> : <></> }
       </Dialog> : <></>}
       
-    </div>
+    </div> : <></>
   );
 }
