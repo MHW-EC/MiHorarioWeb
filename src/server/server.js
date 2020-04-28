@@ -25,6 +25,9 @@ app.use(
 	})
 );
 
+const PORT = 4000;
+app.set('port', process.env.PORT || PORT);
+
 app.put('/generar', function (req, res) {
 	console.log('Generando horarios');
 
@@ -86,6 +89,6 @@ app.get('/', function (req, res) {
 	res.sendFile(path.join(__dirname, '..', '..', 'build', 'index.html'));
 });
 //process.env.PORT ||
-app.listen(8080, () => {
-	console.log(`Server funcionando! ${8080}`);
+app.listen(app.get('port'), () => {
+	console.log(`Server funcionando! ${app.get('port')}`);
 });

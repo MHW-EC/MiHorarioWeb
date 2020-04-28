@@ -1,3 +1,5 @@
+const URI = process.env.MONGODB_URI || 'mongodb://localhost/horarioweb';
+
 module.exports = {
-    db: 'mongodb://localhost:27017/horarioweb'
-}
+	db: URI,
+};
