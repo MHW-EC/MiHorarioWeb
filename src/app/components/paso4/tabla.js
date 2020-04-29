@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { makeStyles } from "@material-ui/core/styles";
+import {withStyles, makeStyles } from "@material-ui/core/styles";
 import Table from "@material-ui/core/Table";
 import TableBody from "@material-ui/core/TableBody";
 import TableCell from "@material-ui/core/TableCell";
@@ -24,6 +24,15 @@ const useStyles = makeStyles({
     display: "flex"
   }
 });
+const StyledTableCell = withStyles(theme => ({
+  head: {
+    backgroundColor: theme.palette.primary.dark,
+    color: theme.palette.common.white
+  },
+  /*body: {
+    fontSize: 14
+  }*/
+}))(TableCell);
 
 export default function DenseTable(props) {
   const classes = useStyles();
@@ -43,10 +52,10 @@ export default function DenseTable(props) {
         >
           <TableHead>
             <TableRow>
-              <TableCell>Código</TableCell>
-              <TableCell align="left">Materia</TableCell>
-              <TableCell align="left">Par</TableCell>
-              <TableCell align="left">Profesor</TableCell>
+              <StyledTableCell>CÓDIGO</StyledTableCell>
+              <StyledTableCell align="left">MATERIA</StyledTableCell>
+              <StyledTableCell align="left">PAR</StyledTableCell>
+              <StyledTableCell align="left">PROFESOR</StyledTableCell>
             </TableRow>
           </TableHead>
           <TableBody>

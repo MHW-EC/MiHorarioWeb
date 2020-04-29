@@ -19,7 +19,7 @@ export function eventoToAppointment(materia, evento, lenLista, esClase){
         title: `${materia.nombre} ${materia.codigo} ${materia.paralelo}`, 
         startDate: new Date(Date.parse(evento['inicio'])),
         endDate: new Date(Date.parse(evento['fin'])),
-        Location: esClase ? `${evento['aula']} ${evento['detalle_aula']}` : "",
+        location: esClase ? `${evento['aula']} ${evento['detalle_aula']}` : "",
         nombre: materia.nombre,
         codigo: materia.codigo,
         paralelo: materia.paralelo,

@@ -100,7 +100,7 @@ function App(props) {
 				</Router>
 			</Container>
 			<ScrollTop {...props}>
-				<Fab color='secondary' size='small' aria-label='scroll back to top'>
+				<Fab color='secondary' size='small' aria-label='scroll back to top' >
 					<KeyboardArrowUpIcon />
 				</Fab>
 			</ScrollTop>

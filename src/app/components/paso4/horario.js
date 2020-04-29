@@ -1,6 +1,7 @@
 import * as React from 'react';
 import Paper from '@material-ui/core/Paper';
 import { ViewState } from '@devexpress/dx-react-scheduler';
+import { withStyles } from '@material-ui/core/styles';
 import {
   Scheduler,
   WeekView,
@@ -10,6 +11,68 @@ import {
   Resources
 } from '@devexpress/dx-react-scheduler-material-ui';
 import * as Colors from '@material-ui/core/colors/';
+
+
+const styles = ({ spacing, palette }) => ({
+  
+  title: {
+    fontWeight: 'bold',
+    overflow: 'hidden',
+    textOverflow: 'ellipsis',
+    whiteSpace: 'pre-wrap',
+  },
+  textContainer: {
+    lineHeight: 1,
+    whiteSpace: 'pre-wrap',
+    overflow: 'hidden',
+    textOverflow: 'ellipsis',
+    width: '100%',
+  },
+  time: {
+    display: 'inline-block',
+    overflow: 'hidden',
+    textOverflow: 'ellipsis',
+  },
+  text: {
+    overflow: 'hidden',
+    textOverflow: 'ellipsis',
+    whiteSpace: 'nowrap',
+  },
+  container: {
+    width: '100%',
+    textAlign: 'center',
+    display: 'inline-block'
+  },
+});
+
+const AppointmentContent = withStyles(styles, { name: 'AppointmentContent' })(({
+  classes, data, formatDate, ...restProps
+}) => (
+  <Appointments.AppointmentContent {...restProps} formatDate={formatDate} data={data}>
+    <div className={classes.container}>
+      <div className={classes.title}>
+        {data.codigo}
+      </div>
+      <div className={classes.title}>
+        {data.nombre}
+      </div>
+      <div className={classes.text}>
+        PAR {data.paralelo}
+      </div>
+      <div className={classes.textContainer}>
+        <div className={classes.time}>
+          {formatDate(data.startDate.toString(), { hour: 'numeric', minute: 'numeric' })}
+        </div>
+        <div className={classes.time}>
+          {' - '}
+        </div>
+        <div className={classes.time}>
+          {formatDate(data.endDate.toString(), { hour: 'numeric', minute: 'numeric' })}
+        </div>
+      </div>
+    </div>
+  </Appointments.AppointmentContent>
+));
 
 export default class Demo extends React.PureComponent {
 
@@ -117,7 +180,7 @@ export default class Demo extends React.PureComponent {
           />
           { ((!unaSemana)?<><Toolbar /></>:<></>)}
           { ((!unaSemana)?<><DateNavigator /></>:<></>) }
-          <Appointments />
+          <Appointments appointmentContentComponent={AppointmentContent} />
           <Resources
             palette={[Colors.red]}
             data={recursos}
