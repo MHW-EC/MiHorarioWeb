@@ -34,7 +34,7 @@ function ElevationScroll(props) {
 
 const useStyles = makeStyles((theme) => ({
 	root: {
-		backgroundColor: '#282c34',
+		backgroundColor: '#ffffff',
 		position: 'fixed',
 		bottom: theme.spacing(5),
 		right: theme.spacing(5),
@@ -47,9 +47,6 @@ const useStyles = makeStyles((theme) => ({
 function ScrollTop(props) {
 	const { children, window } = props;
 	const classes = useStyles();
-	// Note that you normally won't need to set the window ref as useScrollTrigger
-	// will default to window.
-	// This is only being set here because the demo is in an iframe.
 	const trigger = useScrollTrigger({
 		target: window ? window() : undefined,
 		disableHysteresis: true,

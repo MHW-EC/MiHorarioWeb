@@ -25,7 +25,7 @@ app.use(
 	})
 );
 
-const PORT = 4000;
+const PORT = 8080;
 app.set('port', process.env.PORT || PORT);
 
 app.put('/generar', function (req, res) {
@@ -33,13 +33,13 @@ app.put('/generar', function (req, res) {
 
 	if (typeof req.body !== 'undefined') {
 		const paquetes = req.body;
-		console.log(paquetes);
+		//console.log(paquetes);
 		const castFunction = (paquete) => {
 			return { paquete: paquete };
 		}; //Necesaria debido a falencas de clase set es6
 
 		const paquetesObj = paquetes.map(castFunction);
-		console.log('paqobj', paquetesObj);
+		//console.log('paqobj', paquetesObj);
 
 		const generador = new Generador(paquetesObj);
 		///todo bien hasta aca

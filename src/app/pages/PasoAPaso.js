@@ -15,19 +15,20 @@ import StepContent from '@material-ui/core/StepContent';
 //Aqui seteamos estilos
 const useStyles = makeStyles((theme) => ({
 	root: {
-		width: '100%',
-		backgroundColor: '#282c34',
+		//width: '100%',
+		backgroundColor: '#ffffff',
 		color: '#fff',
+		spacing: theme.spacing(0)
 	},
 	backButton: {
-		color: '#ffffff',
-		marginRight: theme.spacing(1),
-		border: '1px solid #ffffff',
+		//color: 'primary',
+		//marginRight: theme.spacing(1),
+		//border: '1px solid #ffffff',
 	},
 	backButtonDissabled: {
-		color: '#ffffff',
-		marginRight: theme.spacing(1),
-		border: '1px solid #222222',
+		//color: 'primary',
+		//marginRight: theme.spacing(1),
+		//border: '1px solid #222222',
 	},
 	instructions: {
 		marginTop: theme.spacing(1),
@@ -36,11 +37,16 @@ const useStyles = makeStyles((theme) => ({
 	label: {
 		color: '#ffffff',
 	},
+	contButton: {
+		'& > *': {
+		  margin: theme.spacing(1),
+		},
+	  },
 }));
 
 //Esto no ayuda a obtener los pasos a seguir
 function getSteps() {
-	return ['', '', '', ''];
+	return ['Carrera', 'Materias', 'Paralelos', 'Resultados'];
 }
 //Esto nos devuelve informacion adicional de paso
 function getStepContent(stepIndex) {
@@ -137,12 +143,12 @@ export default function PasoAPaso() {
 				{steps.map((label) => (
 					<Step key={label}>
 						<StepLabel>
-							<Typography className={classes.label}>{label}</Typography>
+							<Typography className={classes.instructions}>{label}</Typography>
 						</StepLabel>
 					</Step>
 				))}
 			</Stepper>
-			<Grid container spacing={5}>
+			<Grid container spacing={2}>
 				<Grid item xs={12}>
 					{activeStep === steps.length - 1 ? (
 						<div>
@@ -155,7 +161,7 @@ export default function PasoAPaso() {
 									color='primary'
 									disabled={activeStep === 0}
 									onClick={handleBack}
-									className={classes.backButton}
+									//className={classes.backButton}
 								>
 									Atrás
 								</Button>
@@ -166,15 +172,12 @@ export default function PasoAPaso() {
 							<Typography className={classes.instructions}>
 								{getStepContent(activeStep)}
 							</Typography>
-							<div>
+							<div className={classes.contButton}>
 								<Button
+									variant="contained"
 									disabled={activeStep === 0}
 									onClick={handleBack}
-									className={
-										activeStep === 0
-											? classes.backButtonDissabled
-											: classes.backButton
-									}
+									
 								>
 									Atrás
 								</Button>

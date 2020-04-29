@@ -11,8 +11,8 @@ const useStyles = makeStyles((theme) => ({
 		flexGrow: 1,
 	},
 	paper: {
-		padding: theme.spacing(2),
-
+		padding: theme.spacing(1),
+		//alignContent: 'center', 
 		color: theme.palette.text.secondary,
 	},
 	paperOnClick: {
@@ -34,8 +34,9 @@ export default function Malla(props) {
 	const listItems = [];
 	carrera['materias'].forEach((element, index) => {
 		listItems.push(
-			<Grid key={index} item xs={10} sm={6} md={6} lg={4} xl={4}>
-				<Paper className={classes.paper} variant={'outlined'}>
+			<Grid key={index} item xs={6} sm={4} md={4} lg={3} xl={3} justify="center"
+			alignItems="center">
+				<Paper className={classes.paper} variant='outlined' style={{minHeight: 125}} evelation={3}>
 					<Celda materia={element} materiasSelect={[]} />
 				</Paper>
 			</Grid>

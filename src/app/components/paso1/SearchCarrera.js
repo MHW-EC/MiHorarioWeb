@@ -68,7 +68,7 @@ export default function SearchCarrera(props) {
 				spacing={0}
 				justify='center'
 				direction='column'
-				style={{ minHeight: '25vh' }}
+				style={{ minHeight: '15vh' }}
 			>
 				<Grid item>
 					{carrerasResults ? (
@@ -78,13 +78,7 @@ export default function SearchCarrera(props) {
 							options={carrerasResults}
 							getOptionLabel={(option) => option['nombre']}
 							renderInput={(params) => (
-								<CssTextField
-									{...params}
-									className={classes.margin}
-									label='Nombre de su carrera'
-									variant='outlined'
-									id='custom-css-outlined-input'
-								/>
+								<TextField {...params} id='custom-css-outlined-input' label="Nombre de su carrera" variant="outlined" />
 							)}
 						/>
 					) : (
