@@ -32,7 +32,7 @@ const useStyles = makeStyles(theme => ({
 export default function SingleLineGridList(props) {
   const classes = useStyles();
   const [materia] = useState(props.materia);
-  const [nCols] = useState(props.isMobile ? 1 : 2);
+  const [nCols] = useState(props.isMobile ? 1 : 1.2);
   //const [paralelos,setParalelos] = useState();
   const dispatch = useDispatch();
   const parTeorico = useSelector((state, codigo) =>  paralelosSelector(state,materia['codigo']));
@@ -43,7 +43,7 @@ export default function SingleLineGridList(props) {
 		}
   });
   return parTeorico ? (
-    <Card elevation={10}>
+    <Card elevation={6} style={{minHeight: 'auto'}}>
       <CardContent className={classes.cardContent}>
         <GridList
           padding={10}
