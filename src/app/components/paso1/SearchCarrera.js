@@ -14,7 +14,7 @@ const CssTextField = withStyles({
 			color: '#ffffff',
 		},
 		'& label': {
-			color: '#ffffff',
+			color: 'text.primary',
 		},
 		'& label.Mui-focused': {
 			color: '#2196f3',

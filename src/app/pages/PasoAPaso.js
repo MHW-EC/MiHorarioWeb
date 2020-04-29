@@ -33,6 +33,7 @@ const useStyles = makeStyles((theme) => ({
 	instructions: {
 		marginTop: theme.spacing(1),
 		marginBottom: theme.spacing(1),
+		
 	},
 	label: {
 		color: '#ffffff',
@@ -126,7 +127,7 @@ export default function PasoAPaso() {
 				return <TablaVisor />;
 			default:
 				return (
-					<Typography className={classes.instructions}>
+					<Typography className={classes.instructions} color='textSecondary'>
 						{getStepContent(activeStep)}
 					</Typography>
 				);
@@ -152,7 +153,7 @@ export default function PasoAPaso() {
 				<Grid item xs={12}>
 					{activeStep === steps.length - 1 ? (
 						<div>
-							<Typography className={classes.instructions}>
+							<Typography className={classes.instructions} color={'textSecondary'}>
 								{getStepContent(activeStep)}
 							</Typography>
 							<div>
@@ -169,7 +170,7 @@ export default function PasoAPaso() {
 						</div>
 					) : (
 						<div>
-							<Typography className={classes.instructions}>
+							<Typography className={classes.instructions} color={'textSecondary'}>
 								{getStepContent(activeStep)}
 							</Typography>
 							<div className={classes.contButton}>

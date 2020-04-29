@@ -34,8 +34,7 @@ export default function Malla(props) {
 	const listItems = [];
 	carrera['materias'].forEach((element, index) => {
 		listItems.push(
-			<Grid key={index} item xs={6} sm={4} md={4} lg={3} xl={3} justify="center"
-			alignItems="center">
+			<Grid key={index} item xs={6} sm={4} md={4} lg={3} xl={3} >
 				<Paper className={classes.paper} variant='outlined' style={{minHeight: 125}} evelation={3}>
 					<Celda materia={element} materiasSelect={[]} />
 				</Paper>
@@ -44,7 +43,8 @@ export default function Malla(props) {
 	});
 	return (
 		<div className={classes.root}>
-			<Grid container spacing={3}>
+			<Grid container spacing={3} justify="center"
+			alignItems="center">
 				{listItems}
 			</Grid>
 		</div>

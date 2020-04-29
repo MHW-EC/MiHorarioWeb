@@ -32,16 +32,27 @@ const useStyles = makeStyles(theme => ({
 export default function SingleLineGridList(props) {
   const classes = useStyles();
   const [materia] = useState(props.materia);
-  const [nCols] = useState(props.isMobile ? 1 : 1.2);
+  
   //const [paralelos,setParalelos] = useState();
   const dispatch = useDispatch();
   const parTeorico = useSelector((state, codigo) =>  paralelosSelector(state,materia['codigo']));
+  const [isMobile] = useState(props.isMobile);
+  const [nCols, setnCols] = useState();//props.isMobile ? parTeorico.length > 1 ? 1.5 : 1  : parTeorico.length > 1 ? 1.1 : 1);
+//  const [nCols] = useState( );
+  
 
   useEffect(() => {
 		if (!parTeorico) {
 			dispatch(getTeoricos(materia['codigo']));
 		}
   });
+
+  useEffect(() => {
+    if(parTeorico){
+      setnCols( parTeorico['paralelos'].length <= 1 ? 1 : 1.1)
+    }
+  },[parTeorico, isMobile])
+
   return parTeorico ? (
     <Card elevation={6} style={{minHeight: 'auto'}}>
       <CardContent className={classes.cardContent}>

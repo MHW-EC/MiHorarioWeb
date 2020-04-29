@@ -46,7 +46,7 @@ export default function DenseTable(props) {
               <TableCell>Código</TableCell>
               <TableCell align="left">Materia</TableCell>
               <TableCell align="left">Par</TableCell>
-              <TableCell align="left">Profesor&nbsp;</TableCell>
+              <TableCell align="left">Profesor</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
