@@ -17,6 +17,7 @@ import AddBoxOutlinedIcon from "@material-ui/icons/AddBoxOutlined";
 import { useDispatch } from 'react-redux'
 import DialogPractico from "./dialog-practico";
 import Zoom from "@material-ui/core/Zoom";
+import { blueGrey } from "@material-ui/core/colors";
 import {formatoIntevalo, formatoIntevaloEx} from '../util/util'
 import { addSeleccionado, removeSeleccionado } from '../../../redux/actions/seleccionados'
 //import * as Colors from "@material-ui/core/colors";
@@ -45,6 +46,9 @@ const useStyles = makeStyles(theme =>({
   ghostIcon: {
     opacity: 0,
     padding: 10
+  },
+  avatar: {
+    backgroundColor: blueGrey[500]
   }
 }));
 

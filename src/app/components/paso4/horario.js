@@ -39,9 +39,9 @@ const styles = ({ spacing, palette }) => ({
     whiteSpace: 'nowrap',
   },
   container: {
-    width: '100%',
     textAlign: 'center',
-    display: 'inline-block'
+    display: 'inline-block',
+    backgroundColor: "black"
   },
 });
 

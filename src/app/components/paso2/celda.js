@@ -27,8 +27,6 @@ export default function Celda(props) {
 				<Grid container>
 					<Grid item xs={12}>
 						<Typography variant='subtitle2'>{materia['nombre']}</Typography>
-					</Grid>
-					<Grid item xs={12}>
 						<Typography variant='caption'>{materia['codigo']}</Typography>
 					</Grid>
 				</Grid>

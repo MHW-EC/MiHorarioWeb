@@ -31,21 +31,18 @@ export default function Malla(props) {
 		}
 	});
 
-	const listItems = [];
-	carrera['materias'].forEach((element, index) => {
-		listItems.push(
-			<Grid key={index} item xs={6} sm={4} md={4} lg={3} xl={3} >
-				<Paper className={classes.paper} variant='outlined' style={{minHeight: 125}} evelation={3}>
-					<Celda materia={element} materiasSelect={[]} />
-				</Paper>
-			</Grid>
-		);
-	});
+	;
 	return (
 		<div className={classes.root}>
 			<Grid container spacing={3} justify="center"
-			alignItems="center">
-				{listItems}
+				alignItems="center">
+				{carrera['materias'].map((element, index) => (
+					<Grid key={index} item xs={6} sm={4} md={4} lg={3} xl={2} >
+						<Paper className={classes.paper} variant='outlined' style={{ minHeight: 125 }} evelation={3}>
+							<Celda materia={element}/>
+						</Paper>
+					</Grid>
+				))}
 			</Grid>
 		</div>
 	);

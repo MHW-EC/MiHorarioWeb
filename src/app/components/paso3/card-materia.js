@@ -22,10 +22,12 @@ const useStyles = makeStyles(theme => ({
     transform: "translateZ(0)"
   },
   cardActions: {
-    backgroundColor: theme.palette.primary.main
+    backgroundColor: theme.palette.primary.main,
+    
   },
   cardContent: {
-    padding: 10
+    padding: 10,
+    
   }
 }));
 
@@ -54,8 +56,8 @@ export default function SingleLineGridList(props) {
   },[parTeorico, isMobile])
 
   return parTeorico ? (
-    <Card elevation={6} style={{minHeight: 'auto'}}>
-      <CardContent className={classes.cardContent}>
+    <Card elevation={6} >
+      <CardContent className={classes.cardContent} style={{minHeight: isMobile ? 'auto' : 350}}>
         <GridList
           padding={10}
           spacing={10}
@@ -70,7 +72,7 @@ export default function SingleLineGridList(props) {
         )}
         </GridList>
       </CardContent>
-      <CardActions className={classes.cardActions}>
+      <CardActions className={classes.cardActions} style={{minHeight: isMobile ? 'auto' : 70}}>
         <Typography variant="body1" >
         {materia["nombre"]} - {materia["codigo"]}
         </Typography>
