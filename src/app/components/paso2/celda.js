@@ -19,7 +19,7 @@ export default function Celda(props) {
 	const onCheck = (bool) => {
 		bool ? dispatch(addMateria(materia)) : dispatch(removeMateria(materia));
 	};
-
+console.log(materia)
 	return (
 		<Grid container justify="center"
 		alignItems="center">

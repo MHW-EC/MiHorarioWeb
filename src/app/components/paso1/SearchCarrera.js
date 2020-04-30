@@ -62,15 +62,9 @@ export default function SearchCarrera(props) {
 	};
 
 	return (
-		<Container maxWidth='sm'>
-			<Grid
-				container
-				spacing={0}
-				justify='center'
-				direction='column'
-				style={{ minHeight: '15vh' }}
-			>
-				<Grid item>
+		<Grid container spacing={3} justify="center"
+				alignItems="center">
+				<Grid item  xs={12} sm={8} md={8} lg={6} xl={6}>
 					{carrerasResults ? (
 						<Autocomplete
 							id='input-nombre-carrera'
@@ -85,10 +79,6 @@ export default function SearchCarrera(props) {
 						<></>
 					)}
 				</Grid>
-				<Grid item>
-					<script src='https://gist.github.com/EnmanuelMag/fe81e4261975fc584501668b845d4193.js'></script>
-				</Grid>
 			</Grid>
-		</Container>
 	);
 }
