@@ -41,7 +41,6 @@ const styles = ({ spacing, palette }) => ({
   container: {
     textAlign: 'center',
     display: 'inline-block',
-    backgroundColor: "black"
   },
 });
 
