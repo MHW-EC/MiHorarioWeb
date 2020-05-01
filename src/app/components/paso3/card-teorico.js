@@ -20,6 +20,8 @@ import Zoom from "@material-ui/core/Zoom";
 import { blueGrey } from "@material-ui/core/colors";
 import {formatoIntevalo, formatoIntevaloEx} from '../util/util'
 import { addSeleccionado, removeSeleccionado } from '../../../redux/actions/seleccionados'
+import { addPaquete, removePaquete } from '../../../redux/actions/paquetes';
+
 //import * as Colors from "@material-ui/core/colors";
 const useStyles = makeStyles(theme =>({
   root: {
@@ -60,12 +62,29 @@ export default function SimpleCard(props) {
   //necesarios para el cuadro de dialogo de paralelo
   const [open, setOpen] = useState(false);
   const [paralelo,setParalelo] = useState();
-  const [isAdd, setIsAdd] = useState(true);
+  const [isAdd, setIsAdd] = useState(0);
+
 
   const handleAddRemove = () => {
-    isAdd ? dispatch(addSeleccionado(paralelo["_id"])) :
-    dispatch(removeSeleccionado(paralelo["_id"])) ;
-    setIsAdd(!isAdd);
+    if( isAdd === 1) {
+      //dispatch(addSeleccionado(paralelo["_id"]))
+      if(paralelo['paralelos_practicos'].length === 0){
+        isAdd
+			? console.log("anado")//dispatch(addPaquete([teorico], teorico['_id']))
+			: console.log("otro")//dispatch(removePaquete( teorico['_id'], ));
+      }
+      setIsAdd(0);
+    }else if(isAdd === 0 ){
+      //dispatch(removeSeleccionado(paralelo["_id"]))
+      if(paralelo['paralelos_practicos'].length === 0){
+        isAdd
+			? console.log("anado")//dispatch(addPaquete([teorico], teorico['_id']))
+			: console.log("otro")//dispatch(removePaquete( teorico['_id'], ));
+      }
+      setIsAdd(1);
+    }else{
+      //nada
+    }
   };
 
   const transitionDuration = {
@@ -78,8 +97,8 @@ export default function SimpleCard(props) {
       color: "inherit",
       className: classes.fab,
       icon: <AddBoxOutlinedIcon/>,
-      label: "Add",
-      entra: true,
+      label: "Disabled",
+      entra: -1,
       tooltipNode: "Add"
     },
     {
@@ -87,7 +106,7 @@ export default function SimpleCard(props) {
       className: classes.fab,
       icon: <AddBoxOutlinedIcon />,
       label: "Add",
-      entra: true,
+      entra: 0,
       tooltipNode: "Add"
     },
     {
@@ -95,7 +114,7 @@ export default function SimpleCard(props) {
       className: classes.fab,
       icon: <DeleteOutlineIcon />,
       label: "Remove",
-      entra: false,
+      entra: 1,
       tooltipNode: "Remove"
     }
   ];
@@ -135,6 +154,10 @@ export default function SimpleCard(props) {
     setParalelo(props.paralelo)
   },[props.paralelo]);
 
+  //se usa cunado un paralelo teorico no tiene practicos
+  const handleAddPaquete = (evento, teorico) => {
+		
+	};
 
   return ( paralelo ?
     <Card className={classes.root} variant="outlined">

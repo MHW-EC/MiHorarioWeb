@@ -9,6 +9,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import { teoricosResults as paralelosSelector } from '../../../redux/selectors';
 import { getTeoricos } from '../../../redux/actions/teorico'
 
+
 const useStyles = makeStyles(theme => ({
   root: {
     display: "flex",
@@ -54,6 +55,8 @@ export default function SingleLineGridList(props) {
       setnCols( parTeorico['paralelos'].length <= 1 ? 1 : 1.1)
     }
   },[parTeorico, isMobile])
+
+  
 
   return parTeorico ? (
     <Card elevation={6} >

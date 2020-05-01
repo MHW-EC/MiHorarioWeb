@@ -4,6 +4,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import { Grid, Typography, Checkbox } from '@material-ui/core';
 import { addMateria, removeMateria } from '../../../redux/actions/materias';
 import { useDispatch } from 'react-redux';
+
 const useStyles = makeStyles(theme => ({
     contenedor: {
 		alignContent: 'center',
@@ -17,9 +18,9 @@ export default function Celda(props) {
 	const classes = useStyles();
 
 	const onCheck = (bool) => {
-		bool ? dispatch(addMateria(materia)) : dispatch(removeMateria(materia));
+		bool ? dispatch(addMateria(materia)) : dispatch(removeMateria(materia))
 	};
-console.log(materia)
+
 	return (
 		<Grid container justify="center"
 		alignItems="center">

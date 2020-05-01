@@ -25,44 +25,48 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const generarCelda = (elemento, index) => {
-	return <Grid key={index} item xs={6} sm={4} md={4} lg={3} xl={2} >
+	return <Grid key={elemento.codigo} item xs={6} sm={4} md={4} lg={3} xl={2} >
 				<Paper  variant='outlined' style={{ minHeight: 125 }} evelation={3}>
-					<Celda materia={elemento}/>
+					<Celda materia={elemento} />
 				</Paper>
 			</Grid>
 }
+
 
 export default function Malla(props) {
 	const classes = useStyles();
 	const dispatch = useDispatch();
 	const carrera = useSelector((state) => carreraSelector(state));
 	const carrerasResults = useSelector((state) => carrerasResultSelector(state));
-	const [celdas, setCeldas] = useState();
+	const [celdas, setCeldas] = useState([]);
 
 	useEffect(() => {
 		if (!carrerasResults) {
 			dispatch(getCarreras());
 		}
 	});
-
 	useEffect(() => {
 		if (!carrera) {
 			dispatch(getCarrera());
 		}
 	});
-
 	useEffect(() => {
 		if (!celdas && carrera) {
 			/*setCeldas( carrera['materias'].map((element, index) => (
-				generarCelda(element, index)
+				generarCelda(element, index, celdas)
 			)));*/
 			setCeldas([])
 		}
 	},[celdas,carrera]);
 
+
 	const onChangeComplete = (event, value, reason) => {
 		if(reason === "select-option"){
-			setCeldas( anteriorCeldas => { return [...anteriorCeldas, generarCelda(value, anteriorCeldas.length) ] } )
+			if(typeof(celdas.find( (e) => e.key === value.codigo)) === 'undefined'){
+				setCeldas( anteriorCeldas => {
+					return [...anteriorCeldas, generarCelda(value,anteriorCeldas.length) ]
+				})
+			}
 		}
 	}
 
@@ -78,7 +82,7 @@ export default function Malla(props) {
 					onChange={onChangeComplete}
 					options={carrerasResults.reduce((a, b) => {
 						return {'materias': a.materias.concat(b.materias)} } )['materias']}
-					getOptionLabel={(option) => option['nombre'] }
+					getOptionLabel={(option) => {return `${option['nombre']} - ${option['codigo']}` }}
 					renderInput={(params) => (
 						<TextField {...params} 
 						id='custom-css-outlined-input' 
