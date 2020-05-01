@@ -62,29 +62,22 @@ export default function SimpleCard(props) {
   //necesarios para el cuadro de dialogo de paralelo
   const [open, setOpen] = useState(false);
   const [paralelo,setParalelo] = useState();
-  const [isAdd, setIsAdd] = useState(0);
+  const [isAdd, setIsAdd] = useState(1);
 
 
   const handleAddRemove = () => {
-    if( isAdd === 1) {
-      //dispatch(addSeleccionado(paralelo["_id"]))
-      if(paralelo['paralelos_practicos'].length === 0){
-        isAdd
-			? console.log("anado")//dispatch(addPaquete([teorico], teorico['_id']))
-			: console.log("otro")//dispatch(removePaquete( teorico['_id'], ));
-      }
+
+    if(isAdd){
+      dispatch(addSeleccionado(paralelo['_id']))
       setIsAdd(0);
-    }else if(isAdd === 0 ){
-      //dispatch(removeSeleccionado(paralelo["_id"]))
-      if(paralelo['paralelos_practicos'].length === 0){
-        isAdd
-			? console.log("anado")//dispatch(addPaquete([teorico], teorico['_id']))
-			: console.log("otro")//dispatch(removePaquete( teorico['_id'], ));
-      }
-      setIsAdd(1);
     }else{
-      //nada
+      dispatch(removeSeleccionado(paralelo['_id']));
+      setIsAdd(1);
     }
+    if(paralelo['paralelos_practicos'].length === 0){
+      (isAdd) ? dispatch(addPaquete([paralelo], paralelo['_id'])) 
+      : dispatch(removePaquete( paralelo['_id'] ));
+    }    
   };
 
   const transitionDuration = {
@@ -106,7 +99,7 @@ export default function SimpleCard(props) {
       className: classes.fab,
       icon: <AddBoxOutlinedIcon />,
       label: "Add",
-      entra: 0,
+      entra: 1,
       tooltipNode: "Add"
     },
     {
@@ -114,7 +107,7 @@ export default function SimpleCard(props) {
       className: classes.fab,
       icon: <DeleteOutlineIcon />,
       label: "Remove",
-      entra: 1,
+      entra: 0,
       tooltipNode: "Remove"
     }
   ];
