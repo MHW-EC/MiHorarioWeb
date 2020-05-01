@@ -30,7 +30,7 @@ app.set('port', process.env.PORT || PORT);
 
 app.put('/generar', function (req, res) {
 	console.log('Generando horarios');
-
+	
 	if (typeof req.body !== 'undefined') {
 		const paquetes = req.body;
 		//console.log(paquetes);
@@ -39,13 +39,12 @@ app.put('/generar', function (req, res) {
 		}; //Necesaria debido a falencas de clase set es6
 
 		const paquetesObj = paquetes.map(castFunction);
-		//console.log('paqobj', paquetesObj);
-
+		
 		const generador = new Generador(paquetesObj);
-		///todo bien hasta aca
-		const resultados = generador.HorariosGenerados; //regresa una lista de objetos Horario (clase horario)
-		console.log(resultados.map((horario) => horario.materias));
-		res.send(resultados.map((horario) => horario.materias));
+		
+		//console.log(generador.HorariosGenerados.map((horario) => horario.materias));//horario es una obj de clase
+		
+		res.send(generador.HorariosGenerados.map((horario) => horario.materias));
 	} else {
 		res.send([null]);
 	}
@@ -80,7 +79,6 @@ app.get('/ping', function (req, res) {
 app.get('/isMobile', function (req, res) {
 	let detector = new MobileDetect(req.headers['user-agent']);
 	let respuesta;
-	console.log(detector);
 	detector.os() != null ? (respuesta = true) : (respuesta = false);
 	res.send(respuesta);
 });

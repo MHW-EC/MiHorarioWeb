@@ -73,7 +73,7 @@ export default function Malla(props) {
 	return (
 		<div className={classes.root}>
 			<div>
-			<Grid container spacing={3} justify="center"
+			<Grid container={true} spacing={3} justify="center"
 				alignItems="center">
 
 				<Grid item  xs={12} sm={8} md={8} lg={6} xl={6}>
@@ -93,7 +93,7 @@ export default function Malla(props) {
 				</Grid >
 			</Grid>
 			</div>
-			<Grid container spacing={3} justify="center"
+			<Grid container={true} spacing={3} justify="center"
 				alignItems="center">
 				{celdas}
 			</Grid>

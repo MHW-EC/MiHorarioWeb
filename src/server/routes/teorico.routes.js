@@ -26,7 +26,7 @@ router.route('/').get((req, res) => {
 
 
 router.route('/:codigo').get((req, res) => {
-    console.log("consulta teorico con codigo: ",req.params.codigo )
+    //console.log("consulta teorico con codigo: ",req.params.codigo )
     teorico.find({codigo:req.params.codigo}, (error, data) => {
         if (error) {
             return next(error)

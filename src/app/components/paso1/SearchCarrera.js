@@ -62,7 +62,7 @@ export default function SearchCarrera(props) {
 	};
 
 	return (
-		<Grid container spacing={3} justify="center"
+		<Grid container={true} spacing={3} justify="center"
 				alignItems="center">
 				<Grid item  xs={12} sm={8} md={8} lg={6} xl={6}>
 					{carrerasResults ? (

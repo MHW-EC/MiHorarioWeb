@@ -55,7 +55,6 @@ export default function PaginationControlled() {
 		}
   },[horariosGenerados,dispatch,paquetes]);
   
-  console.log("Generados: ", horariosGenerados)
 
   const handleChange = (event, value) => {
     setPage(value);

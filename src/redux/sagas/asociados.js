@@ -4,7 +4,7 @@ import { apiCall } from '../api';
 
 function* getAsociados({ teoricoId }) {
     try {
-console.log('se ejecuto:', teoricoId)
+        console.log('se ejecuto:', teoricoId)
         const response = yield call(
             apiCall,
             `/practico/${teoricoId}`,

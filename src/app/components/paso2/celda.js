@@ -22,7 +22,7 @@ export default function Celda(props) {
 	};
 
 	return (
-		<Grid container justify="center"
+		<Grid container={true} justify="center"
 		alignItems="center">
 			<Grid item xs={10}>
 				<Grid container>

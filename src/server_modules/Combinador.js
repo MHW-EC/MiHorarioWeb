@@ -21,7 +21,7 @@ class Combinador {
 				}
 			}
 		}
-		return permutaciones;
+		return permutaciones
 	}
 	static cartesianProduct(a,b,...c){
 		//Implementacion de producto cartesiano
@@ -33,7 +33,9 @@ class Combinador {
 	encontrarResultados() {
 		//Obtengo las permutaciones de los grupos de materias
 		let permutaciones = Combinador.permutations(this.clusters);
-
+		
+		if(permutaciones.length === 1 ){ permutaciones =[permutaciones]} //parche 1 sola materia
+		
 		permutaciones.forEach((permutacion) => {
 			//Obtengo el producto cartesiano entre las materias
 			let producotCartesiano = Combinador.cartesianProduct(...permutacion);

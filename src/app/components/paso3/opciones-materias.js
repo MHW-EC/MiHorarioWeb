@@ -39,7 +39,7 @@ export default function DenseTable(props) {
 						md={4}
 						lg={3}
 						xl={2}
-						justify='center' alignItems='center'
+						
 					>
 						<CardMateria materia={materia} isMobile={props.isMobile} />
 					</Grid>

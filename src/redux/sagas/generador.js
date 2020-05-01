@@ -8,7 +8,6 @@ function* getResultadosGenerados({paquetes}) {
     //const dispatch = useDispatch();
     
     try {//url, data, headers, method
-        console.log("Se llamo a generados", paquetes)
         const response = yield call(
             apiCall,
             `/generar`,
@@ -17,7 +16,6 @@ function* getResultadosGenerados({paquetes}) {
             'PUT'
         );
         if (typeof(response) !== "undefined" && typeof(response.data) !== "undefined" ){
-            console.log(response)
             yield put({ type: GET_RESULTADOS_GEN_COMPLETE, response})
         }
     } catch (err) {

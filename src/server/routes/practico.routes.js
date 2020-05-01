@@ -4,19 +4,9 @@ router = express.Router();
 
 let practico = require('../models/practico-schema');
 
-/*router.route('/create').post((req, res, next) => {
-    practico.create(req.body, (error, data) => {
-        if (error) {
-            return next(error)
-        } else {
-            console.log(data)
-            res.json(data)
-        }
-    })
-});*/
 
 router.route('/').get((req, res) => {
-    console.log("Consulta todos los practicos")
+    //console.log("Consulta todos los practicos")
     practico.find((error, data) => {
         if (error) {
             return next(error)
@@ -26,7 +16,7 @@ router.route('/').get((req, res) => {
     })
 });
 router.route('/:tid').get((req, res) => {
-    console.log("consulta practico con tid: ",req.params.tid )
+    //console.log("consulta practico con tid: ",req.params.tid )
     practico.find({'teorico_id':req.params.tid}, (error, data) => {
         if (error) {
             return next(error)

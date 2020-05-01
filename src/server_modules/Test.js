@@ -21,10 +21,12 @@ console.log(combi.Resultados.length);
 */
 
 /////////Test Generador///////////////
-console.log("Tamaño paqueteria: ",listaPaquete1.length);
+let listaPaquete2 = listaPaquete1.slice(0,1)
+console.log(listaPaquete2)
+console.log("Tamaño paqueteria: ",listaPaquete2.length);
 const retFun = (arr) => { return {'paquete': arr} };
-console.log(listaPaquete1)
-let paquetesObj = listaPaquete1.map( retFun );
+
+let paquetesObj = listaPaquete2.map( retFun );
 console.log(paquetesObj)
 let gen = new Generador(paquetesObj);
 let result = gen.HorariosGenerados;

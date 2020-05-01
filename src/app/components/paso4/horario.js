@@ -99,7 +99,6 @@ export default class Demo extends React.PureComponent {
     };
     this.setearColores();
     this.currentDateChange = (currentDate) => {this.setState({ currentDate });};
-    console.log(this.props.instancias)
   }
 
   setearColores(){

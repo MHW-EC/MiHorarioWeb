@@ -43,8 +43,6 @@ class Generador {
 		}
 
 		let combinaciones = new Combinador(clusters);
-		console.log(combinaciones)
-		console.log(combinaciones.resultados)
 
 		combinaciones.resultados.forEach((combinacion) => {
 			//let entroMatPrioritaria = true;
@@ -60,7 +58,7 @@ class Generador {
 					break;
 				}
 			}
-			if (!repetido) { this.horariosGenerados.push(horario); }
+			if (!repetido) { this.horariosGenerados.push(horario);}
 		});
 	}
 
