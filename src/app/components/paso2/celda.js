@@ -42,6 +42,7 @@ export default function Celda(props) {
 			</Grid>
 			<Grid item xs={2}>
 				<Checkbox
+					checked={props.fromAutocomplete}
 					color='primary'
 					inputProps={{ 'aria-label': 'secondary checkbox' }}
 					onChange={(event) => {
