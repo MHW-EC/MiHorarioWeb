@@ -31,8 +31,8 @@ export default function Celda(props) {
 	};
 
 	return (
-		<Grid container={true} justify='center' alignItems='center'>
-			<Grid item xs={10}>
+		<Grid container={true} justify='center' alignItems='center' style={{ minHeight: 125 }} >
+			<Grid item xs={9}>
 				<Grid container>
 					<Grid item xs={12}>
 						<Typography variant='subtitle2'>{materia['nombre']}</Typography>
