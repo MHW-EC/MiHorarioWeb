@@ -15,7 +15,7 @@ let teorico = require('../models/teorico-schema');
     })
 });*/
 router.route('/').get((req, res) => {
-    teorico.find((error, data) => {
+    teorico.find({},"codigo nombre",(error, data) => {
         if (error) {
             return next(error)
         } else {

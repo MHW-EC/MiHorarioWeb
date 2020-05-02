@@ -7,8 +7,10 @@ import { useSelector, useDispatch } from 'react-redux';
 import { carreraSeleccionada as carreraSelector } from '../../../redux/selectors';
 import { getCarrera } from '../../../redux/actions/carrera';
 import Autocomplete from '@material-ui/lab/Autocomplete';
-import { getCarreras } from '../../../redux/actions/carreras';
-import { carrerasResults as carrerasResultSelector } from '../../../redux/selectors';
+import {getAllTeoricos } from '../../../redux/actions/teorico';
+
+import { allTeoricosResults as allteoricosSelector } from '../../../redux/selectors';
+import { all } from 'redux-saga/effects';
 
 const useStyles = makeStyles((theme) => ({
 	root: {
@@ -37,14 +39,35 @@ export default function Malla(props) {
 	const classes = useStyles();
 	const dispatch = useDispatch();
 	const carrera = useSelector((state) => carreraSelector(state));
-	const carrerasResults = useSelector((state) => carrerasResultSelector(state));
+
+	const allTeoricosBase = useSelector((state) => allteoricosSelector(state));
+	const [allTeoricosUnicos, setAllTeoricosUnicos] = useState([]);
 	const [celdas, setCeldas] = useState([]);
 
 	useEffect(() => {
-		if (!carrerasResults) {
-			dispatch(getCarreras());
+		//console.log('llamada')
+		if(allTeoricosBase.length ===0 ){
+			dispatch(getAllTeoricos());
 		}
 	});
+
+	useEffect(()=>{
+		//console.log('order')
+		if(allTeoricosBase.length !==0 && allTeoricosUnicos.length ===0){
+			let unicos = []
+				allTeoricosBase.forEach( ter=> {
+					
+					if(typeof(unicos.find( (e) => e.codigo === ter.codigo)) === 'undefined'){
+						unicos.push(ter)
+					}
+					
+				})
+				setAllTeoricosUnicos(unicos)
+		}
+		
+		
+	}, [allTeoricosUnicos, allTeoricosBase])
+
 	useEffect(() => {
 		if (!carrera) {
 			dispatch(getCarrera());
@@ -69,7 +92,7 @@ export default function Malla(props) {
 			}
 		}
 	}
-
+	console.log(allTeoricosBase)
 	return (
 		<div className={classes.root}>
 			<div>
@@ -77,11 +100,12 @@ export default function Malla(props) {
 				alignItems="center">
 
 				<Grid item  xs={12} sm={8} md={8} lg={6} xl={6}>
-				{carrerasResults ? <Autocomplete
+				{allTeoricosBase && allTeoricosUnicos ? <Autocomplete
 					id='input-nombre-carrera'
 					onChange={onChangeComplete}
-					options={carrerasResults.reduce((a, b) => {
-						return {'materias': a.materias.concat(b.materias)} } )['materias']}
+					options={allTeoricosUnicos}
+					//options={carrerasResults.reduce((a, b) => {
+					//	return {'materias': a.materias.concat(b.materias)} } )['materias']}
 					getOptionLabel={(option) => {return `${option['nombre']} - ${option['codigo']}` }}
 					renderInput={(params) => (
 						<TextField {...params} 

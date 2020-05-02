@@ -25,7 +25,7 @@ export default function DenseTable(props) {
 			dispatch(getMaterias());
 		}
 	});
-
+	console.log(materiasSelect)
 	return (
 		<div className={classes.root}>
 			<Grid container spacing={3} justify="center"

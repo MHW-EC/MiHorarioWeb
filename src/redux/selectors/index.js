@@ -10,7 +10,12 @@ export const resultadosGenerados = state => get(state, 'generador.generados')
 
 export const teoricosResults = (state,codigo) =>{
     return get(state, 'teoricos.teoricos').find(par => par.codigo === codigo)
-} 
+}
+
+export const allTeoricosResults = (state,codigo) =>{
+    return get(state, 'teoricos.teoricosBase')
+}
+
 export const asociadosResults = (state,teoricoId) =>{
     return get(state, 'asociados.asociados').find(par => par.teoricoId === teoricoId)
 }
