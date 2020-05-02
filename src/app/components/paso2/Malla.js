@@ -39,6 +39,7 @@ const generarCelda = (elemento, index, origen) => {
 export default function Malla(props) {
 	const classes = useStyles();
 	const dispatch = useDispatch();
+	const [ingresoText, setIngresoText] = useState('');
 	const carrera = useSelector((state) => carreraSelector(state));
 
 	const allTeoricosBase = useSelector((state) => allteoricosSelector(state));
@@ -54,23 +55,25 @@ export default function Malla(props) {
 
 	useEffect(() => {
 		//console.log('order')
-		if(allTeoricosBase.length !==0 && allTeoricosUnicos.length ===0){
-			let unicos = []
-				allTeoricosBase.forEach( ter=> {
-					if(typeof(unicos.find( (e) => e.codigo === ter.codigo)) === 'undefined'){
-						unicos.push(ter)
-					}
-				})
-				setAllTeoricosUnicos(unicos)
+		if (allTeoricosBase.length !== 0 && allTeoricosUnicos.length === 0) {
+			let unicos = [];
+			allTeoricosBase.forEach((ter) => {
+				if (
+					typeof unicos.find((e) => e.codigo === ter.codigo) === 'undefined'
+				) {
+					unicos.push(ter);
+				}
+			});
+			setAllTeoricosUnicos(unicos);
 		}
-	}, [allTeoricosUnicos, allTeoricosBase])
+	}, [allTeoricosUnicos, allTeoricosBase]);
 
 	useEffect(() => {
 		if (!carrera) {
 			dispatch(getCarrera());
 		}
 	});
-	
+
 	useEffect(() => {
 		if (!celdas && carrera) {
 			setCeldas(
@@ -84,6 +87,7 @@ export default function Malla(props) {
 
 	const onChangeComplete = (event, value, reason) => {
 		if (reason === 'select-option') {
+			setIngresoText('');
 			if (typeof celdas.find((e) => e.key === value.codigo) === 'undefined') {
 				setCeldas((anteriorCeldas) => {
 					return [
@@ -93,7 +97,7 @@ export default function Malla(props) {
 				});
 			}
 		}
-	}
+	};
 	return (
 		<div className={classes.root}>
 			<div>
@@ -111,6 +115,7 @@ export default function Malla(props) {
 								}}
 								renderInput={(params) => (
 									<TextField
+										value={ingresoText}
 										{...params}
 										id='custom-css-outlined-input'
 										label='Agregue una nueva materia'

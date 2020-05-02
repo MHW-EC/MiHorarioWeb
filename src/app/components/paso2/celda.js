@@ -15,23 +15,29 @@ const useStyles = makeStyles((theme) => ({
 export default function Celda(props) {
 	const [materia] = useState(props.materia);
 	const [displayed, setIsDisplayed] = useState(false);
+	const [marcado, setMarcado] = useState(true);
 	const dispatch = useDispatch();
 	const classes = useStyles();
 
 	useEffect(() => {
 		if (!displayed && props.fromAutocomplete) {
 			dispatch(addMateria(materia));
-			setIsDisplayed(true);
 			console.log('SE MARCA DE UNA!');
 		}
 	}, [displayed]);
 
 	const onCheck = (bool) => {
+		setMarcado(!marcado);
 		bool ? dispatch(addMateria(materia)) : dispatch(removeMateria(materia));
 	};
 
 	return (
-		<Grid container={true} justify='center' alignItems='center' style={{ minHeight: 125 }} >
+		<Grid
+			container={true}
+			justify='center'
+			alignItems='center'
+			style={{ minHeight: 125 }}
+		>
 			<Grid item xs={9}>
 				<Grid container>
 					<Grid item xs={12}>
@@ -42,7 +48,7 @@ export default function Celda(props) {
 			</Grid>
 			<Grid item xs={2}>
 				<Checkbox
-					checked={props.fromAutocomplete}
+					checked={marcado}
 					color='primary'
 					inputProps={{ 'aria-label': 'secondary checkbox' }}
 					onChange={(event) => {
