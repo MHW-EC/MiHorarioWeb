@@ -11,6 +11,13 @@ import TablaVisor from '../components/paso4/tabla-visor';
 import Malla from '../components/paso2/Malla';
 import { Grid } from '@material-ui/core';
 import StepContent from '@material-ui/core/StepContent';
+import { useDispatch } from 'react-redux';
+import { cleanCarrera } from '../../redux/actions/carrera'
+import { cleanMaterias } from '../../redux/actions/materias'
+import { cleanSel} from '../../redux/actions/seleccionados'
+import { cleanPaquetes } from '../../redux/actions/paquetes'
+import { cleanAsociados } from '../../redux/actions/asociado'
+import { cleanResultados } from '../../redux/actions/generador'
 
 //Aqui seteamos estilos
 const useStyles = makeStyles((theme) => ({
@@ -70,6 +77,7 @@ export default function PasoAPaso() {
 	const [activeStep, setActiveStep] = React.useState(0);
 	const [isMobile, setMobile] = React.useState({});
 	const [refresh] = React.useState(false);
+	const dispatch = useDispatch();
 	//const [carrera, setCarrera] = React.useState({});
 	//const [materiasSelect, setMateriasSelect] = React.useState([]);
 
@@ -97,11 +105,21 @@ export default function PasoAPaso() {
 		//setCarrera({});
 		//setMateriasSelect([]);
 		switch (activeStep) {
-			case 2:
-				//setMateriasSelect([]);
-				break;
 			case 1:
-				//setCarrera({});
+				dispatch(cleanCarrera());
+				dispatch(cleanMaterias());
+				break;
+			case 2:
+				dispatch(cleanMaterias());
+				dispatch(cleanSel())
+				dispatch(cleanAsociados())
+				dispatch(cleanPaquetes())
+				break;
+			case 3:
+				dispatch(cleanResultados())
+				dispatch(cleanSel())
+				dispatch(cleanAsociados())
+				dispatch(cleanPaquetes())
 				break;
 			default:
 				break;

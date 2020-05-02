@@ -1,7 +1,9 @@
-import { ADD_PAQUETE, REMOVE_PAQUETE } from '../actions/paquetes'
+import { ADD_PAQUETE, REMOVE_PAQUETE, CLEAN_PAQUETES } from '../actions/paquetes'
 
 export default function paqueteria(state = [], action) {
   switch (action.type) {
+    case CLEAN_PAQUETES:
+      return []
     case ADD_PAQUETE:
       return [...state,
       {

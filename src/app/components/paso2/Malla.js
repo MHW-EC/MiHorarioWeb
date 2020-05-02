@@ -54,24 +54,23 @@ export default function Malla(props) {
 
 	useEffect(() => {
 		//console.log('order')
-		if (allTeoricosBase.length !== 0 && allTeoricosUnicos.length === 0) {
-			let unicos = [];
-			allTeoricosBase.forEach((ter) => {
-				if (
-					typeof unicos.find((e) => e.codigo === ter.codigo) === 'undefined'
-				) {
-					unicos.push(ter);
-				}
-			});
-			setAllTeoricosUnicos(unicos);
+		if(allTeoricosBase.length !==0 && allTeoricosUnicos.length ===0){
+			let unicos = []
+				allTeoricosBase.forEach( ter=> {
+					if(typeof(unicos.find( (e) => e.codigo === ter.codigo)) === 'undefined'){
+						unicos.push(ter)
+					}
+				})
+				setAllTeoricosUnicos(unicos)
 		}
-	}, [allTeoricosUnicos, allTeoricosBase]);
+	}, [allTeoricosUnicos, allTeoricosBase])
 
 	useEffect(() => {
 		if (!carrera) {
 			dispatch(getCarrera());
 		}
 	});
+	
 	useEffect(() => {
 		if (!celdas && carrera) {
 			setCeldas(
@@ -94,8 +93,7 @@ export default function Malla(props) {
 				});
 			}
 		}
-	};
-	console.log(allTeoricosBase);
+	}
 	return (
 		<div className={classes.root}>
 			<div>

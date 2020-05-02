@@ -9,7 +9,6 @@ import { useSelector, useDispatch } from 'react-redux'
 import { teoricosResults as paralelosSelector } from '../../../redux/selectors';
 import { getTeoricos } from '../../../redux/actions/teorico'
 
-
 const useStyles = makeStyles(theme => ({
   root: {
     display: "flex",
@@ -29,7 +28,23 @@ const useStyles = makeStyles(theme => ({
   cardContent: {
     padding: 10,
     
-  }
+  },
+  palette: {
+    primary: {
+      light: '#757ce8',
+      main: '#3f50b5',
+      dark: '#002884',
+      contrastText: '#fff',
+    },
+    secondary: {
+      light: '#ff7961',
+      main: '#f44336',
+      dark: '#ba000d',
+      contrastText: '#000',
+    },
+    black: '#000000',
+    white: '#ffffff'
+  },
 }));
 
 export default function SingleLineGridList(props) {
@@ -57,7 +72,6 @@ export default function SingleLineGridList(props) {
   },[parTeorico, isMobile])
 
   
-
   return parTeorico ? (
     <Card elevation={6} >
       <CardContent className={classes.cardContent} style={{minHeight: isMobile ? 'auto' : 350}}>
@@ -76,7 +90,7 @@ export default function SingleLineGridList(props) {
         </GridList>
       </CardContent>
       <CardActions className={classes.cardActions} style={{minHeight: isMobile ? 'auto' : 70}}>
-        <Typography variant="body1" >
+        <Typography variant="body1" color="inherit">
         {materia["nombre"]} - {materia["codigo"]}
         </Typography>
       </CardActions>
