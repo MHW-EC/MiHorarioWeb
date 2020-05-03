@@ -38,7 +38,7 @@ const useStyles = makeStyles((theme) => ({
 
 const generarCelda = (elemento, index) => {
 	return (
-		<Grid key={elemento.codigo} item xs={12} sm={4} md={4} lg={3} xl={2}>
+		<Grid key={elemento.codigo} item xs={6} sm={4} md={4} lg={3} xl={2}>
 			<Paper variant='outlined' style={{ minHeight: 125 }} evelation={3}>
 				<Celda materia={elemento} />
 			</Paper>
