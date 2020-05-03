@@ -39,7 +39,7 @@ const generarCelda = (elemento, index, origen) => {
 export default function Malla(props) {
 	const classes = useStyles();
 	const dispatch = useDispatch();
-	const [ingresoText, setIngresoText] = useState('');
+	const [input, setInput] = useState('Agregue una nueva materia');
 	const carrera = useSelector((state) => carreraSelector(state));
 
 	const allTeoricosBase = useSelector((state) => allteoricosSelector(state));
@@ -87,7 +87,7 @@ export default function Malla(props) {
 
 	const onChangeComplete = (event, value, reason) => {
 		if (reason === 'select-option') {
-			setIngresoText('');
+			setInput('');
 			if (typeof celdas.find((e) => e.key === value.codigo) === 'undefined') {
 				setCeldas((anteriorCeldas) => {
 					return [
@@ -106,8 +106,11 @@ export default function Malla(props) {
 						{allTeoricosBase && allTeoricosUnicos ? (
 							<Autocomplete
 								id='input-nombre-carrera'
+								inputValue={input}
+								clearOnEscape={true}
 								onChange={onChangeComplete}
 								options={allTeoricosUnicos}
+								label='Agregue una nueva materia'
 								//options={carrerasResults.reduce((a, b) => {
 								//	return {'materias': a.materias.concat(b.materias)} } )['materias']}
 								getOptionLabel={(option) => {
@@ -115,8 +118,8 @@ export default function Malla(props) {
 								}}
 								renderInput={(params) => (
 									<TextField
-										value={ingresoText}
 										{...params}
+										onChange={({ target }) => setInput(target.value)}
 										id='custom-css-outlined-input'
 										label='Agregue una nueva materia'
 										variant='outlined'
