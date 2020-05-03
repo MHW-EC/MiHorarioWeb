@@ -39,7 +39,7 @@ const generarCelda = (elemento, index, origen) => {
 export default function Malla(props) {
 	const classes = useStyles();
 	const dispatch = useDispatch();
-	const [input, setInput] = useState('Agregue una nueva materia');
+	const [input, setInput] = useState('');
 	const carrera = useSelector((state) => carreraSelector(state));
 
 	const allTeoricosBase = useSelector((state) => allteoricosSelector(state));
