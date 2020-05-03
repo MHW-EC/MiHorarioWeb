@@ -5,6 +5,8 @@ export const carrerasResults = state => get(state, 'carreras.carreras')
 
 export const carreraSeleccionada = state => get(state, 'carrera.carrera')
 export const materiasSeleccionadas = state => get(state, 'materias.materias')
+export const materiasMalla = state => get(state, 'materias.malla')
+
 
 export const resultadosGenerados = state => get(state, 'generador.generados')
 

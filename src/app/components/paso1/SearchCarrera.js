@@ -7,6 +7,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { getCarreras } from '../../../redux/actions/carreras';
 import { carrerasResults as carrerasResultSelector } from '../../../redux/selectors';
 import { setCarrera } from '../../../redux/actions/carrera';
+import { setMateriasMalla } from '../../../redux/actions/materias';
 const CssTextField = withStyles({
 	root: {
 		'& input': {
@@ -48,6 +49,7 @@ const useStyles = makeStyles((theme) => ({
 export default function SearchCarrera(props) {
 	const dispatch = useDispatch();
 	const carrerasResults = useSelector((state) => carrerasResultSelector(state));
+	
 
 	useEffect(() => {
 		if (!carrerasResults) {
@@ -58,6 +60,7 @@ export default function SearchCarrera(props) {
 
 	const onChangeComplete = (event, value, reason) => {
 		dispatch(setCarrera(value));
+		dispatch(setMateriasMalla(value['materias'].map(mat => {return {...mat, 'check': false }})));
 	};
 
 	return (

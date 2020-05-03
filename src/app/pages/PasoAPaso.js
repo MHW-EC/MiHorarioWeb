@@ -13,7 +13,7 @@ import { Grid } from '@material-ui/core';
 import StepContent from '@material-ui/core/StepContent';
 import { useDispatch } from 'react-redux';
 import { cleanCarrera } from '../../redux/actions/carrera'
-import { cleanMaterias } from '../../redux/actions/materias'
+import { cleanMaterias, setMateriasMalla } from '../../redux/actions/materias'
 import { cleanSel} from '../../redux/actions/seleccionados'
 import { cleanPaquetes } from '../../redux/actions/paquetes'
 import { cleanAsociados } from '../../redux/actions/asociado'
@@ -110,7 +110,7 @@ export default function PasoAPaso() {
 				dispatch(cleanMaterias());
 				break;
 			case 2:
-				dispatch(cleanMaterias());
+				//dispatch(cleanMaterias());
 				dispatch(cleanSel())
 				dispatch(cleanAsociados())
 				dispatch(cleanPaquetes())
