@@ -7,6 +7,7 @@ import TableContainer from "@material-ui/core/TableContainer";
 import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import Paper from "@material-ui/core/Paper";
+import Skeleton from "@material-ui/lab/Skeleton"
 
 import Button from "@material-ui/core/Button";
 const useStyles = makeStyles({
@@ -22,7 +23,13 @@ const useStyles = makeStyles({
     justifyContent: "center",
     flexDirection: "column",
     display: "flex"
-  }
+  },skeleton: {
+    //marginTop: theme.spacing(2),
+      alignItems: "center",
+      justifyContent: "center",
+      flexDirection: "column",
+      display: "flex",
+  },
 });
 const StyledTableCell = withStyles(theme => ({
   head: {
@@ -73,7 +80,10 @@ export default function DenseTable(props) {
         </Table>
       </TableContainer>
       
-    </div > : <></>
+    </div > : <div className= {classes.skeleton}>
+      <Skeleton variant="rect" amination='wave' width={400} height={400} />
+      <br/><Skeleton variant="circle" amination='wave' width={40} height={40} />
+    </div>
   );
 }
 /*<TableCell align="left">Profesor&nbsp;</TableCell>

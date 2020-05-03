@@ -13,8 +13,6 @@ import Container from '@material-ui/core/Container';
 import KeyboardArrowUpIcon from '@material-ui/icons/KeyboardArrowUp';
 import './App.css';
 import PasoAPaso from './pages/PasoAPaso';
-import { useSelector, useDispatch } from 'react-redux';
-import { getCarreras, getFetchCarreras } from '../redux/actions/carreras';
 
 function ElevationScroll(props) {
 	const { children, window } = props;
@@ -34,13 +32,10 @@ function ElevationScroll(props) {
 
 const useStyles = makeStyles((theme) => ({
 	root: {
-		backgroundColor: '#ffffff',
+		backgroundColor: 'transparent',
 		position: 'fixed',
 		bottom: theme.spacing(5),
 		right: theme.spacing(5),
-	},
-	scrollTop: {
-		backgroundColor: 'transparent',
 	},
 }));
 
@@ -65,7 +60,7 @@ function ScrollTop(props) {
 
 	return (
 		<Zoom in={trigger}>
-			<div onClick={handleClick} role='presentation' className={classes.root}>
+			<div onClick={handleClick} role='presentation' className={classes.root} >
 				{children}
 			</div>
 		</Zoom>
@@ -99,7 +94,7 @@ function App(props) {
 					</div>
 				</Router>
 			</Container>
-			<ScrollTop {...props}>
+			<ScrollTop {...props }>
 				<Fab color='secondary' size='small' aria-label='scroll back to top' >
 					<KeyboardArrowUpIcon />
 				</Fab>
