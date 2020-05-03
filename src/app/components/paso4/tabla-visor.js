@@ -15,17 +15,16 @@ import { getResultadosGenerados } from './../../../redux/actions/generador';
 
 import ButtonDialog from './full-dialog';
 
-const useStyles = makeStyles((theme) => ({
-	root: {
-		'& > * + *': {
-			marginTop: theme.spacing(2),
-			alignItems: 'center',
-			justifyContent: 'center',
-			flexDirection: 'column',
-			display: 'flex',
-		},
-	},
-	pagination: {},
+const useStyles = makeStyles(theme => ({
+  root: {
+    "& > * + *": {
+      marginTop: theme.spacing(2),
+      alignItems: "center",
+      justifyContent: "center",
+      flexDirection: "column",
+      display: "flex"
+    }
+  },
 }));
 
 export default function PaginationControlled() {
@@ -59,32 +58,30 @@ export default function PaginationControlled() {
 		}
 	}, [horariosGenerados, dispatch, paquetes]);
 
-	const handleChange = (event, value) => {
-		setPage(value);
-	};
-	return horariosGenerados ? (
-		<div className={classes.root}>
-			<SwipeableViews
-				disabled
-				axis={theme.direction === 'rtl' ? 'x-reverse' : 'x'}
-				index={page - 1}
-			>
-				{horariosGenerados.map((horario, index) => (
-					<React.Fragment key={index}>
-						<Tabla horario={horario} />
-						<br />
-						<ButtonDialog horario={horario} />
-					</React.Fragment>
-				))}
-			</SwipeableViews>
-			<Pagination
-				//style={classes.pagination}
-				count={horariosGenerados.length}
-				color={'primary'}
-				onChange={handleChange}
-			/>
-		</div>
-	) : (
-		<h>cargando ...</h>
-	);
+  const handleChange = (event, value) => {
+    setPage(value);
+  };
+  return ( horariosGenerados ? 
+    <div className={classes.root}>
+      <SwipeableViews
+        disabled
+        axis={theme.direction === "rtl" ? "x-reverse" : "x"}
+        index={page - 1}
+      >
+        {horariosGenerados.map((horario, index) => (
+          <React.Fragment key={index}>
+            <Tabla horario={horario} />
+            <br />
+            <ButtonDialog horario={horario}/>
+          </React.Fragment>
+        ))}
+      </SwipeableViews>
+      <Pagination
+        //style={classes.pagination}
+        count={horariosGenerados.length}
+        color={"primary"}
+        onChange={handleChange}
+      />
+    </div> :<></>
+  );
 }
