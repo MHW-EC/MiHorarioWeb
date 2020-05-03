@@ -43,7 +43,7 @@ const useStyles = makeStyles((theme) => ({
 		alignItems: 'left',
 	},
 	fab: {
-		/* position: 'absolute' */
+		position: 'absolute',
 		right: theme.spacing(0),
 		top: theme.spacing(0),
 	},

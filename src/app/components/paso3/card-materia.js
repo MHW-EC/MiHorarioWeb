@@ -71,7 +71,7 @@ export default function SingleLineGridList(props) {
 
 	useEffect(() => {
 		if (parTeorico) {
-			setnCols(parTeorico['paralelos'].length <= 1 ? 1.1 : 1.15);
+			setnCols(parTeorico['paralelos'].length <= 1 ? 1.1 : 1.2);
 		}
 	}, [parTeorico, isMobile]);
 
