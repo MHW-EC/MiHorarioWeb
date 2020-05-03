@@ -46,6 +46,10 @@ const useStyles = makeStyles((theme) => ({
 		black: '#000000',
 		white: '#ffffff',
 	},
+	nombreMateria: {
+		color: '#ffffff',
+		width: '-webkit-fill-available',
+	},
 }));
 
 export default function SingleLineGridList(props) {
@@ -77,7 +81,7 @@ export default function SingleLineGridList(props) {
 		<Card elevation={6}>
 			<CardContent
 				className={classes.cardContent}
-				style={{ minHeight: isMobile ? 'auto' : 350 }}
+				style={{ minHeight: isMobile ? 'auto' : 310 }}
 			>
 				<GridList
 					padding={10}
@@ -100,7 +104,7 @@ export default function SingleLineGridList(props) {
 				className={classes.cardActions}
 				style={{ minHeight: isMobile ? 'auto' : 70 }}
 			>
-				<Typography variant='body1' color='inherit'>
+				<Typography variant='body1' className={classes.nombreMateria}>
 					{materia['nombre']} - {materia['codigo']}
 				</Typography>
 			</CardActions>
