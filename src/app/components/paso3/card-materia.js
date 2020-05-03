@@ -17,9 +17,7 @@ const useStyles = makeStyles((theme) => ({
 		overflow: 'hidden',
 		backgroundColor: 'transparent',
 	},
-	cardParalelo: {
-		width: '80% !important',
-	},
+
 	gridList: {
 		flexWrap: 'nowrap',
 		transform: 'translateZ(0)',
@@ -73,7 +71,7 @@ export default function SingleLineGridList(props) {
 
 	useEffect(() => {
 		if (parTeorico) {
-			setnCols(parTeorico['paralelos'].length <= 1 ? 1 : 1.1);
+			setnCols(parTeorico['paralelos'].length <= 1 ? 1.1 : 1.15);
 		}
 	}, [parTeorico, isMobile]);
 
@@ -91,10 +89,7 @@ export default function SingleLineGridList(props) {
 					cols={nCols}
 				>
 					{parTeorico['paralelos'].map((par) => (
-						<GridListTile
-							className={classes.cardParalelo}
-							key={par['paralelo']}
-						>
+						<GridListTile key={par['paralelo']}>
 							<CardTeorico paralelo={par} />
 						</GridListTile>
 					))}
