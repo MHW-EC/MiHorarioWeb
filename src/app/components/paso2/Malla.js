@@ -10,7 +10,7 @@ import Autocomplete from '@material-ui/lab/Autocomplete';
 import { getAllTeoricos } from '../../../redux/actions/teorico';
 
 import { allTeoricosResults as allteoricosSelector } from '../../../redux/selectors';
-import { all } from 'redux-saga/effects';
+//import { all } from 'redux-saga/effects';
 
 const useStyles = makeStyles((theme) => ({
 	root: {
