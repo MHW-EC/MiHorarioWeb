@@ -219,7 +219,7 @@ export default function PasoAPaso() {
 					)}
 				</Grid>
 				<Grid item xs={12}>
-					<Container maxWidth='xs'>{getStepComponet(activeStep)}</Container>
+					<Container maxWidth='xl'>{getStepComponet(activeStep)}</Container>
 				</Grid>
 			</Grid>
 		</div>
