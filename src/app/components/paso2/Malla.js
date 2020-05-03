@@ -28,11 +28,17 @@ const useStyles = makeStyles((theme) => ({
 	paperOnClick: {
 		borderColor: 'blue',
 	},
+	spacing: {
+		paddingTop: '10px',
+	},
+	spacingTitle: {
+		paddingTop: '30px',
+	},
 }));
 
 const generarCelda = (elemento, index) => {
 	return (
-		<Grid key={elemento.codigo} item xs={6} sm={4} md={4} lg={3} xl={2}>
+		<Grid key={elemento.codigo} item xs={12} sm={4} md={4} lg={3} xl={2}>
 			<Paper variant='outlined' style={{ minHeight: 125 }} evelation={3}>
 				<Celda materia={elemento} />
 			</Paper>
@@ -165,7 +171,7 @@ export default function Malla(props) {
 						justify='flex-start'
 						alignItems='flex-start'
 					>
-						<Grid>
+						<Grid className={classes.spacingTitle}>
 							<Typography variant='subtitle2' color='textSecondary'>
 								Seleccionadas
 							</Typography>
@@ -173,6 +179,7 @@ export default function Malla(props) {
 					</Grid>
 
 					<Grid
+						className={classes.spacing}
 						container={true}
 						spacing={3}
 						justify='center'
@@ -195,7 +202,7 @@ export default function Malla(props) {
 						justify='flex-start'
 						alignItems='flex-start'
 					>
-						<Grid>
+						<Grid className={classes.spacingTitle}>
 							<Typography variant='subtitle2' color='textSecondary'>
 								Recomendadas
 							</Typography>
@@ -203,6 +210,7 @@ export default function Malla(props) {
 					</Grid>
 
 					<Grid
+						className={classes.spacing}
 						container={true}
 						spacing={3}
 						justify='center'

@@ -9,7 +9,7 @@ import OpcionesMaterias from '../components/paso3/opciones-materias';
 import SearchCarrera from '../components/paso1/SearchCarrera';
 import TablaVisor from '../components/paso4/tabla-visor';
 import Malla from '../components/paso2/Malla';
-import { Grid } from '@material-ui/core';
+import { Grid, Container } from '@material-ui/core';
 import StepContent from '@material-ui/core/StepContent';
 import { useDispatch } from 'react-redux';
 import { cleanCarrera } from '../../redux/actions/carrera';
@@ -218,8 +218,8 @@ export default function PasoAPaso() {
 						</div>
 					)}
 				</Grid>
-				<Grid item xs={12} className={classes.pasoContainer}>
-					{getStepComponet(activeStep)}
+				<Grid item xs={12}>
+					<Container maxWidth='xs'>{getStepComponet(activeStep)}</Container>
 				</Grid>
 			</Grid>
 		</div>
