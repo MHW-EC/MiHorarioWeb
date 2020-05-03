@@ -13,6 +13,9 @@ const useStyles = makeStyles({
 		flexDirection: 'column',
 		display: 'flex',
 	},
+	cardParalelo: {
+		width: '80%',
+	},
 });
 
 export default function DenseTable(props) {
@@ -25,11 +28,10 @@ export default function DenseTable(props) {
 			dispatch(getMaterias());
 		}
 	});
-	console.log(materiasSelect)
+	console.log(materiasSelect);
 	return (
 		<div className={classes.root}>
-			<Grid container spacing={3} justify="center"
-				alignItems="center" >
+			<Grid container spacing={3} justify='center' alignItems='center'>
 				{materiasSelect.map((materia) => (
 					<Grid
 						key={materia['codigo']}
@@ -39,7 +41,6 @@ export default function DenseTable(props) {
 						md={4}
 						lg={3}
 						xl={2}
-						
 					>
 						<CardMateria materia={materia} isMobile={props.isMobile} />
 					</Grid>

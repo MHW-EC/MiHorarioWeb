@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
-import { Paper, Grid } from '@material-ui/core';
+import { Paper, Grid, Container } from '@material-ui/core';
 import Celda from './celda';
 import { useSelector, useDispatch } from 'react-redux';
 import { carreraSeleccionada as carreraSelector } from '../../../redux/selectors';
@@ -102,30 +102,32 @@ export default function Malla(props) {
 		<div className={classes.root}>
 			<div>
 				<Grid container={true} spacing={3} justify='center' alignItems='center'>
-					<Grid item xs={12} sm={8} md={8} lg={6} xl={6}>
+					<Grid item xs={12} sm={8} md={8} lg={5} xl={5}>
 						{allTeoricosBase && allTeoricosUnicos ? (
-							<Autocomplete
-								id='input-nombre-carrera'
-								inputValue={input}
-								clearOnEscape={true}
-								onChange={onChangeComplete}
-								options={allTeoricosUnicos}
-								label='Agregue una nueva materia'
-								//options={carrerasResults.reduce((a, b) => {
-								//	return {'materias': a.materias.concat(b.materias)} } )['materias']}
-								getOptionLabel={(option) => {
-									return `${option['nombre']} - ${option['codigo']}`;
-								}}
-								renderInput={(params) => (
-									<TextField
-										{...params}
-										onChange={({ target }) => setInput(target.value)}
-										id='custom-css-outlined-input'
-										label='Agregue una nueva materia'
-										variant='outlined'
-									/>
-								)}
-							/>
+							<Container>
+								<Autocomplete
+									id='input-nombre-carrera'
+									inputValue={input}
+									clearOnEscape={true}
+									onChange={onChangeComplete}
+									options={allTeoricosUnicos}
+									label='Agregue una nueva materia'
+									//options={carrerasResults.reduce((a, b) => {
+									//	return {'materias': a.materias.concat(b.materias)} } )['materias']}
+									getOptionLabel={(option) => {
+										return `${option['nombre']} - ${option['codigo']}`;
+									}}
+									renderInput={(params) => (
+										<TextField
+											{...params}
+											onChange={({ target }) => setInput(target.value)}
+											id='custom-css-outlined-input'
+											label='Agregue una nueva materia'
+											variant='outlined'
+										/>
+									)}
+								/>
+							</Container>
 						) : (
 							<></>
 						)}

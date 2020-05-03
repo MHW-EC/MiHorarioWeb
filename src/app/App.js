@@ -60,7 +60,7 @@ function ScrollTop(props) {
 
 	return (
 		<Zoom in={trigger}>
-			<div onClick={handleClick} role='presentation' className={classes.root} >
+			<div onClick={handleClick} role='presentation' className={classes.root}>
 				{children}
 			</div>
 		</Zoom>
@@ -87,15 +87,15 @@ function App(props) {
 				</AppBar>
 			</ElevationScroll>
 			<Toolbar id='back-to-top-anchor' />
-			<Container>
+			<Container maxWidth='xl'>
 				<Router>
 					<div>
 						<Route exact path='/' component={PasoAPaso} />
 					</div>
 				</Router>
 			</Container>
-			<ScrollTop {...props }>
-				<Fab color='secondary' size='small' aria-label='scroll back to top' >
+			<ScrollTop {...props}>
+				<Fab color='secondary' size='small' aria-label='scroll back to top'>
 					<KeyboardArrowUpIcon />
 				</Fab>
 			</ScrollTop>

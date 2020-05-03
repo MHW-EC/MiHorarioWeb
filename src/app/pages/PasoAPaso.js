@@ -12,12 +12,12 @@ import Malla from '../components/paso2/Malla';
 import { Grid } from '@material-ui/core';
 import StepContent from '@material-ui/core/StepContent';
 import { useDispatch } from 'react-redux';
-import { cleanCarrera } from '../../redux/actions/carrera'
-import { cleanMaterias } from '../../redux/actions/materias'
-import { cleanSel} from '../../redux/actions/seleccionados'
-import { cleanPaquetes } from '../../redux/actions/paquetes'
-import { cleanAsociados } from '../../redux/actions/asociado'
-import { cleanResultados } from '../../redux/actions/generador'
+import { cleanCarrera } from '../../redux/actions/carrera';
+import { cleanMaterias } from '../../redux/actions/materias';
+import { cleanSel } from '../../redux/actions/seleccionados';
+import { cleanPaquetes } from '../../redux/actions/paquetes';
+import { cleanAsociados } from '../../redux/actions/asociado';
+import { cleanResultados } from '../../redux/actions/generador';
 
 //Aqui seteamos estilos
 const useStyles = makeStyles((theme) => ({
@@ -25,7 +25,7 @@ const useStyles = makeStyles((theme) => ({
 		//width: '100%',
 		backgroundColor: '#ffffff',
 		color: '#fff',
-		spacing: theme.spacing(0)
+		spacing: theme.spacing(0),
 	},
 	backButton: {
 		//color: 'primary',
@@ -40,16 +40,18 @@ const useStyles = makeStyles((theme) => ({
 	instructions: {
 		marginTop: theme.spacing(1),
 		marginBottom: theme.spacing(1),
-		
 	},
 	label: {
 		color: '#ffffff',
 	},
 	contButton: {
 		'& > *': {
-		  margin: theme.spacing(1),
+			margin: theme.spacing(1),
 		},
-	  },
+	},
+	pasoContainer: {
+		padding: '10px 60px !important',
+	},
 }));
 
 //Esto no ayuda a obtener los pasos a seguir
@@ -111,15 +113,15 @@ export default function PasoAPaso() {
 				break;
 			case 2:
 				dispatch(cleanMaterias());
-				dispatch(cleanSel())
-				dispatch(cleanAsociados())
-				dispatch(cleanPaquetes())
+				dispatch(cleanSel());
+				dispatch(cleanAsociados());
+				dispatch(cleanPaquetes());
 				break;
 			case 3:
-				dispatch(cleanResultados())
-				dispatch(cleanSel())
-				dispatch(cleanAsociados())
-				dispatch(cleanPaquetes())
+				dispatch(cleanResultados());
+				dispatch(cleanSel());
+				dispatch(cleanAsociados());
+				dispatch(cleanPaquetes());
 				break;
 			default:
 				break;
@@ -171,7 +173,10 @@ export default function PasoAPaso() {
 				<Grid item xs={12}>
 					{activeStep === steps.length - 1 ? (
 						<div>
-							<Typography className={classes.instructions} color={'textSecondary'}>
+							<Typography
+								className={classes.instructions}
+								color={'textSecondary'}
+							>
 								{getStepContent(activeStep)}
 							</Typography>
 							<div>
@@ -188,15 +193,17 @@ export default function PasoAPaso() {
 						</div>
 					) : (
 						<div>
-							<Typography className={classes.instructions} color={'textSecondary'}>
+							<Typography
+								className={classes.instructions}
+								color={'textSecondary'}
+							>
 								{getStepContent(activeStep)}
 							</Typography>
 							<div className={classes.contButton}>
 								<Button
-									variant="contained"
+									variant='contained'
 									disabled={activeStep === 0}
 									onClick={handleBack}
-									
 								>
 									Atrás
 								</Button>
@@ -211,7 +218,7 @@ export default function PasoAPaso() {
 						</div>
 					)}
 				</Grid>
-				<Grid item xs={12}>
+				<Grid item xs={12} className={classes.pasoContainer}>
 					{getStepComponet(activeStep)}
 				</Grid>
 			</Grid>

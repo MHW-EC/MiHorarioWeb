@@ -7,6 +7,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { getCarreras } from '../../../redux/actions/carreras';
 import { carrerasResults as carrerasResultSelector } from '../../../redux/selectors';
 import { setCarrera } from '../../../redux/actions/carrera';
+import { Container } from '@material-ui/core';
 const CssTextField = withStyles({
 	root: {
 		'& input': {
@@ -61,9 +62,9 @@ export default function SearchCarrera(props) {
 	};
 
 	return (
-		<Grid container={true} spacing={3} justify="center"
-				alignItems="center">
-				<Grid item  xs={12} sm={8} md={8} lg={6} xl={6}>
+		<Container>
+			<Grid container={true} spacing={3} justify='center' alignItems='center'>
+				<Grid item xs={12} sm={8} md={8} lg={6} xl={6}>
 					{carrerasResults ? (
 						<Autocomplete
 							id='input-nombre-carrera'
@@ -71,7 +72,12 @@ export default function SearchCarrera(props) {
 							options={carrerasResults}
 							getOptionLabel={(option) => option['nombre']}
 							renderInput={(params) => (
-								<TextField {...params} id='custom-css-outlined-input' label="Nombre de su carrera" variant="outlined" />
+								<TextField
+									{...params}
+									id='custom-css-outlined-input'
+									label='Nombre de su carrera'
+									variant='outlined'
+								/>
 							)}
 						/>
 					) : (
@@ -79,5 +85,6 @@ export default function SearchCarrera(props) {
 					)}
 				</Grid>
 			</Grid>
+		</Container>
 	);
 }
