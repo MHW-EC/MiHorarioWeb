@@ -2,9 +2,10 @@ import React, { useState, useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import CardMateria from './card-materia';
-import { useSelector, useActions, useDispatch } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { materiasSeleccionadas as matSelSelector } from '../../../redux/selectors';
-import { getMaterias } from '../../../redux/actions/materias';
+import { getMateriasMalla, getMaterias } from '../../../redux/actions/materias';
+import { materiasMalla as mallaSelSelector } from '../../../redux/selectors';
 const useStyles = makeStyles({
 	root: {
 		padding: '10px',
@@ -22,17 +23,40 @@ export default function DenseTable(props) {
 	const classes = useStyles();
 	const dispatch = useDispatch();
 	const materiasSelect = useSelector((state) => matSelSelector(state));
+	const materiasMalla = useSelector((state) => mallaSelSelector(state));
+	const [matCompile, setMatCompile] = useState([]);
 
 	useEffect(() => {
 		if (!materiasSelect) {
 			dispatch(getMaterias());
+		} else {
+			setMatCompile((anterior) => {
+				return [
+					...anterior,
+					...materiasSelect.filter((mat) => mat.check === true),
+				];
+			});
 		}
-	});
-	console.log(materiasSelect);
+	}, [materiasSelect, dispatch]);
+
+	useEffect(() => {
+		if (!materiasMalla) {
+			dispatch(getMateriasMalla());
+		} else {
+			setMatCompile((anterior) => {
+				return [
+					...anterior,
+					...materiasMalla.filter((mat) => mat.check === true),
+				];
+			});
+		}
+	}, [materiasMalla, dispatch]);
+
+	console.log(matCompile);
 	return (
 		<div className={classes.root}>
 			<Grid container spacing={3} justify='center' alignItems='center'>
-				{materiasSelect.map((materia) => (
+				{matCompile.map((materia) => (
 					<Grid
 						key={materia['codigo']}
 						item

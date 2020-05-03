@@ -8,8 +8,12 @@ import { carreraSeleccionada as carreraSelector } from '../../../redux/selectors
 import { getCarrera } from '../../../redux/actions/carrera';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import { getAllTeoricos } from '../../../redux/actions/teorico';
-
 import { allTeoricosResults as allteoricosSelector } from '../../../redux/selectors';
+import { getMateriasMalla, getMaterias } from '../../../redux/actions/materias';
+import { addMateria, removeMateria } from '../../../redux/actions/materias';
+import { materiasSeleccionadas as matSelSelector } from '../../../redux/selectors';
+import { materiasMalla as mallaSelSelector } from '../../../redux/selectors';
+import Typography from '@material-ui/core/Typography';
 //import { all } from 'redux-saga/effects';
 
 const useStyles = makeStyles((theme) => ({
@@ -26,11 +30,11 @@ const useStyles = makeStyles((theme) => ({
 	},
 }));
 
-const generarCelda = (elemento, index, origen) => {
+const generarCelda = (elemento, index) => {
 	return (
 		<Grid key={elemento.codigo} item xs={6} sm={4} md={4} lg={3} xl={2}>
 			<Paper variant='outlined' style={{ minHeight: 125 }} evelation={3}>
-				<Celda fromAutocomplete={origen} materia={elemento} />
+				<Celda materia={elemento} />
 			</Paper>
 		</Grid>
 	);
@@ -44,7 +48,21 @@ export default function Malla(props) {
 
 	const allTeoricosBase = useSelector((state) => allteoricosSelector(state));
 	const [allTeoricosUnicos, setAllTeoricosUnicos] = useState([]);
-	const [celdas, setCeldas] = useState([]);
+	//const [celdas, setCeldas] = useState([]);
+
+	const materiasSelect = useSelector((state) => matSelSelector(state));
+	const materiasMalla = useSelector((state) => mallaSelSelector(state));
+
+	useEffect(() => {
+		if (!materiasSelect) {
+			dispatch(getMaterias());
+		}
+	});
+	useEffect(() => {
+		if (!materiasMalla) {
+			dispatch(getMateriasMalla());
+		}
+	});
 
 	useEffect(() => {
 		//console.log('llamada')
@@ -74,7 +92,7 @@ export default function Malla(props) {
 		}
 	});
 
-	useEffect(() => {
+	/*useEffect(() => {
 		if (!celdas && carrera) {
 			setCeldas(
 				carrera['materias'].map((element, index) =>
@@ -83,18 +101,23 @@ export default function Malla(props) {
 			);
 			setCeldas([]);
 		}
-	}, [celdas, carrera]);
+	}, [celdas, carrera]);*/
 
 	const onChangeComplete = (event, value, reason) => {
 		if (reason === 'select-option') {
 			setInput('');
-			if (typeof celdas.find((e) => e.key === value.codigo) === 'undefined') {
-				setCeldas((anteriorCeldas) => {
+			if (
+				typeof materiasSelect.find((e) => e.key === value.codigo) ===
+				'undefined'
+			) {
+				dispatch(addMateria({ ...value, check: true }));
+				//materiasSelect.push(generarCelda(value, materiasSelect.length, true))
+				/*set((anteriorCeldas) => {
 					return [
 						...anteriorCeldas,
-						generarCelda(value, anteriorCeldas.length, true),
+						,
 					];
-				});
+				});*/
 			}
 		}
 	};
@@ -134,9 +157,65 @@ export default function Malla(props) {
 					</Grid>
 				</Grid>
 			</div>
-			<Grid container={true} spacing={3} justify='center' alignItems='center'>
-				{celdas}
-			</Grid>
+			{materiasSelect && materiasSelect.length > 0 ? (
+				<>
+					<Grid
+						container
+						direction='row'
+						justify='flex-start'
+						alignItems='flex-start'
+					>
+						<Grid>
+							<Typography variant='subtitle2' color='textSecondary'>
+								Seleccionadas
+							</Typography>
+						</Grid>
+					</Grid>
+
+					<Grid
+						container={true}
+						spacing={3}
+						justify='center'
+						alignItems='center'
+					>
+						{materiasSelect.map((mat) =>
+							generarCelda(mat, materiasSelect.length)
+						)}
+					</Grid>
+				</>
+			) : (
+				<></>
+			)}
+
+			{materiasMalla && materiasMalla.length > 0 ? (
+				<>
+					<Grid
+						container
+						direction='row'
+						justify='flex-start'
+						alignItems='flex-start'
+					>
+						<Grid>
+							<Typography variant='subtitle2' color='textSecondary'>
+								Recomendadas
+							</Typography>
+						</Grid>
+					</Grid>
+
+					<Grid
+						container={true}
+						spacing={3}
+						justify='center'
+						alignItems='center'
+					>
+						{materiasMalla.map((mat) =>
+							generarCelda(mat, materiasMalla.length)
+						)}
+					</Grid>
+				</>
+			) : (
+				<></>
+			)}
 		</div>
 	);
 }

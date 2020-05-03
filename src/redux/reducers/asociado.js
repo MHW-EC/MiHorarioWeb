@@ -1,4 +1,4 @@
-import { GET_ASOCIADO_START, CLEAN_ASOCIADOS, GET_ASOCIADO_COMPLETE } from '../actions/asociado'
+import { CLEAN_ASOCIADOS, GET_ASOCIADO_COMPLETE } from '../actions/asociado'
 
 export default function teoricos(state = {asociados:[]}, { type, teoricoId, response }) {
     switch (type) {

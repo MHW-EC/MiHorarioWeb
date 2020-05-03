@@ -8,6 +8,8 @@ import { getCarreras } from '../../../redux/actions/carreras';
 import { carrerasResults as carrerasResultSelector } from '../../../redux/selectors';
 import { setCarrera } from '../../../redux/actions/carrera';
 import { Container } from '@material-ui/core';
+import { setMateriasMalla } from '../../../redux/actions/materias';
+
 const CssTextField = withStyles({
 	root: {
 		'& input': {
@@ -59,6 +61,13 @@ export default function SearchCarrera(props) {
 
 	const onChangeComplete = (event, value, reason) => {
 		dispatch(setCarrera(value));
+		dispatch(
+			setMateriasMalla(
+				value['materias'].map((mat) => {
+					return { ...mat, check: false };
+				})
+			)
+		);
 	};
 
 	return (

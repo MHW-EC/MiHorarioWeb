@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core/styles';
 import { Grid, Typography, Checkbox } from '@material-ui/core';
-import { addMateria, removeMateria } from '../../../redux/actions/materias';
+import { addMateria,checkMateria,unCheckMateria, removeMateria } from '../../../redux/actions/materias';
 import { useDispatch } from 'react-redux';
 
 const useStyles = makeStyles((theme) => ({
@@ -14,22 +14,26 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Celda(props) {
 	const [materia] = useState(props.materia);
-	const [displayed, setIsDisplayed] = useState(false);
-	const [marcado, setMarcado] = useState(true);
+	//const [displayed, setIsDisplayed] = useState(false);
+	const [marcado, setMarcado] = useState(props.materia.check);
 	const dispatch = useDispatch();
 	const classes = useStyles();
 
-	useEffect(() => {
+	/*useEffect(() => {
 		if (!displayed && props.fromAutocomplete) {
-			dispatch(addMateria(materia));
-			console.log('SE MARCA DE UNA!');
+			dispatch(addMateria(materia))
+			dispatch(checkMateria(materia));
 		}
-	}, [displayed]);
-
+	}, [displayed, props.fromAutocomplete, dispatch, materia]);
+*/
 	const onCheck = (bool) => {
 		setMarcado(!marcado);
-		bool ? dispatch(addMateria(materia)) : dispatch(removeMateria(materia));
+		bool ? dispatch(checkMateria(materia)) : dispatch(unCheckMateria(materia));
 	};
+	const handleBorrar = () => {
+		console.log("click cerrar");
+		dispatch(removeMateria(materia))
+	}
 
 	return (
 		<Grid
@@ -40,6 +44,9 @@ export default function Celda(props) {
 		>
 			<Grid item xs={9}>
 				<Grid container>
+					<Grid item xs={12}>
+						<Typography variant='caption' onClick={handleBorrar}>x</Typography>
+					</Grid>
 					<Grid item xs={12}>
 						<Typography variant='subtitle2'>{materia['nombre']}</Typography>
 						<Typography variant='caption'>{materia['codigo']}</Typography>
