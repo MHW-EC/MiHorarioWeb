@@ -14,7 +14,11 @@ import { addMateria } from '../../../redux/actions/materias';
 import { materiasSeleccionadas as matSelSelector } from '../../../redux/selectors';
 import { materiasMalla as mallaSelSelector } from '../../../redux/selectors';
 import Typography from '@material-ui/core/Typography';
-
+import Button from "@material-ui/core/Button"
+import {
+	enqueueSnackbar as enqueueSnackbarAction,
+	closeSnackbar as closeSnackbarAction,
+} from '../../../redux/actions/notifier';
 const useStyles = makeStyles((theme) => ({
 	root: {
 		flexGrow: 1,
@@ -58,6 +62,12 @@ export default function Malla(props) {
 	const materiasSelect = useSelector((state) => matSelSelector(state));
 	const materiasMalla = useSelector((state) => mallaSelSelector(state));
 
+	const enqueueSnackbar = (...args) => dispatch(enqueueSnackbarAction(...args));
+	const closeSnackbar = (...args) => dispatch(closeSnackbarAction(...args));
+	const btnCerrar = (
+		<Typography style={{ color: '#ffffff' }}>| Ok</Typography>
+	);
+
 	useEffect(() => {
 		if (!materiasSelect) {
 			dispatch(getMaterias());
@@ -98,11 +108,27 @@ export default function Malla(props) {
 	const onChangeComplete = (event, value, reason) => {
 		if (reason === 'select-option') {
 			document.getElementById('input-nombre-carrera').inputValue = '';
+			let notInMalla = 
+			typeof(materiasMalla.find((e) => e.codigo === value.codigo)) ===
+			'undefined'
 			if (
-				typeof materiasSelect.find((e) => e.key === value.codigo) ===
-				'undefined'
-			) {
+				typeof(materiasSelect.find((e) => e.key === value.codigo)) ===
+				'undefined' && notInMalla 
+			){
 				dispatch(addMateria({ ...value, check: true }));
+			}
+			if(!notInMalla){
+				enqueueSnackbar({
+					message: 'Ya existe en recomendados',
+					options: {
+						preventDuplicate: true,
+						key: new Date().getTime() + Math.random(),
+						variant: 'error',
+						action: (key) => (
+							<Button onClick={() => closeSnackbar(key)}>{btnCerrar} </Button>
+						),
+					},
+				});
 			}
 		}
 	};

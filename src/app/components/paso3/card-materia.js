@@ -74,7 +74,7 @@ export default function SingleLineGridList(props) {
 			setnCols(parTeorico['paralelos'].length <= 1 ? 1 : 1.2);
 		}
 	}, [parTeorico, isMobile]);
-
+console.log(isMobile)
 	return parTeorico ? (
 		<Card elevation={6}>
 			<CardContent
