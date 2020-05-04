@@ -157,7 +157,7 @@ export default function PasoAPaso() {
 				}
 				break;
 			case 2:
-				if (paquetesSeleccionados.length !== 0) {
+				if (paquetesSeleccionados.length === 0) {
 					error = true;
 					enqueueSnackbar({
 						message: 'No se han seleccionado paralelos asociados (Prácticos)',
