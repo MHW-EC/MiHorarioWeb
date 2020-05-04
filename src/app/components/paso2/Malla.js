@@ -10,11 +10,10 @@ import Autocomplete from '@material-ui/lab/Autocomplete';
 import { getAllTeoricos } from '../../../redux/actions/teorico';
 import { allTeoricosResults as allteoricosSelector } from '../../../redux/selectors';
 import { getMateriasMalla, getMaterias } from '../../../redux/actions/materias';
-import { addMateria, removeMateria } from '../../../redux/actions/materias';
+import { addMateria } from '../../../redux/actions/materias';
 import { materiasSeleccionadas as matSelSelector } from '../../../redux/selectors';
 import { materiasMalla as mallaSelSelector } from '../../../redux/selectors';
 import Typography from '@material-ui/core/Typography';
-//import { all } from 'redux-saga/effects';
 
 const useStyles = makeStyles((theme) => ({
 	root: {
@@ -71,14 +70,12 @@ export default function Malla(props) {
 	});
 
 	useEffect(() => {
-		//console.log('llamada')
 		if (allTeoricosBase.length === 0) {
 			dispatch(getAllTeoricos());
 		}
 	});
 
 	useEffect(() => {
-		//console.log('order')
 		if (allTeoricosBase.length !== 0 && allTeoricosUnicos.length === 0) {
 			let unicos = [];
 			allTeoricosBase.forEach((ter) => {

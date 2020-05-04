@@ -155,7 +155,6 @@ export default function SimpleCard(props) {
 	}, [props.paralelo]);
 
 	//se usa cunado un paralelo teorico no tiene practicos
-	const handleAddPaquete = (evento, teorico) => {};
 
 	return paralelo ? (
 		<Card className={classes.root} variant='outlined'>

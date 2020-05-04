@@ -1,29 +1,20 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import { makeStyles } from '@material-ui/core/styles';
 import { Grid, Typography, Checkbox, IconButton } from '@material-ui/core';
 import CloseOutlinedIcon from '@material-ui/icons/CloseOutlined';
 import {
-	addMateria,
 	checkMateria,
 	unCheckMateria,
 	removeMateria,
 } from '../../../redux/actions/materias';
 import { useDispatch } from 'react-redux';
 
-const useStyles = makeStyles((theme) => ({
-	contenedor: {
-		alignContent: 'center',
-		alignItems: 'center',
-	},
-}));
-
 export default function Celda(props) {
 	const [materia] = useState(props.materia);
 	//const [displayed, setIsDisplayed] = useState(false);
 	const [marcado, setMarcado] = useState(props.materia.check);
 	const dispatch = useDispatch();
-	const classes = useStyles();
+
 	const fromMalla = props.fromMalla;
 
 	/*useEffect(() => {
@@ -38,7 +29,6 @@ export default function Celda(props) {
 		bool ? dispatch(checkMateria(materia)) : dispatch(unCheckMateria(materia));
 	};
 	const handleBorrar = () => {
-		console.log('click cerrar');
 		dispatch(removeMateria(materia));
 	};
 

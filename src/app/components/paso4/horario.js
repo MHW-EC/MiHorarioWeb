@@ -161,7 +161,7 @@ export default class Demo extends React.PureComponent {
 
   
   render() {
-    //console.log(this.getExcludedDays());
+    
     const { data, currentDate, deltaFila,unaSemana, limitesVerticales,excludedDays,recursos} = this.state;
     return (
       <Paper>

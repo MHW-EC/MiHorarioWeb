@@ -53,7 +53,6 @@ export default function DenseTable(props) {
 		}
 	}, [materiasMalla, dispatch]);
 
-	console.log(matCompile);
 	return (
 		<div className={classes.root}>
 			<Grid container spacing={3} justify='center' alignItems='center'>

@@ -10,10 +10,9 @@ import SearchCarrera from '../components/paso1/SearchCarrera';
 import TablaVisor from '../components/paso4/tabla-visor';
 import Malla from '../components/paso2/Malla';
 import { Grid, Container } from '@material-ui/core';
-import StepContent from '@material-ui/core/StepContent';
 import { useDispatch, useSelector } from 'react-redux';
 import { cleanCarrera } from '../../redux/actions/carrera';
-import { cleanMaterias, setMateriasMalla } from '../../redux/actions/materias';
+import { cleanMaterias } from '../../redux/actions/materias';
 import { carreraSeleccionada as carreraSelector } from '../../redux/selectors';
 import { cleanSel } from '../../redux/actions/seleccionados';
 import { cleanPaquetes } from '../../redux/actions/paquetes';
@@ -89,8 +88,8 @@ function getStepContent(stepIndex) {
 export default function PasoAPaso() {
 	const classes = useStyles();
 	const [activeStep, setActiveStep] = React.useState(0);
-	const [isMobile, setMobile] = React.useState({});
-	const [refresh] = React.useState(false);
+	const [isMobile, setMobile] = React.useState(5);
+
 	const dispatch = useDispatch();
 
 	const enqueueSnackbar = (...args) => dispatch(enqueueSnackbarAction(...args));
@@ -112,18 +111,40 @@ export default function PasoAPaso() {
 	//const [carrera, setCarrera] = React.useState({});
 	//const [materiasSelect, setMateriasSelect] = React.useState([]);
 
-	const detectMobile = async () => {
-		let response = await fetch('/isMobile');
-
-		if (response.ok) {
-			let res = await response.json();
-			setMobile(res);
-		}
-	};
-
 	useEffect(() => {
-		detectMobile();
-	}, [refresh]);
+		const detectMobile = async () => {
+			let response = await fetch('/isMobile');
+
+			if (response.ok) {
+				let res = await response.json();
+				res = res.data;
+
+				setMobile(res !== null);
+
+				if (res === 'iOS' || res.toLowerCase().slice(0, 3) === 'mac') {
+					enqueueSnackbar({
+						message:
+							'Recomendados de un dispositivo \nque use un SO diferente a MacOS o iOS',
+						options: {
+							persist: true,
+							preventDuplicate: true,
+							key: new Date().getTime() + Math.random(),
+							variant: 'warning',
+							style: {
+								whiteSpace: 'pre-line',
+								textAlign: 'left',
+								color: '#000000',
+							},
+							action: (key) => <p></p>,
+						},
+					});
+				}
+			}
+		};
+		if (isMobile === 5) {
+			detectMobile();
+		}
+	});
 
 	const steps = getSteps();
 
@@ -206,7 +227,7 @@ export default function PasoAPaso() {
 				}
 				break;
 			default:
-				console.log('');
+				return;
 		}
 		if (!error) setActiveStep((prevActiveStep) => prevActiveStep + 1);
 	};
@@ -237,9 +258,6 @@ export default function PasoAPaso() {
 		setActiveStep((prevActiveStep) => prevActiveStep - 1);
 	};
 
-	const handleReset = () => {
-		setActiveStep(0);
-	};
 	//Esto nos devuelve el componente del paso segun el paso en el que estamos
 	function getStepComponet(stepIndex) {
 		switch (stepIndex) {
