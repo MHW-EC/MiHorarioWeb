@@ -9,59 +9,73 @@ import Typography from '@material-ui/core/Typography';
 import CloseIcon from '@material-ui/icons/Close';
 import Slide from '@material-ui/core/Slide';
 
-import HorarioVisor from './horario-visor'
+import HorarioVisor from './horario-visor';
 const useStyles = makeStyles((theme) => ({
-  appBar: {
-    position: 'relative',
-  },
-  title: {
-    marginLeft: theme.spacing(2),
-    flex: 1,
-  },
+	appBar: {
+		position: 'relative',
+	},
+	title: {
+		marginLeft: theme.spacing(2),
+		flex: 1,
+	},
 }));
 
 const Transition = React.forwardRef(function Transition(props, ref) {
-  return <Slide direction="up" ref={ref} {...props} />;
+	return <Slide direction='up' ref={ref} {...props} />;
 });
 
 export default function FullScreenDialog(props) {
-  const classes = useStyles();
-  const [open, setOpen] = React.useState(false);
+	const classes = useStyles();
+	const [open, setOpen] = React.useState(false);
 
-  const [horario, setHorario] = React.useState();
+	const [horario, setHorario] = React.useState();
 
-  React.useEffect(()=>{
-    setHorario(props.horario)
-  }, [props.horario])
+	React.useEffect(() => {
+		setHorario(props.horario);
+	}, [props.horario]);
 
+	const handleClickOpen = () => {
+		setOpen(true);
+	};
 
-  const handleClickOpen = () => {
-    setOpen(true);
-  };
+	const handleClose = () => {
+		setOpen(false);
+	};
 
-  const handleClose = () => {
-    setOpen(false);
-  };
-
-  return ( horario ? 
-    <div>
-      <Button variant='contained' color="secondary" onClick={handleClickOpen}>
-        VIZUALIZAR
-      </Button> {
-        open ? <Dialog fullScreen open={open} onClose={handleClose} TransitionComponent={Transition}>
-        <AppBar className={classes.appBar} >
-          <Toolbar variant='dense'>
-            <IconButton edge="start" color="inherit" onClick={handleClose} aria-label="close">
-              <CloseIcon />
-            </IconButton>
-            <Typography variant="h6" className={classes.title}>
-              Horario 
-            </Typography>
-         </Toolbar>
-        </AppBar>
-        {horario ? <HorarioVisor horario={horario}/> : <></> }
-      </Dialog> : <></>}
-      
-    </div> : <></>
-  );
+	return horario ? (
+		<div>
+			<Button variant='contained' color='secondary' onClick={handleClickOpen}>
+				VISUALIZAR
+			</Button>{' '}
+			{open ? (
+				<Dialog
+					fullScreen
+					open={open}
+					onClose={handleClose}
+					TransitionComponent={Transition}
+				>
+					<AppBar className={classes.appBar}>
+						<Toolbar variant='dense'>
+							<IconButton
+								edge='start'
+								color='inherit'
+								onClick={handleClose}
+								aria-label='close'
+							>
+								<CloseIcon />
+							</IconButton>
+							<Typography variant='h6' className={classes.title}>
+								Horario
+							</Typography>
+						</Toolbar>
+					</AppBar>
+					{horario ? <HorarioVisor horario={horario} /> : <></>}
+				</Dialog>
+			) : (
+				<></>
+			)}
+		</div>
+	) : (
+		<></>
+	);
 }
