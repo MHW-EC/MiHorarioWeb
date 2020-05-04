@@ -76,24 +76,18 @@ export default function Malla(props) {
 	});
 
 	useEffect(() => {
-		if (
-			allTeoricosBase.length !== 0 &&
-			allTeoricosUnicos.length === 0 &&
-			!materiasMalla
-		) {
+		if (allTeoricosBase.length !== 0 && allTeoricosUnicos.length === 0) {
 			let unicos = [];
 			allTeoricosBase.forEach((ter) => {
 				if (
-					typeof unicos.find((e) => e.codigo === ter.codigo) === 'undefined' &&
-					typeof materiasMalla.find((e) => e.codigo === ter.codigo) ===
-						'undefined'
+					typeof unicos.find((e) => e.codigo === ter.codigo) === 'undefined'
 				) {
 					unicos.push(ter);
 				}
 			});
 			setAllTeoricosUnicos(unicos);
 		}
-	}, [allTeoricosUnicos, allTeoricosBase, materiasMalla]);
+	}, [allTeoricosUnicos, allTeoricosBase]);
 
 	useEffect(() => {
 		if (!carrera) {
