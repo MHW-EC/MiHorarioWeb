@@ -36,11 +36,11 @@ const useStyles = makeStyles((theme) => ({
 	},
 }));
 
-const generarCelda = (elemento, index) => {
+const generarCelda = (elemento, index, malla) => {
 	return (
 		<Grid key={elemento.codigo} item xs={6} sm={4} md={4} lg={3} xl={2}>
 			<Paper variant='outlined' style={{ minHeight: 125 }} evelation={3}>
-				<Celda materia={elemento} />
+				<Celda fromMalla={malla} materia={elemento} />
 			</Paper>
 		</Grid>
 	);
@@ -186,7 +186,7 @@ export default function Malla(props) {
 						alignItems='center'
 					>
 						{materiasSelect.map((mat) =>
-							generarCelda(mat, materiasSelect.length)
+							generarCelda(mat, materiasSelect.length, false)
 						)}
 					</Grid>
 				</>
@@ -217,7 +217,7 @@ export default function Malla(props) {
 						alignItems='center'
 					>
 						{materiasMalla.map((mat) =>
-							generarCelda(mat, materiasMalla.length)
+							generarCelda(mat, materiasMalla.length, true)
 						)}
 					</Grid>
 				</>

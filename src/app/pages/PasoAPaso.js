@@ -21,7 +21,10 @@ import { cleanAsociados } from '../../redux/actions/asociado';
 import { cleanResultados } from '../../redux/actions/generador';
 import { materiasSeleccionadas as matSelSelector } from '../../redux/selectors';
 import { materiasMalla as mallaSelSelector } from '../../redux/selectors';
-import { paqueteria as paqSelector } from '../../redux/selectors';
+import {
+	paqueteria as paqSelector,
+	seleccionados as selecSelector,
+} from '../../redux/selectors';
 
 import {
 	enqueueSnackbar as enqueueSnackbarAction,
@@ -100,6 +103,12 @@ export default function PasoAPaso() {
 
 	const paquetesSeleccionados = useSelector((state) => paqSelector(state));
 
+	const seleccionados = useSelector((state) => selecSelector(state));
+
+	const btnCerrar = (
+		<Typography style={{ color: '#ffffff' }}>| Cerrar</Typography>
+	);
+
 	//const [carrera, setCarrera] = React.useState({});
 	//const [materiasSelect, setMateriasSelect] = React.useState([]);
 
@@ -128,10 +137,11 @@ export default function PasoAPaso() {
 					enqueueSnackbar({
 						message: 'No se ha seleccionado una carrera',
 						options: {
+							preventDuplicate: true,
 							key: new Date().getTime() + Math.random(),
 							variant: 'error',
 							action: (key) => (
-								<Button onClick={() => closeSnackbar(key)}>Okay</Button>
+								<Button onClick={() => closeSnackbar(key)}>{btnCerrar} </Button>
 							),
 						},
 					});
@@ -147,10 +157,11 @@ export default function PasoAPaso() {
 					enqueueSnackbar({
 						message: 'No se han seleccionado materias',
 						options: {
+							preventDuplicate: true,
 							key: new Date().getTime() + Math.random(),
 							variant: 'error',
 							action: (key) => (
-								<Button onClick={() => closeSnackbar(key)}>Okay</Button>
+								<Button onClick={() => closeSnackbar(key)}>{btnCerrar} </Button>
 							),
 						},
 					});
@@ -160,12 +171,26 @@ export default function PasoAPaso() {
 				if (paquetesSeleccionados.length === 0) {
 					error = true;
 					enqueueSnackbar({
-						message: 'No se han seleccionado paralelos asociados (Prácticos)',
+						message: 'No se han seleccionado paralelos Asociados (Prácticos)',
 						options: {
+							preventDuplicate: true,
 							key: new Date().getTime() + Math.random(),
 							variant: 'error',
 							action: (key) => (
-								<Button onClick={() => closeSnackbar(key)}>Okay</Button>
+								<Button onClick={() => closeSnackbar(key)}>{btnCerrar} </Button>
+							),
+						},
+					});
+				} else if (seleccionados.length === 0) {
+					error = true;
+					enqueueSnackbar({
+						message: 'No se han seleccionado paralelos Teóricos',
+						options: {
+							preventDuplicate: true,
+							key: new Date().getTime() + Math.random(),
+							variant: 'error',
+							action: (key) => (
+								<Button onClick={() => closeSnackbar(key)}>{btnCerrar} </Button>
 							),
 						},
 					});

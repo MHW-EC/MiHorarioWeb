@@ -93,7 +93,7 @@ export default function SimpleCard(props) {
 			icon: <AddBoxOutlinedIcon />,
 			label: 'Disabled',
 			entra: -1,
-			tooltipNode: 'Add',
+			tooltipNode: 'Añadir materia',
 		},
 		{
 			color: 'primary',
@@ -101,7 +101,7 @@ export default function SimpleCard(props) {
 			icon: <AddBoxOutlinedIcon />,
 			label: 'Add',
 			entra: 1,
-			tooltipNode: 'Add',
+			tooltipNode: 'Añadir materia',
 		},
 		{
 			color: 'secondary',
@@ -109,7 +109,7 @@ export default function SimpleCard(props) {
 			icon: <DeleteOutlineIcon />,
 			label: 'Remove',
 			entra: 0,
-			tooltipNode: 'Remove',
+			tooltipNode: 'Remover materia',
 		},
 	];
 
