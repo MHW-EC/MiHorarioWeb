@@ -14,11 +14,13 @@ import { addMateria } from '../../../redux/actions/materias';
 import { materiasSeleccionadas as matSelSelector } from '../../../redux/selectors';
 import { materiasMalla as mallaSelSelector } from '../../../redux/selectors';
 import Typography from '@material-ui/core/Typography';
-import Button from "@material-ui/core/Button"
+import Button from '@material-ui/core/Button';
 import {
 	enqueueSnackbar as enqueueSnackbarAction,
 	closeSnackbar as closeSnackbarAction,
 } from '../../../redux/actions/notifier';
+import { checkMateria } from '../../../redux/actions/materias';
+
 const useStyles = makeStyles((theme) => ({
 	root: {
 		flexGrow: 1,
@@ -64,9 +66,11 @@ export default function Malla(props) {
 
 	const enqueueSnackbar = (...args) => dispatch(enqueueSnackbarAction(...args));
 	const closeSnackbar = (...args) => dispatch(closeSnackbarAction(...args));
-	const btnCerrar = (
-		<Typography style={{ color: '#ffffff' }}>| Ok</Typography>
-	);
+	const btnCerrar = <Typography style={{ color: '#ffffff' }}>| Ok</Typography>;
+
+	const [refresh, setRefresh] = useState(false);
+
+	useEffect(() => {}, [refresh]);
 
 	useEffect(() => {
 		if (!materiasSelect) {
@@ -108,22 +112,32 @@ export default function Malla(props) {
 	const onChangeComplete = (event, value, reason) => {
 		if (reason === 'select-option') {
 			document.getElementById('input-nombre-carrera').inputValue = '';
-			let notInMalla = 
-			typeof(materiasMalla.find((e) => e.codigo === value.codigo)) ===
-			'undefined'
+			let notInMalla =
+				typeof materiasMalla.find((e) => e.codigo === value.codigo) ===
+				'undefined';
 			if (
-				typeof(materiasSelect.find((e) => e.key === value.codigo)) ===
-				'undefined' && notInMalla 
-			){
+				typeof materiasSelect.find((e) => e.key === value.codigo) ===
+					'undefined' &&
+				notInMalla
+			) {
 				dispatch(addMateria({ ...value, check: true }));
 			}
-			if(!notInMalla){
+			if (!notInMalla) {
+				let materiaBusq = materiasMalla.find((e) => {
+					let valor = e.codigo === value.codigo;
+					if (valor) {
+						e.check = true;
+					}
+					return valor;
+				});
+
+				setRefresh(!refresh);
 				enqueueSnackbar({
-					message: 'Ya existe en recomendados',
+					message: 'Materia añadida satisfactoriamente',
 					options: {
 						preventDuplicate: true,
 						key: new Date().getTime() + Math.random(),
-						variant: 'error',
+						variant: 'success',
 						action: (key) => (
 							<Button onClick={() => closeSnackbar(key)}>{btnCerrar} </Button>
 						),

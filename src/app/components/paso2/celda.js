@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { Grid, Typography, Checkbox, IconButton } from '@material-ui/core';
 import CloseOutlinedIcon from '@material-ui/icons/CloseOutlined';
@@ -13,9 +13,17 @@ export default function Celda(props) {
 	const [materia] = useState(props.materia);
 	//const [displayed, setIsDisplayed] = useState(false);
 	const [marcado, setMarcado] = useState(props.materia.check);
+
 	const dispatch = useDispatch();
 
 	const fromMalla = props.fromMalla;
+
+	useEffect(() => {
+		setMarcado(props.materia.check);
+		if (props.materia.check) {
+			dispatch(checkMateria(materia));
+		}
+	}, [props.materia.check, marcado, dispatch, materia]);
 
 	/*useEffect(() => {
 		if (!displayed && props.fromAutocomplete) {
@@ -24,6 +32,7 @@ export default function Celda(props) {
 		}
 	}, [displayed, props.fromAutocomplete, dispatch, materia]);
 */
+
 	const onCheck = (bool) => {
 		setMarcado(!marcado);
 		bool ? dispatch(checkMateria(materia)) : dispatch(unCheckMateria(materia));
