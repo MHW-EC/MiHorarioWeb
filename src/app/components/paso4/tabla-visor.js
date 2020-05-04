@@ -27,7 +27,7 @@ const useStyles = makeStyles((theme) => ({
 	},
 }));
 
-export default function PaginationControlled() {
+export default function PaginationControlled(props) {
 	const classes = useStyles();
 
 	const theme = useTheme();
@@ -61,6 +61,7 @@ export default function PaginationControlled() {
 	const handleChange = (event, value) => {
 		setPage(value);
 	};
+
 	return horariosGenerados ? (
 		<div className={classes.root}>
 			<SwipeableViews
@@ -76,6 +77,7 @@ export default function PaginationControlled() {
 					</React.Fragment>
 				))}
 			</SwipeableViews>
+
 			<Pagination
 				//style={classes.pagination}
 				count={horariosGenerados.length}
