@@ -19,7 +19,6 @@ import {
 	enqueueSnackbar as enqueueSnackbarAction,
 	closeSnackbar as closeSnackbarAction,
 } from '../../../redux/actions/notifier';
-import { checkMateria } from '../../../redux/actions/materias';
 
 const useStyles = makeStyles((theme) => ({
 	root: {
@@ -123,7 +122,7 @@ export default function Malla(props) {
 				dispatch(addMateria({ ...value, check: true }));
 			}
 			if (!notInMalla) {
-				let materiaBusq = materiasMalla.find((e) => {
+				materiasMalla.find((e) => {
 					let valor = e.codigo === value.codigo;
 					if (valor) {
 						e.check = true;

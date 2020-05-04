@@ -10,6 +10,16 @@ import Box from '@material-ui/core/Box';
 import Horario from './horario';
 import * as Colors from '@material-ui/core/colors/';
 import { eventoToAppointment } from '../util/util';
+import { IconButton, Button } from '@material-ui/core';
+import html2canvas from 'html2canvas';
+import CameraAltIcon from '@material-ui/icons/CameraAlt';
+import {
+	enqueueSnackbar as enqueueSnackbarAction,
+	closeSnackbar as closeSnackbarAction,
+} from '../../../redux/actions/notifier';
+import { useDispatch } from 'react-redux';
+import FileSaver from 'file-saver';
+
 //import  {appointmentsC}  from './demo-data/appointments';
 //import  {appointmentsP}  from './demo-data/appointmentsP';
 //import  {appointmentsF}  from './demo-data/appointmentsF';
@@ -62,6 +72,13 @@ const useStyles = makeStyles((theme) => ({
 		flexGrow: 1,
 		backgroundColor: theme.palette.background.paper,
 	},
+	ico: {
+		bottom: '5%',
+		right: '60px',
+		float: 'right',
+		transform: 'scale(1.8)',
+		position: 'fixed',
+	},
 }));
 
 export default function NavTabs(props) {
@@ -71,6 +88,11 @@ export default function NavTabs(props) {
 	const [instancias, setInstancias] = React.useState();
 	const [appos, setApos] = React.useState();
 	const [horario, setHorario] = React.useState();
+	const [panel, setPanel] = React.useState(0);
+
+	const dispatch = useDispatch();
+	const enqueueSnackbar = (...args) => dispatch(enqueueSnackbarAction(...args));
+	const closeSnackbar = (...args) => dispatch(closeSnackbarAction(...args));
 
 	React.useEffect(() => {
 		setHorario(props.horario);
@@ -153,8 +175,55 @@ export default function NavTabs(props) {
 		return [appointmentsC, appointmentsP, appointmentsF, appointmentsM];
 	};
 
+	const getId_Nombre = () => {
+		switch (panel) {
+			case 0:
+				return {
+					id: '#nav-tabpanel-0',
+					nombre: `horario-${props.numHorario}-clases`,
+				};
+			case 1:
+				return {
+					id: '#nav-tabpanel-1',
+					nombre: `horario-${props.numHorario}-parcial`,
+				};
+			case 2:
+				return {
+					id: '#nav-tabpanel-2',
+					nombre: `horario-${props.numHorario}-final`,
+				};
+			case 3:
+				return {
+					id: '#nav-tabpanel-3',
+					nombre: `horario-${props.numHorario}-mejoramiento`,
+				};
+			default:
+				return '';
+		}
+	};
+
+	const takeScreenshot = () => {
+		let { id, nombre } = getId_Nombre();
+		html2canvas(document.querySelector(id)).then(function (canvas) {
+			canvas.toBlob(function (blob) {
+				// Generate file download
+				FileSaver.saveAs(blob, nombre + '.png');
+			});
+		});
+		enqueueSnackbar({
+			message: 'Se ha tomado la captura satisfactiramente',
+			options: {
+				preventDuplicate: true,
+				key: new Date().getTime() + Math.random(),
+				variant: 'success',
+				action: (key) => <Button onClick={() => closeSnackbar(key)}>OK</Button>,
+				style: { whiteSpace: 'pre-line', textAlign: 'left' },
+			},
+		});
+	};
+
 	return horario && instancias && appos ? (
-		<div className={classes.root}>
+		<div className={classes.root} id='root-views'>
 			<AppBar position='static' color='inherit'>
 				<Tabs
 					variant='fullWidth'
@@ -162,10 +231,34 @@ export default function NavTabs(props) {
 					onChange={handleChange}
 					aria-label='nav tabs example'
 				>
-					<LinkTab label='CLASES' href='/drafts' {...a11yProps(0)} />
-					<LinkTab label='PARCIAL' href='/trash' {...a11yProps(1)} />
-					<LinkTab label='FINAL' href='/spam' {...a11yProps(2)} />
-					<LinkTab label='MEJORAMIENTO' href='/spam' {...a11yProps(3)} />
+					<LinkTab
+						label='CLASES'
+						{...a11yProps(0)}
+						onClick={() => {
+							setPanel(0);
+						}}
+					/>
+					<LinkTab
+						label='PARCIAL'
+						{...a11yProps(1)}
+						onClick={() => {
+							setPanel(1);
+						}}
+					/>
+					<LinkTab
+						label='FINAL'
+						{...a11yProps(2)}
+						onClick={() => {
+							setPanel(2);
+						}}
+					/>
+					<LinkTab
+						label='MEJORAMIENTO'
+						{...a11yProps(3)}
+						onClick={() => {
+							setPanel(3);
+						}}
+					/>
 				</Tabs>
 			</AppBar>
 
@@ -190,6 +283,9 @@ export default function NavTabs(props) {
 					<Horario appointments={appos[3]} instancias={instancias} />
 				</TabPanel>
 			</SwipeableViews>
+			<IconButton onClick={takeScreenshot} className={classes.ico}>
+				<CameraAltIcon />
+			</IconButton>
 		</div>
 	) : (
 		<></>

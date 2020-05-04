@@ -69,7 +69,15 @@ export default function FullScreenDialog(props) {
 							</Typography>
 						</Toolbar>
 					</AppBar>
-					{horario ? <HorarioVisor horario={horario} /> : <></>}
+					{horario ? (
+						<HorarioVisor
+							id='root-visor'
+							numHorario={props.numHorario}
+							horario={horario}
+						/>
+					) : (
+						<></>
+					)}
 				</Dialog>
 			) : (
 				<></>
