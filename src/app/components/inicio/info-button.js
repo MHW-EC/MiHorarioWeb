@@ -78,7 +78,7 @@ export default function AlertDialogSlide() {
 						</Typography>
 						<br />
 						<Typography>
-							Payapal:{' '}
+							Paypal:{' '}
 							<a href='mailto:mihorarioweb@gmail.com' variant='caption'>
 								mihorarioweb@gmail.com
 							</a>
