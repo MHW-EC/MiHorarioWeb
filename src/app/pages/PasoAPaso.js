@@ -155,7 +155,9 @@ export default function PasoAPaso() {
 				if (validacion) {
 					error = true;
 					enqueueSnackbar({
-						message: 'No se han seleccionado materias',
+						message: isMobile
+							? 'No se han seleccionado materias'
+							: 'No se han seleccionado materias.\nPresione el checkbox a lado del nombre de la materia para añadir una',
 						options: {
 							preventDuplicate: true,
 							key: new Date().getTime() + Math.random(),
@@ -163,6 +165,7 @@ export default function PasoAPaso() {
 							action: (key) => (
 								<Button onClick={() => closeSnackbar(key)}>{btnCerrar} </Button>
 							),
+							style: { whiteSpace: 'pre-line', textAlign: 'left' },
 						},
 					});
 				}
@@ -171,7 +174,9 @@ export default function PasoAPaso() {
 				if (paquetesSeleccionados.length === 0) {
 					error = true;
 					enqueueSnackbar({
-						message: 'No se han seleccionado paralelos Asociados (Prácticos)',
+						message: isMobile
+							? 'No se han seleccionado paralelos Asociados (Prácticos)'
+							: 'No se han seleccionado paralelos Asociados (Prácticos). \nPresione el botón "Par Asociados" para añadirlos',
 						options: {
 							preventDuplicate: true,
 							key: new Date().getTime() + Math.random(),
@@ -179,12 +184,15 @@ export default function PasoAPaso() {
 							action: (key) => (
 								<Button onClick={() => closeSnackbar(key)}>{btnCerrar} </Button>
 							),
+							style: { whiteSpace: 'pre-line', textAlign: 'left' },
 						},
 					});
 				} else if (seleccionados.length === 0) {
 					error = true;
 					enqueueSnackbar({
-						message: 'No se han seleccionado paralelos Teóricos',
+						message: isMobile
+							? 'No se han seleccionado paralelos Teóricos'
+							: 'No se han seleccionado paralelos Teóricos. \nPresione el botón en la esquina superior izquierda de un paralelo para añadirlo',
 						options: {
 							preventDuplicate: true,
 							key: new Date().getTime() + Math.random(),
@@ -192,6 +200,7 @@ export default function PasoAPaso() {
 							action: (key) => (
 								<Button onClick={() => closeSnackbar(key)}>{btnCerrar} </Button>
 							),
+							style: { whiteSpace: 'pre-line', textAlign: 'left' },
 						},
 					});
 				}
