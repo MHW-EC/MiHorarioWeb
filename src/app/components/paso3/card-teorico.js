@@ -132,7 +132,6 @@ export default function SimpleCard(props) {
 					>
 						<Tooltip title={fab.tooltipNode}>
 							<IconButton
-								style={{ color: '#059E00' }}
 								aria-label={fab.label}
 								className={fab.className}
 								color={fab.color}
