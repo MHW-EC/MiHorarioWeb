@@ -48,7 +48,7 @@ const generarCelda = (elemento, index, malla) => {
 export default function Malla(props) {
 	const classes = useStyles();
 	const dispatch = useDispatch();
-	const [input, setInput] = useState('');
+	/* const [input, setInput] = useState(''); */
 	const carrera = useSelector((state) => carreraSelector(state));
 
 	const allTeoricosBase = useSelector((state) => allteoricosSelector(state));
@@ -95,32 +95,14 @@ export default function Malla(props) {
 		}
 	});
 
-	/*useEffect(() => {
-		if (!celdas && carrera) {
-			setCeldas(
-				carrera['materias'].map((element, index) =>
-					generarCelda(element, index, false)
-				)
-			);
-			setCeldas([]);
-		}
-	}, [celdas, carrera]);*/
-
 	const onChangeComplete = (event, value, reason) => {
 		if (reason === 'select-option') {
-			setInput('');
+			document.getElementById('input-nombre-carrera').inputValue = '';
 			if (
 				typeof materiasSelect.find((e) => e.key === value.codigo) ===
 				'undefined'
 			) {
 				dispatch(addMateria({ ...value, check: true }));
-				//materiasSelect.push(generarCelda(value, materiasSelect.length, true))
-				/*set((anteriorCeldas) => {
-					return [
-						...anteriorCeldas,
-						,
-					];
-				});*/
 			}
 		}
 	};
@@ -133,7 +115,6 @@ export default function Malla(props) {
 							<Container>
 								<Autocomplete
 									id='input-nombre-carrera'
-									inputValue={input}
 									clearOnEscape={true}
 									onChange={onChangeComplete}
 									options={allTeoricosUnicos}
@@ -146,7 +127,6 @@ export default function Malla(props) {
 									renderInput={(params) => (
 										<TextField
 											{...params}
-											onChange={({ target }) => setInput(target.value)}
 											id='custom-css-outlined-input'
 											label='Agregue una nueva materia'
 											variant='outlined'

@@ -23,10 +23,7 @@ function* getResultadosGenerados({ paquetes }) {
 		) {
 			yield put({ type: GET_RESULTADOS_GEN_COMPLETE, response });
 		}
-	} catch (err) {
-		console.log(err);
-		//yield put({type: GET_RESULTADOS_GEN_ERROR, err})
-	}
+	} catch (err) {}
 }
 //Watcher _START
 export default function* generados() {

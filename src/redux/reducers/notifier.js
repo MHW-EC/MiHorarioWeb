@@ -11,7 +11,6 @@ const defaultNot = {
 export default (state = defaultNot, action) => {
 	switch (action.type) {
 		case ENQUEUE_SNACKBAR:
-			console.log('Si llega');
 			return {
 				...state,
 				notifications: [
