@@ -11,13 +11,22 @@ import TablaVisor from '../components/paso4/tabla-visor';
 import Malla from '../components/paso2/Malla';
 import { Grid, Container } from '@material-ui/core';
 import StepContent from '@material-ui/core/StepContent';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { cleanCarrera } from '../../redux/actions/carrera';
 import { cleanMaterias, setMateriasMalla } from '../../redux/actions/materias';
+import { carreraSeleccionada as carreraSelector } from '../../redux/selectors';
 import { cleanSel } from '../../redux/actions/seleccionados';
 import { cleanPaquetes } from '../../redux/actions/paquetes';
 import { cleanAsociados } from '../../redux/actions/asociado';
 import { cleanResultados } from '../../redux/actions/generador';
+import { materiasSeleccionadas as matSelSelector } from '../../redux/selectors';
+import { materiasMalla as mallaSelSelector } from '../../redux/selectors';
+import { paqueteria as paqSelector } from '../../redux/selectors';
+
+import {
+	enqueueSnackbar as enqueueSnackbarAction,
+	closeSnackbar as closeSnackbarAction,
+} from '../../redux/actions/notifier';
 
 //Aqui seteamos estilos
 const useStyles = makeStyles((theme) => ({
@@ -80,6 +89,17 @@ export default function PasoAPaso() {
 	const [isMobile, setMobile] = React.useState({});
 	const [refresh] = React.useState(false);
 	const dispatch = useDispatch();
+
+	const enqueueSnackbar = (...args) => dispatch(enqueueSnackbarAction(...args));
+	const closeSnackbar = (...args) => dispatch(closeSnackbarAction(...args));
+
+	const carrera = useSelector((state) => carreraSelector(state));
+
+	const materiasSelect = useSelector((state) => matSelSelector(state));
+	const materiasMalla = useSelector((state) => mallaSelSelector(state));
+
+	const paquetesSeleccionados = useSelector((state) => paqSelector(state));
+
 	//const [carrera, setCarrera] = React.useState({});
 	//const [materiasSelect, setMateriasSelect] = React.useState([]);
 
@@ -100,7 +120,61 @@ export default function PasoAPaso() {
 
 	const handleNext = () => {
 		//setNombreCarrera(document.getElementById('input-nombre-carrera').value);
-		setActiveStep((prevActiveStep) => prevActiveStep + 1);
+		let error = false;
+		switch (activeStep) {
+			case 0:
+				if (Object.keys(carrera).length === 0) {
+					error = true;
+					enqueueSnackbar({
+						message: 'No se ha seleccionado una carrera',
+						options: {
+							key: new Date().getTime() + Math.random(),
+							variant: 'error',
+							action: (key) => (
+								<Button onClick={() => closeSnackbar(key)}>Okay</Button>
+							),
+						},
+					});
+				}
+				break;
+			case 1:
+				let validacion = !(
+					materiasMalla.find((materia) => materia.check) ||
+					materiasSelect.find((materia) => materia.check)
+				);
+				if (validacion) {
+					error = true;
+					enqueueSnackbar({
+						message: 'No se han seleccionado materias',
+						options: {
+							key: new Date().getTime() + Math.random(),
+							variant: 'error',
+							action: (key) => (
+								<Button onClick={() => closeSnackbar(key)}>Okay</Button>
+							),
+						},
+					});
+				}
+				break;
+			case 2:
+				if (paquetesSeleccionados.length !== 0) {
+					error = true;
+					enqueueSnackbar({
+						message: 'No se han seleccionado paralelos asociados (Prácticos)',
+						options: {
+							key: new Date().getTime() + Math.random(),
+							variant: 'error',
+							action: (key) => (
+								<Button onClick={() => closeSnackbar(key)}>Okay</Button>
+							),
+						},
+					});
+				}
+				break;
+			default:
+				console.log('');
+		}
+		if (!error) setActiveStep((prevActiveStep) => prevActiveStep + 1);
 	};
 
 	const handleBack = () => {
@@ -141,10 +215,9 @@ export default function PasoAPaso() {
 				return <Malla />;
 			case 2:
 				return <OpcionesMaterias isMobile={isMobile} />;
-			//return <></>
 			case 3:
-				//return <></>
 				return <TablaVisor />;
+
 			default:
 				return (
 					<Typography className={classes.instructions} color='textSecondary'>

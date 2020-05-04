@@ -13,6 +13,7 @@ import Container from '@material-ui/core/Container';
 import KeyboardArrowUpIcon from '@material-ui/icons/KeyboardArrowUp';
 import './App.css';
 import PasoAPaso from './pages/PasoAPaso';
+import Notifier from './components/Notifier';
 
 function ElevationScroll(props) {
 	const { children, window } = props;
@@ -78,6 +79,7 @@ ElevationScroll.propTypes = {
 function App(props) {
 	return (
 		<React.Fragment>
+			<Notifier />
 			<CssBaseline />
 			<ElevationScroll {...props}>
 				<AppBar>

@@ -60,14 +60,16 @@ export default function SearchCarrera(props) {
 	const classes = useStyles();
 
 	const onChangeComplete = (event, value, reason) => {
-		dispatch(setCarrera(value));
-		dispatch(
-			setMateriasMalla(
-				value['materias'].map((mat) => {
-					return { ...mat, check: false };
-				})
-			)
-		);
+		if (value != null) {
+			dispatch(setCarrera(value));
+			dispatch(
+				setMateriasMalla(
+					value['materias'].map((mat) => {
+						return { ...mat, check: false };
+					})
+				)
+			);
+		}
 	};
 
 	return (

@@ -6,6 +6,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { materiasSeleccionadas as matSelSelector } from '../../../redux/selectors';
 import { getMateriasMalla, getMaterias } from '../../../redux/actions/materias';
 import { materiasMalla as mallaSelSelector } from '../../../redux/selectors';
+
 const useStyles = makeStyles({
 	root: {
 		padding: '10px',
