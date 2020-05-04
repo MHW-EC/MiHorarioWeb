@@ -79,7 +79,7 @@ export default function Celda(props) {
 						{fromMalla ? (
 							<p></p>
 						) : (
-							<IconButton onClick={handleBorrar} edge='start'>
+							<IconButton onClick={handleBorrar}>
 								<CloseOutlinedIcon />
 							</IconButton>
 						)}
