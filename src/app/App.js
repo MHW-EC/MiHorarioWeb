@@ -14,7 +14,7 @@ import KeyboardArrowUpIcon from '@material-ui/icons/KeyboardArrowUp';
 import './App.css';
 import PasoAPaso from './pages/PasoAPaso';
 import Notifier from './components/Notifier';
-
+import InfoButton from "./components/inicio/info-button"
 function ElevationScroll(props) {
 	const { children, window } = props;
 	// Note that you normally won't need to set the window ref as useScrollTrigger
@@ -37,7 +37,7 @@ const useStyles = makeStyles((theme) => ({
 		position: 'fixed',
 		bottom: theme.spacing(5),
 		right: theme.spacing(5),
-	},
+	}
 }));
 
 function ScrollTop(props) {
@@ -77,6 +77,8 @@ ElevationScroll.propTypes = {
 	window: PropTypes.func,
 };
 function App(props) {
+	const classes = useStyles()
+
 	return (
 		<React.Fragment>
 			<Notifier />
@@ -84,7 +86,8 @@ function App(props) {
 			<ElevationScroll {...props}>
 				<AppBar>
 					<Toolbar>
-						<Typography variant='h6'>HORARIO</Typography>
+						<Typography variant='h6'>Horario</Typography>
+						<InfoButton/>
 					</Toolbar>
 				</AppBar>
 			</ElevationScroll>
