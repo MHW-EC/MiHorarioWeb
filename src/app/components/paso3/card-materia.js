@@ -3,11 +3,21 @@ import { makeStyles } from '@material-ui/core/styles';
 import GridList from '@material-ui/core/GridList';
 import GridListTile from '@material-ui/core/GridListTile';
 import Card from '@material-ui/core/Card';
-import { Typography, CardContent, CardActions } from '@material-ui/core';
+import {
+	Typography,
+	CardContent,
+	CardActions,
+	Button,
+} from '@material-ui/core';
 import CardTeorico from './card-teorico';
 import { useSelector, useDispatch } from 'react-redux';
 import { teoricosResults as paralelosSelector } from '../../../redux/selectors';
 import { getTeoricos } from '../../../redux/actions/teorico';
+
+import {
+	enqueueSnackbar as enqueueSnackbarAction,
+	closeSnackbar as closeSnackbarAction,
+} from '../../../redux/actions/notifier';
 
 const useStyles = makeStyles((theme) => ({
 	root: {
@@ -70,11 +80,60 @@ export default function SingleLineGridList(props) {
 	});
 
 	useEffect(() => {
+		const enqueueSnackbar = (...args) =>
+			dispatch(enqueueSnackbarAction(...args));
+		const closeSnackbar = (...args) => dispatch(closeSnackbarAction(...args));
+		enqueueSnackbar({
+			message: 'Seleccione los paralelos asociados por cada paralelo teórico',
+			options: {
+				persist: true,
+				preventDuplicate: true,
+				key: 'alter-par-asociados',
+				variant: 'warning',
+				action: (key) => <Button onClick={() => closeSnackbar(key)}>OK</Button>,
+				style: { whiteSpace: 'pre-line', textAlign: 'left' },
+			},
+		});
+	}, [dispatch]);
+
+	useEffect(() => {
 		if (parTeorico) {
-			setnCols(parTeorico['paralelos'].length <= 1 ? 1 : 1.2);
+			setnCols(parTeorico['paralelos'].length <= 1 ? 1 : 4.8);
+
+			if (document.getElementById('lista-par-teoricos').addEventListener) {
+				// IE9, Chrome, Safari, Opera
+				document
+					.getElementById('lista-par-teoricos')
+					.addEventListener('mousewheel', scrollHorizontally, false);
+				// Firefox
+				document
+					.getElementById('lista-par-teoricos')
+					.addEventListener('DOMMouseScroll', scrollHorizontally, false);
+			}
 		}
 	}, [parTeorico, isMobile]);
-console.log(isMobile)
+
+	const checkFinal = () => {
+		let lista = document.getElementById('lista-par-teoricos');
+		if (lista.scrollHeight - lista.scrollTop === lista.clientHeight) {
+			// IE9, Chrome, Safari, Opera
+			document
+				.getElementById('lista-par-teoricos')
+				.removeEventListener('mousewheel', scrollHorizontally, true);
+			// Firefox
+			document
+				.getElementById('lista-par-teoricos')
+				.removeEventListener('DOMMouseScroll', scrollHorizontally, true);
+		}
+	};
+
+	const scrollHorizontally = (e) => {
+		e = window.event || e;
+		var delta = Math.max(-1, Math.min(1, e.wheelDelta || -e.detail));
+		document.getElementById('lista-par-teoricos').scrollLeft -= delta * 40; // Multiplied by 40
+		e.preventDefault();
+	};
+
 	return parTeorico ? (
 		<Card elevation={6}>
 			<CardContent
@@ -89,7 +148,11 @@ console.log(isMobile)
 					cols={nCols}
 				>
 					{parTeorico['paralelos'].map((par) => (
-						<GridListTile key={par['paralelo']}>
+						<GridListTile
+							id='lista-par-teoricos'
+							key={par['paralelo']}
+							onMouseOver={scrollHorizontally}
+						>
 							<CardTeorico paralelo={par} />
 						</GridListTile>
 					))}
@@ -108,8 +171,3 @@ console.log(isMobile)
 		<div>Loading...</div>
 	);
 }
-/*
-
-         <GridListTile key={par["paralelo"]}>
-         <CardParalelo isteorico={true} teorico={par}/>
-       </GridListTile>*/
