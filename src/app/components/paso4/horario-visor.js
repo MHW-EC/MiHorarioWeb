@@ -110,6 +110,24 @@ export default function NavTabs(props) {
 		}
 	}, [horario]);
 
+	React.useEffect(() => {
+		const enqueueSnackbar = (...args) =>
+			dispatch(enqueueSnackbarAction(...args));
+		const closeSnackbar = (...args) => dispatch(closeSnackbarAction(...args));
+		enqueueSnackbar({
+			message:
+				'Para realizar la captura de pantalla, desliza al inicio del horario',
+			options: {
+				persist: true,
+				preventDuplicate: true,
+				key: 'alter-horario',
+				variant: 'warning',
+				action: (key) => <Button onClick={() => closeSnackbar(key)}>OK</Button>,
+				style: { whiteSpace: 'pre-line', textAlign: 'left' },
+			},
+		});
+	}, [dispatch]);
+
 	const handleChange = (event, newValue) => {
 		setValue(newValue);
 	};

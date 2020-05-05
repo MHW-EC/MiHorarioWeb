@@ -113,20 +113,6 @@ export default function SingleLineGridList(props) {
 		}
 	}, [parTeorico, isMobile]);
 
-	const checkFinal = () => {
-		let lista = document.getElementById('lista-par-teoricos');
-		if (lista.scrollHeight - lista.scrollTop === lista.clientHeight) {
-			// IE9, Chrome, Safari, Opera
-			document
-				.getElementById('lista-par-teoricos')
-				.removeEventListener('mousewheel', scrollHorizontally, true);
-			// Firefox
-			document
-				.getElementById('lista-par-teoricos')
-				.removeEventListener('DOMMouseScroll', scrollHorizontally, true);
-		}
-	};
-
 	const scrollHorizontally = (e) => {
 		e = window.event || e;
 		var delta = Math.max(-1, Math.min(1, e.wheelDelta || -e.detail));
