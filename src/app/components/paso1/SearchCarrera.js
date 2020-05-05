@@ -40,7 +40,9 @@ export default function SearchCarrera(props) {
 						<Autocomplete
 							id='input-nombre-carrera'
 							onChange={onChangeComplete}
-							options={carrerasResults}
+							options={carrerasResults.sort(
+								(a, b) => -b.nombre.localeCompare(a.nombre)
+							)}
 							getOptionLabel={(option) => option['nombre']}
 							renderInput={(params) => (
 								<TextField
