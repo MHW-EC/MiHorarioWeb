@@ -77,7 +77,7 @@ export default function ActionsInExpansionPanelSummary(props) {
 							label={`Paralelo ${par['paralelo']}`}
 						/>
 					</ExpansionPanelSummary>
-					<ExpansionPanelDetails>
+					<ExpansionPanelDetails style={{padding: 0}}>
 						<CardAsociado paralelo={par} />
 					</ExpansionPanelDetails>
 				</ExpansionPanel>

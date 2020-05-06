@@ -25,6 +25,7 @@ import {
 } from '../../../redux/actions/seleccionados';
 import { addPaquete, removePaquete } from '../../../redux/actions/paquetes';
 
+import Skeleton from '@material-ui/lab/Skeleton';
 //import * as Colors from "@material-ui/core/colors";
 const useStyles = makeStyles((theme) => ({
 	root: {
@@ -239,6 +240,6 @@ export default function SimpleCard(props) {
 			)}
 		</Card>
 	) : (
-		<div>Loading...</div>
+		<Skeleton variant='rect' amination='wave' width={300} height={300} />
 	);
 }

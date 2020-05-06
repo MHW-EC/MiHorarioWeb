@@ -14,6 +14,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { teoricosResults as paralelosSelector } from '../../../redux/selectors';
 import { getTeoricos } from '../../../redux/actions/teorico';
 
+import Skeleton from '@material-ui/lab/Skeleton';
 import {
 	enqueueSnackbar as enqueueSnackbarAction,
 	closeSnackbar as closeSnackbarAction,
@@ -154,6 +155,8 @@ export default function SingleLineGridList(props) {
 			</CardActions>
 		</Card>
 	) : (
-		<div>Loading...</div>
+		<div className={classes.skeleton}>
+			<Skeleton variant='rect' amination='wave' width={400} height={400} />
+		</div>
 	);
 }

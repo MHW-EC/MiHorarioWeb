@@ -15,8 +15,10 @@ const useStyles = makeStyles(theme =>({
     padding: 0,
     alignContent: 'left',
     alignItems: 'left',
-
-  },
+    
+  },root: {
+    maxWidth: 250,
+  }
 }));
 
 export default function SimpleCard(props) {
@@ -28,7 +30,7 @@ export default function SimpleCard(props) {
   },[props.paralelo]);
  
   return ( paralelo ?
-    <Card variant="outlined">
+    <Card  className={classes.root}>
       <CardHeader
         avatar={
           <Avatar aria-label="recipe" className={classes.avatar}>
@@ -39,6 +41,7 @@ export default function SimpleCard(props) {
         subheader="Sin calificación"
       /><Divider />
       <CardContent className={classes.div}>
+        <br/>
       <Typography variant="body2" component="p"  aling='left'>
           Clases
       </Typography>
