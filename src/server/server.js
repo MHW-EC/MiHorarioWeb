@@ -58,18 +58,14 @@ app.use('/practico', practicoRoute);
 
 //Nuevo inicio
 mongoose.Promise = global.Promise;
-mongoose
-	.connect(database.db, {
-		useNewUrlParser: true,
-	})
-	.then(
-		() => {
-			console.log('Database connected sucessfully !');
-		},
-		(error) => {
-			console.log('Database could not be connected : ' + error);
-		}
-	);
+mongoose.connect(database.db).then(
+	() => {
+		console.log('Database connected sucessfully !');
+	},
+	(error) => {
+		console.log('Database could not be connected : ' + error);
+	}
+);
 //Nuevo fin
 
 app.get('/ping', function (req, res) {
