@@ -116,28 +116,34 @@ export default function PasoAPaso() {
 			let response = await fetch('/isMobile');
 
 			if (response.ok) {
-				let res = await response.json();
-				res = res.data;
+				if (Object.hasOwnProperty('data')) {
+					let res = await response.json();
+					res = res.data;
 
-				setMobile(res !== null);
+					setMobile(res !== null);
 
-				if (res === 'iOS' || res.toLowerCase().slice(0, 3) === 'mac') {
-					enqueueSnackbar({
-						message:
-							'Recomendados de un dispositivo \nque use un SO diferente a MacOS o iOS',
-						options: {
-							persist: true,
-							preventDuplicate: true,
-							key: new Date().getTime() + Math.random(),
-							variant: 'warning',
-							style: {
-								whiteSpace: 'pre-line',
-								textAlign: 'left',
-								color: '#000000',
+					if (res === 'iOS' || res.toLowerCase().slice(0, 3) === 'mac') {
+						enqueueSnackbar({
+							message:
+								'Recomendados de un dispositivo \nque use un SO diferente a MacOS o iOS',
+							options: {
+								persist: true,
+								preventDuplicate: true,
+								key: new Date().getTime() + Math.random(),
+								variant: 'warning',
+								style: {
+									whiteSpace: 'pre-line',
+									textAlign: 'left',
+									color: '#000000',
+								},
+								action: (key) => <p></p>,
 							},
-							action: (key) => <p></p>,
-						},
-					});
+						});
+					}
+				} else {
+					let res = await response.json();
+					let link = res.ruta;
+					window.location.replace(link);
 				}
 			}
 		};

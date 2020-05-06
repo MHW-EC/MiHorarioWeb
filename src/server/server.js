@@ -1,6 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const path = require('path');
+const httpProxy = require('http-proxy');
 const MobileDetect = require('mobile-detect');
 const app = express();
 const Generador = require('../server_modules/Generador');
@@ -78,36 +79,22 @@ app.get('/ping', function (req, res) {
 	return res.send('pong');
 });
 
-async function redict() {
-	let response = await fetch('/redirigir');
-
-	if (response.ok) {
-		console.log('dkfnjs');
-	}
-}
-
-app.get('/redigir', async function (req, res) {
-	let info = await Util.usageCPU_MEN();
-	if (!info) {
-		console.log(res.headers.host);
-		let link =
-			res.headers.host === 'https://mihorarioweb.azurewebsites.net'
-				? 'https://mihorarioweb.herokuapp.com'
-				: 'https://mihorarioweb.azurewebsites.net';
-		res.redirect(link);
-	}
-});
-
 app.get('/isMobile', async function (req, res) {
 	let info = await Util.usageCPU_MEN();
+	let link_origen = req.headers.host;
+	if (info) {
+		let link =
+			link_origen === 'https://mihorarioweb.azurewebsites.net'
+				? 'https://mihorarioweb.herokuapp.com'
+				: 'https://mihorarioweb.azurewebsites.net';
+		console.log(link);
 
-	if (true) {
-		await redict();
+		res.send({ ruta: link });
+	} else {
+		let detector = new MobileDetect(req.headers['user-agent']);
+		console.log(detector.os());
+		res.send({ data: detector.os() + '' });
 	}
-
-	let detector = new MobileDetect(req.headers['user-agent']);
-	console.log(detector.os());
-	res.send({ data: detector.os() + '' });
 });
 
 app.get('/', function (req, res) {
