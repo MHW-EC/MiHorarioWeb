@@ -38,7 +38,6 @@
 		"start-r": "react-scripts start",
 		"start": "node ./src/server/server",
 		"build": "react-scripts build",
-		"test": "react-scripts test",
 		"eject": "react-scripts eject"
 	},
 	"eslintConfig": {
