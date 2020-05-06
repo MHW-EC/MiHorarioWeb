@@ -61,10 +61,10 @@ export default function DenseTable(props) {
 						key={materia['codigo']}
 						item
 						xs={12}
-						sm={12}
-						md={12}
-						lg={6}
-						xl={6}
+						sm={6}
+						md={6}
+						lg={3}
+						xl={3}
 					>
 						<CardMateria materia={materia} isMobile={props.isMobile} />
 					</Grid>

@@ -99,7 +99,7 @@ export default function SingleLineGridList(props) {
 
 	useEffect(() => {
 		if (parTeorico) {
-			setnCols(parTeorico['paralelos'].length <= 1 ? 1 : !isMobile ? 1.1 : 2.1);
+			setnCols(parTeorico['paralelos'].length <= 1 ? 1 : 1.1);
 
 			if (document.getElementById('lista-par-teoricos').addEventListener) {
 				// IE9, Chrome, Safari, Opera
