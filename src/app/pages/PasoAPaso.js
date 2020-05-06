@@ -79,7 +79,7 @@ function getStepContent(stepIndex) {
 		case 2:
 			return 'De cada materia previamente escogidas, seleccione los paralelos de su interés';
 		case 3:
-			return 'A continuación se presentan los horarios generados. Puede ver mas información sobre ellos dando click en el botón visualizar';
+			return 'Cargando resultados..., una vez cargados puede ver más información en VIZUALIZAR';
 		default:
 			return 'Unknown stepIndex';
 	}

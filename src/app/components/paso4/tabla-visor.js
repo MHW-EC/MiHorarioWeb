@@ -68,14 +68,14 @@ export default function PaginationControlled(props) {
 				disabled
 				axis={theme.direction === 'rtl' ? 'x-reverse' : 'x'}
 				index={page - 1}
-			>
-				{horariosGenerados.map((horario, index) => (
+			> 
+			{horariosGenerados.map((horario, index) => (
 					<React.Fragment key={index}>
 						<Tabla numHorario={index + 1} horario={horario} />
 						<br />
 						<ButtonDialog numHorario={index + 1} horario={horario} />
 					</React.Fragment>
-				))}
+			))}
 			</SwipeableViews>
 
 			<Pagination
@@ -86,6 +86,6 @@ export default function PaginationControlled(props) {
 			/>
 		</div>
 	) : (
-		<></>
+		<p>Cargando resultados...</p>
 	);
 }
