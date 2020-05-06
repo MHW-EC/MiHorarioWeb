@@ -78,6 +78,7 @@ app.get('/ping', function (req, res) {
 });
 
 app.get('/isMobile', function (req, res) {
+	console.log(req.headers);
 	console.log(req.headers['user-agent']);
 	let detector = new MobileDetect(req.headers['user-agent']);
 	console.log(detector.os());
