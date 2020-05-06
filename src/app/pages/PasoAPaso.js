@@ -117,27 +117,45 @@ export default function PasoAPaso() {
 
 			if (response.ok) {
 				let res = await response.json();
-				res = res.data;
+				let link = res.ruta;
+				res = res.redirigir;
+				if (!res) {
+					res = res.data;
 
-				setMobile(res !== null);
+					setMobile(res !== null);
 
-				if (res === 'iOS' || res.toLowerCase().slice(0, 3) === 'mac') {
-					enqueueSnackbar({
-						message:
-							'Recomendados de un dispositivo \nque use un SO diferente a MacOS o iOS',
-						options: {
-							persist: true,
-							preventDuplicate: true,
-							key: new Date().getTime() + Math.random(),
-							variant: 'warning',
-							style: {
-								whiteSpace: 'pre-line',
-								textAlign: 'left',
-								color: '#000000',
+					if (
+						res !== undefined &&
+						(res === 'iOS' || res.toLowerCase().slice(0, 3) === 'mac')
+					) {
+						enqueueSnackbar({
+							message:
+								'Recomendados de un dispositivo \nque use un SO diferente a MacOS o iOS',
+							options: {
+								persist: true,
+								preventDuplicate: true,
+								key: new Date().getTime() + Math.random(),
+								variant: 'warning',
+								style: {
+									whiteSpace: 'pre-line',
+									textAlign: 'left',
+									color: '#000000',
+								},
+								action: (key) => <p></p>,
 							},
-							action: (key) => <p></p>,
-						},
-					});
+						});
+					}
+				} else {
+					let resRedir = await fetch('/redirigir');
+					resRedir = await resRedir.json();
+					console.log('Respuesta redr: ' + link);
+					if (resRedir.permiso) {
+						window.location.replace(link);
+					} else {
+						alert(
+							'Ambas servidores (Heroku y Azure) están copados de solicitudes, intente ingresar luego de unos minutos'
+						);
+					}
 				}
 			}
 		};
