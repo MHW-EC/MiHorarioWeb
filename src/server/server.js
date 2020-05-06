@@ -95,14 +95,6 @@ app.get('/isMobile', async function (req, res) {
 		console.log(detector.os());
 		res.send({ data: detector.os() + '' });
 	}
-<<<<<<< HEAD
-=======
-
-	let detector = new MobileDetect(req.headers['user-agent']);
-	console.log(detector.os());
-	console.log({ data: detector.os() + '' })
-	res.send({ data: detector.os() + '' });
->>>>>>> Card materia con 1.1
 });
 
 app.get('/', function (req, res) {
