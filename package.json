@@ -23,6 +23,7 @@
 		"lodash": "^4.17.15",
 		"mobile-detect": "^1.4.4",
 		"mongoose": "^5.9.9",
+		"node-os-utils": "^1.2.2",
 		"notistack": "^0.9.11",
 		"react": "^16.13.0",
 		"react-dom": "^16.13.0",
