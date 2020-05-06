@@ -80,7 +80,8 @@ app.get('/ping', function (req, res) {
 });
 
 app.get('/isMobile', async function (req, res) {
-	let info = await Util.usageCPU_MEN();
+	/* let info = await Util.usageCPU_MEN();
+	console.log(info);
 	let link_origen = req.headers.host;
 	if (info) {
 		let link =
@@ -94,7 +95,10 @@ app.get('/isMobile', async function (req, res) {
 		let detector = new MobileDetect(req.headers['user-agent']);
 		console.log(detector.os());
 		res.send({ data: detector.os() + '' });
-	}
+	} */
+	let detector = new MobileDetect(req.headers['user-agent']);
+	console.log(detector.os());
+	res.send({ data: detector.os() + '' });
 });
 
 app.get('/', function (req, res) {
