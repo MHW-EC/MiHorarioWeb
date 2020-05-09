@@ -58,7 +58,7 @@ export default function DenseTable(props) {
 	const classes = useStyles();
 	const [horario, setHorario] = useState();
 	const dispatch = useDispatch();
-
+	const oculto = false;
 	const enqueueSnackbar = (...args) => dispatch(enqueueSnackbarAction(...args));
 	const closeSnackbar = (...args) => dispatch(closeSnackbarAction(...args));
 
@@ -122,13 +122,17 @@ export default function DenseTable(props) {
 					</TableBody>
 				</Table>
 			</TableContainer>
-			<IconButton
-				hidden={true}
-				onClick={takeScreenshot}
-				className={classes.ico}
-			>
-				<CameraAltIcon />
-			</IconButton>
+			{oculto ? (
+				<></>
+			) : (
+				<IconButton
+					hidden={true}
+					onClick={takeScreenshot}
+					className={classes.ico}
+				>
+					<CameraAltIcon />
+				</IconButton>
+			)}
 		</div>
 	) : (
 		<div className={classes.skeleton}>

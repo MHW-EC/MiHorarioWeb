@@ -89,7 +89,7 @@ export default function NavTabs(props) {
 	const [appos, setApos] = React.useState();
 	const [horario, setHorario] = React.useState();
 	const [panel, setPanel] = React.useState(0);
-
+	const oculto = false;
 	const dispatch = useDispatch();
 	const enqueueSnackbar = (...args) => dispatch(enqueueSnackbarAction(...args));
 	const closeSnackbar = (...args) => dispatch(closeSnackbarAction(...args));
@@ -301,13 +301,17 @@ export default function NavTabs(props) {
 					<Horario appointments={appos[3]} instancias={instancias} />
 				</TabPanel>
 			</SwipeableViews>
-			<IconButton
-				hidden={true}
-				onClick={takeScreenshot}
-				className={classes.ico}
-			>
-				<CameraAltIcon />
-			</IconButton>
+			{oculto ? (
+				<></>
+			) : (
+				<IconButton
+					hidden={true}
+					onClick={takeScreenshot}
+					className={classes.ico}
+				>
+					<CameraAltIcon />
+				</IconButton>
+			)}
 		</div>
 	) : (
 		<></>
