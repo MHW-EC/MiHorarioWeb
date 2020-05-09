@@ -122,9 +122,9 @@ export default function DenseTable(props) {
 					</TableBody>
 				</Table>
 			</TableContainer>
-			<IconButton onClick={takeScreenshot} className={classes.ico}>
+			{/* <IconButton onClick={takeScreenshot} className={classes.ico}>
 				<CameraAltIcon />
-			</IconButton>
+			</IconButton> */}
 		</div>
 	) : (
 		<div className={classes.skeleton}>

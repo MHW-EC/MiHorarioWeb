@@ -301,9 +301,9 @@ export default function NavTabs(props) {
 					<Horario appointments={appos[3]} instancias={instancias} />
 				</TabPanel>
 			</SwipeableViews>
-			<IconButton onClick={takeScreenshot} className={classes.ico}>
+			{/* <IconButton onClick={takeScreenshot} className={classes.ico}>
 				<CameraAltIcon />
-			</IconButton>
+			</IconButton> */}
 		</div>
 	) : (
 		<></>
