@@ -4,6 +4,8 @@ import { Pagination } from '@material-ui/lab';
 import SwipeableViews from 'react-swipeable-views';
 import { useTheme } from '@material-ui/core/styles';
 import Tabla from './tabla';
+import Backdrop from '@material-ui/core/Backdrop';
+import CircularProgress from '@material-ui/core/CircularProgress';
 
 import { useState } from 'react';
 import { paqueteria as paqSelector } from '../../../redux/selectors';
@@ -24,7 +26,10 @@ const useStyles = makeStyles((theme) => ({
 			flexDirection: 'column',
 			display: 'flex',
 		},
-	},
+	}, backdrop: {
+		zIndex: theme.zIndex.drawer + 1,
+		color: '#fff',
+	  },
 }));
 
 export default function PaginationControlled(props) {
@@ -61,8 +66,8 @@ export default function PaginationControlled(props) {
 	const handleChange = (event, value) => {
 		setPage(value);
 	};
-
-	return horariosGenerados ? (
+	//console.log(horariosGenerados && horariosGenerados.length>0? "Cargo" : "Cargando")
+	return horariosGenerados && horariosGenerados.length>0 ? (
 		<div className={classes.root}>
 			<SwipeableViews
 				disabled
@@ -86,6 +91,8 @@ export default function PaginationControlled(props) {
 			/>
 		</div>
 	) : (
-		<p>Cargando resultados...</p>
+		<Backdrop className={classes.backdrop} open={!(horariosGenerados && horariosGenerados.length>0)} >
+        <CircularProgress color="inherit" />
+      </Backdrop>
 	);
 }
