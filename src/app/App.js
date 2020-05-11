@@ -14,7 +14,9 @@ import KeyboardArrowUpIcon from '@material-ui/icons/KeyboardArrowUp';
 import './App.css';
 import PasoAPaso from './pages/PasoAPaso';
 import Notifier from './components/Notifier';
-import InfoButton from './components/inicio/info-button';
+import AnimatedDialog from './components/inicio/animated-dialog';
+import InfoDialog from './components/inicio/info-dialog'
+import DisclaimerDialog from './components/inicio/disclaimer-dialog'
 function ElevationScroll(props) {
 	const { children, window } = props;
 	// Note that you normally won't need to set the window ref as useScrollTrigger
@@ -38,6 +40,14 @@ const useStyles = makeStyles((theme) => ({
 		bottom: theme.spacing(5),
 		right: theme.spacing(5),
 	},
+	divInfo: {
+		marginLeft: 'auto',
+		marginRight: 0,
+	},
+	divInfo2: {
+		marginLeft: 'auto',
+		marginRight: 0,
+	}
 }));
 
 function ScrollTop(props) {
@@ -77,15 +87,34 @@ ElevationScroll.propTypes = {
 	window: PropTypes.func,
 };
 function App(props) {
+	const classes = useStyles();
 	return (
 		<React.Fragment>
 			<Notifier />
 			<CssBaseline />
 			<ElevationScroll {...props}>
 				<AppBar>
-					<Toolbar>
+					<Toolbar >
+
 						<Typography variant='h6'>Horario</Typography>
-						<InfoButton />
+
+						<div className = {classes.divInfo}>
+						<AnimatedDialog open={true} titulo={<DisclaimerDialog.Titulo />} 
+  						contenido={<DisclaimerDialog.Contenido />} 
+  						actions={ handle => (<DisclaimerDialog.Actions handle={handle}/>)} >
+						{handle => ( <DisclaimerDialog.Controlador handle={handle}/> )}
+						</AnimatedDialog >
+						</div>
+						<div  className = {classes.divInfo2}>
+						<AnimatedDialog open={false} titulo={<InfoDialog.Titulo />} 
+  						contenido={<InfoDialog.Contenido />} 
+  						actions={ handle => (<InfoDialog.Actions handle={handle}/>)} >
+						{handle => ( <InfoDialog.Controlador handle={handle}/> )}
+						</AnimatedDialog >
+						</div>
+
+						
+
 					</Toolbar>
 				</AppBar>
 			</ElevationScroll>
