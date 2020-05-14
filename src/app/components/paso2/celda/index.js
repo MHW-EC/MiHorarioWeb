@@ -6,7 +6,7 @@ import {
 	checkMateria,
 	unCheckMateria,
 	removeMateria,
-} from '../../../redux/actions/materias';
+} from '../../../../redux/actions/materias';
 import { useDispatch } from 'react-redux';
 
 export default function Celda(props) {
