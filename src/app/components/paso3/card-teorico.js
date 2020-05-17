@@ -225,14 +225,15 @@ export default function SimpleCard(props) {
 						<Button size='small' onClick={handleParAsociados} color='primary'>
 							Par asociados
 						</Button>
+						
 						<DialogPractico
-							id='práctico-menu'
-							open={open}
-							keepMounted
-							onClose={handleCloseDialog}
-							teoricoid={paralelo['_id']}
-							teorico={paralelo}
-						/>
+						id='práctico-menu'
+						open={open}
+						keepMounted
+						onClose={handleCloseDialog}
+						teoricoid={paralelo['_id']}
+						teorico={paralelo}
+					/> 
 					</CardActions>
 				</>
 			) : (

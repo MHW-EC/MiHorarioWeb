@@ -7,7 +7,7 @@ import Checkbox from '@material-ui/core/Checkbox';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import CardAsociado from './card-asociado';
-
+import Skeleton from '@material-ui/lab/Skeleton';
 import { useSelector, useDispatch } from 'react-redux';
 import { asociadosResults as asociadosSelector } from '../../../redux/selectors';
 import { getAsociados } from '../../../redux/actions/asociado';
@@ -19,6 +19,17 @@ const useStyles = makeStyles({
 		width: '100%',
 		padding: 0,
 	},
+	skeleton: {
+		minHeight: "50px",
+        justifyContent: "center",
+        alignItems: "center",
+        display: "flex"
+
+	},
+	subSkeleton:{
+		marginLeft: "25%",
+            marginRight: "auto",
+	}
 	/*contenedorPanelDesplegable: {
     backgroundColor: Colores.cyan[500],
     alignItems: "center",
@@ -46,6 +57,7 @@ export default function ActionsInExpansionPanelSummary(props) {
 
 	useEffect(() => {
 		if (!parAsociados) {
+			console.log("Se Consuta")
 			dispatch(getAsociados(teoricoid));
 		}
 	});
@@ -55,7 +67,8 @@ export default function ActionsInExpansionPanelSummary(props) {
 			? dispatch(addPaquete([teorico, practico], teoricoid, practico['_id']))
 			: dispatch(removePaquete(teoricoid, practico['_id']));
 	};
-	return parAsociados ? (
+
+	return parAsociados ? 
 		<div className={classes.root}>
 			{parAsociados['paralelos'].map((par) => (
 				<ExpansionPanel key={par['_id']}>
@@ -83,7 +96,14 @@ export default function ActionsInExpansionPanelSummary(props) {
 				</ExpansionPanel>
 			))}
 		</div>
-	) : (
-		<div>Loading...</div>
-	);
+	 : 
+		<>{["1","2"].map((e) => (
+		<div key={e} className={classes.skeleton}>
+			<Skeleton
+			  variant="text"
+			  width={100}
+			  className={classes.subSkeleton}
+			/>
+		  </div>))}</>
+	
 }
