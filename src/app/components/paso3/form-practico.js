@@ -57,7 +57,6 @@ export default function ActionsInExpansionPanelSummary(props) {
 
 	useEffect(() => {
 		if (!parAsociados) {
-			console.log("Se Consuta")
 			dispatch(getAsociados(teoricoid));
 		}
 	});
