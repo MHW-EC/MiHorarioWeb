@@ -2,17 +2,18 @@ import React from 'react';
 import { Container, Grid, TextField } from '@material-ui/core';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 
-export default function page(props) {
-	const { state, func } = props;
+export default function page({ state, func }) {
+	const { carrerasResults } = state;
+	const { onChangeComplete } = func;
 
 	return (
 		<Container>
 			<Grid container={true} spacing={3} justify='center' alignItems='center'>
 				<Grid item xs={12} sm={8} md={8} lg={6} xl={6}>
-					{state.carrerasResults ? (
+					{carrerasResults ? (
 						<Autocomplete
 							id='input-nombre-carrera'
-							onChange={func.onChangeComplete}
+							onChange={onChangeComplete}
 							options={state.carrerasResults.sort(
 								(a, b) => -b.nombre.localeCompare(a.nombre)
 							)}

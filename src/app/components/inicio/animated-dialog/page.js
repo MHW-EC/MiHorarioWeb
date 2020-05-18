@@ -6,23 +6,24 @@ import {
 	DialogActions,
 } from '@material-ui/core';
 
-export default function page(props) {
-	const { state, func } = props;
+export default function page({ state, func }) {
+	const { open, contenido, titulo } = state;
+	const { Transition, handleClose, actions } = func;
 
 	return (
 		<div>
 			{func.children(func.andleClickOpen)}
 			<Dialog
-				open={state.open}
-				TransitionComponent={func.Transition}
+				open={open}
+				TransitionComponent={Transition}
 				keepMounted
-				onClose={func.handleClose}
+				onClose={handleClose}
 				aria-labelledby='alert-dialog-slide-title'
 				aria-describedby='alert-dialog-slide-description'
 			>
-				<DialogTitle id='alert-dialog-slide-title'>{state.titulo}</DialogTitle>
-				<DialogContent dividers>{state.contenido}</DialogContent>
-				<DialogActions>{func.actions(func.handleClose)}</DialogActions>
+				<DialogTitle id='alert-dialog-slide-title'>{titulo}</DialogTitle>
+				<DialogContent dividers>{contenido}</DialogContent>
+				<DialogActions>{actions(handleClose)}</DialogActions>
 			</Dialog>
 		</div>
 	);

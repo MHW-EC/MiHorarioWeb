@@ -4,22 +4,29 @@ import style from './style';
 import { Grid, Container, TextField, Typography } from '@material-ui/core';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 
-export default function page(props) {
+export default function page({ state, func }) {
 	const classes = style();
-	const { state, func } = props;
 
+	const {
+		allTeoricosBase,
+		allTeoricosUnicos,
+		materiasSelect,
+		materiasMalla,
+	} = state;
+
+	const { onChangeComplete, generarCelda } = func;
 	return (
 		<div className={classes.root}>
 			<div>
 				<Grid container={true} spacing={3} justify='center' alignItems='center'>
 					<Grid item xs={12} sm={8} md={8} lg={5} xl={5}>
-						{state.allTeoricosBase && state.allTeoricosUnicos ? (
+						{allTeoricosBase && allTeoricosUnicos ? (
 							<Container>
 								<Autocomplete
 									id='input-nombre-carrera'
 									clearOnEscape={true}
-									onChange={func.onChangeComplete}
-									options={state.allTeoricosUnicos}
+									onChange={onChangeComplete}
+									options={allTeoricosUnicos}
 									label='Agregue una nueva materia'
 									//options={carrerasResults.reduce((a, b) => {
 									//	return {'materias': a.materias.concat(b.materias)} } )['materias']}
@@ -42,7 +49,7 @@ export default function page(props) {
 					</Grid>
 				</Grid>
 			</div>
-			{state.materiasSelect && state.materiasSelect.length > 0 ? (
+			{materiasSelect && materiasSelect.length > 0 ? (
 				<>
 					<Grid
 						container
@@ -64,8 +71,8 @@ export default function page(props) {
 						justify='center'
 						alignItems='center'
 					>
-						{state.materiasSelect.map((mat) =>
-							func.generarCelda(mat, state.materiasSelect.length, false)
+						{materiasSelect.map((mat) =>
+							generarCelda(mat, materiasSelect.length, false)
 						)}
 					</Grid>
 				</>
@@ -73,7 +80,7 @@ export default function page(props) {
 				<></>
 			)}
 
-			{state.materiasMalla && state.materiasMalla.length > 0 ? (
+			{materiasMalla && materiasMalla.length > 0 ? (
 				<>
 					<Grid
 						container
@@ -95,8 +102,8 @@ export default function page(props) {
 						justify='center'
 						alignItems='center'
 					>
-						{state.materiasMalla.map((mat) =>
-							func.generarCelda(mat, state.materiasMalla.length, true)
+						{materiasMalla.map((mat) =>
+							generarCelda(mat, materiasMalla.length, true)
 						)}
 					</Grid>
 				</>
