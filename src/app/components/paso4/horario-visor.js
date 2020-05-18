@@ -20,11 +20,6 @@ import {
 import { useDispatch } from 'react-redux';
 import FileSaver from 'file-saver';
 
-//import  {appointmentsC}  from './demo-data/appointments';
-//import  {appointmentsP}  from './demo-data/appointmentsP';
-//import  {appointmentsF}  from './demo-data/appointmentsF';
-//import  {appointmentsM}  from './demo-data/appointmentsM';
-
 function TabPanel(props) {
 	const { children, value, index, ...other } = props;
 
