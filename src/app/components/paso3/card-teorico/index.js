@@ -1,31 +1,21 @@
 import React, { useState, useEffect } from 'react';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
-import {
-	Card,
-	CardActions,
-	CardContent,
-	Typography,
-	Avatar,
-	Tooltip,
-	IconButton,
-	CardHeader,
-	Button,
-	Divider,
-} from '@material-ui/core';
+import { Tooltip, IconButton } from '@material-ui/core';
 import DeleteOutlineIcon from '@material-ui/icons/DeleteOutline';
 import AddBoxOutlinedIcon from '@material-ui/icons/AddBoxOutlined';
 import { useDispatch } from 'react-redux';
-import DialogPractico from './dialog-practico';
+
 import Zoom from '@material-ui/core/Zoom';
 import { blueGrey } from '@material-ui/core/colors';
-import { formatoIntevalo, formatoIntevaloEx } from '../util/util';
+import { formatoIntevalo, formatoIntevaloEx } from '../../util/util';
 import {
 	addSeleccionado,
 	removeSeleccionado,
-} from '../../../redux/actions/seleccionados';
-import { addPaquete, removePaquete } from '../../../redux/actions/paquetes';
+} from '../../../../redux/actions/seleccionados';
+import { addPaquete, removePaquete } from '../../../../redux/actions/paquetes';
 
-import Skeleton from '@material-ui/lab/Skeleton';
+import Page from './page';
+
 //import * as Colors from "@material-ui/core/colors";
 const useStyles = makeStyles((theme) => ({
 	root: {
@@ -157,89 +147,14 @@ export default function SimpleCard(props) {
 
 	//se usa cunado un paralelo teorico no tiene practicos
 
-	return paralelo ? (
-		<Card className={classes.root} variant='outlined'>
-			<CardHeader
-				avatar={
-					<Avatar aria-label='recipe' className={classes.avatar}>
-						{paralelo['paralelo']}
-					</Avatar>
-				}
-				action={getAction()}
-				title={paralelo['profesor'] ? paralelo['profesor'] : 'Sin nombre'}
-				subheader='Sin calificación'
-			/>
-			<Divider />
-			<CardContent className={classes.div}>
-				<Typography variant='body2' component='p' aling='left'>
-					Clases
-				</Typography>
-				{paralelo.hasOwnProperty('eventos') ? (
-					paralelo.eventos.clases.map((clase) => (
-						<React.Fragment key={clase['inicio']}>
-							<Typography variant='body2' aling='left' color='textSecondary'>
-								- {formatoIntevalo(clase['inicio'], clase['fin'])}
-							</Typography>
-						</React.Fragment>
-					))
-				) : (
-					<></>
-				)}
+	const state = { paralelo, open };
+	const func = {
+		getAction,
+		formatoIntevalo,
+		formatoIntevaloEx,
+		handleParAsociados,
+		handleCloseDialog,
+	};
 
-				{paralelo.hasOwnProperty('eventos') ? (
-					<React.Fragment>
-						<Typography variant='body2' component='p'>
-							Examenes
-						</Typography>
-						<Typography variant='body2' component='p' color='textSecondary'>
-							- Parcial{' '}
-							{formatoIntevaloEx(
-								paralelo.eventos.examenes.parcial['inicio'],
-								paralelo.eventos.examenes.parcial['fin']
-							)}
-						</Typography>
-						<Typography variant='body2' component='p' color='textSecondary'>
-							- Final{' '}
-							{formatoIntevaloEx(
-								paralelo.eventos.examenes.final['inicio'],
-								paralelo.eventos.examenes.final['fin']
-							)}
-						</Typography>
-						<Typography variant='body2' component='p' color='textSecondary'>
-							- Mejoramiento{' '}
-							{formatoIntevaloEx(
-								paralelo.eventos.examenes.mejoramiento['inicio'],
-								paralelo.eventos.examenes.mejoramiento['fin']
-							)}
-						</Typography>
-					</React.Fragment>
-				) : (
-					<></>
-				)}
-			</CardContent>
-
-			{paralelo && paralelo['paralelos_practicos'].length > 0 ? (
-				<>
-					<Divider />
-					<CardActions>
-						<Button size='small' onClick={handleParAsociados} color='primary'>
-							Par asociados
-						</Button>
-						<DialogPractico
-							id='práctico-menu'
-							open={open}
-							keepMounted
-							onClose={handleCloseDialog}
-							teoricoid={paralelo['_id']}
-							teorico={paralelo}
-						/>
-					</CardActions>
-				</>
-			) : (
-				<></>
-			)}
-		</Card>
-	) : (
-		<Skeleton variant='rect' amination='wave' width={300} height={300} />
-	);
+	return <Page state={state} func={func} />;
 }

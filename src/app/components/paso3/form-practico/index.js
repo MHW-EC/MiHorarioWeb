@@ -6,12 +6,12 @@ import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
 import Checkbox from '@material-ui/core/Checkbox';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import CardAsociado from './card-asociado';
+import CardAsociado from '../card-asociado';
 
 import { useSelector, useDispatch } from 'react-redux';
-import { asociadosResults as asociadosSelector } from '../../../redux/selectors';
-import { getAsociados } from '../../../redux/actions/asociado';
-import { addPaquete, removePaquete } from '../../../redux/actions/paquetes';
+import { asociadosResults as asociadosSelector } from '../../../../redux/selectors';
+import { getAsociados } from '../../../../redux/actions/asociado';
+import { addPaquete, removePaquete } from '../../../../redux/actions/paquetes';
 //import * as Colores from "@material-ui/core/colors";
 
 const useStyles = makeStyles({
@@ -77,7 +77,7 @@ export default function ActionsInExpansionPanelSummary(props) {
 							label={`Paralelo ${par['paralelo']}`}
 						/>
 					</ExpansionPanelSummary>
-					<ExpansionPanelDetails style={{padding: 0}}>
+					<ExpansionPanelDetails style={{ padding: 0 }}>
 						<CardAsociado paralelo={par} />
 					</ExpansionPanelDetails>
 				</ExpansionPanel>

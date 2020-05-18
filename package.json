@@ -37,7 +37,7 @@
 	},
 	"scripts": {
 		"start-r": "react-scripts start",
-		"start": "node ./src/server/server",
+		"start": "node ./src/server/server.js",
 		"build": "react-scripts build",
 		"eject": "react-scripts eject"
 	},

@@ -1,11 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
-import CardMateria from './card-materia';
+import CardMateria from '../card-materia';
 import { useSelector, useDispatch } from 'react-redux';
-import { materiasSeleccionadas as matSelSelector } from '../../../redux/selectors';
-import { getMateriasMalla, getMaterias } from '../../../redux/actions/materias';
-import { materiasMalla as mallaSelSelector } from '../../../redux/selectors';
+import { materiasSeleccionadas as matSelSelector } from '../../../../redux/selectors';
+import {
+	getMateriasMalla,
+	getMaterias,
+} from '../../../../redux/actions/materias';
+import { materiasMalla as mallaSelSelector } from '../../../../redux/selectors';
 
 const useStyles = makeStyles({
 	root: {
