@@ -63,6 +63,7 @@ mongoose.Promise = global.Promise;
 mongoose
 	.connect(database.db, {
 		useUnifiedTopology: true,
+		useNewUrlParser: true,
 		dbName: 'heroku_28zqn5s2',
 	})
 	.then(
