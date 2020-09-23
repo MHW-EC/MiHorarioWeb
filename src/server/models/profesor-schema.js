@@ -5,29 +5,18 @@ let teoricoSchema = new Schema({
     _id: {
         type: String
     },
-    codigo: {
-        type: String
-    },
-    eventos: {
-        type: Object
-    },
     nombre: {
         type: String
     },
-    paralelo: {
-        type: Number
+    registros: {
+        type: Array,
+        default: [{anio: String, codigo: String, nombreMateria: String, termino: String, promedio: Number}]
     },
-    paralelos_practico: {
-        type: Array
-    },
-    profesor: {
-        type: String
-    }
 },{
-    collection: 'teorico'
+    collection: 'profesor'
 })
 
-let teorico = mongoose.model("Teorico", teoricoSchema);
+let profesor = mongoose.model("Profesor", teoricoSchema);
 
-module.exports = teorico
+module.exports = profesor
 

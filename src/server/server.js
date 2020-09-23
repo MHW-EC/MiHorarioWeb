@@ -13,6 +13,7 @@ let database = require('./database/db')
 const carreraRoute = require('./routes/carrera.routes')
 const teoricoRoute = require('./routes/teorico.routes')
 const practicoRoute = require('./routes/practico.routes')
+const profesorRoute = require('./routes/profesor.routes')
 //--Nuevo fin
 
 app.use(bodyParser.json())
@@ -56,6 +57,7 @@ app.use(cors())
 app.use('/carrera', carreraRoute)
 app.use('/teorico', teoricoRoute)
 app.use('/practico', practicoRoute)
+app.use('/profesor', profesorRoute)
 //Nuevo fin
 
 //Nuevo inicio
