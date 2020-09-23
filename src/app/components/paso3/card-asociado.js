@@ -30,7 +30,7 @@ export default function SimpleCard(props) {
   },[props.paralelo]);
  
   return ( paralelo ?
-    <Card  className={classes.root}>
+    <Card  className={classes.root} variant="outlined">
       <CardHeader
         avatar={
           <Avatar aria-label="recipe" className={classes.avatar}>

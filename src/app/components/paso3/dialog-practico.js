@@ -54,7 +54,7 @@ export default function ConfirmationDialogRaw(props) {
         Seleccione asociados
       </DialogTitle>
       <DialogContent dividers className={classes.dialogContent}>
-        <FormPractico teoricoid={teoricoid} teorico={teorico}/>
+        {open ? <FormPractico teoricoid={teoricoid} teorico={teorico}/> : <></>}
       </DialogContent>
       <DialogActions>
         <Button autoFocus onClick={handleClose} color="primary">
