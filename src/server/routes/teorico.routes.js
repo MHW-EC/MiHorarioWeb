@@ -4,16 +4,7 @@ router = express.Router();
 
 let teorico = require('../models/teorico-schema');
 
-/*router.route('/create').post((req, res, next) => {
-    teorico.create(req.body, (error, data) => {
-        if (error) {
-            return next(error)
-        } else {
-            console.log(data)
-            res.json(data)
-        }
-    })
-});*/
+
 router.route('/').get((req, res) => {
     teorico.find({},"codigo nombre",(error, data) => {
         if (error) {
@@ -27,7 +18,7 @@ router.route('/').get((req, res) => {
 
 router.route('/:codigo').get((req, res) => {
     //console.log("consulta teorico con codigo: ",req.params.codigo )
-    teorico.find({codigo:req.params.codigo}, (error, data) => {
+    teorico.find({codigo:req.params.codigo}, null, { sort: 'paralelo'}, (error, data) => {
         if (error) {
             return next(error)
         } else {
