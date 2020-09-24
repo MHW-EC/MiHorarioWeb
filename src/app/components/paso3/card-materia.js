@@ -67,7 +67,7 @@ export default function SingleLineGridList(props) {
 
 	//const [paralelos,setParalelos] = useState();
 	const dispatch = useDispatch();
-	const parTeorico = useSelector((state, codigo) =>
+	const parTeorico = useSelector((state) =>
 		paralelosSelector(state, materia['codigo'])
 	);
 	const [isMobile] = useState(props.isMobile);
@@ -140,7 +140,7 @@ export default function SingleLineGridList(props) {
 							key={par['paralelo']}
 							onMouseOver={scrollHorizontally}
 						>
-							<CardTeorico paralelo={par} />
+							<CardTeorico paralelo={par}/>
 						</GridListTile>
 					))}
 				</GridList>

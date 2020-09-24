@@ -5,7 +5,7 @@ import carreras from './carrera'
 import teoricos from './teorico';
 import asociados from './asociados';
 import generados from './generador'
-
+import profesor from "./profesor"
 export default function* rootSaga() {
-    yield all([carreras(),teoricos(),asociados(),generados()]);
+    yield all([carreras(),teoricos(),asociados(),generados(), profesor()]);
 }

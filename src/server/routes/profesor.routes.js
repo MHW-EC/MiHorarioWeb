@@ -8,28 +8,26 @@ let profesor = require('../models/profesor-schema');
 router.route('/').get((req, res) => {
     profesor.find({}, (error, data) => {
         if (error) {
-            return next(error)
+            res.send(error)
         } else {
             res.json(data)
         }
     })
 });
 
-router.route('/:nombre/:codigo').get((req, res) => {
+router.route('/:profesor/:codigo/:nombreMateria').get((req, res) => {
     profesor.aggregate([
-        // Get just the docs that contain a shapes element where color is 'red'
-        {$match: {"nombre":req.params.nombre,
-        "registros.codigo": req.params.codigo }},
+        {$match: {"nombre":req.params.profesor}},
         {$project: {
             registros: {$filter: {
                 input: '$registros',
                 as: 'registros',
-                cond: {$eq: ['$$registros.codigo',  req.params.codigo]}
+                cond: {$eq: ['$$registros.codigo', req.params.codigo]}
             }},
         }}
     ]).exec((error, data) => {
         if (error) {
-            return next(error)
+            res.send(error)
         } else {
             res.json(data)
         }

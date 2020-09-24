@@ -12,9 +12,9 @@ import {
 	Button,
 	Divider,
 } from '@material-ui/core';
+import { useSelector, useDispatch } from 'react-redux';
 import DeleteOutlineIcon from '@material-ui/icons/DeleteOutline';
 import AddBoxOutlinedIcon from '@material-ui/icons/AddBoxOutlined';
-import { useDispatch } from 'react-redux';
 import DialogPractico from './dialog-practico';
 import Zoom from '@material-ui/core/Zoom';
 import { blueGrey } from '@material-ui/core/colors';
@@ -24,7 +24,8 @@ import {
 	removeSeleccionado,
 } from '../../../redux/actions/seleccionados';
 import { addPaquete, removePaquete } from '../../../redux/actions/paquetes';
-
+import { profesorSelector } from '../../../redux/selectors';
+import {getProfesor} from "../../../redux/actions/profesor";
 import Skeleton from '@material-ui/lab/Skeleton';
 //import * as Colors from "@material-ui/core/colors";
 const useStyles = makeStyles((theme) => ({
@@ -64,8 +65,21 @@ export default function SimpleCard(props) {
 	//const bull = <span className={classes.bullet}>•</span>;
 	//necesarios para el cuadro de dialogo de paralelo
 	const [open, setOpen] = useState(false);
-	const [paralelo, setParalelo] = useState();
+	const [paralelo, setParalelo] = useState(props.paralelo);
 	const [isAdd, setIsAdd] = useState(1);
+
+	const profesor = useSelector((state) =>
+		profesorSelector(state, paralelo['profesor'])
+	);
+	/*useEffect(() => {
+		setParalelo(props.paralelo);
+	}, [props.paralelo]);
+*/
+	useEffect(() => {
+		if (paralelo && !profesor) {
+			dispatch(getProfesor(paralelo['profesor'], paralelo['codigo'], paralelo['nombre']));
+		}
+	},[paralelo, profesor]);
 
 	const handleAddRemove = () => {
 		if (isAdd) {
@@ -121,7 +135,7 @@ export default function SimpleCard(props) {
 		setOpen(false);
 	};
 	const getAction = () => {
-		return paralelo ? (
+		return paralelo  ? (
 			<>
 				<AddBoxOutlinedIcon className={classes.ghostIcon} />
 				{fabs.map((fab, index) => (
@@ -151,9 +165,7 @@ export default function SimpleCard(props) {
 		);
 	};
 
-	useEffect(() => {
-		setParalelo(props.paralelo);
-	}, [props.paralelo]);
+	
 
 	//se usa cunado un paralelo teorico no tiene practicos
 

@@ -28,6 +28,8 @@ export const asociadosResults = (state, teoricoId) => {
 export const seleccionados = (state) => get(state, 'seleccionados');
 export const paqueteria = (state) => get(state, 'paqueteria');
 
+export const profesorSelector = (state, nombre) => get(state, 'profesor.array').find((e) => e.nombre === nombre);
+
 /*
 export const asociadosResults = (state,teoricoId) =>{
     return get(state, 'asociados.asociados').find(par => par.teoricoId === teoricoId)

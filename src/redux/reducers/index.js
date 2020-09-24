@@ -8,6 +8,7 @@ import teoricos from './teorico';
 import asociados from './asociado';
 import generador from './generador';
 import notifier from './notifier';
+import profesor from './profesor';
 
 export const initialState = {
 	carreras: [],
@@ -29,6 +30,7 @@ const todoApp = combineReducers({
 	asociados,
 	generador,
 	notifier,
+	profesor
 });
 
 export default todoApp;
