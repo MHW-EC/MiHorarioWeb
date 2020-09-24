@@ -12,6 +12,10 @@ import {
 	Button,
 	Divider,
 } from '@material-ui/core';
+import InsertEmoticonIcon from "@material-ui/icons/InsertEmoticon";
+import SentimentSatisfiedIcon from "@material-ui/icons/SentimentSatisfied";
+import SentimentVeryDissatisfiedIcon from "@material-ui/icons/SentimentVeryDissatisfied";
+import BlockIcon from "@material-ui/icons/Block";
 import { useSelector, useDispatch } from 'react-redux';
 import DeleteOutlineIcon from '@material-ui/icons/DeleteOutline';
 import AddBoxOutlinedIcon from '@material-ui/icons/AddBoxOutlined';
@@ -27,6 +31,7 @@ import { addPaquete, removePaquete } from '../../../redux/actions/paquetes';
 import { profesorSelector } from '../../../redux/selectors';
 import {getProfesor} from "../../../redux/actions/profesor";
 import Skeleton from '@material-ui/lab/Skeleton';
+import {GetChip} from "./chips";
 //import * as Colors from "@material-ui/core/colors";
 const useStyles = makeStyles((theme) => ({
 	root: {
@@ -57,6 +62,8 @@ const useStyles = makeStyles((theme) => ({
 		backgroundColor: blueGrey[500],
 	},
 }));
+
+
 
 export default function SimpleCard(props) {
 	const classes = useStyles();
@@ -164,11 +171,6 @@ export default function SimpleCard(props) {
 			<></>
 		);
 	};
-
-	
-
-	//se usa cunado un paralelo teorico no tiene practicos
-
 	return paralelo && profesor ? (
 		<Card className={classes.root} variant='outlined'>
 			<CardHeader
@@ -179,7 +181,7 @@ export default function SimpleCard(props) {
 				}
 				action={getAction()}
 				title={paralelo['profesor'] ? paralelo['profesor'] : 'Sin nombre'}
-				subheader={profesor['registros'][0]['promedio']}
+				subheader={GetChip(profesor['registros'][0]['promedio'])}
 			/>
 			<Divider />
 			<CardContent className={classes.div}>

@@ -53,9 +53,8 @@ router.route('/:profesor/:codigo/:nombreMateria').get((req, res) => {
                 res.json(data[0])
             }else{
                 res.json({"nombre":req.params.profesor,
-                'registros': [{'promedio': "no hay registro"}]})
+                'registros': [{'promedio': 0}]})
             }
-            
         }
     })
 });
