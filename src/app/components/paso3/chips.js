@@ -67,7 +67,7 @@ export function GetChip (valor){
         variant="outlined"
         size="small"
         icon={<BlockIcon />}
-        label={valor}
+        label={"sin registros"}
       />
 	}
 }
