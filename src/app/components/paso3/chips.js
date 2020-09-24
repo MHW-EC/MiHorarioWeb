@@ -1,5 +1,5 @@
 import React from "react";
-import { makeStyles, withStyles } from "@material-ui/core/styles";
+import { withStyles } from "@material-ui/core/styles";
 import Chip from "@material-ui/core/Chip";
 import InsertEmoticonIcon from "@material-ui/icons/InsertEmoticon";
 import SentimentSatisfiedIcon from "@material-ui/icons/SentimentSatisfied";

@@ -12,10 +12,6 @@ import {
 	Button,
 	Divider,
 } from '@material-ui/core';
-import InsertEmoticonIcon from "@material-ui/icons/InsertEmoticon";
-import SentimentSatisfiedIcon from "@material-ui/icons/SentimentSatisfied";
-import SentimentVeryDissatisfiedIcon from "@material-ui/icons/SentimentVeryDissatisfied";
-import BlockIcon from "@material-ui/icons/Block";
 import { useSelector, useDispatch } from 'react-redux';
 import DeleteOutlineIcon from '@material-ui/icons/DeleteOutline';
 import AddBoxOutlinedIcon from '@material-ui/icons/AddBoxOutlined';
@@ -72,7 +68,7 @@ export default function SimpleCard(props) {
 	//const bull = <span className={classes.bullet}>•</span>;
 	//necesarios para el cuadro de dialogo de paralelo
 	const [open, setOpen] = useState(false);
-	const [paralelo, setParalelo] = useState(props.paralelo);
+	const [paralelo] = useState(props.paralelo);
 	const [isAdd, setIsAdd] = useState(1);
 
 	const profesor = useSelector((state) =>
@@ -86,7 +82,7 @@ export default function SimpleCard(props) {
 		if (paralelo && !profesor) {
 			dispatch(getProfesor(paralelo['profesor'], paralelo['codigo'], paralelo['nombre']));
 		}
-	},[paralelo, profesor]);
+	},[paralelo, profesor, dispatch]);
 
 	const handleAddRemove = () => {
 		if (isAdd) {

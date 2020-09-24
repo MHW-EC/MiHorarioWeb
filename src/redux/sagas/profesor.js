@@ -1,4 +1,4 @@
-import { put, takeEvery, takeLatest, call } from 'redux-saga/effects';
+import { put, takeEvery, call } from 'redux-saga/effects';
 import {
 	GET_PROFESOR_COMPLETE,
 	GET_PROFESOR_ERROR,
