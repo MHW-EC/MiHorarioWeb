@@ -17,19 +17,45 @@ router.route('/').get((req, res) => {
 
 router.route('/:profesor/:codigo/:nombreMateria').get((req, res) => {
     profesor.aggregate([
-        {$match: {"nombre":req.params.profesor}},
+        {
+            $match: { 
+                $and:[  
+                    { "nombre":req.params.profesor },
+                    {
+                        $or:[
+                            {"registros.nombreMateria": req.params.nombreMateria},
+                            {"registros.codigo": req.params.codigo}
+                        ] 
+                    }
+                ]
+                }
+        },
         {$project: {
             registros: {$filter: {
                 input: '$registros',
                 as: 'registros',
-                cond: {$eq: ['$$registros.codigo', req.params.codigo]}
+                cond: {
+                    $or:[
+                        {$eq: ['$$registros.codigo', req.params.codigo]},
+                        {$eq: ['$$registros.nombreMateria', req.params.nombreMateria]}
+                    ]
+                },
+                
             }},
+            _id:0,
+            nombre: 1
         }}
     ]).exec((error, data) => {
         if (error) {
             res.send(error)
         } else {
-            res.json(data)
+            if(data.length >= 1){
+                res.json(data[0])
+            }else{
+                res.json({"nombre":req.params.profesor,
+                'registros': [{'promedio': "no hay registro"}]})
+            }
+            
         }
     })
 });

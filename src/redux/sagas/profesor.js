@@ -16,7 +16,7 @@ function* getProfesor({nombre, codigo, nombreMateria}) {
 			null,
 			'GET'
 		);
-		yield put({ type: GET_PROFESOR_COMPLETE, codigo, response });
+		yield put({ type: GET_PROFESOR_COMPLETE, nombre, response });
 	} catch (err) {
 		yield put({ type: GET_PROFESOR_ERROR, err });
 	}

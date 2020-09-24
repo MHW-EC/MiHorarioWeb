@@ -5,7 +5,7 @@ import {
 } from '../actions/profesor';
 
 export default function teoricos(
-	state = {state: "", array:[]} ,{type, response}
+	state = {state: "", array:[]} ,{type, nombre, response}
 ) {
 	switch (type) {
 		case GET_PROFESOR_START:
@@ -14,7 +14,7 @@ export default function teoricos(
 			};
 		case GET_PROFESOR_COMPLETE:
 			return {
-				state: "GET_PROFESOR_COMPLETE" , array: [...state.array,response.data]
+				state: "GET_PROFESOR_COMPLETE" , array: [...state.array, response.data]
 			};
 		case GET_PROFESOR_ERROR: 
 			return {

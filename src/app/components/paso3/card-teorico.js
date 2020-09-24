@@ -169,7 +169,7 @@ export default function SimpleCard(props) {
 
 	//se usa cunado un paralelo teorico no tiene practicos
 
-	return paralelo ? (
+	return paralelo && profesor ? (
 		<Card className={classes.root} variant='outlined'>
 			<CardHeader
 				avatar={
@@ -179,7 +179,7 @@ export default function SimpleCard(props) {
 				}
 				action={getAction()}
 				title={paralelo['profesor'] ? paralelo['profesor'] : 'Sin nombre'}
-				subheader='Sin calificación'
+				subheader={profesor['registros'][0]['promedio']}
 			/>
 			<Divider />
 			<CardContent className={classes.div}>
