@@ -5,7 +5,7 @@ import InsertEmoticonIcon from "@material-ui/icons/InsertEmoticon";
 import SentimentSatisfiedIcon from "@material-ui/icons/SentimentSatisfied";
 import SentimentVeryDissatisfiedIcon from "@material-ui/icons/SentimentVeryDissatisfied";
 import BlockIcon from "@material-ui/icons/Block";
-
+import Tooltip from '@material-ui/core/Tooltip';
 const DisabledChip = withStyles({
   root: {
     color: "gray",
@@ -42,32 +42,37 @@ const ErrorChip = withStyles({
 export function GetChip (valor){
 	//{DisabledChip, SuccessChip, WarningChip, ErrorChip}
 	if(valor >= 80){
-		return <SuccessChip
+		return <Tooltip title="Puntuación del profesor">
+      <SuccessChip
         variant="outlined"
         size="small"
         icon={<InsertEmoticonIcon />}
         label={valor}
       />
+    </Tooltip>
 	}else if(valor < 80 && valor >=70){
-		return <WarningChip
+		return <Tooltip title="Puntuación del profesor">
+      <WarningChip
         variant="outlined"
         size="small"
         icon={<SentimentSatisfiedIcon />}
         label={valor}
-      />
+      /></Tooltip>
 	}else if(valor < 70 && valor >0){
-		return <ErrorChip
+		return <Tooltip title="Puntuación del profesor">
+      <ErrorChip
         variant="outlined"
         size="small"
         icon={<SentimentVeryDissatisfiedIcon />}
         label={valor}
-      />
+      /></Tooltip>
 	}else{
-		return <DisabledChip
+		return <Tooltip title="Puntuación del profesor">
+      <DisabledChip
         variant="outlined"
         size="small"
         icon={<BlockIcon />}
         label={"sin registros"}
-      />
+      /></Tooltip>
 	}
 }

@@ -28,20 +28,16 @@ import { profesorSelector } from '../../../redux/selectors';
 import {getProfesor} from "../../../redux/actions/profesor";
 import Skeleton from '@material-ui/lab/Skeleton';
 import {GetChip} from "./chips";
+
 //import * as Colors from "@material-ui/core/colors";
 const useStyles = makeStyles((theme) => ({
-	root: {
-		//minWidth: 250,
-		//maxWidth: 250,
-		//maxHeight: 350
-	},
 	bullet: {
 		display: 'inline-block',
 		margin: '0 2px',
 		transform: 'scale(0.8)',
 	},
 	div: {
-		padding: 0,
+		padding: 12,
 		alignContent: 'left',
 		alignItems: 'left',
 	},
@@ -59,14 +55,10 @@ const useStyles = makeStyles((theme) => ({
 	},
 }));
 
-
-
 export default function SimpleCard(props) {
 	const classes = useStyles();
 	const theme = useTheme();
 	const dispatch = useDispatch();
-	//const bull = <span className={classes.bullet}>•</span>;
-	//necesarios para el cuadro de dialogo de paralelo
 	const [open, setOpen] = useState(false);
 	const [paralelo] = useState(props.paralelo);
 	const [isAdd, setIsAdd] = useState(1);
@@ -74,10 +66,6 @@ export default function SimpleCard(props) {
 	const profesor = useSelector((state) =>
 		profesorSelector(state, paralelo['profesor'])
 	);
-	/*useEffect(() => {
-		setParalelo(props.paralelo);
-	}, [props.paralelo]);
-*/
 	useEffect(() => {
 		if (paralelo && !profesor) {
 			dispatch(getProfesor(paralelo['profesor'], paralelo['codigo'], paralelo['nombre']));
@@ -168,7 +156,7 @@ export default function SimpleCard(props) {
 		);
 	};
 	return paralelo && profesor ? (
-		<Card className={classes.root} variant='outlined'>
+		<Card style={{height: "100%"}} variant='outlined'>
 			<CardHeader
 				avatar={
 					<Avatar aria-label='recipe' className={classes.avatar}>
@@ -177,7 +165,9 @@ export default function SimpleCard(props) {
 				}
 				action={getAction()}
 				title={paralelo['profesor'] ? paralelo['profesor'] : 'Sin nombre'}
-				subheader={GetChip(profesor['registros'][0]['promedio'])}
+				subheader={
+					GetChip(profesor['registros'][0]['promedio'])}
+				style={{padding:12}}
 			/>
 			<Divider />
 			<CardContent className={classes.div}>
@@ -195,7 +185,6 @@ export default function SimpleCard(props) {
 				) : (
 					<></>
 				)}
-
 				{paralelo.hasOwnProperty('eventos') ? (
 					<React.Fragment>
 						<Typography variant='body2' component='p'>
