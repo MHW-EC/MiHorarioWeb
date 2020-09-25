@@ -8,15 +8,15 @@ const getNCOLS = (ancho) => {
 		case "xs":
 			return 1
 		case 'sm':
-			return 1.1
+			return 1.3
 		case 'md':
 			return 1.5
 		case 'lg':
 			return 2
 		case 'xl':
-            return 2.1
-        default:
-            return 1
+      return 2.5
+    default:
+      return 1
 	}
 }
 

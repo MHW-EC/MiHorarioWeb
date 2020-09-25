@@ -95,11 +95,10 @@ export default function Component(props) {
 		<Card elevation={6} >
 			<CardContent
 				className={classes.cardContent}
-				//style={{ minHeight: 310 }}
 			>
-				<CustomGridTitle children={
-					(parTeorico['paralelos'].length === 0 ?
-						<Typography>{"no hay registros :("}</Typography> :
+				{parTeorico['paralelos'].length === 0 ?
+					<Typography align='center'>{"no hay registros :("}</Typography> :
+					<CustomGridTitle children={
 						parTeorico['paralelos'].map((par) => (
 							<GridListTile
 								id='lista-par-teoricos'
@@ -107,10 +106,9 @@ export default function Component(props) {
 							>
 								<CardTeorico paralelo={par} />
 							</GridListTile>
-						)))
-				}>
-
-				</CustomGridTitle>
+						))
+					} />
+				}
 			</CardContent>
 			<CardActions
 				className={classes.cardActions}
@@ -121,8 +119,15 @@ export default function Component(props) {
 			</CardActions>
 		</Card>
 	) : (
-			<div className={classes.skeleton}>
-				<Skeleton variant='rect' amination='wave' width={400} height={400} />
-			</div>
+			<Card elevation={6}>
+				<CardContent style={{ padding: 0 }}>
+					<Skeleton animation="wave" variant="rect" height={250} />
+				</CardContent>
+				<CardActions >
+					<div style={{ width: "50%", marginLeft: "auto", marginRight: "auto" }}>
+						<Skeleton animation="wave" variant="text" height={15} />
+					</div>
+				</CardActions>
+			</Card>
 		);
 }

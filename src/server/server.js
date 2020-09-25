@@ -32,21 +32,15 @@ const PORT = 8080
 app.set('port', process.env.PORT || PORT)
 
 app.put('/generar', function (req, res) {
-  console.log('Generando horarios')
-
+  let xforwardedfor = req['headers']['x-forwarded-for']
+  console.log("Generando horarios... , x-forwarded-for: "+xforwardedfor)
   if (typeof req.body !== 'undefined') {
     const paquetes = req.body
-    //console.log(paquetes);
     const castFunction = (paquete) => {
       return { paquete: paquete }
-    } //Necesaria debido a falencas de clase set es6
-
+    }
     const paquetesObj = paquetes.map(castFunction)
-
     const generador = new Generador(paquetesObj)
-
-    //console.log(generador.HorariosGenerados.map((horario) => horario.materias));//horario es una obj de clase
-
     res.send(generador.HorariosGenerados.map((horario) => horario.materias))
   } else {
     res.send([null])
@@ -93,7 +87,8 @@ app.get('/redirigir', async function (req, res) {
 
 app.get('/isMobile', async function (req, res) {
   let info = await Util.usageCPU_MEN()
-  //console.log(info)
+  let xforwardedfor = req['headers']['x-forwarded-for']
+  console.log("Is mobile: ... , x-forwarded-for: "+xforwardedfor)
   let link_origen = req.headers.host
   if (info) {
     let link =

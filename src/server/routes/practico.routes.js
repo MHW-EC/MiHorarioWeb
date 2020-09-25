@@ -6,7 +6,8 @@ let practico = require('../models/practico-schema');
 
 
 router.route('/').get((req, res) => {
-    //console.log("Consulta todos los practicos")
+    let xforwardedfor = req['headers']['x-forwarded-for']
+    console.log("Colección: practico, x-forwarded-for: "+xforwardedfor)
     practico.find((error, data) => {
         if (error) {
             return next(error)
@@ -16,7 +17,8 @@ router.route('/').get((req, res) => {
     })
 });
 router.route('/:tid').get((req, res) => {
-    //console.log("consulta practico con tid: ",req.params.tid )
+    let xforwardedfor = req['headers']['x-forwarded-for']
+    console.log("Colección: practico, x-forwarded-for: "+xforwardedfor)
     practico.find({'teorico_id':req.params.tid}, (error, data) => {
         if (error) {
             return next(error)

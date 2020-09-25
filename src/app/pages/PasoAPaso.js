@@ -120,7 +120,6 @@ export default function PasoAPaso() {
 				res = res.redirigir;
 				if (!res) {
 					res = res.data;
-					console.log(res);
 					setMobile(res !== null);
 					if (
 						res !== undefined &&

@@ -6,6 +6,8 @@ let teorico = require('../models/teorico-schema');
 
 
 router.route('/').get((req, res) => {
+    let xforwardedfor = req['headers']['x-forwarded-for']
+    console.log("Colección: teorico, x-forwarded-for: "+xforwardedfor)
     teorico.find({},"codigo nombre",(error, data) => {
         if (error) {
             return next(error)
@@ -17,7 +19,8 @@ router.route('/').get((req, res) => {
 
 
 router.route('/:codigo').get((req, res) => {
-    //console.log("consulta teorico con codigo: ",req.params.codigo )
+    let xforwardedfor = req['headers']['x-forwarded-for']
+    console.log("Colección: teorico, x-forwarded-for: "+xforwardedfor)
     teorico.find({codigo:req.params.codigo}, null, { sort: 'paralelo'}, (error, data) => {
         if (error) {
             return next(error)

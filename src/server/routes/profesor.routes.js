@@ -6,6 +6,8 @@ let profesor = require('../models/profesor-schema');
 
 
 router.route('/').get((req, res) => {
+    let xforwardedfor = req['headers']['x-forwarded-for']
+    console.log("Colección: profesor, x-forwarded-for: "+xforwardedfor)
     profesor.find({}, (error, data) => {
         if (error) {
             res.send(error)
@@ -46,6 +48,8 @@ router.route('/:profesor/:codigo/:nombreMateria').get((req, res) => {
             nombre: 1
         }}
     ]).exec((error, data) => {
+        let xforwardedfor = req['headers']['x-forwarded-for']
+        console.log("Colección: profesor, x-forwarded-for: "+xforwardedfor)
         if (error) {
             res.send(error)
         } else {

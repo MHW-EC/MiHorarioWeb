@@ -25,9 +25,9 @@ import {
 } from '../../../redux/actions/seleccionados';
 import { addPaquete, removePaquete } from '../../../redux/actions/paquetes';
 import { profesorSelector } from '../../../redux/selectors';
-import {getProfesor} from "../../../redux/actions/profesor";
+import { getProfesor } from "../../../redux/actions/profesor";
 import Skeleton from '@material-ui/lab/Skeleton';
-import {GetChip} from "./chips";
+import { GetChip } from "./chips";
 
 //import * as Colors from "@material-ui/core/colors";
 const useStyles = makeStyles((theme) => ({
@@ -64,13 +64,14 @@ export default function SimpleCard(props) {
 	const [isAdd, setIsAdd] = useState(1);
 
 	const profesor = useSelector((state) =>
-		profesorSelector(state, paralelo['profesor'])
+		profesorSelector(state, paralelo['profesor'] ? paralelo['profesor']:"SIN NOMBRE")
 	);
 	useEffect(() => {
 		if (paralelo && !profesor) {
-			dispatch(getProfesor(paralelo['profesor'], paralelo['codigo'], paralelo['nombre']));
+			dispatch(getProfesor(paralelo['profesor'] ? paralelo['profesor']:"SIN NOMBRE"
+			, paralelo['codigo'], paralelo['nombre']));
 		}
-	},[paralelo, profesor, dispatch]);
+	}, [paralelo, profesor, dispatch]);
 
 	const handleAddRemove = () => {
 		if (isAdd) {
@@ -126,7 +127,7 @@ export default function SimpleCard(props) {
 		setOpen(false);
 	};
 	const getAction = () => {
-		return paralelo  ? (
+		return paralelo ? (
 			<>
 				<AddBoxOutlinedIcon className={classes.ghostIcon} />
 				{fabs.map((fab, index) => (
@@ -152,11 +153,11 @@ export default function SimpleCard(props) {
 				))}
 			</>
 		) : (
-			<></>
-		);
+				<></>
+			);
 	};
-	return paralelo && profesor ? (
-		<Card style={{height: "100%"}} variant='outlined'>
+	return paralelo && profesor? (
+		<Card style={{ height: "100%" }} variant='outlined'>
 			<CardHeader
 				avatar={
 					<Avatar aria-label='recipe' className={classes.avatar}>
@@ -164,10 +165,9 @@ export default function SimpleCard(props) {
 					</Avatar>
 				}
 				action={getAction()}
-				title={paralelo['profesor'] ? paralelo['profesor'] : 'Sin nombre'}
-				subheader={
-					GetChip(profesor['registros'][0]['promedio'])}
-				style={{padding:12}}
+				title={paralelo['profesor'] ? paralelo['profesor'] : 'SIN NOMBRE'}
+				subheader={ GetChip(profesor['registros'][0]['promedio'])}
+				style={{ padding: 12 }}
 			/>
 			<Divider />
 			<CardContent className={classes.div}>
@@ -183,8 +183,8 @@ export default function SimpleCard(props) {
 						</React.Fragment>
 					))
 				) : (
-					<></>
-				)}
+						<></>
+					)}
 				{paralelo.hasOwnProperty('eventos') ? (
 					<React.Fragment>
 						<Typography variant='body2' component='p'>
@@ -213,8 +213,8 @@ export default function SimpleCard(props) {
 						</Typography>
 					</React.Fragment>
 				) : (
-					<></>
-				)}
+						<></>
+					)}
 			</CardContent>
 
 			{paralelo && paralelo['paralelos_practicos'].length > 0 ? (
@@ -235,10 +235,32 @@ export default function SimpleCard(props) {
 					</CardActions>
 				</>
 			) : (
-				<></>
-			)}
+					<></>
+				)}
 		</Card>
 	) : (
-		<Skeleton variant='rect' amination='wave' width={300} height={300} />
-	);
+			<Card variant="outlined">
+				<CardHeader
+					avatar={
+						<Skeleton animation="wave" variant="circle" width={40} height={40} />
+					}
+					title={
+						<div style={{ width: "80%", marginLeft: "auto", marginRight: "auto" }}>
+							<Skeleton animation="wave" variant="text" height={10} />
+						</div>
+					}
+					subheader={
+						<div style={{ width: "50%", marginLeft: "auto", marginRight: "auto" }}>
+							<Skeleton animation="wave" variant="text" height={10} />
+						</div>
+					}
+				/>
+				<CardContent style={{ padding: 0 }}>
+					<Skeleton animation="wave" variant="rect" height={150} />
+				</CardContent>
+				<CardActions>
+					<Skeleton animation="wave" variant="rect" height={25} width={80} style={{ borderRadius: 4 }} />
+				</CardActions>
+			</Card>
+		);
 }
