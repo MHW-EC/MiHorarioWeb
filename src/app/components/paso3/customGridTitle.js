@@ -14,7 +14,9 @@ const getNCOLS = (ancho) => {
 		case 'lg':
 			return 2
 		case 'xl':
-			return 2.1
+            return 2.1
+        default:
+            return 1
 	}
 }
 

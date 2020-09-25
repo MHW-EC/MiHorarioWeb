@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import GridList from '@material-ui/core/GridList';
 import GridListTile from '@material-ui/core/GridListTile';
 import Card from '@material-ui/core/Card';
 import {
@@ -96,17 +95,21 @@ export default function Component(props) {
 		<Card elevation={6} >
 			<CardContent
 				className={classes.cardContent}
-				style={{ minHeight: 310 }}
+				//style={{ minHeight: 310 }}
 			>
-				<CustomGridTitle children={parTeorico['paralelos'].map((par) => (
-						<GridListTile
-							id='lista-par-teoricos'
-							key={par['paralelo']}
-						>
-							<CardTeorico paralelo={par} />
-						</GridListTile>
-					))}>
-					
+				<CustomGridTitle children={
+					(parTeorico['paralelos'].length === 0 ?
+						<Typography>{"no hay registros :("}</Typography> :
+						parTeorico['paralelos'].map((par) => (
+							<GridListTile
+								id='lista-par-teoricos'
+								key={par['paralelo']}
+							>
+								<CardTeorico paralelo={par} />
+							</GridListTile>
+						)))
+				}>
+
 				</CustomGridTitle>
 			</CardContent>
 			<CardActions

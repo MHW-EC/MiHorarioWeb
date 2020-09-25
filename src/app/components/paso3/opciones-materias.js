@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import CardMateria from './card-materia';
 import { useSelector, useDispatch } from 'react-redux';
@@ -8,7 +7,6 @@ import { getMateriasMalla, getMaterias } from '../../../redux/actions/materias';
 import { materiasMalla as mallaSelSelector } from '../../../redux/selectors';
 
 export default function DenseTable(props) {
-	//const classes = useStyles();
 	const dispatch = useDispatch();
 	const materiasSelect = useSelector((state) => matSelSelector(state));
 	const materiasMalla = useSelector((state) => mallaSelSelector(state));
