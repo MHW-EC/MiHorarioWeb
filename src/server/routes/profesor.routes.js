@@ -58,19 +58,4 @@ router.route('/:profesor/:codigo/:nombreMateria').get((req, res) => {
         }
     })
 });
-/*
-router.route('/:nombre/:codigo').get((req, res) => {
-    profesor.find({"nombre":req.params.nombre,
-        "registros.codigo": req.params.codigo }
-         , {"registros.$": 4}
-         , { sort: 'registros.anio'},
-          (error, data) => {
-        if (error) {
-            return next(error)
-        } else {
-            res.json(data)
-        }
-    })
-})
-*/
 module.exports = router;

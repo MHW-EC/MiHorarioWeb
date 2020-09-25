@@ -93,7 +93,7 @@ app.get('/redirigir', async function (req, res) {
 
 app.get('/isMobile', async function (req, res) {
   let info = await Util.usageCPU_MEN()
-  console.log(info)
+  //console.log(info)
   let link_origen = req.headers.host
   if (info) {
     let link =
@@ -105,7 +105,7 @@ app.get('/isMobile', async function (req, res) {
     res.send({ redirigir: true, ruta: link })
   } else {
     let detector = new MobileDetect(req.headers['user-agent'])
-    console.log(detector.os())
+    console.log("OS client: " + detector.os())
     res.send({ redirigir: false, data: detector.os() + '' })
   }
   /* let detector = new MobileDetect(req.headers['user-agent']);

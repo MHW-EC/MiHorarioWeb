@@ -13,12 +13,12 @@ import CardTeorico from './card-teorico';
 import { useSelector, useDispatch } from 'react-redux';
 import { teoricosResults as paralelosSelector } from '../../../redux/selectors';
 import { getTeoricos } from '../../../redux/actions/teorico';
-
 import Skeleton from '@material-ui/lab/Skeleton';
 import {
 	enqueueSnackbar as enqueueSnackbarAction,
 	closeSnackbar as closeSnackbarAction,
 } from '../../../redux/actions/notifier';
+import CustomGridTitle from './customGridTitle';
 
 const useStyles = makeStyles((theme) => ({
 	root: {
@@ -28,10 +28,11 @@ const useStyles = makeStyles((theme) => ({
 		overflow: 'hidden',
 		backgroundColor: 'transparent',
 	},
-
-	gridList: {
-		flexWrap: 'nowrap',
-		transform: 'translateZ(0)',
+	rootCard: {
+		maxWidth: 400,
+		alignContent: 'center',
+		alignItems: 'center',
+		alignSelf: 'center'
 	},
 	cardActions: {
 		backgroundColor: theme.palette.primary.main,
@@ -61,25 +62,19 @@ const useStyles = makeStyles((theme) => ({
 	},
 }));
 
-export default function SingleLineGridList(props) {
+export default function Component(props) {
 	const classes = useStyles();
 	const [materia] = useState(props.materia);
-
-	//const [paralelos,setParalelos] = useState();
 	const dispatch = useDispatch();
 	const parTeorico = useSelector((state) =>
 		paralelosSelector(state, materia['codigo'])
 	);
-	const [isMobile] = useState(props.isMobile);
-	const [nCols, setnCols] = useState(); //props.isMobile ? parTeorico.length > 1 ? 1.5 : 1  : parTeorico.length > 1 ? 1.1 : 1);
-	//  const [nCols] = useState( );
 
 	useEffect(() => {
 		if (!parTeorico) {
 			dispatch(getTeoricos(materia['codigo']));
 		}
 	});
-
 	useEffect(() => {
 		const enqueueSnackbar = (...args) =>
 			dispatch(enqueueSnackbarAction(...args));
@@ -97,57 +92,25 @@ export default function SingleLineGridList(props) {
 		});
 	}, [dispatch]);
 
-	useEffect(() => {
-		if (parTeorico) {
-			setnCols(parTeorico['paralelos'].length <= 1 ? 1 : 1.1);
-
-			if (document.getElementById('lista-par-teoricos').addEventListener) {
-				// IE9, Chrome, Safari, Opera
-				document
-					.getElementById('lista-par-teoricos')
-					.addEventListener('mousewheel', scrollHorizontally, false);
-				// Firefox
-				document
-					.getElementById('lista-par-teoricos')
-					.addEventListener('DOMMouseScroll', scrollHorizontally, false);
-			}
-		}
-	}, [parTeorico, isMobile]);
-
-	const scrollHorizontally = (e) => {
-		e = window.event || e;
-		var delta = Math.max(-1, Math.min(1, e.wheelDelta || -e.detail));
-		document.getElementById('lista-par-teoricos').scrollLeft -= delta * 40; // Multiplied by 40
-		e.preventDefault();
-	};
-
 	return parTeorico ? (
-		<Card elevation={6}>
+		<Card elevation={6} >
 			<CardContent
 				className={classes.cardContent}
-				style={{ minHeight: isMobile ? 'auto' : 310 }}
+				style={{ minHeight: 310 }}
 			>
-				<GridList
-					padding={10}
-					spacing={10}
-					cellHeight={'auto'}
-					className={classes.gridList}
-					cols={nCols}
-				>
-					{parTeorico['paralelos'].map((par) => (
+				<CustomGridTitle children={parTeorico['paralelos'].map((par) => (
 						<GridListTile
 							id='lista-par-teoricos'
 							key={par['paralelo']}
-							onMouseOver={scrollHorizontally}
 						>
-							<CardTeorico paralelo={par}/>
+							<CardTeorico paralelo={par} />
 						</GridListTile>
-					))}
-				</GridList>
+					))}>
+					
+				</CustomGridTitle>
 			</CardContent>
 			<CardActions
 				className={classes.cardActions}
-				style={{ minHeight: isMobile ? 'auto' : 70 }}
 			>
 				<Typography variant='body1' className={classes.nombreMateria}>
 					{materia['nombre']} - {materia['codigo']}
@@ -155,8 +118,8 @@ export default function SingleLineGridList(props) {
 			</CardActions>
 		</Card>
 	) : (
-		<div className={classes.skeleton}>
-			<Skeleton variant='rect' amination='wave' width={400} height={400} />
-		</div>
-	);
+			<div className={classes.skeleton}>
+				<Skeleton variant='rect' amination='wave' width={400} height={400} />
+			</div>
+		);
 }

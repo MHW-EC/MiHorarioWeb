@@ -114,16 +114,14 @@ export default function PasoAPaso() {
 	useEffect(() => {
 		const detectMobile = async () => {
 			let response = await fetch('/isMobile');
-
 			if (response.ok) {
 				let res = await response.json();
 				let link = res.ruta;
 				res = res.redirigir;
 				if (!res) {
 					res = res.data;
-
+					console.log(res);
 					setMobile(res !== null);
-
 					if (
 						res !== undefined &&
 						(res === 'iOS' || res.toLowerCase().slice(0, 3) === 'mac')

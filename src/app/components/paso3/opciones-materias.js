@@ -7,26 +7,13 @@ import { materiasSeleccionadas as matSelSelector } from '../../../redux/selector
 import { getMateriasMalla, getMaterias } from '../../../redux/actions/materias';
 import { materiasMalla as mallaSelSelector } from '../../../redux/selectors';
 
-const useStyles = makeStyles({
-	root: {
-		padding: '10px',
-		alignItems: 'center',
-		justifyContent: 'center',
-		flexDirection: 'column',
-		display: 'flex',
-	},
-	cardParalelo: {
-		width: '80%',
-	},
-});
-
 export default function DenseTable(props) {
-	const classes = useStyles();
+	//const classes = useStyles();
 	const dispatch = useDispatch();
 	const materiasSelect = useSelector((state) => matSelSelector(state));
 	const materiasMalla = useSelector((state) => mallaSelSelector(state));
 	const [matCompile, setMatCompile] = useState([]);
-
+	const [isMobile] = useState(props.isMobile);
 	useEffect(() => {
 		if (!materiasSelect) {
 			dispatch(getMaterias());
@@ -52,24 +39,21 @@ export default function DenseTable(props) {
 			});
 		}
 	}, [materiasMalla, dispatch]);
-
 	return (
-		<div className={classes.root}>
-			<Grid container spacing={3} justify='center' alignItems='center'>
+		<Grid container spacing={3} justify="center" alignItems="flex-start">
 				{matCompile.map((materia) => (
 					<Grid
 						key={materia['codigo']}
 						item
 						xs={12}
-						sm={6}
-						md={6}
-						lg={3}
-						xl={3}
+						xl={10}
+						sm={9}
+						md={7}
+						lg={7}
 					>
-						<CardMateria materia={materia} isMobile={props.isMobile} />
+						<CardMateria materia={materia} isMobile={isMobile} />
 					</Grid>
 				))}
-			</Grid>
-		</div>
+		</Grid>
 	);
 }
