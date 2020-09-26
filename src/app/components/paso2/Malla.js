@@ -19,7 +19,6 @@ import {
 	enqueueSnackbar as enqueueSnackbarAction,
 	closeSnackbar as closeSnackbarAction,
 } from '../../../redux/actions/notifier';
-
 const useStyles = makeStyles((theme) => ({
 	root: {
 		flexGrow: 1,
@@ -43,7 +42,7 @@ const useStyles = makeStyles((theme) => ({
 const generarCelda = (elemento, index, malla) => {
 	return (
 		<Grid key={elemento.codigo} item xs={6} sm={4} md={4} lg={3} xl={2}>
-			<Paper variant='outlined' style={{ minHeight: 125 }} evelation={3}>
+			<Paper variant='outlined' style={{ minHeight: 125 }} evelation={3} >
 				<Celda fromMalla={malla} materia={elemento} />
 			</Paper>
 		</Grid>
@@ -69,7 +68,7 @@ export default function Malla(props) {
 
 	const [refresh, setRefresh] = useState(false);
 
-	useEffect(() => {}, [refresh]);
+	//useEffect(() => {}, [refresh]);
 
 	useEffect(() => {
 		if (!materiasSelect) {
