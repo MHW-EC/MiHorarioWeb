@@ -34,7 +34,10 @@ class Combinador {
 		//Obtengo las permutaciones de los grupos de materias
 		let permutaciones = Combinador.permutations(this.clusters);
 		
-		if(permutaciones.length === 1 ){ permutaciones =[permutaciones]} //parche 1 sola materia
+		if(permutaciones.length === 1 ){ 
+			//console.log(permutaciones)
+			permutaciones =[permutaciones]
+		} //parche 1 sola materia
 		
 		permutaciones.forEach((permutacion) => {
 			//Obtengo el producto cartesiano entre las materias

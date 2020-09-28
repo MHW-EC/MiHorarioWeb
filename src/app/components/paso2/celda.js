@@ -19,7 +19,6 @@ export default function Celda(props) {
 
 
 const onCheck = (event) => {
-	console.log("manejador check")
 	!marcado ? dispatch(checkMateria(materia)) : dispatch(unCheckMateria(materia));
 	setMarcado(!marcado);
 };

@@ -20,11 +20,6 @@ import {
 import { useDispatch } from 'react-redux';
 import FileSaver from 'file-saver';
 
-//import  {appointmentsC}  from './demo-data/appointments';
-//import  {appointmentsP}  from './demo-data/appointmentsP';
-//import  {appointmentsF}  from './demo-data/appointmentsF';
-//import  {appointmentsM}  from './demo-data/appointmentsM';
-
 function TabPanel(props) {
 	const { children, value, index, ...other } = props;
 
@@ -87,7 +82,8 @@ export default function NavTabs(props) {
 	const [value, setValue] = React.useState(0);
 	const [instancias, setInstancias] = React.useState();
 	const [appos, setApos] = React.useState();
-	const [horario, setHorario] = React.useState();
+	const [horario, setHorario] = React.useState(props.horario);
+	//const horario = React.useState(props.horario);
 	const [panel, setPanel] = React.useState(0);
 	const oculto = false;
 	const dispatch = useDispatch();
@@ -137,18 +133,11 @@ export default function NavTabs(props) {
 	};
 
 	const obtenerInstancias = (horario) => {
-		let codigosUnicos = new Set();
-		horario.forEach((elemento) => {
-			codigosUnicos.add(elemento['codigo']);
-		});
-
+		let codigosUnicos = horario.map(e=>e.codigo).filter((e,i,a) => a.indexOf(e) === i)
 		let colores = Object.values(Colors).slice(1); //cojo colores de la lib Colors de material ui
-		let instancias = []; //asi le llama la documentacion a un prop de appointment
-
-		let index = 0;
-		for (let codigo of codigosUnicos) {
-			instancias.push({ id: codigo, color: colores[index++] }); //agrego un color por cada codigo
-		}
+		let instancias = codigosUnicos.map((element,index,array)=>{
+			return { id: element, color: colores[index] }
+		})
 		return instancias;
 	};
 
@@ -239,7 +228,7 @@ export default function NavTabs(props) {
 			},
 		});
 	};
-
+	console.log("Render horario view");
 	return horario && instancias && appos ? (
 		<div className={classes.root} id='root-views'>
 			<AppBar position='static' color='inherit'>

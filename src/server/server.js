@@ -41,6 +41,7 @@ app.put('/generar', function (req, res) {
     }
     const paquetesObj = paquetes.map(castFunction)
     const generador = new Generador(paquetesObj)
+    //console.log(generador.HorariosGenerados)
     res.send(generador.HorariosGenerados.map((horario) => horario.materias))
   } else {
     res.send([null])
