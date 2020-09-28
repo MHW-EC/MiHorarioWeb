@@ -79,7 +79,7 @@ function getStepContent(stepIndex) {
 		case 2:
 			return 'De cada materia previamente escogidas, seleccione los paralelos de su interés';
 		case 3:
-			return 'Una vez cargados los resultados puede ver más información en VIZUALIZAR';
+			return 'Una vez cargados los resultados puede ver más información en VER HORARIO';
 		default:
 			return 'Unknown stepIndex';
 	}

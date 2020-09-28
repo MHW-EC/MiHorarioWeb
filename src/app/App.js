@@ -18,7 +18,11 @@ import AnimatedDialog from './components/inicio/animated-dialog'
 import InfoDialog from './components/inicio/info-dialog'
 import DisclaimerDialog from './components/inicio/disclaimer-dialog'
 import { Grid } from '@material-ui/core'
-
+import Brightness4Icon from '@material-ui/icons/Brightness4';
+import Brightness7Icon from '@material-ui/icons/Brightness7';
+import IconButton from "@material-ui/core/IconButton";
+import { ThemeProvider } from '@material-ui/core/styles';
+import theme from "./theme";
 function ElevationScroll(props) {
   const { children, window } = props
   // Note that you normally won't need to set the window ref as useScrollTrigger
@@ -50,6 +54,10 @@ const useStyles = makeStyles((theme) => ({
     marginLeft: 'auto',
     marginRight: 0,
   },
+  icon: {
+    marginLeft: 'auto',
+    marginRight: theme.spacing(1),
+  }
 }))
 
 function ScrollTop(props) {
@@ -65,7 +73,6 @@ function ScrollTop(props) {
     const anchor = (event.target.ownerDocument || document).querySelector(
       '#back-to-top-anchor'
     )
-
     if (anchor) {
       anchor.scrollIntoView({ behavior: 'smooth', block: 'center' })
     }
@@ -90,7 +97,14 @@ ElevationScroll.propTypes = {
 }
 function App(props) {
   const classes = useStyles()
+  const [isThemeLight, setTheme] = React.useState(true);
+  const themeButtonHandler = () => {
+    console.log(isThemeLight);
+    setTheme(!isThemeLight);
+  }
+
   return (
+    <ThemeProvider theme={theme}>
     <React.Fragment>
       <Notifier />
       <CssBaseline />
@@ -99,28 +113,42 @@ function App(props) {
           <Toolbar>
             <Typography variant="h6">Horario</Typography>
 
-            <div className={classes.divInfo}>
-              <AnimatedDialog
-                open={true}
-                titulo={<DisclaimerDialog.Titulo />}
-                contenido={<DisclaimerDialog.Contenido />}
-                actions={(handle) => (
-                  <DisclaimerDialog.Actions handle={handle} />
-                )}
-              >
-                {(handle) => <DisclaimerDialog.Controlador handle={handle} />}
-              </AnimatedDialog>
-            </div>
-            <div className={classes.divInfo2}>
-              <AnimatedDialog
-                open={false}
-                titulo={<InfoDialog.Titulo />}
-                contenido={<InfoDialog.Contenido />}
-                actions={(handle) => <InfoDialog.Actions handle={handle} />}
-              >
-                {(handle) => <InfoDialog.Controlador handle={handle} />}
-              </AnimatedDialog>
-            </div>
+            <Grid spacing={0} container
+              direction="row"
+              justify="flex-end"
+              alignItems="flex-start"
+            >
+              <Grid item xs={1}>
+                <IconButton aria-label="show 4 new mails" 
+                color="inherit" className={classes.icon} onClick={themeButtonHandler}>
+                  {isThemeLight ? <Brightness4Icon />: <Brightness7Icon /> }
+                </IconButton>
+                
+              </Grid>
+              <Grid item xs={1} style={{display: 'none'}}>
+                <AnimatedDialog
+                  open={true}
+                  titulo={<DisclaimerDialog.Titulo />}
+                  contenido={<DisclaimerDialog.Contenido />}
+                  actions={(handle) => (
+                    <DisclaimerDialog.Actions handle={handle} />
+                  )}
+                >
+                  {(handle) => <DisclaimerDialog.Controlador handle={handle} />}
+                </AnimatedDialog>
+              </Grid>
+              <Grid item xs={1}>
+                <AnimatedDialog
+                  open={false}
+                  titulo={<InfoDialog.Titulo />}
+                  contenido={<InfoDialog.Contenido />}
+                  actions={(handle) => <InfoDialog.Actions handle={handle} />}
+                >
+                  {(handle) => <InfoDialog.Controlador handle={handle} />}
+                </AnimatedDialog>
+              </Grid>
+
+            </Grid>
           </Toolbar>
         </AppBar>
       </ElevationScroll>
@@ -141,6 +169,7 @@ function App(props) {
         </Fab>
       </ScrollTop>
     </React.Fragment>
+    </ThemeProvider>
   )
 }
 
