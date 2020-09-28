@@ -115,7 +115,7 @@ function Demo(props) {
 
   useEffect(() => {
     console.log(width)
-    if (width === "xs" || width === "sm") {
+    if (width === "xs") {
       setCurrentViewName("Day");
     } else {
       setCurrentViewName("Week");
