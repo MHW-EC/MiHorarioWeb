@@ -54,7 +54,7 @@ export default function FullScreenDialog(props) {
 					onClose={handleClose}
 					TransitionComponent={Transition}
 				>
-					<AppBar className={classes.appBar}>
+					<AppBar className={classes.appBar} elevation={0}>
 						<Toolbar variant='dense'>
 							<IconButton
 								edge='start'

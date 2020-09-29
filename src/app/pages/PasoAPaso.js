@@ -9,7 +9,7 @@ import OpcionesMaterias from '../components/paso3/opciones-materias';
 import SearchCarrera from '../components/paso1/SearchCarrera';
 import TablaVisor from '../components/paso4/tabla-visor';
 import Malla from '../components/paso2/Malla';
-import { Grid, Paper } from '@material-ui/core';
+import { Grid } from '@material-ui/core';
 import { useDispatch, useSelector } from 'react-redux';
 import { cleanCarrera } from '../../redux/actions/carrera';
 import { cleanMaterias } from '../../redux/actions/materias';

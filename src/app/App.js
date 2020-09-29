@@ -15,11 +15,12 @@ import Notifier from './components/Notifier'
 import AnimatedDialog from './components/inicio/animated-dialog'
 import InfoDialog from './components/inicio/info-dialog'
 import DisclaimerDialog from './components/inicio/disclaimer-dialog'
-import { Grid, Paper, CssBaseline, Container } from '@material-ui/core'
+import { Grid, Paper, Container } from '@material-ui/core'
 import Brightness4Icon from '@material-ui/icons/Brightness4';
 import Brightness7Icon from '@material-ui/icons/Brightness7';
 import IconButton from "@material-ui/core/IconButton";
 import { ThemeProvider } from '@material-ui/core/styles';
+import { SnackbarProvider } from 'notistack';
 import theme from "./theme";
 function ElevationScroll(props) {
   const { children, window } = props
@@ -35,9 +36,9 @@ function ElevationScroll(props) {
 }
 
 const useStyles = makeStyles((theme) => ({
-  root:{
-    height: '100%'
-    },
+  root: {
+    minHeight: '1000px'
+  },
   zoom: {
     backgroundColor: 'transparent',
     position: 'fixed',
@@ -90,63 +91,65 @@ function App(props) {
 
   return (
     <>
-    <ThemeProvider theme={theme}>
-    <Paper elevation={0} square className={classes.root}>
-        <Notifier />
-        <div id="back-to-top-anchor"/>
-        <AppBar position="sticky" >
-          <Toolbar >
-            <Typography variant="h6">Horario</Typography>
-            <Grid spacing={0} container
-              direction="row"
-              justify="flex-end"
-              alignItems="flex-start"
-            >
-              <Grid item xs={1}>
-                <IconButton aria-label="show 4 new mails"
-                  color="inherit" className={classes.icon} onClick={themeButtonHandler}>
-                  {isThemeLight ? <Brightness4Icon /> : <Brightness7Icon />}
-                </IconButton>
-
-              </Grid>
-              <Grid item xs={1} style={{ display: 'none' }}>
-                <AnimatedDialog
-                  open={true}
-                  titulo={<DisclaimerDialog.Titulo />}
-                  contenido={<DisclaimerDialog.Contenido />}
-                  actions={(handle) => (
-                    <DisclaimerDialog.Actions handle={handle} />
-                  )}
+      <ThemeProvider theme={theme}>
+        <SnackbarProvider>
+          <Paper elevation={0} square className={classes.root}>
+            <Notifier />
+            <div id="back-to-top-anchor" />
+            <AppBar position="sticky" >
+              <Toolbar >
+                <Typography variant="h6">Horario</Typography>
+                <Grid spacing={0} container
+                  direction="row"
+                  justify="flex-end"
+                  alignItems="flex-start"
                 >
-                  {(handle) => <DisclaimerDialog.Controlador handle={handle} />}
-                </AnimatedDialog>
-              </Grid>
-              <Grid item xs={1}>
-                <AnimatedDialog
-                  open={false}
-                  titulo={<InfoDialog.Titulo />}
-                  contenido={<InfoDialog.Contenido />}
-                  actions={(handle) => <InfoDialog.Actions handle={handle} />}
-                >
-                  {(handle) => <InfoDialog.Controlador handle={handle} />}
-                </AnimatedDialog>
-              </Grid>
+                  <Grid item xs={1}>
+                    <IconButton aria-label="show 4 new mails"
+                      color="inherit" className={classes.icon} onClick={themeButtonHandler}>
+                      {isThemeLight ? <Brightness4Icon /> : <Brightness7Icon />}
+                    </IconButton>
 
-            </Grid>
-          </Toolbar>
-        </AppBar>
-        <Container maxWidth="xl" >
-        <Router>
-          <Route exact path="/" component={PasoAPaso} />
-        </Router>
-        </Container>
-        <ScrollTop {...props}>
-          <Fab color="secondary" size="small" aria-label="scroll back to top">
-            <KeyboardArrowUpIcon />
-          </Fab>
-        </ScrollTop>
-        </Paper>
-    </ThemeProvider>
+                  </Grid>
+                  <Grid item xs={1} style={{ display: 'none' }}>
+                    <AnimatedDialog
+                      open={true}
+                      titulo={<DisclaimerDialog.Titulo />}
+                      contenido={<DisclaimerDialog.Contenido />}
+                      actions={(handle) => (
+                        <DisclaimerDialog.Actions handle={handle} />
+                      )}
+                    >
+                      {(handle) => <DisclaimerDialog.Controlador handle={handle} />}
+                    </AnimatedDialog>
+                  </Grid>
+                  <Grid item xs={1}>
+                    <AnimatedDialog
+                      open={false}
+                      titulo={<InfoDialog.Titulo />}
+                      contenido={<InfoDialog.Contenido />}
+                      actions={(handle) => <InfoDialog.Actions handle={handle} />}
+                    >
+                      {(handle) => <InfoDialog.Controlador handle={handle} />}
+                    </AnimatedDialog>
+                  </Grid>
+
+                </Grid>
+              </Toolbar>
+            </AppBar>
+            <Container maxWidth="xl" >
+              <Router>
+                <Route exact path="/" component={PasoAPaso} />
+              </Router>
+            </Container>
+            <ScrollTop {...props}>
+              <Fab color="secondary" size="small" aria-label="scroll back to top">
+                <KeyboardArrowUpIcon />
+              </Fab>
+            </ScrollTop>
+          </Paper>
+        </SnackbarProvider>
+      </ThemeProvider>
     </>
   )
 }
