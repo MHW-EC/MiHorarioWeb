@@ -1,12 +1,13 @@
-*{
+
+.App-body {
+  height: -webkit-fill-available;
   text-align: center;
   margin: 0;
 }
-.App-body {
-  height: -webkit-fill-available;
-}
 .App{
   height: -webkit-fill-available;
+  text-align: center;
+  margin: 0;
 }
 
 #root{

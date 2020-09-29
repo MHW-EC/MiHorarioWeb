@@ -157,7 +157,7 @@ export default function SimpleCard(props) {
 			);
 	};
 	return paralelo && profesor? (
-		<Card style={{ height: "100%" }} variant='outlined'>
+		<Card style={{ height: "auto" }} variant='outlined'>
 			<CardHeader
 				avatar={
 					<Avatar aria-label='recipe' className={classes.avatar}>
