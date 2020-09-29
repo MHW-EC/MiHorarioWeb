@@ -39,6 +39,14 @@ const useStyles = makeStyles((theme) => ({
 		marginTop: theme.spacing(1),
 		marginBottom: theme.spacing(1),
 	},
+	divCenter: {
+		marginRight: 'auto',
+		marginLeft: 'auto',
+	},
+	divItem: {
+		display: 'inline-block',
+		marginRight: theme.spacing(1),
+	}
 }));
 
 //Esto no ayuda a obtener los pasos a seguir
@@ -293,28 +301,28 @@ export default function PasoAPaso() {
 							{getStepContent(activeStep)}
 						</Typography>
 					</Grid>
-					<Grid item xs={12} container
-						direction="row"
-						justify="center"
-						alignItems="flex-start" spacing={2}>
-						<Grid item xs={6}>
-							<Button
+					<Grid item xs={12}>
+						<div className={classes.divCenter}>
+						<div className={classes.divItem}>
+						<Button
 								variant='contained'
 								disabled={activeStep === 0}
 								onClick={handleBack}
 							>
 								Atrás
 								</Button>
-						</Grid>
-						<Grid item xs={6}>
-							<Button
+								</div>
+								<div className={classes.divItem}>
+								<Button
 								variant='contained'
 								color='primary'
 								onClick={handleNext}
 							>
 								Siguiente
 								</Button>
-						</Grid>
+								</div>
+							</div>
+						
 					</Grid>
 					<Grid item xs={12}>
 						{getStepComponet(activeStep)}
