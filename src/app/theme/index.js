@@ -1,44 +1,92 @@
 import { createMuiTheme } from '@material-ui/core/styles';
 
 const theme = createMuiTheme({
-    palette: {
-        type: "light",
-        primary: {
-          light: '#366067',
-          main: '#05363d',
-          dark: '#001117',
-          contrastText: '#ffffff',
-        },
-        secondary: {
-          light: '#6b352e',
-          main: '#3d0c05',
-          dark: '#220000',
-          contrastText: '#ffffff',
-        },
-        error: {
-          light: '#c4414b',
-          main: '#8e0023',
-          dark: '#5a0000',
-          contrastText: '#ffffff',
-        },
-        warning: {
-          light: '#f3a34b',
-          main: '#bc741b',
-          dark: '#874800',
-          contrastText: '#ffffff',
-        },
-        success: {
-          light: '#5ccb8c',
-          main: '#21995e',
-          dark: '#006a33',
-          contrastText: '#ffffff',
-        },
-        info: {
-          light: '#6f9dff',
-          main: '#326fcc',
-          dark: '#00459a',
-          contrastText: '#ffffff',
-        },
-      },
+  palette: {
+    primary: {
+      light: '#3e7683',
+      main: '#054a56',
+      dark: '#00222d',
+      contrastText: '#ffffff',
+    },
+    secondary: {
+      light: '#c04c2f',
+      main: '#891b05',
+      dark: '#570000',
+      contrastText: '#ffffff',
+    },
+    error: {
+      light: '#c4414b',
+      main: '#8e0023',
+      dark: '#5a0000',
+      contrastText: '#ffffff',
+    },
+    warning: {
+      light: '#f3a34b',
+      main: '#bc741b',
+      dark: '#874800',
+      contrastText: '#ffffff',
+    },
+    success: {
+      light: '#5ccb8c',
+      main: '#21995e',
+      dark: '#006a33',
+      contrastText: '#ffffff',
+    },
+    info: {
+      light: '#6f9dff',
+      main: '#326fcc',
+      dark: '#00459a',
+      contrastText: '#ffffff',
+    },
+    background: {
+      paper: '#fff',
+      default: '#fafafa'
+    }
+  },
 });
-export default theme;
+const darkTheme = createMuiTheme({
+  palette: {
+    type:'dark',
+    primary: {
+      light: '#9fd6e5',
+      main: '#6ea5b3',
+      dark: '#3e7683',
+      contrastText: '#ffffff',
+    },
+    secondary: {
+      light: '#e6ab9c',
+      main: '#b37c6e',
+      dark: '#824f43',
+      contrastText: '#ffffff',
+    },
+    error: {
+      light: '#c4414b',
+      main: '#8e0023',
+      dark: '#5a0000',
+      contrastText: '#ffffff',
+    },
+    warning: {
+      light: '#f3a34b',
+      main: '#bc741b',
+      dark: '#874800',
+      contrastText: '#ffffff',
+    },
+    success: {
+      light: '#5ccb8c',
+      main: '#21995e',
+      dark: '#006a33',
+      contrastText: '#ffffff',
+    },
+    info: {
+      light: '#6f9dff',
+      main: '#326fcc',
+      dark: '#00459a',
+      contrastText: '#ffffff',
+    },
+    background: {
+      paper: '#333333',
+      default: '#212121'
+    }
+  },
+});
+export { theme, darkTheme };

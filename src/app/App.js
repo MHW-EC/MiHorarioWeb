@@ -1,7 +1,7 @@
 import { BrowserRouter as Router, Route } from 'react-router-dom'
 import React from 'react'
 import PropTypes from 'prop-types'
-import { makeStyles } from '@material-ui/core/styles'
+import { makeStyles,withStyles  } from '@material-ui/core/styles'
 import AppBar from '@material-ui/core/AppBar'
 import Zoom from '@material-ui/core/Zoom'
 import Toolbar from '@material-ui/core/Toolbar'
@@ -21,7 +21,7 @@ import Brightness7Icon from '@material-ui/icons/Brightness7';
 import IconButton from "@material-ui/core/IconButton";
 import { ThemeProvider } from '@material-ui/core/styles';
 import { SnackbarProvider } from 'notistack';
-import theme from "./theme";
+import { theme, darkTheme } from "./theme";
 function ElevationScroll(props) {
   const { children, window } = props
   const trigger = useScrollTrigger({
@@ -34,10 +34,16 @@ function ElevationScroll(props) {
     elevation: trigger ? 4 : 0,
   })
 }
+const StyledPaper = withStyles((theme) => ({
+  root: {
+    minHeight: '1000px',
+    backgroundColor: theme.palette.background.default,
+  }
+}))(Paper);
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    minHeight: '1000px'
+    minHeight: '1000px',
   },
   zoom: {
     backgroundColor: 'transparent',
@@ -91,9 +97,9 @@ function App(props) {
 
   return (
     <>
-      <ThemeProvider theme={theme}>
+      <ThemeProvider theme={isThemeLight ? theme : darkTheme}>
         <SnackbarProvider>
-          <Paper elevation={0} square className={classes.root}>
+          <StyledPaper elevation={0} square className={classes.root}>
             <Notifier />
             <div id="back-to-top-anchor" />
             <AppBar position="sticky" >
@@ -147,7 +153,7 @@ function App(props) {
                 <KeyboardArrowUpIcon />
               </Fab>
             </ScrollTop>
-          </Paper>
+          </StyledPaper>
         </SnackbarProvider>
       </ThemeProvider>
     </>

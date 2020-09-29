@@ -274,6 +274,7 @@ export default function PasoAPaso() {
 			<Stepper
 				activeStep={activeStep}
 				alternativeLabel
+				style={{backgroundColor: 'transparent'}}
 			>
 				{steps.map((label) => (
 					<Step key={label}>
