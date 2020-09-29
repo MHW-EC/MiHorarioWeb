@@ -1,7 +1,7 @@
 import { BrowserRouter as Router, Route } from 'react-router-dom'
 import React from 'react'
 import PropTypes from 'prop-types'
-import { makeStyles,withStyles  } from '@material-ui/core/styles'
+import { makeStyles, withStyles } from '@material-ui/core/styles'
 import AppBar from '@material-ui/core/AppBar'
 import Zoom from '@material-ui/core/Zoom'
 import Toolbar from '@material-ui/core/Toolbar'
@@ -15,7 +15,7 @@ import Notifier from './components/Notifier'
 import AnimatedDialog from './components/inicio/animated-dialog'
 import InfoDialog from './components/inicio/info-dialog'
 import DisclaimerDialog from './components/inicio/disclaimer-dialog'
-import { Grid, Paper, Container } from '@material-ui/core'
+import { Paper, Container } from '@material-ui/core'
 import Brightness4Icon from '@material-ui/icons/Brightness4';
 import Brightness7Icon from '@material-ui/icons/Brightness7';
 import IconButton from "@material-ui/core/IconButton";
@@ -54,6 +54,13 @@ const useStyles = makeStyles((theme) => ({
   icon: {
     marginLeft: 'auto',
     marginRight: theme.spacing(1),
+  },
+  divInfo: {
+    marginRight: 0,
+    marginLeft: 'auto',
+  },
+  divLine: {
+    display: 'inline-block',
   }
 }))
 
@@ -105,19 +112,8 @@ function App(props) {
             <AppBar position="sticky" >
               <Toolbar >
                 <Typography variant="h6">Horario</Typography>
-                <Grid spacing={0} container
-                  direction="row"
-                  justify="flex-end"
-                  alignItems="flex-start"
-                >
-                  <Grid item xs={1}>
-                    <IconButton aria-label="show 4 new mails"
-                      color="inherit" className={classes.icon} onClick={themeButtonHandler}>
-                      {isThemeLight ? <Brightness4Icon /> : <Brightness7Icon />}
-                    </IconButton>
-
-                  </Grid>
-                  <Grid item xs={1} style={{ display: 'none' }}>
+                <div className={classes.divInfo}>
+                  <div className={classes.divLine}>
                     <AnimatedDialog
                       open={true}
                       titulo={<DisclaimerDialog.Titulo />}
@@ -128,8 +124,15 @@ function App(props) {
                     >
                       {(handle) => <DisclaimerDialog.Controlador handle={handle} />}
                     </AnimatedDialog>
-                  </Grid>
-                  <Grid item xs={1}>
+                  </div>
+                  <div className={classes.divLine}>
+                    <IconButton aria-label="show 4 new mails"
+                      color="inherit" className={classes.icon} onClick={themeButtonHandler}>
+                      {isThemeLight ? <Brightness4Icon /> : <Brightness7Icon />}
+                    </IconButton>
+                  </div>
+
+                  <div className={classes.divLine}>
                     <AnimatedDialog
                       open={false}
                       titulo={<InfoDialog.Titulo />}
@@ -138,9 +141,8 @@ function App(props) {
                     >
                       {(handle) => <InfoDialog.Controlador handle={handle} />}
                     </AnimatedDialog>
-                  </Grid>
-
-                </Grid>
+                  </div>
+                </div>
               </Toolbar>
             </AppBar>
             <Container maxWidth="xl" >
