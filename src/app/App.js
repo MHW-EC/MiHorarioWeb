@@ -7,9 +7,7 @@ import Zoom from '@material-ui/core/Zoom'
 import Toolbar from '@material-ui/core/Toolbar'
 import Fab from '@material-ui/core/Fab'
 import Typography from '@material-ui/core/Typography'
-import CssBaseline from '@material-ui/core/CssBaseline'
 import useScrollTrigger from '@material-ui/core/useScrollTrigger'
-import Container from '@material-ui/core/Container'
 import KeyboardArrowUpIcon from '@material-ui/icons/KeyboardArrowUp'
 import './App.css'
 import PasoAPaso from './pages/PasoAPaso'
@@ -17,7 +15,7 @@ import Notifier from './components/Notifier'
 import AnimatedDialog from './components/inicio/animated-dialog'
 import InfoDialog from './components/inicio/info-dialog'
 import DisclaimerDialog from './components/inicio/disclaimer-dialog'
-import { Grid } from '@material-ui/core'
+import { Grid, Paper, CssBaseline, Container } from '@material-ui/core'
 import Brightness4Icon from '@material-ui/icons/Brightness4';
 import Brightness7Icon from '@material-ui/icons/Brightness7';
 import IconButton from "@material-ui/core/IconButton";
@@ -25,9 +23,6 @@ import { ThemeProvider } from '@material-ui/core/styles';
 import theme from "./theme";
 function ElevationScroll(props) {
   const { children, window } = props
-  // Note that you normally won't need to set the window ref as useScrollTrigger
-  // will default to window.
-  // This is only being set here because the demo is in an iframe.
   const trigger = useScrollTrigger({
     disableHysteresis: true,
     threshold: 0,
@@ -40,19 +35,14 @@ function ElevationScroll(props) {
 }
 
 const useStyles = makeStyles((theme) => ({
-  root: {
+  root:{
+    height: '100%'
+    },
+  zoom: {
     backgroundColor: 'transparent',
     position: 'fixed',
     bottom: theme.spacing(5),
     right: theme.spacing(5),
-  },
-  divInfo: {
-    marginLeft: 'auto',
-    marginRight: 0,
-  },
-  divInfo2: {
-    marginLeft: 'auto',
-    marginRight: 0,
   },
   icon: {
     marginLeft: 'auto',
@@ -80,7 +70,7 @@ function ScrollTop(props) {
 
   return (
     <Zoom in={trigger}>
-      <div onClick={handleClick} role="presentation" className={classes.root}>
+      <div onClick={handleClick} role="presentation" className={classes.zoom}>
         {children}
       </div>
     </Zoom>
@@ -89,43 +79,37 @@ function ScrollTop(props) {
 
 ElevationScroll.propTypes = {
   children: PropTypes.element.isRequired,
-  /**
-   * Injected by the documentation to work in an iframe.
-   * You won't need it on your project.
-   */
   window: PropTypes.func,
 }
 function App(props) {
   const classes = useStyles()
   const [isThemeLight, setTheme] = React.useState(true);
   const themeButtonHandler = () => {
-    console.log(isThemeLight);
     setTheme(!isThemeLight);
   }
 
   return (
+    <>
     <ThemeProvider theme={theme}>
-    <React.Fragment>
-      <Notifier />
-      <CssBaseline />
-      <ElevationScroll {...props}>
-        <AppBar>
-          <Toolbar>
+    <Paper elevation={0} square className={classes.root}>
+        <Notifier />
+        <div id="back-to-top-anchor"/>
+        <AppBar position="sticky" >
+          <Toolbar >
             <Typography variant="h6">Horario</Typography>
-
             <Grid spacing={0} container
               direction="row"
               justify="flex-end"
               alignItems="flex-start"
             >
               <Grid item xs={1}>
-                <IconButton aria-label="show 4 new mails" 
-                color="inherit" className={classes.icon} onClick={themeButtonHandler}>
-                  {isThemeLight ? <Brightness4Icon />: <Brightness7Icon /> }
+                <IconButton aria-label="show 4 new mails"
+                  color="inherit" className={classes.icon} onClick={themeButtonHandler}>
+                  {isThemeLight ? <Brightness4Icon /> : <Brightness7Icon />}
                 </IconButton>
-                
+
               </Grid>
-              <Grid item xs={1} style={{display: 'none'}}>
+              <Grid item xs={1} style={{ display: 'none' }}>
                 <AnimatedDialog
                   open={true}
                   titulo={<DisclaimerDialog.Titulo />}
@@ -151,25 +135,19 @@ function App(props) {
             </Grid>
           </Toolbar>
         </AppBar>
-      </ElevationScroll>
-      <Toolbar id="back-to-top-anchor" />
-      <Container maxWidth="xl">
+        <Container maxWidth="xl" >
         <Router>
-          <Grid container>
-            <Grid item xs={12}>
-              <Route exact path="/" component={PasoAPaso} />
-            </Grid>
-            <Grid item xs={12}></Grid>
-          </Grid>
+          <Route exact path="/" component={PasoAPaso} />
         </Router>
-      </Container>
-      <ScrollTop {...props}>
-        <Fab color="secondary" size="small" aria-label="scroll back to top">
-          <KeyboardArrowUpIcon />
-        </Fab>
-      </ScrollTop>
-    </React.Fragment>
+        </Container>
+        <ScrollTop {...props}>
+          <Fab color="secondary" size="small" aria-label="scroll back to top">
+            <KeyboardArrowUpIcon />
+          </Fab>
+        </ScrollTop>
+        </Paper>
     </ThemeProvider>
+    </>
   )
 }
 

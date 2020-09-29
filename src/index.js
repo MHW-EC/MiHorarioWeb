@@ -11,7 +11,7 @@ const store = storeFn();
 ReactDOM.render(
 	<Provider store={store}>
 		<SnackbarProvider>
-			<App />{' '}
+			<App />
 		</SnackbarProvider>
 	</Provider>,
 	document.getElementById('root')

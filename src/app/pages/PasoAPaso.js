@@ -9,7 +9,7 @@ import OpcionesMaterias from '../components/paso3/opciones-materias';
 import SearchCarrera from '../components/paso1/SearchCarrera';
 import TablaVisor from '../components/paso4/tabla-visor';
 import Malla from '../components/paso2/Malla';
-import { Grid, Container } from '@material-ui/core';
+import { Grid, Paper } from '@material-ui/core';
 import { useDispatch, useSelector } from 'react-redux';
 import { cleanCarrera } from '../../redux/actions/carrera';
 import { cleanMaterias } from '../../redux/actions/materias';
@@ -33,35 +33,11 @@ import {
 //Aqui seteamos estilos
 const useStyles = makeStyles((theme) => ({
 	root: {
-		//width: '100%',
-		backgroundColor: '#ffffff',
-		color: '#fff',
-		spacing: theme.spacing(0),
-	},
-	backButton: {
-		//color: 'primary',
-		//marginRight: theme.spacing(1),
-		//border: '1px solid #ffffff',
-	},
-	backButtonDissabled: {
-		//color: 'primary',
-		//marginRight: theme.spacing(1),
-		//border: '1px solid #222222',
+	//	flexGrow: 1,
 	},
 	instructions: {
 		marginTop: theme.spacing(1),
 		marginBottom: theme.spacing(1),
-	},
-	label: {
-		color: '#ffffff',
-	},
-	contButton: {
-		'& > *': {
-			margin: theme.spacing(1),
-		},
-	},
-	pasoContainer: {
-		padding: '10px 60px !important',
 	},
 }));
 
@@ -281,10 +257,9 @@ export default function PasoAPaso() {
 			case 1:
 				return <Malla />;
 			case 2:
-				return <OpcionesMaterias isMobile={isMobile} />;
+				return <OpcionesMaterias />;
 			case 3:
 				return <TablaVisor />;
-
 			default:
 				return (
 					<Typography className={classes.instructions} color='textSecondary'>
@@ -295,73 +270,55 @@ export default function PasoAPaso() {
 	}
 
 	return (
-		<div className={classes.root}>
+		<div className={classes.root} >
 			<Stepper
 				activeStep={activeStep}
 				alternativeLabel
-				className={classes.root}
 			>
 				{steps.map((label) => (
 					<Step key={label}>
 						<StepLabel>
-							<Typography className={classes.instructions}>{label}</Typography>
+							<Typography className={classes.instructions} color='textPrimary'>{label}</Typography>
 						</StepLabel>
 					</Step>
 				))}
 			</Stepper>
-			<Grid container spacing={2}>
-				<Grid item xs={12}>
-					{activeStep === steps.length - 1 ? (
-						<div>
-							<Typography
-								className={classes.instructions}
-								color={'textSecondary'}
+			<Grid container spacing={3}>
+					<Grid item xs={12}>
+						<Typography
+							className={classes.instructions}
+							color='textSecondary'
+						>
+							{getStepContent(activeStep)}
+						</Typography>
+					</Grid>
+					<Grid item xs={12} container
+						direction="row"
+						justify="center"
+						alignItems="flex-start" spacing={2}>
+						<Grid item xs={6}>
+							<Button
+								variant='contained'
+								disabled={activeStep === 0}
+								onClick={handleBack}
 							>
-								{getStepContent(activeStep)}
-							</Typography>
-							<div>
-								<Button
-									variant='contained'
-									color='primary'
-									disabled={activeStep === 0}
-									onClick={handleBack}
-									//className={classes.backButton}
-								>
-									Atrás
+								Atrás
 								</Button>
-							</div>
-						</div>
-					) : (
-						<div>
-							<Typography
-								className={classes.instructions}
-								color={'textSecondary'}
+						</Grid>
+						<Grid item xs={6}>
+							<Button
+								variant='contained'
+								color='primary'
+								onClick={handleNext}
 							>
-								{getStepContent(activeStep)}
-							</Typography>
-							<div className={classes.contButton}>
-								<Button
-									variant='contained'
-									disabled={activeStep === 0}
-									onClick={handleBack}
-								>
-									Atrás
+								Siguiente
 								</Button>
-								<Button
-									variant='contained'
-									color='primary'
-									onClick={handleNext}
-								>
-									{activeStep === steps.length - 2 ? 'Siguiente' : 'Siguiente'}
-								</Button>
-							</div>
-						</div>
-					)}
+						</Grid>
+					</Grid>
+					<Grid item xs={12}>
+						{getStepComponet(activeStep)}
+					</Grid>
 				</Grid>
-				<Grid item xs={12}>
-					<Container maxWidth='xl'>{getStepComponet(activeStep)}</Container>
-				</Grid>
-			</Grid>
-		</div>
+		</div >
 	);
 }
