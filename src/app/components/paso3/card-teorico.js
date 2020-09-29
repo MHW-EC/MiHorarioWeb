@@ -66,6 +66,7 @@ export default function SimpleCard(props) {
 	const profesor = useSelector((state) =>
 		profesorSelector(state, paralelo['profesor'] ? paralelo['profesor']:"SIN NOMBRE")
 	);
+	
 	useEffect(() => {
 		if (paralelo && !profesor) {
 			dispatch(getProfesor(paralelo['profesor'] ? paralelo['profesor']:"SIN NOMBRE"

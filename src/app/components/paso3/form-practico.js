@@ -108,6 +108,23 @@ export default function ActionsInExpansionPanelSummary(props) {
 						/>
 					</ExpansionPanelSummary>
 				</ExpansionPanel>
+				<ExpansionPanel>
+					<ExpansionPanelSummary
+						expandIcon={<ExpandMoreIcon />}
+						aria-label='Expand'
+					>
+						<FormControlLabel
+							aria-label='Acknowledge'
+							control={
+								<Checkbox
+									disabled={true}
+									color='primary'
+								/>
+							}
+							label={<Skeleton animation='wave' variant='text' width={100}/>}
+						/>
+					</ExpansionPanelSummary>
+				</ExpansionPanel>
 		</div>
 		
 	);
