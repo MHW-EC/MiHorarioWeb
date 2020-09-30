@@ -60,13 +60,14 @@ export default function SimpleCard(props) {
 	const theme = useTheme();
 	const dispatch = useDispatch();
 	const [open, setOpen] = useState(false);
+	const [cargado, setCargado] = useState(false);
 	const [paralelo] = useState(props.paralelo);
 	const [isAdd, setIsAdd] = useState(1);
 
 	const profesor = useSelector((state) =>
 		profesorSelector(state, paralelo['profesor'] ? paralelo['profesor']:"SIN NOMBRE")
 	);
-	
+
 	useEffect(() => {
 		if (paralelo && !profesor) {
 			dispatch(getProfesor(paralelo['profesor'] ? paralelo['profesor']:"SIN NOMBRE"
@@ -123,6 +124,8 @@ export default function SimpleCard(props) {
 
 	const handleParAsociados = () => {
 		setOpen(true);
+		setCargado(true);
+
 	};
 	const handleCloseDialog = () => {
 		setOpen(false);
@@ -228,6 +231,7 @@ export default function SimpleCard(props) {
 						<DialogPractico
 							id='práctico-menu'
 							open={open}
+							cargado={cargado}
 							keepMounted
 							onClose={handleCloseDialog}
 							teoricoid={paralelo['_id']}

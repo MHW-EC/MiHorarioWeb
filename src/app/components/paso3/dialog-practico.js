@@ -24,7 +24,7 @@ const useStyles = makeStyles(theme => ({
 }));
 
 export default function ConfirmationDialogRaw(props) {
-  const { onClose, value: valueProp, open, ...other } = props;
+  const { onClose, value: valueProp, open, cargado, ...other } = props;
   const classes = useStyles();
   const [teoricoid, setTeoricoId] = useState();
   const [teorico, setTeorico] = useState();
@@ -54,7 +54,7 @@ export default function ConfirmationDialogRaw(props) {
         Seleccione asociados
       </DialogTitle>
       <DialogContent dividers className={classes.dialogContent}>
-        {open ? <FormPractico teoricoid={teoricoid} teorico={teorico}/> : <></>}
+        {cargado ? <FormPractico teoricoid={teoricoid} teorico={teorico}/> : null}
       </DialogContent>
       <DialogActions>
         <Button autoFocus onClick={handleClose} color="primary">

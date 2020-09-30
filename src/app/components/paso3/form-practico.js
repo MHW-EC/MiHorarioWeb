@@ -36,6 +36,7 @@ export default function ActionsInExpansionPanelSummary(props) {
 	//const [parAsociados, setParAsociados] = useState();
 	const [teoricoid, setTeoricoId] = useState();
 	const [teorico, setTeorico] = useState();
+	//const [checked, setChecked] = useState(false);
 
 	useEffect(() => {
 		setTeoricoId(props.teoricoid);
@@ -56,10 +57,12 @@ export default function ActionsInExpansionPanelSummary(props) {
 		}
 	});
 
-	const handleAddPaquete = (evento, teorico, practico) => {
-		evento.target.checked
+	const handleChecking = (evento, teorico, practico) => {
+		let checked = evento.target.checked;
+		checked
 			? dispatch(addPaquete([teorico, practico], teoricoid, practico['_id']))
 			: dispatch(removePaquete(teoricoid, practico['_id']));
+		//setChecked(checked);
 	};
 	return parAsociados ? (
 		<div className={classes.root}>
@@ -77,7 +80,7 @@ export default function ActionsInExpansionPanelSummary(props) {
 							control={
 								<Checkbox
 									color='primary'
-									onChange={(event) => handleAddPaquete(event, teorico, par)}
+									onChange={(event) => handleChecking(event, teorico, par)}
 								/>
 							}
 							label={`Paralelo ${par['paralelo']}`}

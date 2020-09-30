@@ -242,13 +242,13 @@ export default function PasoAPaso() {
 			case 2:
 				//dispatch(cleanMaterias());
 				dispatch(cleanSel());
-				dispatch(cleanAsociados());
+				//dispatch(cleanAsociados());
 				dispatch(cleanPaquetes());
 				break;
 			case 3:
 				dispatch(cleanResultados());
 				dispatch(cleanSel());
-				dispatch(cleanAsociados());
+				//dispatch(cleanAsociados());
 				dispatch(cleanPaquetes());
 				break;
 			default:
