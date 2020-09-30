@@ -228,7 +228,6 @@ export default function NavTabs(props) {
 			},
 		});
 	};
-	console.log("Render horario view");
 	return horario && instancias && appos ? (
 		<div className={classes.root} id='root-views'>
 			<AppBar position='static' color='inherit'>

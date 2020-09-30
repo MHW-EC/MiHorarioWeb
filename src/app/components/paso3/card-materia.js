@@ -18,7 +18,6 @@ import {
 	closeSnackbar as closeSnackbarAction,
 } from '../../../redux/actions/notifier';
 import CustomGridTitle from './customGridTitle';
-import { GetChip } from "./chips";
 const useStyles = makeStyles((theme) => ({
 	root: {
 		display: 'flex',

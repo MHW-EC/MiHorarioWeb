@@ -90,7 +90,6 @@ function Demo(props) {
   useEffect(() => {
     if(props.appointments){
       let sorted = [...props.appointments].sort(function (a, b) { return a['startDate'] - b['startDate'] });
-      console.log(sorted);
       setAppointments(sorted)
     }
   },[props.appointments])
@@ -114,13 +113,17 @@ function Demo(props) {
   }, [props.instancias])
 
   useEffect(() => {
-    console.log(width)
+    //console.log(width)
+    if(appointments){
+      setcurrentDate(appointments[0]['startDate'])
+    }
+    
     if (width === "xs") {
       setCurrentViewName("Day");
     } else {
       setCurrentViewName("Week");
     }
-  }, [width])
+  }, [width, appointments])
   //this.ordenarAppointments();
   
   /*const enUnaMismaSemana = (appointments) => {
@@ -195,9 +198,6 @@ function Demo(props) {
     let origen = new Date(appointments[0]['startDate'])
     let fin = new Date(appointments[appointments.length - 1]['startDate'])
     let actual = new Date(currentDate)
-    console.log(origen);
-    console.log(actual);
-    console.log(fin);
     if (origen <= actual && actual <= fin ) {
         setcurrentDate(currentDate)
     }
@@ -228,7 +228,7 @@ function Demo(props) {
           endDayHour={limitesVerticales["fin"]}
         />
         <Toolbar />
-        <DateNavigator />
+        <DateNavigator openButtonComponent={'null'}/>
         <Appointments appointmentContentComponent={AppointmentContent} />
         <Resources
           palette={[Colors.red]}

@@ -16,7 +16,6 @@ import { cleanMaterias } from '../../redux/actions/materias';
 import { carreraSeleccionada as carreraSelector } from '../../redux/selectors';
 import { cleanSel } from '../../redux/actions/seleccionados';
 import { cleanPaquetes } from '../../redux/actions/paquetes';
-import { cleanAsociados } from '../../redux/actions/asociado';
 import { cleanResultados } from '../../redux/actions/generador';
 import { materiasSeleccionadas as matSelSelector } from '../../redux/selectors';
 import { materiasMalla as mallaSelSelector } from '../../redux/selectors';
