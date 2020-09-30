@@ -228,7 +228,7 @@ function Demo(props) {
           endDayHour={limitesVerticales["fin"]}
         />
         <Toolbar />
-        <DateNavigator openButtonComponent={'null'}/>
+        <DateNavigator/>
         <Appointments appointmentContentComponent={AppointmentContent} />
         <Resources
           palette={[Colors.red]}
