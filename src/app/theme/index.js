@@ -3,15 +3,15 @@ import { createMuiTheme } from '@material-ui/core/styles';
 const theme = createMuiTheme({
   palette: {
     primary: {
-      light: '#3e7683',
-      main: '#E6920D',
-      dark: '#00222d',
+      light: '#AAF1FC',
+      main: '#1665A6',
+      dark: '#0D4583',
       contrastText: '#ffffff',
     },
     secondary: {
-      light: '#c04c2f',
-      main: '#891b05',
-      dark: '#570000',
+      light: '#FDDFAD',
+      main: '#f48c32',
+      dark: '#8D360F',
       contrastText: '#ffffff',
     },
     error: {
@@ -40,23 +40,23 @@ const theme = createMuiTheme({
     },
     background: {
       paper: '#fff',
-      default: '#fafafa'
-    }
+      default: '#fafafa',
+    },
   },
 });
 const darkTheme = createMuiTheme({
   palette: {
     type: 'dark',
     primary: {
-      light: '#9fd6e5',
-      main: '#E6920D',
-      dark: '#3e7683',
+      light: '#AAF1FC',
+      main: '#1665A6',
+      dark: '#0D4583',
       contrastText: '#ffffff',
     },
     secondary: {
-      light: '#e6ab9c',
-      main: '#b37c6e',
-      dark: '#824f43',
+      light: '#FDDFAD',
+      main: '#f48c32',
+      dark: '#8D360F',
       contrastText: '#ffffff',
     },
     error: {
@@ -85,8 +85,8 @@ const darkTheme = createMuiTheme({
     },
     background: {
       paper: '#333333',
-      default: '#212121'
-    }
+      default: '#212121',
+    },
   },
 });
 export { theme, darkTheme };
