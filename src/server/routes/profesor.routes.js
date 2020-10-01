@@ -45,7 +45,8 @@ router.route('/:profesor/:codigo/:nombreMateria').get((req, res) => {
                 
             }},
             _id:0,
-            nombre: 1
+            nombre: 1,
+            stats: 1
         }}
     ]).exec((error, data) => {
         let xforwardedfor = req['headers']['x-forwarded-for']
