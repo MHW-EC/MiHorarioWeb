@@ -193,8 +193,7 @@ export default function SimpleCard(props) {
         subheader={GetChip(profesor['registros'][0]['promedio'])}
         style={{ padding: 12 }}
       />
-      {typeof(profesor.stats)!=='undefined' ? (
-      <><Button className={classes.btnHex} onClick={handleStats} size='small' variant='text'>
+      <Button className={classes.btnHex} onClick={handleStats}>
         ¿Cómo se sienten los estudiantes con este profesor?
       </Button>
       <DialogStats
@@ -202,9 +201,9 @@ export default function SimpleCard(props) {
         open={openStats}
         keepMounted
         onClose={handleCloseDialogStats}
-        data={profesor.stats}
+        data={data}
         profesor={paralelo['profesor']}
-      /></>): null}
+      />
       <Divider />
       <CardContent className={classes.div}>
         <Typography variant="body2" component="p" aling="left">
