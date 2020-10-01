@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import { makeStyles } from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
@@ -29,13 +29,13 @@ export default function ConfirmationDialogRaw(props) {
   const [teoricoid, setTeoricoId] = useState();
   const [teorico, setTeorico] = useState();
 
-  useEffect(()=>{
+  useEffect(() => {
     setTeoricoId(props.teoricoid)
-  },[props.teoricoid]);
-  
-  useEffect(()=>{
+  }, [props.teoricoid]);
+
+  useEffect(() => {
     setTeorico(props.teorico)
-  },[props.teorico]);
+  }, [props.teorico]);
 
   const handleClose = () => {
     onClose();
@@ -45,7 +45,7 @@ export default function ConfirmationDialogRaw(props) {
     <Dialog
       disableBackdropClick
       disableEscapeKeyDown
-      maxWidth="xs"
+      maxWidth="md"
       aria-labelledby="confirmation-dialog-title"
       open={open}
       {...other}
@@ -54,7 +54,7 @@ export default function ConfirmationDialogRaw(props) {
         Seleccione asociados
       </DialogTitle>
       <DialogContent dividers className={classes.dialogContent}>
-        {cargado ? <FormPractico teoricoid={teoricoid} teorico={teorico}/> : null}
+        {cargado ? <FormPractico teoricoid={teoricoid} teorico={teorico} /> : null}
       </DialogContent>
       <DialogActions>
         <Button autoFocus onClick={handleClose} color="primary">
