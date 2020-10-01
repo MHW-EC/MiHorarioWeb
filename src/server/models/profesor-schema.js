@@ -12,6 +12,9 @@ let teoricoSchema = new Schema({
         type: Array,
         default: [{anio: String, codigo: String, nombreMateria: String, termino: String, promedio: Number}]
     },
+    stats: { 
+        type:Array
+    }
 },{
     collection: 'profesor'
 })

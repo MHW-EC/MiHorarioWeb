@@ -59,39 +59,6 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const data = [
-  {
-    subject: 'Enojado',
-    A: 0.5,
-    B: 0.4,
-    fullMark: 1,
-  },
-  {
-    subject: 'Feliz',
-    A: 0.7,
-    B: 0.4,
-    fullMark: 1,
-  },
-  {
-    subject: 'Miedo',
-    A: 0.4,
-    B: 0.1,
-    fullMark: 1,
-  },
-  {
-    subject: 'Triste',
-    A: 0.9,
-    B: 0.5,
-    fullMark: 1,
-  },
-  {
-    subject: 'Confianza',
-    A: 0.4,
-    B: 0.7,
-    fullMark: 1,
-  },
-];
-
 export default function SimpleCard(props) {
   const classes = useStyles();
   const theme = useTheme();
@@ -226,7 +193,8 @@ export default function SimpleCard(props) {
         subheader={GetChip(profesor['registros'][0]['promedio'])}
         style={{ padding: 12 }}
       />
-      <Button className={classes.btnHex} onClick={handleStats}>
+      {typeof(profesor.stats)!=='undefined' ? (
+      <><Button className={classes.btnHex} onClick={handleStats} size='small' variant='text'>
         ¿Cómo se sienten los estudiantes con este profesor?
       </Button>
       <DialogStats
@@ -234,9 +202,9 @@ export default function SimpleCard(props) {
         open={openStats}
         keepMounted
         onClose={handleCloseDialogStats}
-        data={data}
+        data={profesor.stats}
         profesor={paralelo['profesor']}
-      />
+      /></>): null}
       <Divider />
       <CardContent className={classes.div}>
         <Typography variant="body2" component="p" aling="left">
