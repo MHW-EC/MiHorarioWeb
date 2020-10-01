@@ -32,12 +32,13 @@ const Contenido = () => {
     return (
         <div className={classes.dialogContent}>
             <Typography variant='body1'>
-                La información en esta página fue actualizada el 06/05/2020 - 23:59:59.
-                Probablemente actualicemos la información hoy 10/05/2020 - 23:59:59, sin embargo
-                revise su horario con los planificados en la página oficial.
+                La información en esta página fue actualizada el 30/09/2020 - 16:00:00.
+                Si se dan cambios en los horarios registrados probablemente actualicemos 
+                la información los próximos días, sin embargo revise su horario con los 
+                planificados en la página oficial.
             </Typography>
             <br />
-            <Typography variant='body1'>
+            <Typography variant='body2'>
                 No nos hacemos responsables por cambios de última hora.
             </Typography>
         </div>)

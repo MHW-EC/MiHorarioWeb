@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
-import { Paper, Grid, Container, Grow, Slide, Zoom } from '@material-ui/core';
+import { Paper, Grid, Container, Grow } from '@material-ui/core';
 import Celda from './celda';
 import { useSelector, useDispatch } from 'react-redux';
 import { carreraSeleccionada as carreraSelector } from '../../../redux/selectors';

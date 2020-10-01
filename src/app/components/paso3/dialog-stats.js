@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import DialogContent from '@material-ui/core/DialogContent';
@@ -22,7 +22,7 @@ const useStyles = makeStyles((theme) => ({
   root: {
     width: '100%',
     maxWidth: 360,
-    backgroundColor: theme.palette.primary.paper,
+    backgroundColor: theme.palette.background.default,
   },
   paper: {
     width: '80%',
@@ -64,7 +64,7 @@ export default function ConfirmationDialogRaw(props) {
         size: '80%',
       },
       accessibility: {
-        description: `La punta del polígono se hace más aguda hacia el sentimiento más
+        description: `¿Qué significa este gráfico?. La punta del polígono se hace más aguda hacia el sentimiento más
         frecuente encontrado en las opiniones sobre este profesor. Basado en al menos 15 opiniones dadas por estudiantes que han tomando
         materias con este profesor.`,
       },
@@ -81,7 +81,7 @@ export default function ConfirmationDialogRaw(props) {
       tooltip: {
         shared: true,
         pointFormat:
-          '<span style="color:{series.color}">Porcentaje: <b>{point.y%</b><br/>',
+          '<span style="color:{series.color}">Porcentaje: <b>{point.y}%</b><br/>',
       },
       series: [
         {
@@ -136,8 +136,8 @@ export default function ConfirmationDialogRaw(props) {
           options={optionsFunc(data, profesor)}
         />
         <Typography variant="caption" align="center">
-          La punta del polígono se hace más aguda hacia el sentimiento más
-          frecuente encontrado en las opiniones sobre este profesor. Basado en
+         ¿Qué significa este gráfico?. La punta del polígono se hace más aguda hacia el sentimiento más
+          frecuente encontrado en las opiniones sobre este profesor. Esta información está basada en
           al menos 15 opiniones dadas por estudiantes que han tomando materias
           con este profesor.
         </Typography>
