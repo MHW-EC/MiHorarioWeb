@@ -17,6 +17,13 @@ import {
   ResponsiveContainer,
 } from 'recharts';
 import { Container, Typography } from '@material-ui/core';
+
+const parserArray = (array) => {
+  return array.map(object => {
+    return {subject: object['tone'], A: object['value'], fullMark: 1,}
+  })
+}
+
 const useStyles = makeStyles((theme) => ({
   root: {
     width: '100%',
@@ -50,7 +57,8 @@ export default function ConfirmationDialogRaw(props) {
   };
 
   return (
-    <Dialog
+    (data ? (
+      <Dialog
       disableBackdropClick
       disableEscapeKeyDown
       maxWidth="md"
@@ -59,16 +67,25 @@ export default function ConfirmationDialogRaw(props) {
       {...other}
     >
       <DialogTitle id="confirmation-dialog-title">
-        Estádisticas del profesor {profesor}
+        Resultado del profesor
       </DialogTitle>
       <DialogContent dividers className={classes.dialogContent}>
+      <Typography variant='body2'>
+          Profesor : {profesor}
+        </Typography>
+        <Typography variant='subtitle2'>
+          ¿Qué significa esta gráfica?
+        </Typography>
+        <Typography variant='body2'>
+          La punta del polígono se hace más aguda hacia el sentimiento más frecuente encontrado en las opiniones sobre este profesor.
+        </Typography>
         <Container>
           <ResponsiveContainer width={'99%'} height={450}>
             <RadarChart
               outerRadius={150}
               width={450}
               height={400}
-              data={data}
+              data={parserArray(data)}
               className={classes.radar}
             >
               <PolarGrid />
@@ -90,6 +107,10 @@ export default function ConfirmationDialogRaw(props) {
             </RadarChart>
           </ResponsiveContainer>
         </Container>
+        <Typography variant='caption'>
+          Basado en al menos 15 opiniones dadas por estudiantes que han tomando
+          materias con este profesor.
+        </Typography>
       </DialogContent>
       <DialogActions>
         <Button autoFocus onClick={handleClose} color="primary">
@@ -97,6 +118,8 @@ export default function ConfirmationDialogRaw(props) {
         </Button>
       </DialogActions>
     </Dialog>
+  
+    ): null)
   );
 }
 ConfirmationDialogRaw.propTypes = {
