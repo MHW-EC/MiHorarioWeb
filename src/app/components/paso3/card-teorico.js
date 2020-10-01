@@ -126,7 +126,7 @@ export default function SimpleCard(props) {
       tooltipNode: 'Añadir teórico',
     },
     {
-      color: 'error',
+      color: 'secondary',
       className: classes.fab,
       icon: <DeleteOutlineIcon />,
       label: 'Remove',
@@ -193,7 +193,8 @@ export default function SimpleCard(props) {
         subheader={GetChip(profesor['registros'][0]['promedio'])}
         style={{ padding: 12 }}
       />
-      <Button className={classes.btnHex} onClick={handleStats}>
+      {typeof(profesor.stats)!=='undefined' ? (
+      <><Button className={classes.btnHex} onClick={handleStats} size='small' variant='text'>
         ¿Cómo se sienten los estudiantes con este profesor?
       </Button>
       <DialogStats
@@ -201,9 +202,9 @@ export default function SimpleCard(props) {
         open={openStats}
         keepMounted
         onClose={handleCloseDialogStats}
-        data={data}
+        data={profesor.stats}
         profesor={paralelo['profesor']}
-      />
+      /></>): null}
       <Divider />
       <CardContent className={classes.div}>
         <Typography variant="body2" component="p" aling="left">

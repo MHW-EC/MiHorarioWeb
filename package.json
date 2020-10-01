@@ -29,6 +29,7 @@
 		"notistack": "^0.9.11",
 		"react": "^16.13.0",
 		"react-dom": "^16.13.0",
+		"react-highcharts": "^16.1.0",
 		"react-redux": "^7.2.0",
 		"react-router-dom": "^5.1.2",
 		"react-scripts": "3.4.0",
