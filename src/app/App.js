@@ -23,6 +23,7 @@ import { ThemeProvider } from '@material-ui/core/styles';
 import { SnackbarProvider } from 'notistack';
 import { theme, darkTheme } from './theme';
 import { useEffect } from 'react';
+import { useState } from 'react';
 function ElevationScroll(props) {
   const { children, window } = props;
   const trigger = useScrollTrigger({
@@ -98,29 +99,33 @@ ElevationScroll.propTypes = {
 };
 function App(props) {
   const classes = useStyles();
-  const [isThemeLight, setTheme] = React.useState(true);
+  const [isThemeLight, setTheme] = useState(true);
+  const [initTheme, setInitTheme] = useState(false);
   const themeButtonHandler = () => {
     setTheme(!isThemeLight);
   };
 
   useEffect(() => {
-    console.log('Seeing theme');
-    if (
-      window.matchMedia &&
-      window.matchMedia('(prefers-color-scheme: dark)').matches
-    ) {
-      setTheme(false);
+    if (!initTheme) {
+      console.log('Seeing theme');
+      if (
+        window.matchMedia &&
+        window.matchMedia('(prefers-color-scheme: dark)').matches
+      ) {
+        setTheme(false);
+      }
+      window
+        .matchMedia('(prefers-color-scheme: dark)')
+        .addEventListener('change', (e) => {
+          if (e.matches) {
+            setTheme(false);
+          } else {
+            setTheme(true);
+          }
+        });
+      setInitTheme(true);
     }
-    window
-      .matchMedia('(prefers-color-scheme: dark)')
-      .addEventListener('change', (e) => {
-        if (e.matches) {
-          setTheme(false);
-        } else {
-          setTheme(true);
-        }
-      });
-  }, [isThemeLight]);
+  }, [isThemeLight, initTheme]);
 
   return (
     <>
