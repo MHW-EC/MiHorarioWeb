@@ -50,7 +50,6 @@ export default function ConfirmationDialogRaw(props) {
     onClose();
   };
 
-  console.log(data);
   const optionsFunc = (data, profesorT) => {
     return {
       chart: {
