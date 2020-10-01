@@ -105,6 +105,26 @@ function App(props) {
     setTheme(!isThemeLight);
   };
 
+  const [resfresh, setResfresh] = useState(true);
+
+  useEffect(() => {
+    if (resfresh) {
+      const counterPost = (name) => {
+        fetch(
+          'https://cors-anywhere.herokuapp.com/https://server-count-views.herokuapp.com/updateViews?key=visit_page',
+          {
+            method: 'POST',
+          }
+        )
+          .then((response) => response.json())
+          .then(console.log);
+      };
+
+      counterPost();
+      setResfresh(false);
+    }
+  }, [resfresh]);
+
   useEffect(() => {
     if (!initTheme) {
       console.log('Seeing theme');
