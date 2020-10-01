@@ -1,67 +1,73 @@
 {
-	"name": "applicacion_web",
-	"version": "0.1.0",
-	"private": true,
-	"dependencies": {
-		"@devexpress/dx-core": "^2.5.1",
-		"@devexpress/dx-react-core": "^2.5.1",
-		"@devexpress/dx-react-scheduler": "^2.5.1",
-		"@devexpress/dx-react-scheduler-material-ui": "^2.5.1",
-		"@material-ui/core": "^4.9.7",
-		"@material-ui/icons": "^4.9.1",
-		"@material-ui/lab": "^4.0.0-alpha.46",
-		"axios": "^0.19.2",
-		"body-parser": "^1.19.0",
-		"cors": "^2.8.5",
-		"cra-template": "1.0.2",
-		"express": "^4.17.1",
-		"file-saver": "^2.0.2",
-		"highcharts": "^8.2.0",
-		"highcharts-react-official": "^3.0.0",
-		"html2canvas": "^1.0.0-rc.5",
-		"http-proxy-middleware": "^1.0.3",
-		"itertools": "^1.6.0",
-		"jszip": "^3.4.0",
-		"lodash": "^4.17.15",
-		"mobile-detect": "^1.4.4",
-		"mongoose": "^5.9.9",
-		"node-os-utils": "^1.2.2",
-		"notistack": "^0.9.11",
-		"react": "^16.13.0",
-		"react-dom": "^16.13.0",
-		"react-highcharts": "^16.1.0",
-		"react-redux": "^7.2.0",
-		"react-router-dom": "^5.1.2",
-		"react-scripts": "3.4.0",
-		"react-swipeable-views": "^0.13.9",
-		"recharts": "^1.8.5",
-		"redux": "^4.0.5",
-		"redux-devtools-extension": "^2.13.8",
-		"redux-saga": "^1.1.3"
-	},
-	"scripts": {
-		"start-r": "react-scripts start",
-		"start": "node ./src/server/server",
-		"build": "react-scripts build",
-		"eject": "react-scripts eject"
-	},
-	"eslintConfig": {
-		"extends": "react-app"
-	},
-	"browserslist": {
-		"production": [
-			">0.2%",
-			"not dead",
-			"not op_mini all"
-		],
-		"development": [
-			"last 1 chrome version",
-			"last 1 firefox version",
-			"last 1 safari version"
-		]
-	},
-	"proxy": "http://localhost:8080",
-	"devDependencies": {
-		"nodemon": "^2.0.3"
-	}
+  "name": "applicacion_web",
+  "version": "0.1.0",
+  "main": "public/electron.js",
+  "private": true,
+  "dependencies": {
+    "@devexpress/dx-core": "^2.5.1",
+    "@devexpress/dx-react-core": "^2.5.1",
+    "@devexpress/dx-react-scheduler": "^2.5.1",
+    "@devexpress/dx-react-scheduler-material-ui": "^2.5.1",
+    "@material-ui/core": "^4.9.7",
+    "@material-ui/icons": "^4.9.1",
+    "@material-ui/lab": "^4.0.0-alpha.46",
+    "axios": "^0.19.2",
+    "body-parser": "^1.19.0",
+    "concurrently": "^5.3.0",
+    "cors": "^2.8.5",
+    "cra-template": "1.0.2",
+    "electron": "^10.1.3",
+    "electron-builder": "^22.8.1",
+    "express": "^4.17.1",
+    "file-saver": "^2.0.2",
+    "highcharts": "^8.2.0",
+    "highcharts-react-official": "^3.0.0",
+    "html2canvas": "^1.0.0-rc.5",
+    "http-proxy-middleware": "^1.0.3",
+    "itertools": "^1.6.0",
+    "jszip": "^3.4.0",
+    "lodash": "^4.17.15",
+    "mobile-detect": "^1.4.4",
+    "mongoose": "^5.9.9",
+    "node-os-utils": "^1.2.2",
+    "notistack": "^0.9.11",
+    "react": "^16.13.0",
+    "react-dom": "^16.13.0",
+    "react-highcharts": "^16.1.0",
+    "react-redux": "^7.2.0",
+    "react-router-dom": "^5.1.2",
+    "react-scripts": "3.4.0",
+    "react-swipeable-views": "^0.13.9",
+    "recharts": "^1.8.5",
+    "redux": "^4.0.5",
+    "redux-devtools-extension": "^2.13.8",
+    "redux-saga": "^1.1.3",
+    "wait-on": "^5.2.0"
+  },
+  "scripts": {
+    "start-r": "react-scripts start",
+    "start": "node ./src/server/server",
+    "build": "react-scripts build",
+    "eject": "react-scripts eject",
+    "electron-dev": "concurrently \"BROWSER=none npm start\" \"wait-on http://localhost:3000 && electron .\""
+  },
+  "eslintConfig": {
+    "extends": "react-app"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "proxy": "http://localhost:8080",
+  "devDependencies": {
+    "nodemon": "^2.0.3"
+  }
 }
