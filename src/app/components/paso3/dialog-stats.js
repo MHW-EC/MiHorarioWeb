@@ -82,6 +82,7 @@ export default function ConfirmationDialogRaw(props) {
       yAxis: {
         gridLineInterpolation: 'polygon',
         lineWidth: 0,
+        max: 100,
       },
       tooltip: {
         shared: true,
