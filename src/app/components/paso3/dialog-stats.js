@@ -8,6 +8,7 @@ import DialogActions from '@material-ui/core/DialogActions';
 import Dialog from '@material-ui/core/Dialog';
 import FormPractico from './form-practico';
 import {
+  Label,
   Radar,
   RadarChart,
   PolarGrid,
@@ -15,7 +16,7 @@ import {
   PolarRadiusAxis,
   ResponsiveContainer,
 } from 'recharts';
-import { Container } from '@material-ui/core';
+import { Container, Typography } from '@material-ui/core';
 const useStyles = makeStyles((theme) => ({
   root: {
     width: '100%',
@@ -33,6 +34,10 @@ const useStyles = makeStyles((theme) => ({
   radar: {
     margin: '30px',
     fontFamily: 'Roboto',
+    color: theme.palette.primary.contrastText,
+  },
+  font: {
+    color: theme.palette.primary.contrastText,
   },
 }));
 
@@ -67,14 +72,20 @@ export default function ConfirmationDialogRaw(props) {
               className={classes.radar}
             >
               <PolarGrid />
-              <PolarAngleAxis dataKey="subject" />
-              <PolarRadiusAxis />
+              <PolarAngleAxis
+                dataKey="subject"
+                className={classes.font}
+                stroke="#50ACDA"
+              />
+
+              <PolarRadiusAxis className={classes.font} />
               <Radar
-                name="Mike"
+                name="Profesor"
                 dataKey="A"
                 stroke="#8884d8"
                 fill="#8884d8"
                 fillOpacity={0.6}
+                className={classes.font}
               />
             </RadarChart>
           </ResponsiveContainer>

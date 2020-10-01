@@ -159,7 +159,7 @@ export default function SimpleCard(props) {
       tooltipNode: 'Añadir teórico',
     },
     {
-      color: 'secondary',
+      color: 'error',
       className: classes.fab,
       icon: <DeleteOutlineIcon />,
       label: 'Remove',
