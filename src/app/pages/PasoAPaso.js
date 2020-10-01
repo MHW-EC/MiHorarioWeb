@@ -311,7 +311,12 @@ export default function PasoAPaso() {
               </Button>
             </div>
             <div className={classes.divItem}>
-              <Button variant="contained" color="primary" onClick={handleNext}>
+              <Button
+                variant="contained"
+                color="primary"
+                onClick={handleNext}
+                disabled={activeStep === 3}
+              >
                 Siguiente
               </Button>
             </div>

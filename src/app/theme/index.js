@@ -50,7 +50,7 @@ const darkTheme = createMuiTheme({
     type: 'dark',
     primary: {
       light: '#AAF1FC',
-      main: '#1665A6',
+      main: '#3482C1',
       dark: '#0D4583',
       contrastText: '#ffffff',
     },

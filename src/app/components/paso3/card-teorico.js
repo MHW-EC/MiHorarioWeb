@@ -15,6 +15,7 @@ import {
 import { useSelector, useDispatch } from 'react-redux';
 import DeleteOutlineIcon from '@material-ui/icons/DeleteOutline';
 import AddBoxOutlinedIcon from '@material-ui/icons/AddBoxOutlined';
+import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
 import DialogPractico from './dialog-practico';
 import DialogStats from './dialog-stats';
 import Zoom from '@material-ui/core/Zoom';
@@ -193,18 +194,26 @@ export default function SimpleCard(props) {
         subheader={GetChip(profesor['registros'][0]['promedio'])}
         style={{ padding: 12 }}
       />
-      {typeof(profesor.stats)!=='undefined' ? (
-      <><Button className={classes.btnHex} onClick={handleStats} size='small' variant='text'>
-        ¿Cómo se sienten los estudiantes con este profesor?
-      </Button>
-      <DialogStats
-        id="stats-profesor"
-        open={openStats}
-        keepMounted
-        onClose={handleCloseDialogStats}
-        data={profesor.stats}
-        profesor={paralelo['profesor']}
-      /></>): null}
+      {typeof profesor.stats !== 'undefined' ? (
+        <>
+          <Button
+            className={classes.btnHex}
+            onClick={handleStats}
+            size="small"
+            variant="text"
+          >
+            ¿Cómo se sienten los estudiantes con este profesor?
+          </Button>
+          <DialogStats
+            id="stats-profesor"
+            open={openStats}
+            keepMounted
+            onClose={handleCloseDialogStats}
+            data={profesor.stats}
+            profesor={paralelo['profesor']}
+          />
+        </>
+      ) : null}
       <Divider />
       <CardContent className={classes.div}>
         <Typography variant="body2" component="p" aling="left">
@@ -257,7 +266,12 @@ export default function SimpleCard(props) {
         <>
           <Divider />
           <CardActions>
-            <Button size="small" onClick={handleParAsociados} color="primary">
+            <Button
+              size="small"
+              onClick={handleParAsociados}
+              color="primary"
+              endIcon={<AddCircleOutlineIcon />}
+            >
               Par asociados
             </Button>
             <DialogPractico
