@@ -1,46 +1,45 @@
-import { BrowserRouter as Router, Route } from 'react-router-dom'
-import React from 'react'
-import PropTypes from 'prop-types'
-import { makeStyles, withStyles } from '@material-ui/core/styles'
-import AppBar from '@material-ui/core/AppBar'
-import Zoom from '@material-ui/core/Zoom'
-import Toolbar from '@material-ui/core/Toolbar'
-import Fab from '@material-ui/core/Fab'
-import Typography from '@material-ui/core/Typography'
-import useScrollTrigger from '@material-ui/core/useScrollTrigger'
-import KeyboardArrowUpIcon from '@material-ui/icons/KeyboardArrowUp'
-import './App.css'
-import PasoAPaso from './pages/PasoAPaso'
-import Notifier from './components/Notifier'
-import AnimatedDialog from './components/inicio/animated-dialog'
-import InfoDialog from './components/inicio/info-dialog'
-import DisclaimerDialog from './components/inicio/disclaimer-dialog'
-import { Paper, Container } from '@material-ui/core'
+import { BrowserRouter as Router, Route } from 'react-router-dom';
+import React from 'react';
+import PropTypes from 'prop-types';
+import { makeStyles, withStyles } from '@material-ui/core/styles';
+import AppBar from '@material-ui/core/AppBar';
+import Zoom from '@material-ui/core/Zoom';
+import Toolbar from '@material-ui/core/Toolbar';
+import Fab from '@material-ui/core/Fab';
+import Typography from '@material-ui/core/Typography';
+import useScrollTrigger from '@material-ui/core/useScrollTrigger';
+import KeyboardArrowUpIcon from '@material-ui/icons/KeyboardArrowUp';
+import './App.css';
+import PasoAPaso from './pages/PasoAPaso';
+import Notifier from './components/Notifier';
+import AnimatedDialog from './components/inicio/animated-dialog';
+import InfoDialog from './components/inicio/info-dialog';
+import DisclaimerDialog from './components/inicio/disclaimer-dialog';
+import { Paper, Container } from '@material-ui/core';
 import Brightness4Icon from '@material-ui/icons/Brightness4';
 import Brightness7Icon from '@material-ui/icons/Brightness7';
-import IconButton from "@material-ui/core/IconButton";
+import IconButton from '@material-ui/core/IconButton';
 import { ThemeProvider } from '@material-ui/core/styles';
 import { SnackbarProvider } from 'notistack';
-import { theme, darkTheme } from "./theme";
+import { theme, darkTheme } from './theme';
 function ElevationScroll(props) {
-  const { children, window } = props
+  const { children, window } = props;
   const trigger = useScrollTrigger({
     disableHysteresis: true,
     threshold: 0,
     target: window ? window() : undefined,
-  })
+  });
 
   return React.cloneElement(children, {
     elevation: trigger ? 4 : 0,
-  })
+  });
 }
 const StyledPaper = withStyles((theme) => ({
   root: {
     minHeight: '1000px',
     backgroundColor: theme.palette.background.default,
-  }
+  },
 }))(Paper);
-
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -62,26 +61,26 @@ const useStyles = makeStyles((theme) => ({
   },
   divLine: {
     display: 'inline-block',
-  }
-}))
+  },
+}));
 
 function ScrollTop(props) {
-  const { children, window } = props
-  const classes = useStyles()
+  const { children, window } = props;
+  const classes = useStyles();
   const trigger = useScrollTrigger({
     target: window ? window() : undefined,
     disableHysteresis: true,
     threshold: 100,
-  })
+  });
 
   const handleClick = (event) => {
     const anchor = (event.target.ownerDocument || document).querySelector(
       '#back-to-top-anchor'
-    )
+    );
     if (anchor) {
-      anchor.scrollIntoView({ behavior: 'smooth', block: 'center' })
+      anchor.scrollIntoView({ behavior: 'smooth', block: 'center' });
     }
-  }
+  };
 
   return (
     <Zoom in={trigger}>
@@ -89,19 +88,19 @@ function ScrollTop(props) {
         {children}
       </div>
     </Zoom>
-  )
+  );
 }
 
 ElevationScroll.propTypes = {
   children: PropTypes.element.isRequired,
   window: PropTypes.func,
-}
+};
 function App(props) {
-  const classes = useStyles()
+  const classes = useStyles();
   const [isThemeLight, setTheme] = React.useState(true);
   const themeButtonHandler = () => {
     setTheme(!isThemeLight);
-  }
+  };
 
   return (
     <>
@@ -110,8 +109,8 @@ function App(props) {
           <StyledPaper elevation={0} square className={classes.root}>
             <Notifier />
             <div id="back-to-top-anchor" />
-            <AppBar position="sticky" >
-              <Toolbar >
+            <AppBar position="sticky">
+              <Toolbar>
                 <Typography variant="h6">Mi Horario Web</Typography>
                 <div className={classes.divInfo}>
                   <div className={classes.divLine}>
@@ -123,12 +122,18 @@ function App(props) {
                         <DisclaimerDialog.Actions handle={handle} />
                       )}
                     >
-                      {(handle) => <DisclaimerDialog.Controlador handle={handle} />}
+                      {(handle) => (
+                        <DisclaimerDialog.Controlador handle={handle} />
+                      )}
                     </AnimatedDialog>
                   </div>
                   <div className={classes.divLine}>
-                    <IconButton aria-label="show 4 new mails"
-                      color="inherit" className={classes.icon} onClick={themeButtonHandler}>
+                    <IconButton
+                      aria-label="show 4 new mails"
+                      color="inherit"
+                      className={classes.icon}
+                      onClick={themeButtonHandler}
+                    >
                       {isThemeLight ? <Brightness4Icon /> : <Brightness7Icon />}
                     </IconButton>
                   </div>
@@ -138,7 +143,9 @@ function App(props) {
                       open={false}
                       titulo={<InfoDialog.Titulo />}
                       contenido={<InfoDialog.Contenido />}
-                      actions={(handle) => <InfoDialog.Actions handle={handle} />}
+                      actions={(handle) => (
+                        <InfoDialog.Actions handle={handle} />
+                      )}
                     >
                       {(handle) => <InfoDialog.Controlador handle={handle} />}
                     </AnimatedDialog>
@@ -146,13 +153,17 @@ function App(props) {
                 </div>
               </Toolbar>
             </AppBar>
-            <Container maxWidth="xl" >
+            <Container maxWidth="xl">
               <Router>
                 <Route exact path="/" component={PasoAPaso} />
               </Router>
             </Container>
             <ScrollTop {...props}>
-              <Fab color="secondary" size="small" aria-label="scroll back to top">
+              <Fab
+                color="secondary"
+                size="small"
+                aria-label="scroll back to top"
+              >
                 <KeyboardArrowUpIcon />
               </Fab>
             </ScrollTop>
@@ -160,7 +171,7 @@ function App(props) {
         </SnackbarProvider>
       </ThemeProvider>
     </>
-  )
+  );
 }
 
-export default App
+export default App;

@@ -4,9 +4,11 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogActions from '@material-ui/core/DialogActions';
 import Dialog from '@material-ui/core/Dialog';
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles, useTheme } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import Highcharts from 'highcharts';
+import Dark from 'highcharts/themes/dark-unica';
+import Light from 'highcharts/themes/grid-light';
 import HighchartsReact from 'highcharts-react-official';
 import HighchartsExporting from 'highcharts/modules/exporting';
 
@@ -48,6 +50,8 @@ const useStyles = makeStyles((theme) => ({
 export default function ConfirmationDialogRaw(props) {
   const { profesor, data, onClose, value: valueProp, open, ...other } = props;
   const classes = useStyles();
+
+  const theme = useTheme();
 
   const handleClose = () => {
     onClose();
@@ -118,6 +122,13 @@ export default function ConfirmationDialogRaw(props) {
   HighchartsExporting(Highcharts);
   require('highcharts/highcharts-more')(Highcharts);
 
+  console.log(theme.palette.type);
+  if (theme.palette.type === 'light') {
+    Light(Highcharts);
+  } else {
+    Dark(Highcharts);
+  }
+
   return data ? (
     <Dialog
       fullWidth={true}
@@ -133,14 +144,15 @@ export default function ConfirmationDialogRaw(props) {
       </DialogTitle>
       <DialogContent dividers className={classes.dialogContent}>
         <HighchartsReact
+          key={theme.palette.type}
           highcharts={Highcharts}
           options={optionsFunc(data, profesor)}
         />
         <Typography variant="caption" align="center">
-         ¿Qué significa este gráfico?. La punta del polígono se hace más aguda hacia el sentimiento más
-          frecuente encontrado en las opiniones sobre este profesor. Esta información está basada en
-          al menos 15 opiniones dadas por estudiantes que han tomando materias
-          con este profesor.
+          ¿Qué significa este gráfico?. La punta del polígono se hace más aguda
+          hacia el sentimiento más frecuente encontrado en las opiniones sobre
+          este profesor. Esta información está basada en al menos 15 opiniones
+          dadas por estudiantes que han tomando materias con este profesor.
         </Typography>
       </DialogContent>
       <DialogActions>
