@@ -22,6 +22,7 @@ import IconButton from '@material-ui/core/IconButton';
 import { ThemeProvider } from '@material-ui/core/styles';
 import { SnackbarProvider } from 'notistack';
 import { theme, darkTheme } from './theme';
+import { useEffect } from 'react';
 function ElevationScroll(props) {
   const { children, window } = props;
   const trigger = useScrollTrigger({
@@ -101,6 +102,25 @@ function App(props) {
   const themeButtonHandler = () => {
     setTheme(!isThemeLight);
   };
+
+  useEffect(() => {
+    console.log('Seeing theme');
+    if (
+      window.matchMedia &&
+      window.matchMedia('(prefers-color-scheme: dark)').matches
+    ) {
+      setTheme(false);
+    }
+    window
+      .matchMedia('(prefers-color-scheme: dark)')
+      .addEventListener('change', (e) => {
+        if (e.matches) {
+          setTheme(false);
+        } else {
+          setTheme(true);
+        }
+      });
+  }, [isThemeLight]);
 
   return (
     <>
