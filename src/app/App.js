@@ -111,7 +111,7 @@ function App(props) {
             <div id="back-to-top-anchor" />
             <AppBar position="sticky" >
               <Toolbar >
-                <Typography variant="h6">Horario</Typography>
+                <Typography variant="h6">Mi Horario Web</Typography>
                 <div className={classes.divInfo}>
                   <div className={classes.divLine}>
                     <AnimatedDialog
