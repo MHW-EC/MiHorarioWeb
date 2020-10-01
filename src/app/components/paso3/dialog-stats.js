@@ -16,8 +16,8 @@ import { Typography } from '@material-ui/core';
 
 const parserArray = (array) => {
   return array.map((object) => {
-    if(object.value <= 0.10){
-      return 10
+    if (object.value <= 0.1) {
+      return 10;
     }
     return object.value * 100;
   });
@@ -122,7 +122,6 @@ export default function ConfirmationDialogRaw(props) {
   HighchartsExporting(Highcharts);
   require('highcharts/highcharts-more')(Highcharts);
 
-  console.log(theme.palette.type);
   if (theme.palette.type === 'light') {
     Light(Highcharts);
   } else {

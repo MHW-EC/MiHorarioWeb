@@ -18,81 +18,85 @@ import { getResultadosGenerados } from './../../../redux/actions/generador';
 import ButtonDialog from './full-dialog';
 
 const useStyles = makeStyles((theme) => ({
-	root: {
-		'& > * + *': {
-			marginTop: theme.spacing(2),
-			alignItems: 'center',
-			justifyContent: 'center',
-			flexDirection: 'column',
-			display: 'flex',
-		},
-	}, backdrop: {
-		zIndex: theme.zIndex.drawer + 1,
-		color: '#fff',
-	  },
+  root: {
+    '& > * + *': {
+      marginTop: theme.spacing(2),
+      alignItems: 'center',
+      justifyContent: 'center',
+      flexDirection: 'column',
+      display: 'flex',
+    },
+  },
+  backdrop: {
+    zIndex: theme.zIndex.drawer + 1,
+    color: '#fff',
+  },
 }));
 
 export default function PaginationControlled(props) {
-	const classes = useStyles();
+  const classes = useStyles();
 
-	const theme = useTheme();
-	const [page, setPage] = React.useState(1);
-	//const [elementos] = React.useState(pros.elementos);
-	const dispatch = useDispatch();
+  const theme = useTheme();
+  const [page, setPage] = React.useState(1);
+  //const [elementos] = React.useState(pros.elementos);
+  const dispatch = useDispatch();
 
-	const paquetesSeleccionados = useSelector((state) => paqSelector(state));
-	const idsSeleccionados = useSelector((state) => selSelector(state));
-	const [paquetes, setPaquetes] = useState();
+  const paquetesSeleccionados = useSelector((state) => paqSelector(state));
+  const idsSeleccionados = useSelector((state) => selSelector(state));
+  const [paquetes, setPaquetes] = useState();
 
-	useEffect(() => {
-		setPaquetes(
-			paquetesSeleccionados
-				.filter((paq) => idsSeleccionados.includes(paq['teoricoId']))
-				.map((fil) => fil['array'])
-		);
-	}, [paquetesSeleccionados, idsSeleccionados]);
+  useEffect(() => {
+    setPaquetes(
+      paquetesSeleccionados
+        .filter((paq) => idsSeleccionados.includes(paq['teoricoId']))
+        .map((fil) => fil['array'])
+    );
+  }, [paquetesSeleccionados, idsSeleccionados]);
 
-	const horariosGenerados = useSelector((state) => resultadosSelector(state));
-	useEffect(() => {
-		if (horariosGenerados.length === 0 && paquetes && paquetes.length > 0) {
-			dispatch(getResultadosGenerados(paquetes));
-		} else {
-			horariosGenerados.sort(function (a, b) {
-				return b.length - a.length;
-			});
-		}
-	}, [horariosGenerados, dispatch, paquetes]);
+  const horariosGenerados = useSelector((state) => resultadosSelector(state));
+  useEffect(() => {
+    if (horariosGenerados.length === 0 && paquetes && paquetes.length > 0) {
+      dispatch(getResultadosGenerados(paquetes));
+    } else {
+      horariosGenerados.sort(function (a, b) {
+        return b.length - a.length;
+      });
+    }
+  }, [horariosGenerados, dispatch, paquetes]);
 
-	const handleChange = (event, value) => {
-		setPage(value);
-	};
-	//console.log(horariosGenerados && horariosGenerados.length>0? "Cargo" : "Cargando")
-	return horariosGenerados && horariosGenerados.length>0 ? (
-		<div className={classes.root}>
-			<SwipeableViews
-				disabled
-				axis={theme.direction === 'rtl' ? 'x-reverse' : 'x'}
-				index={page - 1}
-			> 
-			{horariosGenerados.map((horario, index) => (
-					<React.Fragment key={index}>
-						<Tabla numHorario={index + 1} horario={horario} />
-						<br />
-						<ButtonDialog numHorario={index + 1} horario={horario} />
-					</React.Fragment>
-			))}
-			</SwipeableViews>
+  const handleChange = (event, value) => {
+    setPage(value);
+  };
 
-			<Pagination
-				//style={classes.pagination}
-				count={horariosGenerados.length}
-				color={'primary'}
-				onChange={handleChange}
-			/>
-		</div>
-	) : (
-		<Backdrop className={classes.backdrop} open={!(horariosGenerados && horariosGenerados.length>0)} >
-        <CircularProgress color="inherit" />
-      </Backdrop>
-	);
+  return horariosGenerados && horariosGenerados.length > 0 ? (
+    <div className={classes.root}>
+      <SwipeableViews
+        disabled
+        axis={theme.direction === 'rtl' ? 'x-reverse' : 'x'}
+        index={page - 1}
+      >
+        {horariosGenerados.map((horario, index) => (
+          <React.Fragment key={index}>
+            <Tabla numHorario={index + 1} horario={horario} />
+            <br />
+            <ButtonDialog numHorario={index + 1} horario={horario} />
+          </React.Fragment>
+        ))}
+      </SwipeableViews>
+
+      <Pagination
+        //style={classes.pagination}
+        count={horariosGenerados.length}
+        color={'primary'}
+        onChange={handleChange}
+      />
+    </div>
+  ) : (
+    <Backdrop
+      className={classes.backdrop}
+      open={!(horariosGenerados && horariosGenerados.length > 0)}
+    >
+      <CircularProgress color="inherit" />
+    </Backdrop>
+  );
 }
