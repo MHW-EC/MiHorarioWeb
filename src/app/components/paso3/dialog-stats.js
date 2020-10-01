@@ -14,6 +14,9 @@ import { Typography } from '@material-ui/core';
 
 const parserArray = (array) => {
   return array.map((object) => {
+    if(object.value <= 0.10){
+      return 10
+    }
     return object.value * 100;
   });
 };
@@ -75,7 +78,6 @@ export default function ConfirmationDialogRaw(props) {
       yAxis: {
         gridLineInterpolation: 'polygon',
         lineWidth: 0,
-        min: 0,
       },
       tooltip: {
         shared: true,

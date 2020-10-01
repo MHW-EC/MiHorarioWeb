@@ -64,6 +64,7 @@ export default function Component(props) {
 	const classes = useStyles();
 	const [materia] = useState(props.materia);
 	const dispatch = useDispatch();
+	//const [paralelosCargados] = useState(0);
 	const parTeorico = useSelector((state) =>
 		paralelosSelector(state, materia['codigo'])
 	);

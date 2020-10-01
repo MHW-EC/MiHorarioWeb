@@ -11,7 +11,6 @@ export default function DenseTable(props) {
 	const materiasSelect = useSelector((state) => matSelSelector(state));
 	const materiasMalla = useSelector((state) => mallaSelSelector(state));
 	const [matCompile, setMatCompile] = useState([]);
-	const [isMobile] = useState(props.isMobile);
 	useEffect(() => {
 		if (!materiasSelect) {
 			dispatch(getMaterias());
@@ -49,7 +48,7 @@ export default function DenseTable(props) {
 						md={7}
 						lg={7}
 					>
-						<CardMateria materia={materia} isMobile={isMobile} />
+						<CardMateria materia={materia} />
 					</Grid>
 				))}
 		</Grid>
