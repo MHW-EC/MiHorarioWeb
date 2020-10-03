@@ -206,10 +206,10 @@ export default function SimpleCard(props) {
             {typeof profesor.stats !== 'undefined' ? (
               <>
                 <Button
-                  size="small"
                   onClick={handleStats}
                   size="small"
                   variant="text"
+                  color="primary"
                   endIcon={<ExpandMoreIcon />}
                 >
                   ver opiniones

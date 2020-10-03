@@ -99,7 +99,9 @@ export default function Component(props) {
 				{parTeorico['paralelos'].length === 0 ?
 					<Typography align='center'>{"no hay registros :("}</Typography> :
 					<CustomGridTitle children={
-						parTeorico['paralelos'].sort((a,b)=>{return a.paralelo-b.paralelo }).map((par) => (
+						parTeorico['paralelos']
+						.sort((a,b)=>{return a.paralelo-b.paralelo })
+						.map((par,index) => (
 							<GridListTile
 								id={par['paralelo']}
 								key={par['paralelo']}
