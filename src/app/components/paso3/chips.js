@@ -6,6 +6,7 @@ import SentimentSatisfiedIcon from "@material-ui/icons/SentimentSatisfied";
 import SentimentVeryDissatisfiedIcon from "@material-ui/icons/SentimentVeryDissatisfied";
 import BlockIcon from "@material-ui/icons/Block";
 import Tooltip from '@material-ui/core/Tooltip';
+const topHexColor = "#D4AF37";
 const DisabledChip = withStyles({
   root: {
     color: "gray",
@@ -39,9 +40,26 @@ const ErrorChip = withStyles({
     color: "red"
   }
 })(Chip);
-export function GetChip (valor){
+const GoldChip = withStyles({
+  root: {
+    color: topHexColor,
+    borderColor: topHexColor,
+  },
+  icon: {
+    color: topHexColor
+  }
+})(Chip);
+export function GetChip (valor, top){
 	//{DisabledChip, SuccessChip, WarningChip, ErrorChip}
-	if(valor >= 80){
+	if(top){
+		return <Tooltip title="Docente recomendado">
+      <GoldChip
+        variant="outlined"
+        size="small"
+        icon={<InsertEmoticonIcon />}
+        label={valor}
+      /></Tooltip>
+  }else if(valor >= 80){
 		return <Tooltip title="Puntuación del profesor">
       <SuccessChip
         variant="outlined"

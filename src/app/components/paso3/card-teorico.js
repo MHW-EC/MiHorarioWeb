@@ -30,8 +30,10 @@ import { profesorSelector } from '../../../redux/selectors';
 import { getProfesor } from '../../../redux/actions/profesor';
 import Skeleton from '@material-ui/lab/Skeleton';
 import { GetChip } from './chips';
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 
 //import * as Colors from "@material-ui/core/colors";
+const topHexColor = "#D4AF37";
 const useStyles = makeStyles((theme) => ({
   bullet: {
     display: 'inline-block',
@@ -55,9 +57,15 @@ const useStyles = makeStyles((theme) => ({
   avatar: {
     backgroundColor: blueGrey[500],
   },
-  btnHex: {
-    textTransform: 'none',
+  root: {
+    height: 'auto'
   },
+  rootTop: {
+    borderColor: topHexColor
+  },
+  avatarTop: {
+    backgroundColor: topHexColor,
+  }
 }));
 
 export default function SimpleCard(props) {
@@ -69,6 +77,7 @@ export default function SimpleCard(props) {
   const [cargado, setCargado] = useState(false);
   const [paralelo] = useState(props.paralelo);
   const [isAdd, setIsAdd] = useState(1);
+  const top = props.top;
 
   const profesor = useSelector((state) =>
     profesorSelector(
@@ -178,42 +187,47 @@ export default function SimpleCard(props) {
         ))}
       </>
     ) : (
-      <></>
-    );
+        <></>
+      );
   };
   return paralelo && profesor ? (
-    <Card style={{ height: 'auto' }} variant="outlined">
+    <Card className={top ? classes.rootTop : classes.root} variant="outlined">
       <CardHeader
         avatar={
-          <Avatar aria-label="recipe" className={classes.avatar}>
+          <Avatar aria-label="recipe" className={top ? classes.avatarTop : classes.avatar}>
             {paralelo['paralelo']}
           </Avatar>
         }
         action={getAction()}
         title={paralelo['profesor'] ? paralelo['profesor'] : 'SIN NOMBRE'}
-        subheader={GetChip(profesor['registros'][0]['promedio'])}
+        subheader={
+          <>
+            {GetChip(profesor['registros'][0]['promedio'], top)}
+            {typeof profesor.stats !== 'undefined' ? (
+              <>
+                <Button
+                  size="small"
+                  onClick={handleStats}
+                  size="small"
+                  variant="text"
+                  endIcon={<ExpandMoreIcon />}
+                >
+                  ver opiniones
+          </Button>
+                <DialogStats
+                  id="stats-profesor"
+                  open={openStats}
+                  keepMounted
+                  onClose={handleCloseDialogStats}
+                  data={profesor.stats}
+                  profesor={paralelo['profesor']}
+                />
+              </>
+            ) : null}
+          </>}
         style={{ padding: 12 }}
       />
-      {typeof profesor.stats !== 'undefined' ? (
-        <>
-          <Button
-            className={classes.btnHex}
-            onClick={handleStats}
-            size="small"
-            variant="text"
-          >
-            ¿Cómo se sienten los estudiantes con este profesor?
-          </Button>
-          <DialogStats
-            id="stats-profesor"
-            open={openStats}
-            keepMounted
-            onClose={handleCloseDialogStats}
-            data={profesor.stats}
-            profesor={paralelo['profesor']}
-          />
-        </>
-      ) : null}
+
       <Divider />
       <CardContent className={classes.div}>
         <Typography variant="body2" component="p" aling="left">
@@ -228,8 +242,8 @@ export default function SimpleCard(props) {
             </React.Fragment>
           ))
         ) : (
-          <></>
-        )}
+            <></>
+          )}
         {paralelo.hasOwnProperty('eventos') ? (
           <React.Fragment>
             <Typography variant="body2" component="p">
@@ -258,8 +272,8 @@ export default function SimpleCard(props) {
             </Typography>
           </React.Fragment>
         ) : (
-          <></>
-        )}
+            <></>
+          )}
       </CardContent>
 
       {paralelo && paralelo['paralelos_practicos'].length > 0 ? (
@@ -286,42 +300,42 @@ export default function SimpleCard(props) {
           </CardActions>
         </>
       ) : (
-        <></>
-      )}
+          <></>
+        )}
     </Card>
   ) : (
-    <Card variant="outlined">
-      <CardHeader
-        avatar={
-          <Skeleton animation="wave" variant="circle" width={40} height={40} />
-        }
-        title={
-          <div
-            style={{ width: '80%', marginLeft: 'auto', marginRight: 'auto' }}
-          >
-            <Skeleton animation="wave" variant="text" height={10} />
-          </div>
-        }
-        subheader={
-          <div
-            style={{ width: '50%', marginLeft: 'auto', marginRight: 'auto' }}
-          >
-            <Skeleton animation="wave" variant="text" height={10} />
-          </div>
-        }
-      />
-      <CardContent style={{ padding: 0 }}>
-        <Skeleton animation="wave" variant="rect" height={150} />
-      </CardContent>
-      <CardActions>
-        <Skeleton
-          animation="wave"
-          variant="rect"
-          height={25}
-          width={80}
-          style={{ borderRadius: 4 }}
+      <Card variant="outlined">
+        <CardHeader
+          avatar={
+            <Skeleton animation="wave" variant="circle" width={40} height={40} />
+          }
+          title={
+            <div
+              style={{ width: '80%', marginLeft: 'auto', marginRight: 'auto' }}
+            >
+              <Skeleton animation="wave" variant="text" height={10} />
+            </div>
+          }
+          subheader={
+            <div
+              style={{ width: '50%', marginLeft: 'auto', marginRight: 'auto' }}
+            >
+              <Skeleton animation="wave" variant="text" height={10} />
+            </div>
+          }
         />
-      </CardActions>
-    </Card>
-  );
+        <CardContent style={{ padding: 0 }}>
+          <Skeleton animation="wave" variant="rect" height={150} />
+        </CardContent>
+        <CardActions>
+          <Skeleton
+            animation="wave"
+            variant="rect"
+            height={25}
+            width={80}
+            style={{ borderRadius: 4 }}
+          />
+        </CardActions>
+      </Card>
+    );
 }

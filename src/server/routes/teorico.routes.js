@@ -21,7 +21,8 @@ router.route('/').get((req, res) => {
 router.route('/:codigo').get((req, res) => {
     let xforwardedfor = req['headers']['x-forwarded-for']
     console.log("Colección: teorico, x-forwarded-for: "+xforwardedfor)
-    teorico.find({codigo:req.params.codigo}, null, { sort: 'paralelo'}, (error, data) => {
+    //teorico.find({codigo:req.params.codigo}, null, { sort: 'paralelo'}, (error, data) => {
+    teorico.find({codigo:req.params.codigo}, (error, data) => {
         if (error) {
             return next(error)
         } else {
