@@ -44,33 +44,36 @@ router.route('/:codigo/join').get((req, res) => {
                 from: "profesor2",
                 localField: 'profesor',
                 foreignField: 'nombre',
-                as: "profesor_info"
+                as: "profesorJoined"
             }
         },
         {
-            $unwind: { path: "$profesor_info", preserveNullAndEmptyArrays: true }
+            $unwind: { path: "$profesorJoined", preserveNullAndEmptyArrays: true }
         },
         {
             $lookup:
             {
                 from: "paraleloProfesor",
-                let: { nombre: "$nombre", profesor: "$profesor_info._id" },
+                let: { nombre: "$nombre", codigo: "$codigo", profesor: "$profesorJoined._id" },
                 pipeline: [
                     { $match:
                         { $expr:
                             { $and:
                                 [
                                    { $eq: ["$$profesor", "$idProfesor" ] },
-                                   { $eq: ["$$nombre", "$nombreMateria" ] }
+                                   {$or:[
+                                    { $eq: ["$$nombre", "$nombreMateria" ] },
+                                    { $eq: ["$$codigo", "$codigoMateria" ] },
+                                   ]}
                                 ]
                             }
                         }
                     }
-                    //{ $project: { promedio: 1 } }
+                    ,{ $project: { _id: 0 } }
                 ],
-                as: "profesor_info2"
+                as: "paraleloProfesorJoined"
             }
-        },
+        },{ $project: { profesorJoined: 0 } }
         /* ,*/
     ]).exec((error, data) => {
         if (error) {
