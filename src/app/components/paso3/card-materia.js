@@ -68,7 +68,7 @@ export default function Component(props) {
 	const parTeorico = useSelector((state) =>
 		paralelosSelector(state, materia['codigo'])
 	);
-
+	
 	useEffect(() => {
 		if (!parTeorico) {
 			dispatch(getTeoricos(materia['codigo']));
@@ -99,12 +99,13 @@ export default function Component(props) {
 				{parTeorico['paralelos'].length === 0 ?
 					<Typography align='center'>{"no hay registros :("}</Typography> :
 					<CustomGridTitle children={
-						parTeorico['paralelos'].map((par) => (
+						parTeorico['paralelos']
+						.map((par,index) => (
 							<GridListTile
-								id='lista-par-teoricos'
+								id={par['paralelo']}
 								key={par['paralelo']}
 							>
-								<CardTeorico paralelo={par} />
+								<CardTeorico paralelo={par} top={index===0 && par['score'] !== null}/>
 							</GridListTile>
 						))
 					} />

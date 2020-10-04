@@ -15,7 +15,7 @@ let practicoSchema = new Schema({
         type: String
     },
     paralelo: {
-        type: Number
+        type: String
     },
     profesor: {
         type: String

@@ -19,9 +19,9 @@ const getNCOLS = (ancho) => {
       return 1
 	}
 }
-
 function WithWidth2(props) {
   const { width } = props;
+  
   return (
     <GridList
     padding={10}
@@ -33,8 +33,7 @@ function WithWidth2(props) {
 	}}
     cols={getNCOLS(width)}
     children={props.children}
-/>
-  )
+/> )
 }
 WithWidth2.propTypes = {
   width: PropTypes.oneOf(["lg", "md", "sm", "xl", "xs"]).isRequired

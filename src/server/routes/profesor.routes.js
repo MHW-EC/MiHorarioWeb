@@ -30,7 +30,7 @@ router.route('/:profesor/:codigo/:nombreMateria').get((req, res) => {
                         ] 
                     }
                 ]
-                }
+            }
         },
         {$project: {
             registros: {$filter: {

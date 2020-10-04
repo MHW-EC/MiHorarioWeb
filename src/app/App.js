@@ -117,7 +117,7 @@ function App(props) {
           }
         )
           .then((response) => response.json())
-          .then(console.log);
+          //.then(console.log);
       };
 
       counterPost();
@@ -127,7 +127,7 @@ function App(props) {
 
   useEffect(() => {
     if (!initTheme) {
-      console.log('Seeing theme');
+      //console.log('Seeing theme');
       if (
         window.matchMedia &&
         window.matchMedia('(prefers-color-scheme: dark)').matches

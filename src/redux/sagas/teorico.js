@@ -15,7 +15,7 @@ function* getTeoricos({ codigo }) {
 	try {
 		const response = yield call(
 			apiCall,
-			`/teorico/${codigo}`,
+			`/teorico/${codigo}/join`,
 			null,
 			null,
 			'GET'
