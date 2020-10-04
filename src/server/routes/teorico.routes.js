@@ -56,27 +56,90 @@ router.route('/:codigo/join').get((req, res) => {
                 from: "paraleloProfesor",
                 let: { nombre: "$nombre", codigo: "$codigo", profesor: "$profesorJoined._id" },
                 pipeline: [
-                    { $match:
-                        { $expr:
-                            { $and:
-                                [
-                                   { $eq: ["$$profesor", "$idProfesor" ] },
-                                   {$or:[
-                                    { $eq: ["$$nombre", "$nombreMateria" ] },
-                                    { $eq: ["$$codigo", "$codigoMateria" ] },
-                                   ]}
-                                ]
+                    {
+                        $match:
+                        {
+                            $expr:
+                            {
+                                $and:
+                                    [
+                                        { $eq: ["$$profesor", "$idProfesor"] },
+                                        {
+                                            $or: [
+                                                { $eq: ["$$nombre", "$nombreMateria"] },
+                                                { $eq: ["$$codigo", "$codigoMateria"] },
+                                            ]
+                                        }
+                                    ]
                             }
                         }
-                    }
-                    ,{ $project: { _id: 0 } }
+                    },
+                    { $sort: { 'año': -1 } },
+                    { $limit: 1 }
                 ],
-                as: "paraleloProfesorJoined"
+                as: "lastParaleloProfesorJoined"
             }
-        },{ $project: { profesorJoined: 0 } }
+        },
+        {
+            $unwind: { path: "$lastParaleloProfesorJoined", preserveNullAndEmptyArrays: true }
+        },
+        {
+            $addFields: {
+                score: {
+                    $let: {
+                        vars: {
+                            //obj1: "$lastParaleloProfesorJoined",
+                            prom: {
+                                $cond: {
+                                    if: { $eq: ["$lastParaleloProfesorJoined", undefined] },
+                                    then: 0,
+                                    else: "$lastParaleloProfesorJoined.promedio"
+                                }
+                            },
+                            sumaPositivo: {
+                                $cond: {
+                                    if: { $eq: ["$profesorJoined.stats", undefined] },
+                                    then: 0,
+                                    else: { $add: [
+                                        "$profesorJoined.stats.feliz",
+                                        "$profesorJoined.stats.confianza",
+                                    ]}
+                                }
+                            },
+                            sumaNegativo: {
+                                $cond: {
+                                    if: { $eq: ["$profesorJoined.stats", undefined] },
+                                    then: 0,
+                                    else: { $add: [
+                                        "$profesorJoined.stats.enojado",
+                                        "$profesorJoined.stats.miedo",
+                                        "$profesorJoined.stats.triste",
+                                    ]}
+                                }
+                            }
+                        },
+                        in: {
+                            $divide: [
+                                {
+                                    $multiply:
+                                        [   "$$prom",
+                                            "$$sumaPositivo"
+                                        ]
+                                },
+                                { $add: [0.01, "$$sumaNegativo"] }
+                            ]
+                        }
+                    }
+                }
+            }
+        },
+        { $sort: { 'score': -1 } },
+        //{preserveNullAndEmptyArrays: false},
+
         /* ,*/
     ]).exec((error, data) => {
         if (error) {
+            console.log(error)
             res.json(error)
         } else {
             res.json(data)
