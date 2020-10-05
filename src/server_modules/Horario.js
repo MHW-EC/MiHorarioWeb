@@ -72,11 +72,11 @@ class Horario {
     let parcialA = materiaA['eventos']['examenes']['parcial']
     let parcialB = materiaB['eventos']['examenes']['parcial']
     entra = entra && this.noHayColisionEvento(parcialA, parcialB)
-    let finalA = materiaA['eventos']['examenes']['parcial']
-    let finalB = materiaB['eventos']['examenes']['parcial']
+    let finalA = materiaA['eventos']['examenes']['final']
+    let finalB = materiaB['eventos']['examenes']['final']
     entra = entra && this.noHayColisionEvento(finalA, finalB)
-    let mejoramientoA = materiaA['eventos']['examenes']['parcial']
-    let mejoramientoB = materiaB['eventos']['examenes']['parcial']
+    let mejoramientoA = materiaA['eventos']['examenes']['mejoramiento']
+    let mejoramientoB = materiaB['eventos']['examenes']['mejoramiento']
     entra = entra && this.noHayColisionEvento(mejoramientoA, mejoramientoB)
     return entra
   }
