@@ -7,6 +7,7 @@ on:
   push:
     branches:
       - master
+  workflow_dispatch:
 
 jobs:
   build-and-deploy:
@@ -18,7 +19,7 @@ jobs:
     - name: Set up Node.js version
       uses: actions/setup-node@v1
       with:
-        node-version: '12.x'
+        node-version: '14.x'
 
     - name: npm install, build, and test
       run: |
@@ -31,5 +32,5 @@ jobs:
       with:
         app-name: 'mihorarioweb'
         slot-name: 'production'
-        publish-profile: ${{ secrets.AzureAppService_PublishProfile_3e2c41a3ef9343238deef9da7caa52b6 }}
+        publish-profile: ${{ secrets.AzureAppService_PublishProfile_c4902dd9a8ef4ab9b153239a825e8930 }}
         package: .
