@@ -1,7 +1,5 @@
 const express = require('express')
-const bodyParser = require('body-parser')
 const path = require('path')
-const httpProxy = require('http-proxy')
 const MobileDetect = require('mobile-detect')
 const app = express()
 const Generador = require('../server_modules/Generador')
@@ -9,24 +7,18 @@ const Util = require('../server_modules/Util')
 //--Nuevo inici
 let mongoose = require('mongoose')
 let cors = require('cors')
-let database = require('./database/db')
 const carreraRoute = require('./routes/carrera.routes')
 const teoricoRoute = require('./routes/teorico.routes')
 const practicoRoute = require('./routes/practico.routes')
 const profesorRoute = require('./routes/profesor.routes')
 //--Nuevo fin
 
-app.use(bodyParser.json())
-//app.use(bodyParser.urlencoded({ extended: false })); comentado porque interfiere con la coneeccion de la base de datos
-//No se en que afecte
-app.use(express.static(path.join(__dirname, '..', '..', 'build')))
+if (process.env.NODE_ENV !== 'production') {
+  require('dotenv').config();
+}
 
-//Nuevo inicio
-app.use(
-  bodyParser.urlencoded({
-    extended: false,
-  })
-)
+app.use(express.json())
+app.use(express.static(path.join(__dirname, '..', '..', 'build')))
 
 const PORT = 8080
 app.set('port', process.env.PORT || PORT)
@@ -58,10 +50,10 @@ app.use('/profesor', profesorRoute)
 //Nuevo inicio
 mongoose.Promise = global.Promise
 mongoose
-  .connect(database.db, {
+  .connect(process.env.DB_URI, {
     useUnifiedTopology: true,
     useNewUrlParser: true,
-    dbName: 'heroku_28zqn5s2',
+    dbName: process.env.DB_NAME,
   })
   .then(
     (p) => {
@@ -114,5 +106,5 @@ app.get('/', function (req, res) {
 })
 //process.env.PORT ||
 app.listen(app.get('port'), () => {
-  console.log(`Server funcionando! ${app.get('port')}`)
+  console.log(`Server funcionando! ${app.get('port')} ${process.env.DB_NAME}`)
 })
