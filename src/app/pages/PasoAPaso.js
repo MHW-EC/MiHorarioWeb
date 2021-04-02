@@ -29,11 +29,8 @@ import {
   closeSnackbar as closeSnackbarAction,
 } from '../../redux/actions/notifier';
 import {constants as APPCONSTANTS} from './../constants';
-//Aqui seteamos estilos
+
 const useStyles = makeStyles((theme) => ({
-  root: {
-    //	flexGrow: 1,
-  },
   instructions: {
     marginTop: theme.spacing(1),
     marginBottom: theme.spacing(1),
@@ -48,11 +45,9 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-//Esto no ayuda a obtener los pasos a seguir
 function getSteps() {
   return ['Carrera', 'Materias', 'Paralelos', 'Resultados'];
 }
-//Esto nos devuelve informacion adicional de paso
 function getStepContent(stepIndex) {
   switch (stepIndex) {
     case 0:
@@ -89,9 +84,6 @@ export default function PasoAPaso() {
   const btnCerrar = (
     <Typography style={{ color: '#ffffff' }}>| Cerrar</Typography>
   );
-
-  //const [carrera, setCarrera] = React.useState({});
-  //const [materiasSelect, setMateriasSelect] = React.useState([]);
 
   useEffect(() => {
     const detectMobile = async () => {
@@ -142,10 +134,8 @@ export default function PasoAPaso() {
       detectMobile();
     }
   });
-  const steps = getSteps();
 
   const handleNext = () => {
-    //setNombreCarrera(document.getElementById('input-nombre-carrera').value);
     let error = false;
     switch (activeStep) {
       case 0:
@@ -246,23 +236,18 @@ export default function PasoAPaso() {
   };
 
   const handleBack = () => {
-    //setCarrera({});
-    //setMateriasSelect([]);
     switch (activeStep) {
       case 1:
         dispatch(cleanCarrera());
         dispatch(cleanMaterias());
         break;
       case 2:
-        //dispatch(cleanMaterias());
         dispatch(cleanSel());
-        //dispatch(cleanAsociados());
         dispatch(cleanPaquetes());
         break;
       case 3:
         dispatch(cleanResultados());
         dispatch(cleanSel());
-        //dispatch(cleanAsociados());
         dispatch(cleanPaquetes());
         break;
       default:
@@ -271,7 +256,6 @@ export default function PasoAPaso() {
     setActiveStep((prevActiveStep) => prevActiveStep - 1);
   };
 
-  //Esto nos devuelve el componente del paso segun el paso en el que estamos
   function getStepComponet(stepIndex) {
     switch (stepIndex) {
       case 0:
@@ -298,7 +282,7 @@ export default function PasoAPaso() {
         alternativeLabel
         style={{ backgroundColor: 'transparent' }}
       >
-        {steps.map((label) => (
+        {getSteps().map((label) => (
           <Step key={label}>
             <StepLabel>
               <Typography className={classes.instructions} color="textPrimary">
