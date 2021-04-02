@@ -6,6 +6,7 @@ import { getCarreras } from '../../../redux/actions/carreras';
 import { carrerasResults as carrerasResultSelector } from '../../../redux/selectors';
 import { setCarrera } from '../../../redux/actions/carrera';
 import { setMateriasMalla } from '../../../redux/actions/materias';
+import { cleanCarrera } from '../../../redux/actions/carrera';
 
 export default function SearchCarrera() {
 	const dispatch = useDispatch();
@@ -18,7 +19,7 @@ export default function SearchCarrera() {
 	});
 
 	const onChangeComplete = (event, value, reason) => {
-		if (value) {
+		if (value && reason == 'select-option') {
 			console.log(value);
 			dispatch(setCarrera(value));
 			dispatch(
@@ -28,6 +29,8 @@ export default function SearchCarrera() {
 					})
 				)
 			);
+		}else if(reason == 'clear'){
+			dispatch(cleanCarrera());
 		}
 	};
 
