@@ -112,18 +112,14 @@ export default function Malla(props) {
 
   const onChangeComplete = (event, value, reason) => {
     if (reason === 'select-option') {
-      document.getElementById('input-nombre-carrera').inputValue = '';
-      let notInMalla =
-        typeof materiasMalla.find((e) => e.codigo === value.codigo) ===
-        'undefined';
+      let inMalla = materiasMalla.find((e) => e.codigo === value.codigo);
       if (
-        typeof materiasSelect.find((e) => e.key === value.codigo) ===
-          'undefined' &&
-        notInMalla
+        !materiasSelect.find((e) => e.key === value.codigo) &&
+        !inMalla
       ) {
         dispatch(addMateria({ ...value, check: true }));
       }
-      if (!notInMalla) {
+      if (inMalla) {
         dispatch(setMateriasMalla(materiasMalla.map((e) => {
           if (e.codigo === value.codigo) {
             e.check = true;
@@ -155,23 +151,20 @@ export default function Malla(props) {
               <Container>
                 <Autocomplete
                   id="input-nombre-carrera"
-                  clearOnEscape={true}
                   onChange={onChangeComplete}
                   options={allTeoricosUnicos}
-                  label="Agregue una nueva materia"
-                  //options={carrerasResults.reduce((a, b) => {
-                  //	return {'materias': a.materias.concat(b.materias)} } )['materias']}
                   getOptionLabel={(option) => {
-                    return `${option['nombre']} - ${option['codigo']}`;
+                    return `${option.nombre} - ${option.codigo}`;
                   }}
                   renderInput={(params) => (
                     <TextField
                       {...params}
                       id="custom-css-outlined-input"
-                      label="Agregue una nueva materia"
+                      label="Escriba el nombre de una materia"
                       variant="outlined"
                     />
                   )}
+                  noOptionsText={'No existe esa materia :('}
                 />
               </Container>
             ) : (

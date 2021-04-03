@@ -46,10 +46,11 @@ export default function Celda({materia, fromMalla}) {
 						/>
 					</Grid>
 					<Grid item xs={12}>
-						{!fromMalla &&
-							<IconButton onClick={handleBorrar}>
+						{
+							!fromMalla &&
+							<span onClick={handleBorrar}>
 								<CloseOutlinedIcon />
-							</IconButton>
+							</span>
 						}
 					</Grid>
 				</Grid>
