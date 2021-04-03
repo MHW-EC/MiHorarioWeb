@@ -43,6 +43,6 @@ export const getMateriasMalla = () => ({
 export const setMateriasMalla = (arrayMalla) => ({
     type: SET_MATERIASMALLA , malla:arrayMalla
 })
-export const cleanMateriasMalla = (arrayMalla) => ({
+export const cleanMateriasMalla = () => ({
     type: CLEAN_MATERIASMALLA
 })

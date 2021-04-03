@@ -13,6 +13,7 @@ import { getMateriasMalla, getMaterias } from '../../../redux/actions/materias';
 import { addMateria } from '../../../redux/actions/materias';
 import { materiasSeleccionadas as matSelSelector } from '../../../redux/selectors';
 import { materiasMalla as mallaSelSelector } from '../../../redux/selectors';
+import { setMateriasMalla } from '../../../redux/actions/materias';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import {
@@ -123,14 +124,13 @@ export default function Malla(props) {
         dispatch(addMateria({ ...value, check: true }));
       }
       if (!notInMalla) {
-        materiasMalla.find((e) => {
-          let valor = e.codigo === value.codigo;
-          if (valor) {
+        dispatch(setMateriasMalla(materiasMalla.map((e) => {
+          if (e.codigo === value.codigo) {
             e.check = true;
           }
-          return valor;
-        });
-
+          return e;
+        })));
+        
         setRefresh(!refresh);
         enqueueSnackbar({
           message: 'Materia añadida satisfactoriamente',

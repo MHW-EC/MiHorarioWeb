@@ -51,13 +51,13 @@ function getSteps() {
 function getStepContent(stepIndex) {
   switch (stepIndex) {
     case 0:
-      return 'En la entrada de texto ingrese el nombre de su carrera';
+      return 'Elija una carrera';
     case 1:
-      return 'Seleccione las materias que desea ver en el semestre';
+      return 'Elija sus materias';
     case 2:
-      return 'De cada materia previamente escogidas, seleccione los paralelos de su interés';
+      return 'Elija sus paralelos teóricos y prácticos';
     case 3:
-      return 'Una vez cargados los resultados puede ver más información en VER HORARIO';
+      return 'Sus posibles horarios son';
     default:
       return 'Unknown stepIndex';
   }

@@ -9,33 +9,24 @@ import {
 } from '../../../redux/actions/materias';
 import { useDispatch } from 'react-redux';
 import CardActionArea from '@material-ui/core/CardActionArea'
-export default function Celda(props) {
-	const [materia] = useState(props.materia);
-	const [marcado, setMarcado] = useState(props.materia.check);
-
+export default function Celda({materia, fromMalla}) {
+	let marcado = materia.check;
 	const dispatch = useDispatch();
-
-	const fromMalla = props.fromMalla;
-
 
 	const onCheck = (event) => {
 		!marcado ? dispatch(checkMateria(materia)) : dispatch(unCheckMateria(materia));
-		setMarcado(!marcado);
+		marcado = !marcado;
 	};
-
 	const handleBorrar = () => {
 		dispatch(removeMateria(materia));
 	};
-
 	return (
-
 		<CardActionArea onClick={onCheck}>
 			<Grid
 				container={true}
 				justify='center'
 				alignItems='center'
-				style={{ minHeight: 125 }}
-			>
+				style={{ minHeight: 125 }}>
 				<Grid container item xs={9}>
 					<Grid item xs={12}>
 						<Typography variant='subtitle2'>{materia['nombre']}</Typography>
@@ -55,13 +46,11 @@ export default function Celda(props) {
 						/>
 					</Grid>
 					<Grid item xs={12}>
-						{fromMalla ? (
-							null
-						) : (
-								<IconButton onClick={handleBorrar}>
-									<CloseOutlinedIcon />
-								</IconButton>
-							)}
+						{!fromMalla &&
+							<IconButton onClick={handleBorrar}>
+								<CloseOutlinedIcon />
+							</IconButton>
+						}
 					</Grid>
 				</Grid>
 			</Grid>
