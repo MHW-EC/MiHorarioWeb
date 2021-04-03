@@ -15,6 +15,7 @@ import { getProfesor } from '../../../redux/actions/profesor';
 import { useSelector, useDispatch } from 'react-redux';
 import { GetChip } from './chips';
 import DialogStats from './dialog-stats';
+
 const useStyles = makeStyles((theme) => ({
   div: {
     padding: 0,

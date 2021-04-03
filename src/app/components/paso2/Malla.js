@@ -94,15 +94,13 @@ export default function Malla(props) {
     if (allTeoricosBase.length !== 0 && allTeoricosUnicos.length === 0) {
       let unicos = [];
       allTeoricosBase.forEach((ter) => {
-        if (
-          typeof unicos.find((e) => e.codigo === ter.codigo) === 'undefined'
-        ) {
+        if (!unicos.find((e) => e.codigo === ter.codigo)) {
           unicos.push(ter);
         }
       });
       setAllTeoricosUnicos(unicos);
     }
-  }, [allTeoricosUnicos, allTeoricosBase]);
+  }, [allTeoricosBase?.length]);
 
   useEffect(() => {
     if (!carrera) {

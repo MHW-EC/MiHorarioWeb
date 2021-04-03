@@ -1,7 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import withWidth from "@material-ui/core/withWidth";
-import GridList from '@material-ui/core/GridList';
+import {withWidth, GridList} from "@material-ui/core";
 
 const getNCOLS = (ancho) => {
 	switch (ancho) {
