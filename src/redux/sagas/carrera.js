@@ -8,7 +8,14 @@ import {
 import { apiCall } from '../api';
 function* getCarreras({ payload }) {
 	try {
-		const response = yield call(apiCall, '/carrera', null, null, 'GET');
+		const response = yield call(
+			apiCall,
+			'/carrera',
+			null,
+			{ 'Content-Type': 'application/json',
+				'Accept': 'application/json'
+			},
+			'GET');
 		yield put({ type: GET_CARRERAS_COMPLETE, response });
 	} catch (err) {
 		yield put({ type: GET_CARRERAS_ERROR, err });

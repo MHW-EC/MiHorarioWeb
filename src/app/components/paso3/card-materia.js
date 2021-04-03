@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import GridListTile from '@material-ui/core/GridListTile';
-import Card from '@material-ui/core/Card';
 import {
 	Typography,
 	CardContent,
 	CardActions,
 	Button,
+	Card,
+	GridListTile
 } from '@material-ui/core';
 import CardTeorico from './card-teorico';
 import { useSelector, useDispatch } from 'react-redux';

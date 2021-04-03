@@ -28,12 +28,9 @@ import {
   enqueueSnackbar as enqueueSnackbarAction,
   closeSnackbar as closeSnackbarAction,
 } from '../../redux/actions/notifier';
+import {constants as APPCONSTANTS} from './../constants';
 
-//Aqui seteamos estilos
 const useStyles = makeStyles((theme) => ({
-  root: {
-    //	flexGrow: 1,
-  },
   instructions: {
     marginTop: theme.spacing(1),
     marginBottom: theme.spacing(1),
@@ -48,21 +45,19 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-//Esto no ayuda a obtener los pasos a seguir
 function getSteps() {
   return ['Carrera', 'Materias', 'Paralelos', 'Resultados'];
 }
-//Esto nos devuelve informacion adicional de paso
 function getStepContent(stepIndex) {
   switch (stepIndex) {
     case 0:
-      return 'En la entrada de texto ingrese el nombre de su carrera';
+      return 'Elija una carrera';
     case 1:
-      return 'Seleccione las materias que desea ver en el semestre';
+      return 'Elija sus materias';
     case 2:
-      return 'De cada materia previamente escogidas, seleccione los paralelos de su interés';
+      return 'Elija sus paralelos teóricos y prácticos';
     case 3:
-      return 'Una vez cargados los resultados puede ver más información en VER HORARIO';
+      return 'Sus posibles horarios son';
     default:
       return 'Unknown stepIndex';
   }
@@ -83,16 +78,12 @@ export default function PasoAPaso() {
   const materiasSelect = useSelector((state) => matSelSelector(state));
   const materiasMalla = useSelector((state) => mallaSelSelector(state));
 
-  const paquetesSeleccionados = useSelector((state) => paqSelector(state));
-
   const seleccionados = useSelector((state) => selecSelector(state));
+  const paqueteria = useSelector((state) => paqSelector(state));
 
   const btnCerrar = (
     <Typography style={{ color: '#ffffff' }}>| Cerrar</Typography>
   );
-
-  //const [carrera, setCarrera] = React.useState({});
-  //const [materiasSelect, setMateriasSelect] = React.useState([]);
 
   useEffect(() => {
     const detectMobile = async () => {
@@ -144,10 +135,7 @@ export default function PasoAPaso() {
     }
   });
 
-  const steps = getSteps();
-
   const handleNext = () => {
-    //setNombreCarrera(document.getElementById('input-nombre-carrera').value);
     let error = false;
     switch (activeStep) {
       case 0:
@@ -167,16 +155,23 @@ export default function PasoAPaso() {
         }
         break;
       case 1:
-        let validacion = !(
-          materiasMalla.find((materia) => materia.check) ||
-          materiasSelect.find((materia) => materia.check)
-        );
-        if (validacion) {
+        let materiasMSelected = materiasMalla.filter((materia) => materia.check);
+        let materiasSSelected = materiasSelect.filter((materia) => materia.check);
+        let noMMSelected = materiasMSelected ? materiasMSelected.length : 0;
+        let noMSSelected = materiasSSelected ? materiasSSelected.length : 0;
+        let materiasTotal = noMMSelected + noMSSelected;
+
+        let noMateriasSelected = materiasTotal === 0;
+        let exceededMateriasAllowed = materiasTotal > APPCONSTANTS['materiasMaxNumber'];
+        
+        if (noMateriasSelected || exceededMateriasAllowed) {
           error = true;
           enqueueSnackbar({
-            message: isMobile
+            message: noMateriasSelected
               ? 'No se han seleccionado materias'
-              : 'No se han seleccionado materias.\nPresione el checkbox a lado del nombre de la materia para añadir una',
+              : exceededMateriasAllowed 
+              ? `Ha excedido el número máximo de materias: ${APPCONSTANTS['materiasMaxNumber']}`
+              : "Error, por favor inténtelo de nuevo",
             options: {
               preventDuplicate: true,
               key: new Date().getTime() + Math.random(),
@@ -190,12 +185,22 @@ export default function PasoAPaso() {
         }
         break;
       case 2:
-        if (paquetesSeleccionados.length === 0) {
+        let noTeoricosSelected = seleccionados.length === 0;
+        let noPracticoSelected = paqueteria.length === 0;
+        let exceededTeoricoSelected = seleccionados.length > APPCONSTANTS['teoricosMaxNumber'];
+        let exceededPracticoSelected = paqueteria.length > APPCONSTANTS['practicosMaxNumber'];
+        if (noTeoricosSelected || noPracticoSelected || exceededTeoricoSelected || exceededPracticoSelected) {
           error = true;
           enqueueSnackbar({
-            message: isMobile
-              ? 'No se han seleccionado paralelos Asociados (Prácticos)'
-              : 'No se han seleccionado paralelos Asociados (Prácticos). \nPresione el botón "Par Asociados" para añadirlos',
+            message: noTeoricosSelected 
+              ? 'No se han seleccionado paralelos teóricos'
+              : noPracticoSelected
+              ? 'No se han seleccionado paralelos asociados (prácticos)'
+              : exceededTeoricoSelected
+              ? `Ha excedido el número máximo de paralelos teóricos: ${APPCONSTANTS['teoricosMaxNumber']}`
+              : exceededPracticoSelected
+              ? `Ha excedido el número máximo de paralelos asociados (prácticos): ${APPCONSTANTS['practicosMaxNumber']}`
+              : 'Error, inténtelo de nuevo',
             options: {
               preventDuplicate: true,
               key: new Date().getTime() + Math.random(),
@@ -231,23 +236,18 @@ export default function PasoAPaso() {
   };
 
   const handleBack = () => {
-    //setCarrera({});
-    //setMateriasSelect([]);
     switch (activeStep) {
       case 1:
         dispatch(cleanCarrera());
         dispatch(cleanMaterias());
         break;
       case 2:
-        //dispatch(cleanMaterias());
         dispatch(cleanSel());
-        //dispatch(cleanAsociados());
         dispatch(cleanPaquetes());
         break;
       case 3:
         dispatch(cleanResultados());
         dispatch(cleanSel());
-        //dispatch(cleanAsociados());
         dispatch(cleanPaquetes());
         break;
       default:
@@ -256,7 +256,6 @@ export default function PasoAPaso() {
     setActiveStep((prevActiveStep) => prevActiveStep - 1);
   };
 
-  //Esto nos devuelve el componente del paso segun el paso en el que estamos
   function getStepComponet(stepIndex) {
     switch (stepIndex) {
       case 0:
@@ -283,7 +282,7 @@ export default function PasoAPaso() {
         alternativeLabel
         style={{ backgroundColor: 'transparent' }}
       >
-        {steps.map((label) => (
+        {getSteps().map((label) => (
           <Step key={label}>
             <StepLabel>
               <Typography className={classes.instructions} color="textPrimary">

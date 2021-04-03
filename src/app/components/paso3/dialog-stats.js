@@ -1,18 +1,19 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import DialogTitle from '@material-ui/core/DialogTitle';
-import DialogContent from '@material-ui/core/DialogContent';
-import DialogActions from '@material-ui/core/DialogActions';
-import Dialog from '@material-ui/core/Dialog';
+import {
+  DialogTitle,
+  DialogContent,
+  DialogActions,
+  Dialog,
+  Button,
+  Typography
+} from "@material-ui/core"
 import { makeStyles, useTheme } from '@material-ui/core/styles';
-import Button from '@material-ui/core/Button';
 import Highcharts from 'highcharts';
 import Dark from 'highcharts/themes/dark-unica';
 import Light from 'highcharts/themes/grid-light';
 import HighchartsReact from 'highcharts-react-official';
 import HighchartsExporting from 'highcharts/modules/exporting';
-
-import { Typography } from '@material-ui/core';
 
 const parserArray = (array) => {
   return array.map((object) => {

@@ -1,12 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core/styles';
-import Button from '@material-ui/core/Button';
-import DialogTitle from '@material-ui/core/DialogTitle';
-import DialogContent from '@material-ui/core/DialogContent';
-import DialogActions from '@material-ui/core/DialogActions';
-import Dialog from '@material-ui/core/Dialog';
+import {
+  Button,
+  DialogTitle,
+  DialogContent,
+  DialogActions,
+  Dialog
+} from "@material-ui/core";
 import FormPractico from './form-practico';
+
 const useStyles = makeStyles((theme) => ({
   root: {
     width: '100%',

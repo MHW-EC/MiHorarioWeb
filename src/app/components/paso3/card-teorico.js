@@ -11,6 +11,7 @@ import {
   CardHeader,
   Button,
   Divider,
+  Zoom
 } from '@material-ui/core';
 import { useSelector, useDispatch } from 'react-redux';
 import DeleteOutlineIcon from '@material-ui/icons/DeleteOutline';
@@ -18,7 +19,6 @@ import AddBoxOutlinedIcon from '@material-ui/icons/AddBoxOutlined';
 import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
 import DialogPractico from './dialog-practico';
 import DialogStats from './dialog-stats';
-import Zoom from '@material-ui/core/Zoom';
 import { blueGrey } from '@material-ui/core/colors';
 import { formatoIntevalo, formatoIntevaloEx } from '../util/util';
 import {
@@ -32,7 +32,6 @@ import Skeleton from '@material-ui/lab/Skeleton';
 import { GetChip } from './chips';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 
-//import * as Colors from "@material-ui/core/colors";
 const topHexColor = "#D4AF37";
 const useStyles = makeStyles((theme) => ({
   bullet: {

@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import ExpansionPanel from '@material-ui/core/ExpansionPanel';
-import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
-import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
-import Checkbox from '@material-ui/core/Checkbox';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
+import {
+	ExpansionPanel,
+	ExpansionPanelSummary,
+	ExpansionPanelDetails,
+	Checkbox,
+	FormControlLabel
+}from "@material-ui/core";
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import CardAsociado from './card-asociado';
 import Skeleton from '@material-ui/lab/Skeleton';
@@ -12,7 +14,6 @@ import { useSelector, useDispatch } from 'react-redux';
 import { asociadosResults as asociadosSelector } from '../../../redux/selectors';
 import { getAsociados } from '../../../redux/actions/asociado';
 import { addPaquete, removePaquete } from '../../../redux/actions/paquetes';
-//import * as Colores from "@material-ui/core/colors";
 
 const useStyles = makeStyles({
 	root: {

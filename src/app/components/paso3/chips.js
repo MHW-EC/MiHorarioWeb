@@ -1,11 +1,12 @@
 import React from "react";
 import { withStyles } from "@material-ui/core/styles";
-import Chip from "@material-ui/core/Chip";
-import InsertEmoticonIcon from "@material-ui/icons/InsertEmoticon";
-import SentimentSatisfiedIcon from "@material-ui/icons/SentimentSatisfied";
-import SentimentVeryDissatisfiedIcon from "@material-ui/icons/SentimentVeryDissatisfied";
-import BlockIcon from "@material-ui/icons/Block";
-import Tooltip from '@material-ui/core/Tooltip';
+import {Chip, Tooltip} from "@material-ui/core";
+import {
+  InsertEmoticonIcon, 
+  SentimentSatisfiedIcon,
+  SentimentVeryDissatisfiedIcon,
+  BlockIcon
+} from "@material-ui/icons";
 const topHexColor = "#D4AF37";
 const DisabledChip = withStyles({
   root: {
@@ -50,7 +51,6 @@ const GoldChip = withStyles({
   }
 })(Chip);
 export function GetChip (valor, top){
-	//{DisabledChip, SuccessChip, WarningChip, ErrorChip}
 	if(top){
 		return <Tooltip title="Docente recomendado">
       <GoldChip
