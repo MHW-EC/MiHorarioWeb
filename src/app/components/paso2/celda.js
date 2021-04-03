@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
-import { Grid, Typography, Checkbox, IconButton } from '@material-ui/core';
+import { Grid, Typography, Checkbox } from '@material-ui/core';
 import CloseOutlinedIcon from '@material-ui/icons/CloseOutlined';
 import {
 	checkMateria,

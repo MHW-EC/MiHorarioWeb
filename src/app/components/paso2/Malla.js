@@ -100,7 +100,7 @@ export default function Malla(props) {
       });
       setAllTeoricosUnicos(unicos);
     }
-  }, [allTeoricosBase?.length]);
+  }, [allTeoricosBase, allTeoricosUnicos]);
 
   useEffect(() => {
     if (!carrera) {
