@@ -19,7 +19,7 @@ export default function SearchCarrera() {
 	});
 
 	const onChangeComplete = (event, value, reason) => {
-		if (value && reason == 'select-option') {
+		if (value && reason === 'select-option') {
 			console.log(value);
 			dispatch(setCarrera(value));
 			dispatch(
@@ -29,7 +29,7 @@ export default function SearchCarrera() {
 					})
 				)
 			);
-		}else if(reason == 'clear'){
+		}else if(reason === 'clear'){
 			dispatch(cleanCarrera());
 		}
 	};

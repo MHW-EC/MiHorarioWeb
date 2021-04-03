@@ -1,12 +1,10 @@
 import React from "react";
 import { withStyles } from "@material-ui/core/styles";
 import {Chip, Tooltip} from "@material-ui/core";
-import {
-  InsertEmoticonIcon, 
-  SentimentSatisfiedIcon,
-  SentimentVeryDissatisfiedIcon,
-  BlockIcon
-} from "@material-ui/icons";
+import InsertEmoticonIcon from "@material-ui/icons/InsertEmoticon";
+import SentimentSatisfiedIcon from "@material-ui/icons/SentimentSatisfied";
+import SentimentVeryDissatisfiedIcon from "@material-ui/icons/SentimentVeryDissatisfied";
+import BlockIcon from "@material-ui/icons/Block";
 const topHexColor = "#D4AF37";
 const DisabledChip = withStyles({
   root: {
