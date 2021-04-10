@@ -4,14 +4,12 @@ const MobileDetect = require('mobile-detect')
 const app = express()
 const Generador = require('../server_modules/Generador')
 const Util = require('../server_modules/Util')
-//--Nuevo inici
 let mongoose = require('mongoose')
 let cors = require('cors')
 const carreraRoute = require('./routes/carrera.routes')
 const teoricoRoute = require('./routes/teorico.routes')
 const practicoRoute = require('./routes/practico.routes')
 const profesorRoute = require('./routes/profesor.routes')
-//--Nuevo fin
 
 if (process.env.NODE_ENV !== 'production') {
   require('dotenv').config();
@@ -45,9 +43,7 @@ app.use('/carrera', carreraRoute)
 app.use('/teorico', teoricoRoute)
 app.use('/practico', practicoRoute)
 app.use('/profesor', profesorRoute)
-//Nuevo fin
 
-//Nuevo inicio
 mongoose.Promise = global.Promise
 mongoose
   .connect(process.env.DB_URI, {
@@ -96,15 +92,12 @@ app.get('/isMobile', async function (req, res) {
     console.log("OS client: " + detector.os())
     res.send({ redirigir: false, data: detector.os() + '' })
   }
-  /* let detector = new MobileDetect(req.headers['user-agent']);
-	console.log(detector.os());
-	res.send({ redirrigr: false, data: detector.os() + '' }); */
 })
 
 app.get('/', function (req, res) {
   res.sendFile(path.join(__dirname, '..', '..', 'build', 'index.html'))
 })
-//process.env.PORT ||
+
 app.listen(app.get('port'), () => {
   console.log(`Server funcionando! ${app.get('port')} ${process.env.DB_NAME}`)
 })

@@ -32,8 +32,7 @@ import {constants as APPCONSTANTS} from './../constants';
 
 const useStyles = makeStyles((theme) => ({
   instructions: {
-    marginTop: theme.spacing(1),
-    marginBottom: theme.spacing(1),
+    margin: '0px'
   },
   divCenter: {
     marginRight: 'auto',
@@ -43,6 +42,13 @@ const useStyles = makeStyles((theme) => ({
     display: 'inline-block',
     marginRight: theme.spacing(1),
   },
+  stepper: {
+    backgroundColor: 'transparent',
+    paddingTop: '24px',
+    paddingRight: '0px',
+    paddingLeft: '0px',
+    paddingBottom: '0px',
+  }
 }));
 
 function getSteps() {
@@ -276,11 +282,11 @@ export default function PasoAPaso() {
   }
 
   return (
-    <div className={classes.root}>
+    <>
       <Stepper
+        className={classes.stepper}
         activeStep={activeStep}
         alternativeLabel
-        style={{ backgroundColor: 'transparent' }}
       >
         {getSteps().map((label) => (
           <Step key={label}>
@@ -292,7 +298,7 @@ export default function PasoAPaso() {
           </Step>
         ))}
       </Stepper>
-      <Grid container spacing={3}>
+      <Grid container spacing={3} style={{margin: '0px'}}>
         <Grid item xs={12}>
           <Typography className={classes.instructions} color="textSecondary">
             {getStepContent(activeStep)}
@@ -325,6 +331,6 @@ export default function PasoAPaso() {
           {getStepComponet(activeStep)}
         </Grid>
       </Grid>
-    </div>
+    </>
   );
 }
