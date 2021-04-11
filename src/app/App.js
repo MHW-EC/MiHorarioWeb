@@ -43,7 +43,7 @@ function ElevationScroll(props) {
 }
 const StyledPaper = withStyles((theme) => ({
   root: {
-    minHeight: "1000px",
+    minHeight: "100%",
     backgroundColor: theme.palette.background.default,
   },
 }))(Paper);
