@@ -18,7 +18,6 @@ import {
 } from '@material-ui/core/styles';
 import useScrollTrigger from '@material-ui/core/useScrollTrigger';
 import KeyboardArrowUpIcon from '@material-ui/icons/KeyboardArrowUp';
-import './App.css';
 import PasoAPaso from './pages/PasoAPaso';
 import Notifier from './components/Notifier';
 import AnimatedDialog from './components/inicio/animated-dialog';
