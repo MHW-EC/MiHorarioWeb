@@ -20,7 +20,6 @@ export default function SearchCarrera() {
 
 	const onChangeComplete = (event, value, reason) => {
 		if (value && reason === 'select-option') {
-			console.log(value);
 			dispatch(setCarrera(value));
 			dispatch(
 				setMateriasMalla(
@@ -36,7 +35,11 @@ export default function SearchCarrera() {
 
 	return (
 		<Container>
-			<Grid container={true} spacing={3} justify='center' alignItems='center'>
+			<Grid 
+				container={true}
+				spacing={3}
+				justify='center'
+				alignItems='center'>
 				<Grid item xs={12} sm={8} md={8} lg={6} xl={6}>
 					{
 					carrerasResults && 

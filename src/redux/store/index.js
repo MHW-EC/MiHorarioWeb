@@ -8,21 +8,17 @@ import { composeWithDevTools } from 'redux-devtools-extension';
 const sagaMiddleware = reduxSaga();
 
 export default function configureStore(preloaderState){
-    const composeEnhancers = composeWithDevTools({ actionCreatorsC, trace: true, traceLimit: 25 });
-    const store = createStore(rootReducer, preloaderState, composeEnhancers(applyMiddleware(sagaMiddleware),
+    const composeEnhancers = composeWithDevTools({ 
+        actionCreatorsC,
+        trace: true,
+        traceLimit: 25 
+    });
+    const store = createStore(rootReducer, preloaderState,
+        composeEnhancers(applyMiddleware(sagaMiddleware),
    
     ))
-    return {...store, runSaga: sagaMiddleware.run(rootSaga)} ;
-}
-
-
-
-/* export default () => {
     return {
-        ...createStore(
-            rootReducer,
-            composeWithDevTools(applyMiddleware(sagaMiddleware))
-        ),
-        runSaga: sagaMiddleware.run(rootSaga),
+        ...store,
+        runSaga: sagaMiddleware.run(rootSaga)
     };
-}; */
+}

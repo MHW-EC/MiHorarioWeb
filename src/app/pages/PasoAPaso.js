@@ -1,15 +1,17 @@
 import React, { useEffect } from 'react';
-import Stepper from '@material-ui/core/Stepper';
-import Step from '@material-ui/core/Step';
-import StepLabel from '@material-ui/core/StepLabel';
-import Button from '@material-ui/core/Button';
-import Typography from '@material-ui/core/Typography';
+import {
+  Stepper,
+  Step,
+  StepLabel,
+  Button,
+  Typography,
+  Grid
+} from "@material-ui/core";
 import { makeStyles } from '@material-ui/core/styles';
 import OpcionesMaterias from '../components/paso3/opciones-materias';
 import SearchCarrera from '../components/paso1/SearchCarrera';
 import TablaVisor from '../components/paso4/tabla-visor';
 import Malla from '../components/paso2/Malla';
-import { Grid } from '@material-ui/core';
 import { useDispatch, useSelector } from 'react-redux';
 import { cleanCarrera } from '../../redux/actions/carrera';
 import { cleanMaterias } from '../../redux/actions/materias';
@@ -47,7 +49,7 @@ const useStyles = makeStyles((theme) => ({
     paddingTop: '24px',
     paddingRight: '0px',
     paddingLeft: '0px',
-    paddingBottom: '0px',
+    paddingBottom: '12px',
   }
 }));
 
@@ -274,7 +276,9 @@ export default function PasoAPaso() {
         return <TablaVisor />;
       default:
         return (
-          <Typography className={classes.instructions} color="textSecondary">
+          <Typography 
+            className={classes.instructions}
+            color="textSecondary">
             {getStepContent(activeStep)}
           </Typography>
         );
@@ -300,7 +304,9 @@ export default function PasoAPaso() {
       </Stepper>
       <Grid container spacing={3} style={{margin: '0px'}}>
         <Grid item xs={12}>
-          <Typography className={classes.instructions} color="textSecondary">
+          <Typography 
+            className={classes.instructions} 
+            color="textSecondary">
             {getStepContent(activeStep)}
           </Typography>
         </Grid>
