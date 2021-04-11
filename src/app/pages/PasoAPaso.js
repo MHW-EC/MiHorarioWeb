@@ -1,15 +1,17 @@
 import React, { useEffect } from 'react';
-import Stepper from '@material-ui/core/Stepper';
-import Step from '@material-ui/core/Step';
-import StepLabel from '@material-ui/core/StepLabel';
-import Button from '@material-ui/core/Button';
-import Typography from '@material-ui/core/Typography';
+import {
+  Stepper,
+  Step,
+  StepLabel,
+  Button,
+  Typography,
+  Grid
+} from "@material-ui/core";
 import { makeStyles } from '@material-ui/core/styles';
 import OpcionesMaterias from '../components/paso3/opciones-materias';
 import SearchCarrera from '../components/paso1/SearchCarrera';
 import TablaVisor from '../components/paso4/tabla-visor';
 import Malla from '../components/paso2/Malla';
-import { Grid } from '@material-ui/core';
 import { useDispatch, useSelector } from 'react-redux';
 import { cleanCarrera } from '../../redux/actions/carrera';
 import { cleanMaterias } from '../../redux/actions/materias';
@@ -32,8 +34,7 @@ import {constants as APPCONSTANTS} from './../constants';
 
 const useStyles = makeStyles((theme) => ({
   instructions: {
-    marginTop: theme.spacing(1),
-    marginBottom: theme.spacing(1),
+    margin: '0px'
   },
   divCenter: {
     marginRight: 'auto',
@@ -43,6 +44,13 @@ const useStyles = makeStyles((theme) => ({
     display: 'inline-block',
     marginRight: theme.spacing(1),
   },
+  stepper: {
+    backgroundColor: 'transparent',
+    paddingTop: '24px',
+    paddingRight: '0px',
+    paddingLeft: '0px',
+    paddingBottom: '12px',
+  }
 }));
 
 function getSteps() {
@@ -80,10 +88,6 @@ export default function PasoAPaso() {
 
   const seleccionados = useSelector((state) => selecSelector(state));
   const paqueteria = useSelector((state) => paqSelector(state));
-
-  const btnCerrar = (
-    <Typography style={{ color: '#ffffff' }}>| Cerrar</Typography>
-  );
 
   useEffect(() => {
     const detectMobile = async () => {
@@ -148,7 +152,7 @@ export default function PasoAPaso() {
               key: new Date().getTime() + Math.random(),
               variant: 'error',
               action: (key) => (
-                <Button onClick={() => closeSnackbar(key)}>{btnCerrar} </Button>
+                <Button onClick={() => closeSnackbar(key)}>Cerrar </Button>
               ),
             },
           });
@@ -177,7 +181,7 @@ export default function PasoAPaso() {
               key: new Date().getTime() + Math.random(),
               variant: 'error',
               action: (key) => (
-                <Button onClick={() => closeSnackbar(key)}>{btnCerrar} </Button>
+                <Button onClick={() => closeSnackbar(key)}>Cerrar </Button>
               ),
               style: { whiteSpace: 'pre-line', textAlign: 'left' },
             },
@@ -206,7 +210,7 @@ export default function PasoAPaso() {
               key: new Date().getTime() + Math.random(),
               variant: 'error',
               action: (key) => (
-                <Button onClick={() => closeSnackbar(key)}>{btnCerrar} </Button>
+                <Button onClick={() => closeSnackbar(key)}>Cerrar </Button>
               ),
               style: { whiteSpace: 'pre-line', textAlign: 'left' },
             },
@@ -222,7 +226,7 @@ export default function PasoAPaso() {
               key: new Date().getTime() + Math.random(),
               variant: 'error',
               action: (key) => (
-                <Button onClick={() => closeSnackbar(key)}>{btnCerrar} </Button>
+                <Button onClick={() => closeSnackbar(key)}>Cerrar </Button>
               ),
               style: { whiteSpace: 'pre-line', textAlign: 'left' },
             },
@@ -268,7 +272,9 @@ export default function PasoAPaso() {
         return <TablaVisor />;
       default:
         return (
-          <Typography className={classes.instructions} color="textSecondary">
+          <Typography 
+            className={classes.instructions}
+            color="textSecondary">
             {getStepContent(activeStep)}
           </Typography>
         );
@@ -276,11 +282,11 @@ export default function PasoAPaso() {
   }
 
   return (
-    <div className={classes.root}>
+    <>
       <Stepper
+        className={classes.stepper}
         activeStep={activeStep}
         alternativeLabel
-        style={{ backgroundColor: 'transparent' }}
       >
         {getSteps().map((label) => (
           <Step key={label}>
@@ -292,9 +298,11 @@ export default function PasoAPaso() {
           </Step>
         ))}
       </Stepper>
-      <Grid container spacing={3}>
+      <Grid container spacing={3} style={{margin: '0px'}}>
         <Grid item xs={12}>
-          <Typography className={classes.instructions} color="textSecondary">
+          <Typography 
+            className={classes.instructions} 
+            color="textSecondary">
             {getStepContent(activeStep)}
           </Typography>
         </Grid>
@@ -325,6 +333,6 @@ export default function PasoAPaso() {
           {getStepComponet(activeStep)}
         </Grid>
       </Grid>
-    </div>
+    </>
   );
 }

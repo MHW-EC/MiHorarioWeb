@@ -1,29 +1,32 @@
 import { BrowserRouter as Router, Route } from 'react-router-dom';
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import PropTypes from 'prop-types';
-import { makeStyles, withStyles } from '@material-ui/core/styles';
-import AppBar from '@material-ui/core/AppBar';
-import Zoom from '@material-ui/core/Zoom';
-import Toolbar from '@material-ui/core/Toolbar';
-import Fab from '@material-ui/core/Fab';
-import Typography from '@material-ui/core/Typography';
+import {
+  AppBar,
+  Zoom,
+  Toolbar,
+  Fab,
+  Typography,
+  Paper,
+  Container,
+  IconButton
+}from '@material-ui/core';
+import { 
+  makeStyles,
+  withStyles,
+  ThemeProvider,
+} from '@material-ui/core/styles';
 import useScrollTrigger from '@material-ui/core/useScrollTrigger';
 import KeyboardArrowUpIcon from '@material-ui/icons/KeyboardArrowUp';
-import './App.css';
 import PasoAPaso from './pages/PasoAPaso';
 import Notifier from './components/Notifier';
 import AnimatedDialog from './components/inicio/animated-dialog';
 import InfoDialog from './components/inicio/info-dialog';
 import DisclaimerDialog from './components/inicio/disclaimer-dialog';
-import { Paper, Container } from '@material-ui/core';
 import Brightness4Icon from '@material-ui/icons/Brightness4';
 import Brightness7Icon from '@material-ui/icons/Brightness7';
-import IconButton from '@material-ui/core/IconButton';
-import { ThemeProvider } from '@material-ui/core/styles';
 import { SnackbarProvider } from 'notistack';
 import { theme, darkTheme } from './theme';
-import { useEffect } from 'react';
-import { useState } from 'react';
 
 
 function ElevationScroll(props) {
@@ -40,15 +43,12 @@ function ElevationScroll(props) {
 }
 const StyledPaper = withStyles((theme) => ({
   root: {
-    minHeight: '1000px',
+    minHeight: "100%",
     backgroundColor: theme.palette.background.default,
   },
 }))(Paper);
 
 const useStyles = makeStyles((theme) => ({
-  root: {
-    minHeight: '1000px',
-  },
   zoom: {
     backgroundColor: 'transparent',
     position: 'fixed',

@@ -85,7 +85,7 @@ export default function NavTabs(props) {
 	const [horario, setHorario] = React.useState(props.horario);
 	//const horario = React.useState(props.horario);
 	const [panel, setPanel] = React.useState(0);
-	const oculto = false;
+	const oculto = true;
 	const dispatch = useDispatch();
 	const enqueueSnackbar = (...args) => dispatch(enqueueSnackbarAction(...args));
 	const closeSnackbar = (...args) => dispatch(closeSnackbarAction(...args));

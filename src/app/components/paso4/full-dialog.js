@@ -45,8 +45,8 @@ export default function FullScreenDialog(props) {
 	return horario ? (
 		<div>
 			<Button variant='contained' color='secondary' onClick={handleClickOpen}>
-				VER HORARIO
-			</Button>{' '}
+				VISTA CALENDARIO
+			</Button>
 			{open ? (
 				<Dialog
 					fullScreen
