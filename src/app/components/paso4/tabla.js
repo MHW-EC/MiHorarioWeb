@@ -58,7 +58,7 @@ export default function DenseTable(props) {
 	const classes = useStyles();
 	const [horario, setHorario] = useState();
 	const dispatch = useDispatch();
-	const oculto = false;
+	const oculto = true;
 	const enqueueSnackbar = (...args) => dispatch(enqueueSnackbarAction(...args));
 	const closeSnackbar = (...args) => dispatch(closeSnackbarAction(...args));
 

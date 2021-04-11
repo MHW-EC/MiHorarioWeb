@@ -89,10 +89,6 @@ export default function PasoAPaso() {
   const seleccionados = useSelector((state) => selecSelector(state));
   const paqueteria = useSelector((state) => paqSelector(state));
 
-  const btnCerrar = (
-    <Typography style={{ color: '#ffffff' }}>| Cerrar</Typography>
-  );
-
   useEffect(() => {
     const detectMobile = async () => {
       let response = await fetch('/isMobile');
@@ -156,7 +152,7 @@ export default function PasoAPaso() {
               key: new Date().getTime() + Math.random(),
               variant: 'error',
               action: (key) => (
-                <Button onClick={() => closeSnackbar(key)}>{btnCerrar} </Button>
+                <Button onClick={() => closeSnackbar(key)}>Cerrar </Button>
               ),
             },
           });
@@ -185,7 +181,7 @@ export default function PasoAPaso() {
               key: new Date().getTime() + Math.random(),
               variant: 'error',
               action: (key) => (
-                <Button onClick={() => closeSnackbar(key)}>{btnCerrar} </Button>
+                <Button onClick={() => closeSnackbar(key)}>Cerrar </Button>
               ),
               style: { whiteSpace: 'pre-line', textAlign: 'left' },
             },
@@ -214,7 +210,7 @@ export default function PasoAPaso() {
               key: new Date().getTime() + Math.random(),
               variant: 'error',
               action: (key) => (
-                <Button onClick={() => closeSnackbar(key)}>{btnCerrar} </Button>
+                <Button onClick={() => closeSnackbar(key)}>Cerrar </Button>
               ),
               style: { whiteSpace: 'pre-line', textAlign: 'left' },
             },
@@ -230,7 +226,7 @@ export default function PasoAPaso() {
               key: new Date().getTime() + Math.random(),
               variant: 'error',
               action: (key) => (
-                <Button onClick={() => closeSnackbar(key)}>{btnCerrar} </Button>
+                <Button onClick={() => closeSnackbar(key)}>Cerrar </Button>
               ),
               style: { whiteSpace: 'pre-line', textAlign: 'left' },
             },
