@@ -74,7 +74,7 @@ export default function SearchCarrera() {
 							  }}
 							/>
 						  )}
-						noOptionsText={'No existe esa carrera :('}
+						noOptionsText={'No existe esa carrera'}
 				/>
 				</Grid>
 			</Grid>
