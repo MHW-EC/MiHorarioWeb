@@ -162,7 +162,7 @@ function App(props) {
                 <div className={classes.divInfo}>
                   <div className={classes.divLine}>
                     <AnimatedDialog
-                      open={true}
+                      open={false}
                       titulo={<DisclaimerDialog.Titulo />}
                       contenido={<DisclaimerDialog.Contenido />}
                       actions={(handle) => (

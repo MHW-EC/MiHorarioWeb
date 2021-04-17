@@ -1,9 +1,17 @@
 import React, { useEffect } from 'react';
 import Autocomplete from '@material-ui/lab/Autocomplete';
-import { Grid, Container, TextField } from '@material-ui/core/';
+import { 
+	Grid,
+	Container,
+	TextField,
+	CircularProgress 
+} from '@material-ui/core/';
 import { useSelector, useDispatch } from 'react-redux';
 import { getCarreras } from '../../../redux/actions/carreras';
-import { carrerasResults as carrerasResultSelector } from '../../../redux/selectors';
+import { 
+	carrerasResults as carrerasResultSelector,
+	isSearchingLoading as isSearchingLoadingSelector
+} from '../../../redux/selectors';
 import { setCarrera } from '../../../redux/actions/carrera';
 import { setMateriasMalla } from '../../../redux/actions/materias';
 import { cleanCarrera } from '../../../redux/actions/carrera';
@@ -11,9 +19,10 @@ import { cleanCarrera } from '../../../redux/actions/carrera';
 export default function SearchCarrera() {
 	const dispatch = useDispatch();
 	const carrerasResults = useSelector((state) => carrerasResultSelector(state));
+	const isSearchingLoading = useSelector((state) => isSearchingLoadingSelector(state));
 
 	useEffect(() => {
-		if (!carrerasResults?.length) {
+		if (!carrerasResults) {
 			dispatch(getCarreras());
 		}
 	});
@@ -41,24 +50,32 @@ export default function SearchCarrera() {
 				justify='center'
 				alignItems='center'>
 				<Grid item xs={12} sm={8} md={8} lg={6} xl={6}>
-					{
-					carrerasResults && 
-						<Autocomplete
+				<Autocomplete
 						id='input-nombre-carrera'
+						loadingText={'carging...'}
+						loading={isSearchingLoading}
 						onChange={onChangeComplete}
-						options={carrerasResults}
+						options={carrerasResults || []}
 						getOptionLabel={(option) => option.nombre}
 						renderInput={(params) => (
 							<TextField
-								{...params}
-								id='custom-css-outlined-input'
-								label='Escribe el nombre de una carrera'
-								variant='outlined'
+							  {...params}
+							  id='custom-css-outlined-input'
+							  label='Escribe el nombre de una carrera'
+							   variant='outlined'
+							  InputProps={{
+								...params.InputProps,
+								endAdornment: (
+								  <React.Fragment>
+									{isSearchingLoading ? <CircularProgress color="inherit" size={20} /> : null}
+									{params.InputProps.endAdornment}
+								  </React.Fragment>
+								),
+							  }}
 							/>
-						)}
-						noOptionsText={'No existe esa carrera :('}
+						  )}
+						noOptionsText={'No existe esa carrera'}
 				/>
-					}
 				</Grid>
 			</Grid>
 		</Container>

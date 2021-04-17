@@ -2,7 +2,7 @@ import { GET_CARRERAS_START, GET_CARRERAS_ERROR, GET_CARRERAS_COMPLETE } from '.
 
 
 
-export default function carreras(state = {}, action) {
+export default function carreras(state = {isLoading:true}, action) {
   switch (action.type) {
     case GET_CARRERAS_START:
       return { ...state, isLoading: true };
