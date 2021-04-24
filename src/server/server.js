@@ -18,6 +18,7 @@ if (process.env.NODE_ENV !== 'production') {
 app.use(express.json())
 app.use(express.static(path.join(__dirname, '..', '..', 'build')))
 
+
 const PORT = 8085
 app.set('port', process.env.PORT || PORT)
 
