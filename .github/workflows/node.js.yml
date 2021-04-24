@@ -12,9 +12,9 @@ jobs:
         uses: appleboy/ssh-action@master
         with:
           host: ${{secrets.HOST}}
-          port: ${{secrets.PORT}}
-          key: ${{secrets.PRIVATE_KEY}}
           username: ${{secrets.USERNAME}}
+          key: ${{secrets.PRIVATE_KEY}}
+          port: ${{secrets.PORT}}
           script: |
             cd /root/sites/MiHorarioWeb
             git pull origin master
