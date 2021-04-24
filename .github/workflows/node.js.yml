@@ -1,0 +1,21 @@
+name: Deployment Workflow
+on:
+  push:
+    branches: [ master ]
+
+jobs:
+  job_one:
+    name: Deploy
+    runs-on: ubunty-latest
+    steps:
+    - name: testing conection to private server
+      uses: actions/checkout@master
+      with:
+        host: ${{ secrets.HOST }}
+        username: root
+        key: ${{ secrets.PRIVATE_KEY }}
+        port: 22
+        script: | 
+          cd sites/MiHorarioWeb
+          git pull origin master
+          echo 'FINISH!'
