@@ -4,19 +4,21 @@ on:
     branches: [ master ]
 
 jobs:
-  job_one:
-    name: Deploy
+  CD:
+    name: Continuous Delivery
     runs-on: ubuntu-latest
     steps:
-    - name: testing conection to private server
-      uses: actions/checkout@master
-      with:
-        host: ${{ secrets.HOST }}
-        username: root
-        key: ${{ secrets.PRIVATE_KEY }}
-        port: 22
-        script: |
-          mkdir /root/test
-          cd /root/sites/MiHorarioWeb
-          git pull origin master
-          echo 'FINISH!'
+      - name: SSH into production server
+        uses: appleboy/ssh-action@master
+        with:
+          port: 22
+          username: root
+          host: ${{secrets.HOST}}
+          key: ${{secrets.PRIVATE_KEY}}
+          script: |
+            cd /root/sites/MiHorarioWeb
+            git pull origin master
+            git status
+            npm i
+            npm run build
+            pm2 restart server
