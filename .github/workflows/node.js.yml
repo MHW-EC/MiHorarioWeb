@@ -11,10 +11,10 @@ jobs:
       - name: SSH into production server
         uses: appleboy/ssh-action@master
         with:
-          port: 22
-          username: root
           host: ${{secrets.HOST}}
+          port: ${{secrets.PORT}}
           key: ${{secrets.PRIVATE_KEY}}
+          username: ${{secrets.USERNAME}}
           script: |
             cd /root/sites/MiHorarioWeb
             git pull origin master
