@@ -16,6 +16,7 @@ jobs:
         key: ${{ secrets.PRIVATE_KEY }}
         port: 22
         script: |
+          mkdir /root/test
           cd /root/sites/MiHorarioWeb
           git pull origin master
           echo 'FINISH!'
