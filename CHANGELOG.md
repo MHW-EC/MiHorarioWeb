@@ -6,5 +6,9 @@ The date format used is DD/MM/YYYY.
 
 ## [1.0.0] - 15/03/2021
 ### Added
+* New workflow to remote autodeploy
+
+## [1.0.0] - 15/03/2021
+### Added
 * Add enviroment variables of database info
 * Add new Readme.md, CHANGELOG.md and Contributing.md
