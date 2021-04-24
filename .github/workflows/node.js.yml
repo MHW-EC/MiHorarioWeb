@@ -16,6 +16,8 @@ jobs:
           key: ${{secrets.PRIVATE_KEY}}
           port: ${{secrets.PORT}}
           script: |
+            export NVM_DIR=~/.nvm
+            source ~/.nvm/nvm.sh
             cd /root/sites/MiHorarioWeb
             git pull origin master
             git status
