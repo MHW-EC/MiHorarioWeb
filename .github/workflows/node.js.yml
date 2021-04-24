@@ -6,7 +6,7 @@ on:
 jobs:
   job_one:
     name: Deploy
-    runs-on: ubunty-latest
+    runs-on: ubuntu-latest
     steps:
     - name: testing conection to private server
       uses: actions/checkout@master
