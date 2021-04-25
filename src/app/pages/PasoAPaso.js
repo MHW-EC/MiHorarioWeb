@@ -30,7 +30,6 @@ import {
   enqueueSnackbar as enqueueSnackbarAction,
   closeSnackbar as closeSnackbarAction,
 } from '../../redux/actions/notifier';
-import {constants as APPCONSTANTS} from './../constants';
 
 const useStyles = makeStyles((theme) => ({
   instructions: {

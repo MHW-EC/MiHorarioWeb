@@ -74,7 +74,7 @@ const useStyles = makeStyles((theme) => ({
 
 const countByTeorico = (teoricosIdArray, materiaCode) => {
   return teoricosIdArray.reduce((amount, element) => 
-     amount + (element.split("_")[0] == materiaCode), 0);
+     amount + (element.split("_")[0] === materiaCode), 0);
 }
 
 export default function SimpleCard(props) {
