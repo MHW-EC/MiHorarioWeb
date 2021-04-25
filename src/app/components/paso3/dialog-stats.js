@@ -15,15 +15,6 @@ import Light from 'highcharts/themes/grid-light';
 import HighchartsReact from 'highcharts-react-official';
 import HighchartsExporting from 'highcharts/modules/exporting';
 
-const parserArray = (array) => {
-  return array.map((object) => {
-    /*if (object.value <= 0.1) {
-      return 10;
-    }*/
-    return object.value * 100;
-  });
-};
-
 const useStyles = makeStyles((theme) => ({
   root: {
     width: '100%',
@@ -94,7 +85,7 @@ export default function ConfirmationDialogRaw(props) {
         {
           name: profesorT,
           type: 'area',
-          data: parserArray(data),
+          data: data.map(object => object.value * 100),
         },
       ],
 

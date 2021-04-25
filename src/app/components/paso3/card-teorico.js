@@ -186,8 +186,8 @@ export default function SimpleCard(props) {
         ))}
       </>
     ) : (
-        <></>
-      );
+      <></>
+    );
   };
   return paralelo && profesor ? (
     <Card className={top ? classes.rootTop : classes.root} variant="outlined">
@@ -202,31 +202,31 @@ export default function SimpleCard(props) {
         subheader={
           <>
             {GetChip(profesor['registros'][0]['promedio'], top)}
-            {typeof profesor.stats !== 'undefined' ? (
-              <>
-                <Button
-                  onClick={handleStats}
-                  size="small"
-                  variant="text"
-                  color="primary"
-                  endIcon={<ExpandMoreIcon />}
-                >
-                  ver opiniones
-          </Button>
-                <DialogStats
-                  id="stats-profesor"
-                  open={openStats}
-                  keepMounted
-                  onClose={handleCloseDialogStats}
-                  data={profesor.stats}
-                  profesor={paralelo['profesor']}
-                />
-              </>
-            ) : null}
+            {
+              profesor.stats && 
+                <>
+                  <Button
+                    onClick={handleStats}
+                    size="small"
+                    variant="text"
+                    color="primary"
+                    endIcon={<ExpandMoreIcon />}
+                  >
+                    ver opiniones
+                </Button>
+                  <DialogStats
+                    id="stats-profesor"
+                    open={openStats}
+                    keepMounted
+                    onClose={handleCloseDialogStats}
+                    data={profesor.stats}
+                    profesor={paralelo['profesor']}
+                  />
+                </>
+            }
           </>}
         style={{ padding: 12 }}
       />
-
       <Divider />
       <CardContent className={classes.div}>
         <Typography variant="body2" component="p" aling="left">
@@ -241,8 +241,8 @@ export default function SimpleCard(props) {
             </React.Fragment>
           ))
         ) : (
-            <></>
-          )}
+          <></>
+        )}
         {paralelo.hasOwnProperty('eventos') ? (
           <React.Fragment>
             <Typography variant="body2" component="p">
@@ -271,8 +271,8 @@ export default function SimpleCard(props) {
             </Typography>
           </React.Fragment>
         ) : (
-            <></>
-          )}
+          <></>
+        )}
       </CardContent>
 
       {paralelo && paralelo['paralelos_practicos'].length > 0 ? (
@@ -299,42 +299,42 @@ export default function SimpleCard(props) {
           </CardActions>
         </>
       ) : (
-          <></>
-        )}
+        <></>
+      )}
     </Card>
   ) : (
-      <Card variant="outlined">
-        <CardHeader
-          avatar={
-            <Skeleton animation="wave" variant="circle" width={40} height={40} />
-          }
-          title={
-            <div
-              style={{ width: '80%', marginLeft: 'auto', marginRight: 'auto' }}
-            >
-              <Skeleton animation="wave" variant="text" height={10} />
-            </div>
-          }
-          subheader={
-            <div
-              style={{ width: '50%', marginLeft: 'auto', marginRight: 'auto' }}
-            >
-              <Skeleton animation="wave" variant="text" height={10} />
-            </div>
-          }
+    <Card variant="outlined">
+      <CardHeader
+        avatar={
+          <Skeleton animation="wave" variant="circle" width={40} height={40} />
+        }
+        title={
+          <div
+            style={{ width: '80%', marginLeft: 'auto', marginRight: 'auto' }}
+          >
+            <Skeleton animation="wave" variant="text" height={10} />
+          </div>
+        }
+        subheader={
+          <div
+            style={{ width: '50%', marginLeft: 'auto', marginRight: 'auto' }}
+          >
+            <Skeleton animation="wave" variant="text" height={10} />
+          </div>
+        }
+      />
+      <CardContent style={{ padding: 0 }}>
+        <Skeleton animation="wave" variant="rect" height={150} />
+      </CardContent>
+      <CardActions>
+        <Skeleton
+          animation="wave"
+          variant="rect"
+          height={25}
+          width={80}
+          style={{ borderRadius: 4 }}
         />
-        <CardContent style={{ padding: 0 }}>
-          <Skeleton animation="wave" variant="rect" height={150} />
-        </CardContent>
-        <CardActions>
-          <Skeleton
-            animation="wave"
-            variant="rect"
-            height={25}
-            width={80}
-            style={{ borderRadius: 4 }}
-          />
-        </CardActions>
-      </Card>
-    );
+      </CardActions>
+    </Card>
+  );
 }
