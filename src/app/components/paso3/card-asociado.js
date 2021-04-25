@@ -15,7 +15,7 @@ import { getProfesor } from '../../../redux/actions/profesor';
 import { useSelector, useDispatch } from 'react-redux';
 import { GetChip } from './chips';
 import DialogStats from './dialog-stats';
-
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 const useStyles = makeStyles((theme) => ({
   div: {
     padding: 0,
@@ -67,29 +67,34 @@ export default function SimpleCard(props) {
           </Avatar>
         }
         title={paralelo['profesor'] ? paralelo['profesor'] : 'SIN NOMBRE'}
-        subheader={GetChip(profesor['registros'][0]['promedio'])}
+        subheader={
+          <>
+            {GetChip(profesor['registros'][0]['promedio'])}
+            {
+              profesor.stats &&
+              <>
+                <Button
+                  onClick={handleStats}
+                  size="small"
+                  variant="text"
+                  color="primary"
+                  endIcon={<ExpandMoreIcon />}
+                >
+                  ver opiniones
+                </Button>
+                <DialogStats
+                  id="stats-profesor"
+                  open={openStats}
+                  keepMounted
+                  onClose={handleCloseDialogStats}
+                  data={profesor.stats}
+                  profesor={paralelo['profesor']}
+                />
+              </>
+            }
+          </>}
         style={{ padding: 12 }}
       />
-      {typeof profesor.stats !== 'undefined' ? (
-        <>
-          <Button
-            className={classes.btnHex}
-            onClick={handleStats}
-            size="small"
-            variant="text"
-          >
-            ¿Cómo se sienten los estudiantes con este profesor?
-          </Button>
-          <DialogStats
-            id="stats-profesor"
-            open={openStats}
-            keepMounted
-            onClose={handleCloseDialogStats}
-            data={profesor.stats}
-            profesor={paralelo['profesor']}
-          />
-        </>
-      ) : null}
       <Divider />
       <CardContent className={classes.div}>
         <br />
