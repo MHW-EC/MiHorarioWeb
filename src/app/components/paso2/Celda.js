@@ -1,20 +1,71 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { Grid, Typography, Checkbox } from '@material-ui/core';
+import { useSelector, useDispatch } from 'react-redux';
+import { 
+	Grid,
+	Typography,
+	Checkbox,
+	CardActionArea,
+	Button
+} from '@material-ui/core';
 import CloseOutlinedIcon from '@material-ui/icons/CloseOutlined';
 import {
 	checkMateria,
 	unCheckMateria,
 	removeMateria,
 } from '../../../redux/actions/materias';
-import { useDispatch } from 'react-redux';
-import CardActionArea from '@material-ui/core/CardActionArea'
-export default function Celda({materia, fromMalla}) {
-	let marcado = materia.check;
-	const dispatch = useDispatch();
+import { getMateriasMalla, getMaterias } from '../../../redux/actions/materias';
+import { materiasSeleccionadas as matSelSelector } from '../../../redux/selectors';
+import { materiasMalla as mallaSelSelector } from '../../../redux/selectors';
+import {
+	enqueueSnackbar as enqueueSnackbarAction,
+	closeSnackbar as closeSnackbarAction,
+} from '../../../redux/actions/notifier';
+import { MAX_NUMBERS } from "../../constants";
 
-	const onCheck = (event) => {
-		!marcado ? dispatch(checkMateria(materia)) : dispatch(unCheckMateria(materia));
+export default function Celda({ materia, fromMalla }) {
+	const dispatch = useDispatch();
+	const materiasSelect = useSelector((state) => matSelSelector(state));
+	const materiasMalla = useSelector((state) => mallaSelSelector(state));
+	const enqueueSnackbar = (...args) => dispatch(enqueueSnackbarAction(...args));
+	const closeSnackbar = (...args) => dispatch(closeSnackbarAction(...args));
+
+	useEffect(() => {
+		if (!materiasSelect) {
+			dispatch(getMaterias());
+		}
+	});
+	useEffect(() => {
+		if (!materiasMalla) {
+			dispatch(getMateriasMalla());
+		}
+	});
+
+	let marcado = materia.check;
+
+	const onCheck = () => {
+		if (marcado) {
+			dispatch(unCheckMateria(materia))
+		} else {
+			let totalMateria = materiasMalla.reduce(
+				(a, b) => (b.check || 0) + a, 0) + 
+				materiasSelect.reduce((a, b) => (b.check || 0) + a, 0)
+			if (totalMateria >= MAX_NUMBERS.MATERIAS) {
+				enqueueSnackbar({
+					message: `Cantidad máxima de materias: ${MAX_NUMBERS.MATERIAS}`,
+					options: {
+						preventDuplicate: true,
+						key: new Date().getTime() + Math.random(),
+						variant: 'error',
+						action: (key) => (
+							<Button onClick={() => closeSnackbar(key)}>Cerrar </Button>
+						),
+					},
+				});
+				return
+			}
+			dispatch(checkMateria(materia))
+		}
 		marcado = !marcado;
 	};
 	const handleBorrar = () => {

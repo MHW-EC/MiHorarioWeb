@@ -11,9 +11,7 @@ export function formatoIntevaloEx(stringDateA, stringDateB){
     return stringDateA.split("T")[0] + " " + 
     stringDateA.split(["T"])[1].substring(0,5) + 
     "-" + stringDateB.split(["T"])[1].substring(0,5) 
-    //return stringDay(stringDateA) + ", " + stringDateA.split(["T"])[1] + " A: " + stringDateB.split(["T"])[1] 
 }
-//gg['a'] ? console.log("lleno") : console.log("vacio")
 export function eventoToAppointment(materia, evento, lenLista, esClase){
     return { id: lenLista, 
         title: `${materia.nombre} ${materia.codigo} ${materia.paralelo}`, 

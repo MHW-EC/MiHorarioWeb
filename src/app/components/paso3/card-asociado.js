@@ -27,10 +27,9 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function SimpleCard(props) {
+export default function Asociado({paralelo}) {
   const classes = useStyles();
   const dispatch = useDispatch();
-  const [paralelo] = useState(props.paralelo);
   const [openStats, setOpenStats] = useState(false);
   const profesor = useSelector((state) =>
     profesorSelector(
@@ -58,11 +57,11 @@ export default function SimpleCard(props) {
     setOpenStats(false);
   };
 
-  return paralelo && profesor ? (
+  return (paralelo && profesor) &&
     <Card className={classes.root} variant="outlined">
       <CardHeader
         avatar={
-          <Avatar aria-label="recipe" className={classes.avatar}>
+          <Avatar className={classes.avatar}>
             {paralelo['paralelo']}
           </Avatar>
         }
@@ -101,7 +100,8 @@ export default function SimpleCard(props) {
         <Typography variant="body2" component="p" aling="left">
           Clases
         </Typography>
-        {paralelo.hasOwnProperty('eventos') ? (
+        {
+        paralelo.hasOwnProperty('eventos') &&
           paralelo.eventos.clases.map((clase) => (
             <React.Fragment key={clase['inicio']}>
               <Typography variant="body2" aling="left" color="textSecondary">
@@ -109,12 +109,8 @@ export default function SimpleCard(props) {
               </Typography>
             </React.Fragment>
           ))
-        ) : (
-          <></>
-        )}
+        }
       </CardContent>
     </Card>
-  ) : (
-    <div>Loading...</div>
-  );
+  ;
 }

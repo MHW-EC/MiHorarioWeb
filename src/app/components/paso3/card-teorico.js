@@ -27,11 +27,16 @@ import {
 } from '../../../redux/actions/seleccionados';
 import { addPaquete, removePaquete } from '../../../redux/actions/paquetes';
 import { profesorSelector } from '../../../redux/selectors';
-import { getProfesor } from '../../../redux/actions/profesor';
+import { getProfesor } from '../../../redux/actions/profesor'
+import { seleccionados as selSelector} from "../../../redux/selectors";
 import Skeleton from '@material-ui/lab/Skeleton';
 import { GetChip } from './chips';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-
+import {
+	enqueueSnackbar as enqueueSnackbarAction,
+	closeSnackbar as closeSnackbarAction,
+} from '../../../redux/actions/notifier';
+import { MAX_NUMBERS } from "../../constants";
 const topHexColor = "#D4AF37";
 const useStyles = makeStyles((theme) => ({
   bullet: {
@@ -67,6 +72,11 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
+const countByTeorico = (teoricosIdArray, materiaCode) => {
+  return teoricosIdArray.reduce((amount, element) => 
+     amount + (element.split("_")[0] === materiaCode), 0);
+}
+
 export default function SimpleCard(props) {
   const classes = useStyles();
   const theme = useTheme();
@@ -75,15 +85,18 @@ export default function SimpleCard(props) {
   const [openStats, setOpenStats] = useState(false);
   const [cargado, setCargado] = useState(false);
   const [paralelo] = useState(props.paralelo);
-  const [isAdd, setIsAdd] = useState(1);
+  const [isAdd, setIsAdd] = useState(1);//necesariamente binario y no bool
   const top = props.top;
-
+  const seleccionados = useSelector((state) => selSelector(state));
   const profesor = useSelector((state) =>
     profesorSelector(
       state,
       paralelo['profesor'] ? paralelo['profesor'] : 'SIN NOMBRE'
     )
   );
+  const enqueueSnackbar = (...args) => dispatch(enqueueSnackbarAction(...args));
+	const closeSnackbar = (...args) => dispatch(closeSnackbarAction(...args));
+
 
   useEffect(() => {
     if (paralelo && !profesor) {
@@ -99,6 +112,22 @@ export default function SimpleCard(props) {
 
   const handleAddRemove = () => {
     if (isAdd) {
+      let materiaCode = paralelo['_id'].split("_")[0]
+      let amount = countByTeorico(seleccionados, materiaCode);
+      if( amount >= MAX_NUMBERS.TEORICOSPERMATERIA){
+        enqueueSnackbar({
+					message: `Cantidad máxima de teóricos para ${materiaCode}: ${MAX_NUMBERS.TEORICOSPERMATERIA}`,
+					options: {
+						preventDuplicate: true,
+						key: new Date().getTime() + Math.random(),
+						variant: 'error',
+						action: (key) => (
+							<Button onClick={() => closeSnackbar(key)}>Cerrar </Button>
+						),
+					},
+				});
+				return
+      }
       dispatch(addSeleccionado(paralelo['_id']));
       setIsAdd(0);
     } else {
@@ -160,7 +189,7 @@ export default function SimpleCard(props) {
     setOpenStats(false);
   };
   const getAction = () => {
-    return paralelo ? (
+    return paralelo &&
       <>
         <AddBoxOutlinedIcon className={classes.ghostIcon} />
         {fabs.map((fab, index) => (
@@ -185,15 +214,12 @@ export default function SimpleCard(props) {
           </Zoom>
         ))}
       </>
-    ) : (
-      <></>
-    );
   };
   return paralelo && profesor ? (
     <Card className={top ? classes.rootTop : classes.root} variant="outlined">
       <CardHeader
         avatar={
-          <Avatar aria-label="recipe" className={top ? classes.avatarTop : classes.avatar}>
+          <Avatar className={top ? classes.avatarTop : classes.avatar}>
             {paralelo['paralelo']}
           </Avatar>
         }
@@ -203,26 +229,26 @@ export default function SimpleCard(props) {
           <>
             {GetChip(profesor['registros'][0]['promedio'], top)}
             {
-              profesor.stats && 
-                <>
-                  <Button
-                    onClick={handleStats}
-                    size="small"
-                    variant="text"
-                    color="primary"
-                    endIcon={<ExpandMoreIcon />}
-                  >
-                    ver opiniones
+              profesor.stats &&
+              <>
+                <Button
+                  onClick={handleStats}
+                  size="small"
+                  variant="text"
+                  color="primary"
+                  endIcon={<ExpandMoreIcon />}
+                >
+                  ver opiniones
                 </Button>
-                  <DialogStats
-                    id="stats-profesor"
-                    open={openStats}
-                    keepMounted
-                    onClose={handleCloseDialogStats}
-                    data={profesor.stats}
-                    profesor={paralelo['profesor']}
-                  />
-                </>
+                <DialogStats
+                  id="stats-profesor"
+                  open={openStats}
+                  keepMounted
+                  onClose={handleCloseDialogStats}
+                  data={profesor.stats}
+                  profesor={paralelo['profesor']}
+                />
+              </>
             }
           </>}
         style={{ padding: 12 }}
@@ -232,7 +258,8 @@ export default function SimpleCard(props) {
         <Typography variant="body2" component="p" aling="left">
           Clases
         </Typography>
-        {paralelo.hasOwnProperty('eventos') ? (
+        {
+          paralelo.hasOwnProperty('eventos') &&
           paralelo.eventos.clases.map((clase) => (
             <React.Fragment key={clase['inicio']}>
               <Typography variant="body2" aling="left" color="textSecondary">
@@ -240,10 +267,9 @@ export default function SimpleCard(props) {
               </Typography>
             </React.Fragment>
           ))
-        ) : (
-          <></>
-        )}
-        {paralelo.hasOwnProperty('eventos') ? (
+        }
+        {
+          paralelo.hasOwnProperty('eventos') &&
           <React.Fragment>
             <Typography variant="body2" component="p">
               Examenes
@@ -270,12 +296,11 @@ export default function SimpleCard(props) {
               )}
             </Typography>
           </React.Fragment>
-        ) : (
-          <></>
-        )}
+        }
       </CardContent>
 
-      {paralelo && paralelo['paralelos_practicos'].length > 0 ? (
+      {
+      paralelo && paralelo['paralelos_practicos'].length > 0 && 
         <>
           <Divider />
           <CardActions>
@@ -298,9 +323,7 @@ export default function SimpleCard(props) {
             />
           </CardActions>
         </>
-      ) : (
-        <></>
-      )}
+      }
     </Card>
   ) : (
     <Card variant="outlined">
