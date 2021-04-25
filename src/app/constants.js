@@ -1,6 +1,6 @@
-var constants = {
-    "materiasMaxNumber": 6,
-    "teoricosMaxNumber": 18,
-    "practicosMaxNumber": 18
+var MAX_NUMBERS = {
+    "MATERIAS": 6,
+    "TEORICOSPERMATERIA": 3,
+    "PRACTICOSPERTEORICOS": 3
 } 
-export {constants};
+export {MAX_NUMBERS};

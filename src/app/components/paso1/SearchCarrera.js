@@ -52,7 +52,7 @@ export default function SearchCarrera() {
 				<Grid item xs={12} sm={8} md={8} lg={6} xl={6}>
 				<Autocomplete
 						id='input-nombre-carrera'
-						loadingText={'carging...'}
+						loadingText={'Buscando...'}
 						loading={isSearchingLoading}
 						onChange={onChangeComplete}
 						options={carrerasResults || []}

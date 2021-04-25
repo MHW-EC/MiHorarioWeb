@@ -158,83 +158,66 @@ export default function PasoAPaso() {
           });
         }
         break;
-      case 1:
-        let materiasMSelected = materiasMalla.filter((materia) => materia.check);
-        let materiasSSelected = materiasSelect.filter((materia) => materia.check);
-        let noMMSelected = materiasMSelected ? materiasMSelected.length : 0;
-        let noMSSelected = materiasSSelected ? materiasSSelected.length : 0;
-        let materiasTotal = noMMSelected + noMSSelected;
-
-        let noMateriasSelected = materiasTotal === 0;
-        let exceededMateriasAllowed = materiasTotal > APPCONSTANTS['materiasMaxNumber'];
-        
-        if (noMateriasSelected || exceededMateriasAllowed) {
-          error = true;
-          enqueueSnackbar({
-            message: noMateriasSelected
-              ? 'No se han seleccionado materias'
-              : exceededMateriasAllowed 
-              ? `Ha excedido el número máximo de materias: ${APPCONSTANTS['materiasMaxNumber']}`
-              : "Error, por favor inténtelo de nuevo",
-            options: {
-              preventDuplicate: true,
-              key: new Date().getTime() + Math.random(),
-              variant: 'error',
-              action: (key) => (
-                <Button onClick={() => closeSnackbar(key)}>Cerrar </Button>
-              ),
-              style: { whiteSpace: 'pre-line', textAlign: 'left' },
-            },
-          });
-        }
-        break;
-      case 2:
-        let noTeoricosSelected = seleccionados.length === 0;
-        let noPracticoSelected = paqueteria.length === 0;
-        let exceededTeoricoSelected = seleccionados.length > APPCONSTANTS['teoricosMaxNumber'];
-        let exceededPracticoSelected = paqueteria.length > APPCONSTANTS['practicosMaxNumber'];
-        if (noTeoricosSelected || noPracticoSelected || exceededTeoricoSelected || exceededPracticoSelected) {
-          error = true;
-          enqueueSnackbar({
-            message: noTeoricosSelected 
-              ? 'No se han seleccionado paralelos teóricos'
-              : noPracticoSelected
-              ? 'No se han seleccionado paralelos asociados (prácticos)'
-              : exceededTeoricoSelected
-              ? `Ha excedido el número máximo de paralelos teóricos: ${APPCONSTANTS['teoricosMaxNumber']}`
-              : exceededPracticoSelected
-              ? `Ha excedido el número máximo de paralelos asociados (prácticos): ${APPCONSTANTS['practicosMaxNumber']}`
-              : 'Error, inténtelo de nuevo',
-            options: {
-              preventDuplicate: true,
-              key: new Date().getTime() + Math.random(),
-              variant: 'error',
-              action: (key) => (
-                <Button onClick={() => closeSnackbar(key)}>Cerrar </Button>
-              ),
-              style: { whiteSpace: 'pre-line', textAlign: 'left' },
-            },
-          });
-        } else if (seleccionados.length === 0) {
-          error = true;
-          enqueueSnackbar({
-            message: isMobile
-              ? 'No se han seleccionado paralelos Teóricos'
-              : 'No se han seleccionado paralelos Teóricos. \nPresione el botón en la esquina superior izquierda de un paralelo para añadirlo',
-            options: {
-              preventDuplicate: true,
-              key: new Date().getTime() + Math.random(),
-              variant: 'error',
-              action: (key) => (
-                <Button onClick={() => closeSnackbar(key)}>Cerrar </Button>
-              ),
-              style: { whiteSpace: 'pre-line', textAlign: 'left' },
-            },
-          });
-        }
-        break;
-      default:
-        return;
+        case 1:
+          let validacion = !(
+            materiasMalla.find((materia) => materia.check) ||
+            materiasSelect.find((materia) => materia.check)
+          );
+          if (validacion) {
+            error = true;
+            enqueueSnackbar({
+              message: isMobile
+                ? 'No se han seleccionado materias'
+                : 'No se han seleccionado materias.\nPresione el checkbox a lado del nombre de la materia para añadir una',
+              options: {
+                preventDuplicate: true,
+                key: new Date().getTime() + Math.random(),
+                variant: 'error',
+                action: (key) => (
+                  <Button onClick={() => closeSnackbar(key)}>Cerrar </Button>
+                ),
+                style: { whiteSpace: 'pre-line', textAlign: 'left' },
+              },
+            });
+          }
+          break;
+        case 2:
+          if (paqueteria.length === 0) {
+            error = true;
+            enqueueSnackbar({
+              message: isMobile
+                ? 'No se han seleccionado paralelos Asociados (Prácticos)'
+                : 'No se han seleccionado paralelos Asociados (Prácticos). \nPresione el botón "Par Asociados" para añadirlos',
+              options: {
+                preventDuplicate: true,
+                key: new Date().getTime() + Math.random(),
+                variant: 'error',
+                action: (key) => (
+                  <Button onClick={() => closeSnackbar(key)}>Cerrar </Button>
+                ),
+                style: { whiteSpace: 'pre-line', textAlign: 'left' },
+              },
+            });
+          } else if (seleccionados.length === 0) {
+            error = true;
+            enqueueSnackbar({
+              message: isMobile
+                ? 'No se han seleccionado paralelos Teóricos'
+                : 'No se han seleccionado paralelos Teóricos. \nPresione el botón en la esquina superior izquierda de un paralelo para añadirlo',
+              options: {
+                preventDuplicate: true,
+                key: new Date().getTime() + Math.random(),
+                variant: 'error',
+                action: (key) => (
+                  <Button onClick={() => closeSnackbar(key)}>Cerrar </Button>
+                ),
+                style: { whiteSpace: 'pre-line', textAlign: 'left' },
+              },
+            });
+          }
+          break;
+        default:
+          return;
     }
     if (!error) setActiveStep((prevActiveStep) => prevActiveStep + 1);
   };

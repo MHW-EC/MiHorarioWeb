@@ -20,6 +20,7 @@ import {
   enqueueSnackbar as enqueueSnackbarAction,
   closeSnackbar as closeSnackbarAction,
 } from '../../../redux/actions/notifier';
+import { MAX_NUMBERS } from "../../constants";
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
@@ -54,23 +55,18 @@ const generarCelda = (elemento, index, malla) => {
 export default function Malla(props) {
   const classes = useStyles();
   const dispatch = useDispatch();
-  /* const [input, setInput] = useState(''); */
   const carrera = useSelector((state) => carreraSelector(state));
 
   const allTeoricosBase = useSelector((state) => allteoricosSelector(state));
   const [allTeoricosUnicos, setAllTeoricosUnicos] = useState([]);
-  //const [celdas, setCeldas] = useState([]);
-
+  
   const materiasSelect = useSelector((state) => matSelSelector(state));
   const materiasMalla = useSelector((state) => mallaSelSelector(state));
 
   const enqueueSnackbar = (...args) => dispatch(enqueueSnackbarAction(...args));
   const closeSnackbar = (...args) => dispatch(closeSnackbarAction(...args));
-  const btnCerrar = <Typography style={{ color: '#ffffff' }}>| Ok</Typography>;
 
   const [refresh, setRefresh] = useState(false);
-
-  //useEffect(() => {}, [refresh]);
 
   useEffect(() => {
     if (!materiasSelect) {
@@ -109,6 +105,22 @@ export default function Malla(props) {
 
   const onChangeComplete = (event, value, reason) => {
     if (reason === 'select-option') {
+      let totalMateria = [...materiasMalla, ...materiasSelect].reduce(
+        (a,b) => (b.check ? 1 : 0) + a, 0)
+      if(totalMateria >= MAX_NUMBERS.MATERIAS){
+        enqueueSnackbar({
+          message: `Cantidad máxima de materias: ${MAX_NUMBERS.MATERIAS}`,
+          options: {
+            preventDuplicate: true,
+            key: new Date().getTime() + Math.random(),
+            variant: 'error',
+            action: (key) => (
+              <Button onClick={() => closeSnackbar(key)}>Cerrar </Button>
+            ),
+          },
+        });
+        return
+      }
       let inMalla = materiasMalla.find((e) => e.codigo === value.codigo);
       if (
         !materiasSelect.find((e) => e.key === value.codigo) &&
@@ -132,7 +144,7 @@ export default function Malla(props) {
             key: new Date().getTime() + Math.random(),
             variant: 'success',
             action: (key) => (
-              <Button onClick={() => closeSnackbar(key)}>{btnCerrar} </Button>
+              <Button onClick={() => closeSnackbar(key)}>Cerrar </Button>
             ),
           },
         });
