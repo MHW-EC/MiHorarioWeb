@@ -11,7 +11,7 @@ import {
   CardHeader,
   Button,
   Divider,
-  Zoom
+  Zoom,
 } from '@material-ui/core';
 import { useSelector, useDispatch } from 'react-redux';
 import DeleteOutlineIcon from '@material-ui/icons/DeleteOutline';
@@ -27,17 +27,17 @@ import {
 } from '../../../redux/actions/seleccionados';
 import { addPaquete, removePaquete } from '../../../redux/actions/paquetes';
 import { profesorSelector } from '../../../redux/selectors';
-import { getProfesor } from '../../../redux/actions/profesor'
-import { seleccionados as selSelector} from "../../../redux/selectors";
+import { getProfesor } from '../../../redux/actions/profesor';
+import { seleccionados as selSelector } from '../../../redux/selectors';
 import Skeleton from '@material-ui/lab/Skeleton';
 import { GetChip } from './chips';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import {
-	enqueueSnackbar as enqueueSnackbarAction,
-	closeSnackbar as closeSnackbarAction,
+  enqueueSnackbar as enqueueSnackbarAction,
+  closeSnackbar as closeSnackbarAction,
 } from '../../../redux/actions/notifier';
-import { MAX_NUMBERS } from "../../constants";
-const topHexColor = "#D4AF37";
+import { MAX_NUMBERS } from '../../constants';
+const topHexColor = '#D4AF37';
 const useStyles = makeStyles((theme) => ({
   bullet: {
     display: 'inline-block',
@@ -62,20 +62,22 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: blueGrey[500],
   },
   root: {
-    height: 'auto'
+    height: 'auto',
   },
   rootTop: {
-    borderColor: topHexColor
+    borderColor: topHexColor,
   },
   avatarTop: {
     backgroundColor: topHexColor,
-  }
+  },
 }));
 
 const countByTeorico = (teoricosIdArray, materiaCode) => {
-  return teoricosIdArray.reduce((amount, element) => 
-     amount + (element.split("_")[0] === materiaCode), 0);
-}
+  return teoricosIdArray.reduce(
+    (amount, element) => amount + (element.split('_')[0] === materiaCode),
+    0
+  );
+};
 
 export default function SimpleCard(props) {
   const classes = useStyles();
@@ -85,7 +87,7 @@ export default function SimpleCard(props) {
   const [openStats, setOpenStats] = useState(false);
   const [cargado, setCargado] = useState(false);
   const [paralelo] = useState(props.paralelo);
-  const [isAdd, setIsAdd] = useState(1);//necesariamente binario y no bool
+  const [isAdd, setIsAdd] = useState(1); //necesariamente binario y no bool
   const top = props.top;
   const seleccionados = useSelector((state) => selSelector(state));
   const profesor = useSelector((state) =>
@@ -95,8 +97,7 @@ export default function SimpleCard(props) {
     )
   );
   const enqueueSnackbar = (...args) => dispatch(enqueueSnackbarAction(...args));
-	const closeSnackbar = (...args) => dispatch(closeSnackbarAction(...args));
-
+  const closeSnackbar = (...args) => dispatch(closeSnackbarAction(...args));
 
   useEffect(() => {
     if (paralelo && !profesor) {
@@ -112,21 +113,21 @@ export default function SimpleCard(props) {
 
   const handleAddRemove = () => {
     if (isAdd) {
-      let materiaCode = paralelo['_id'].split("_")[0]
+      let materiaCode = paralelo['_id'].split('_')[0];
       let amount = countByTeorico(seleccionados, materiaCode);
-      if( amount >= MAX_NUMBERS.TEORICOSPERMATERIA){
+      if (amount >= MAX_NUMBERS.TEORICOSPERMATERIA) {
         enqueueSnackbar({
-					message: `Cantidad máxima de teóricos para ${materiaCode}: ${MAX_NUMBERS.TEORICOSPERMATERIA}`,
-					options: {
-						preventDuplicate: true,
-						key: new Date().getTime() + Math.random(),
-						variant: 'error',
-						action: (key) => (
-							<Button onClick={() => closeSnackbar(key)}>Cerrar </Button>
-						),
-					},
-				});
-				return
+          message: `Cantidad máxima de teóricos para ${materiaCode}: ${MAX_NUMBERS.TEORICOSPERMATERIA}`,
+          options: {
+            preventDuplicate: true,
+            key: new Date().getTime() + Math.random(),
+            variant: 'error',
+            action: (key) => (
+              <Button onClick={() => closeSnackbar(key)}>Cerrar </Button>
+            ),
+          },
+        });
+        return;
       }
       dispatch(addSeleccionado(paralelo['_id']));
       setIsAdd(0);
@@ -189,31 +190,34 @@ export default function SimpleCard(props) {
     setOpenStats(false);
   };
   const getAction = () => {
-    return paralelo &&
-      <>
-        <AddBoxOutlinedIcon className={classes.ghostIcon} />
-        {fabs.map((fab, index) => (
-          <Zoom
-            key={fab.color}
-            in={isAdd === fab.entra}
-            timeout={transitionDuration}
-            unmountOnExit
-          >
-            <Tooltip title={fab.tooltipNode}>
-              <IconButton
-                aria-label={fab.label}
-                className={fab.className}
-                color={fab.color}
-                onClick={() => {
-                  handleAddRemove();
-                }}
-              >
-                {fab.icon}
-              </IconButton>
-            </Tooltip>
-          </Zoom>
-        ))}
-      </>
+    return (
+      paralelo && (
+        <>
+          <AddBoxOutlinedIcon className={classes.ghostIcon} />
+          {fabs.map((fab, index) => (
+            <Zoom
+              key={fab.color}
+              in={isAdd === fab.entra}
+              timeout={transitionDuration}
+              unmountOnExit
+            >
+              <Tooltip title={fab.tooltipNode}>
+                <IconButton
+                  aria-label={fab.label}
+                  className={fab.className}
+                  color={fab.color}
+                  onClick={() => {
+                    handleAddRemove();
+                  }}
+                >
+                  {fab.icon}
+                </IconButton>
+              </Tooltip>
+            </Zoom>
+          ))}
+        </>
+      )
+    );
   };
   return paralelo && profesor ? (
     <Card className={top ? classes.rootTop : classes.root} variant="outlined">
@@ -228,8 +232,7 @@ export default function SimpleCard(props) {
         subheader={
           <>
             {GetChip(profesor['registros'][0]['promedio'], top)}
-            {
-              profesor.stats &&
+            {profesor.stats && (
               <>
                 <Button
                   onClick={handleStats}
@@ -249,8 +252,9 @@ export default function SimpleCard(props) {
                   profesor={paralelo['profesor']}
                 />
               </>
-            }
-          </>}
+            )}
+          </>
+        }
         style={{ padding: 12 }}
       />
       <Divider />
@@ -258,18 +262,15 @@ export default function SimpleCard(props) {
         <Typography variant="body2" component="p" aling="left">
           Clases
         </Typography>
-        {
-          paralelo.hasOwnProperty('eventos') &&
+        {paralelo.hasOwnProperty('eventos') &&
           paralelo.eventos.clases.map((clase) => (
             <React.Fragment key={clase['inicio']}>
               <Typography variant="body2" aling="left" color="textSecondary">
                 - {formatoIntevalo(clase['inicio'], clase['fin'])}
               </Typography>
             </React.Fragment>
-          ))
-        }
-        {
-          paralelo.hasOwnProperty('eventos') &&
+          ))}
+        {paralelo.hasOwnProperty('eventos') && (
           <React.Fragment>
             <Typography variant="body2" component="p">
               Examenes
@@ -296,11 +297,10 @@ export default function SimpleCard(props) {
               )}
             </Typography>
           </React.Fragment>
-        }
+        )}
       </CardContent>
 
-      {
-      paralelo && paralelo['paralelos_practicos'].length > 0 && 
+      {paralelo && paralelo['paralelos_practicos'].length > 0 && (
         <>
           <Divider />
           <CardActions>
@@ -323,7 +323,7 @@ export default function SimpleCard(props) {
             />
           </CardActions>
         </>
-      }
+      )}
     </Card>
   ) : (
     <Card variant="outlined">

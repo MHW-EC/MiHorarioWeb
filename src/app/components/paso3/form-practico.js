@@ -63,7 +63,6 @@ export default function ActionsInExpansionPanelSummary(props) {
 		checked
 			? dispatch(addPaquete([teorico, practico], teoricoid, practico['_id']))
 			: dispatch(removePaquete(teoricoid, practico['_id']));
-		//setChecked(checked);
 	};
 	return parAsociados ? (
 		<div className={classes.root}>

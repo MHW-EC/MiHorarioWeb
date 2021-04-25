@@ -221,7 +221,6 @@ function Demo(props) {
           currentDate={currentDate}
           onCurrentDateChange={currentDateChange}
           currentViewName={currentViewName}
-          //onCurrentViewNameChange={currentViewNameChange}
         />
         <WeekView
           excludedDays={excludedDays}

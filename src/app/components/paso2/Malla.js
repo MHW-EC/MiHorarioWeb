@@ -20,7 +20,7 @@ import {
   enqueueSnackbar as enqueueSnackbarAction,
   closeSnackbar as closeSnackbarAction,
 } from '../../../redux/actions/notifier';
-import { MAX_NUMBERS } from "../../constants";
+import { MAX_NUMBERS } from '../../constants';
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
@@ -59,7 +59,7 @@ export default function Malla(props) {
 
   const allTeoricosBase = useSelector((state) => allteoricosSelector(state));
   const [allTeoricosUnicos, setAllTeoricosUnicos] = useState([]);
-  
+
   const materiasSelect = useSelector((state) => matSelSelector(state));
   const materiasMalla = useSelector((state) => mallaSelSelector(state));
 
@@ -106,8 +106,10 @@ export default function Malla(props) {
   const onChangeComplete = (event, value, reason) => {
     if (reason === 'select-option') {
       let totalMateria = [...materiasMalla, ...materiasSelect].reduce(
-        (a,b) => (b.check ? 1 : 0) + a, 0)
-      if(totalMateria >= MAX_NUMBERS.MATERIAS){
+        (a, b) => (b.check ? 1 : 0) + a,
+        0
+      );
+      if (totalMateria >= MAX_NUMBERS.MATERIAS) {
         enqueueSnackbar({
           message: `Cantidad máxima de materias: ${MAX_NUMBERS.MATERIAS}`,
           options: {
@@ -119,23 +121,24 @@ export default function Malla(props) {
             ),
           },
         });
-        return
+        return;
       }
       let inMalla = materiasMalla.find((e) => e.codigo === value.codigo);
-      if (
-        !materiasSelect.find((e) => e.key === value.codigo) &&
-        !inMalla
-      ) {
+      if (!materiasSelect.find((e) => e.key === value.codigo) && !inMalla) {
         dispatch(addMateria({ ...value, check: true }));
       }
       if (inMalla) {
-        dispatch(setMateriasMalla(materiasMalla.map((e) => {
-          if (e.codigo === value.codigo) {
-            e.check = true;
-          }
-          return e;
-        })));
-        
+        dispatch(
+          setMateriasMalla(
+            materiasMalla.map((e) => {
+              if (e.codigo === value.codigo) {
+                e.check = true;
+              }
+              return e;
+            })
+          )
+        );
+
         setRefresh(!refresh);
         enqueueSnackbar({
           message: 'Materia añadida satisfactoriamente',

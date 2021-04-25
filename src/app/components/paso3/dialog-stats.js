@@ -111,7 +111,6 @@ export default function ConfirmationDialogRaw(props) {
     };
   };
 
-  //HighchartMore(ReactHighchart.Highcharts);
   HighchartsExporting(Highcharts);
   require('highcharts/highcharts-more')(Highcharts);
 
