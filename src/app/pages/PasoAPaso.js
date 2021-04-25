@@ -280,7 +280,7 @@ export default function PasoAPaso() {
           </Step>
         ))}
       </Stepper>
-      <Grid container spacing={3} style={{margin: '0px'}}>
+      <Grid container spacing={3}>
         <Grid item xs={12}>
           <Typography 
             className={classes.instructions} 
