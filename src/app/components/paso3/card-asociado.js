@@ -27,7 +27,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function Asociado({paralelo}) {
+export default function Asociado({ paralelo }) {
   const classes = useStyles();
   const dispatch = useDispatch();
   const [openStats, setOpenStats] = useState(false);
@@ -57,20 +57,17 @@ export default function Asociado({paralelo}) {
     setOpenStats(false);
   };
 
-  return (paralelo && profesor) &&
+  return paralelo && profesor ? (
     <Card className={classes.root} variant="outlined">
       <CardHeader
         avatar={
-          <Avatar className={classes.avatar}>
-            {paralelo['paralelo']}
-          </Avatar>
+          <Avatar className={classes.avatar}>{paralelo['paralelo']}</Avatar>
         }
         title={paralelo['profesor'] ? paralelo['profesor'] : 'SIN NOMBRE'}
         subheader={
           <>
             {GetChip(profesor['registros'][0]['promedio'])}
-            {
-              profesor.stats &&
+            {profesor.stats && (
               <>
                 <Button
                   onClick={handleStats}
@@ -90,8 +87,9 @@ export default function Asociado({paralelo}) {
                   profesor={paralelo['profesor']}
                 />
               </>
-            }
-          </>}
+            )}
+          </>
+        }
         style={{ padding: 12 }}
       />
       <Divider />
@@ -100,17 +98,17 @@ export default function Asociado({paralelo}) {
         <Typography variant="body2" component="p" aling="left">
           Clases
         </Typography>
-        {
-        paralelo.hasOwnProperty('eventos') &&
+        {paralelo.hasOwnProperty('eventos') &&
           paralelo.eventos.clases.map((clase) => (
             <React.Fragment key={clase['inicio']}>
               <Typography variant="body2" aling="left" color="textSecondary">
                 - {formatoIntevalo(clase['inicio'], clase['fin'])}
               </Typography>
             </React.Fragment>
-          ))
-        }
+          ))}
       </CardContent>
     </Card>
-  ;
+  ) : (
+    <div></div>
+  );
 }
