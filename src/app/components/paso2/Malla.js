@@ -195,7 +195,7 @@ export default function Malla(props) {
           >
             <Grid className={classes.spacingTitle}>
               <Typography variant="subtitle2" color="textSecondary">
-                Seleccionadas
+                Materias adicionales/itinerario
               </Typography>
             </Grid>
           </Grid>
@@ -226,7 +226,7 @@ export default function Malla(props) {
           >
             <Grid className={classes.spacingTitle}>
               <Typography variant="subtitle2" color="textSecondary">
-                Recomendadas
+                Materias de la malla
               </Typography>
             </Grid>
           </Grid>
