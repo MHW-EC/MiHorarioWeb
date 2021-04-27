@@ -141,7 +141,7 @@ export default function Malla(props) {
 
         setRefresh(!refresh);
         enqueueSnackbar({
-          message: 'Materia añadida satisfactoriamente',
+          message: 'Materia marcada satisfactoriamente en la malla',
           options: {
             preventDuplicate: true,
             key: new Date().getTime() + Math.random(),
