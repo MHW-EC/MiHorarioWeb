@@ -1,5 +1,5 @@
 import { BrowserRouter as Router, Route } from 'react-router-dom';
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import {
   AppBar,
@@ -9,9 +9,9 @@ import {
   Typography,
   Paper,
   Container,
-  IconButton
-}from '@material-ui/core';
-import { 
+  IconButton,
+} from '@material-ui/core';
+import {
   makeStyles,
   withStyles,
   ThemeProvider,
@@ -28,7 +28,6 @@ import Brightness7Icon from '@material-ui/icons/Brightness7';
 import { SnackbarProvider } from 'notistack';
 import { theme, darkTheme } from './theme';
 
-
 function ElevationScroll(props) {
   const { children, window } = props;
   const trigger = useScrollTrigger({
@@ -43,7 +42,7 @@ function ElevationScroll(props) {
 }
 const StyledPaper = withStyles((theme) => ({
   root: {
-    minHeight: "100%",
+    minHeight: '100%',
     backgroundColor: theme.palette.background.default,
   },
 }))(Paper);
@@ -106,25 +105,6 @@ function App(props) {
   const themeButtonHandler = () => {
     setTheme(!isThemeLight);
   };
-  
-  const [resfresh, setResfresh] = useState(true);
-
-  useEffect(() => {
-    if (resfresh) {
-      const counterPost = (name) => {
-        fetch(
-          'https://cors-anywhere.herokuapp.com/https://server-count-views.herokuapp.com/updateViews?key=visit_page',
-          {
-            method: 'POST',
-          }
-        )
-          .then((response) => response.json())
-      };
-
-      counterPost();
-      setResfresh(false);
-    }
-  }, [resfresh]);
 
   useEffect(() => {
     if (!initTheme) {

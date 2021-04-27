@@ -85,7 +85,6 @@ export default function PaginationControlled(props) {
       </SwipeableViews>
 
       <Pagination
-        //style={classes.pagination}
         count={horariosGenerados.length}
         color={'primary'}
         onChange={handleChange}
