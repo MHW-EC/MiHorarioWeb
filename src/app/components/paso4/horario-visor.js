@@ -293,7 +293,6 @@ export default function NavTabs(props) {
 				<></>
 			) : (
 				<IconButton
-					hidden={true}
 					onClick={takeScreenshot}
 					className={classes.ico}
 				>
