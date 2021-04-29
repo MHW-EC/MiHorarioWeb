@@ -6,7 +6,6 @@ This project was built with React for the frontend and Express for the backend, 
 
 It is a page that allows you to generate schedules in a simple way without classes or exams clashing in their schedules. At the end you can visualize the different timetable options, each one has a table where you can see the list of teachers and the parallel of the course, plus a button to see the schedule of classes, partial exams, final and improvement in a weekly calendar.
 
----
 
 ## Available Scripts
 
@@ -30,18 +29,15 @@ It correctly bundles React in production mode and optimizes the build for the be
 The build is minified and the filenames include the hashes.<br />
 Your app is ready to be deployed!
 
----
 
 ## Deploy
 
-Currently, the workflow to deploy is setted up by Github Actions, this is continuos deployment by Microsoft Azure. In next days we move it to virtual machine hosted by [Vultr](https://www.vultr.com). If any problem raise with the web page please notify to [Enmanuel Magallanes](https://github.com/enmanuel-mag) or [Josue Cobos](https://github.com/jcoboss) to fix the problem.
+Currently, the workflow to deploy is setted up by Github Actions, this is continuos deployment to VSP in [Vultr](https://www.vultr.com). If any problem raise with the web page please notify to [Enmanuel Magallanes](https://github.com/enmanuel-mag) or [Josue Cobos](https://github.com/jcoboss) to fix the problem.
 
----
 
 ## Contributing
 
 If you want contribute in this proyecto please see the [Contributing.md](./Contributing.md) file.
 
----
 
 Made with ❤️ by [Enmanuel Magallanes](https://github.com/enmanuel-mag) and [Josue Cobos](https://github.com/jcoboss)
