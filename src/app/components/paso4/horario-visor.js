@@ -85,7 +85,7 @@ export default function NavTabs(props) {
 	const [horario, setHorario] = React.useState(props.horario);
 	//const horario = React.useState(props.horario);
 	const [panel, setPanel] = React.useState(0);
-	const oculto = true;
+	const oculto = false;
 	const dispatch = useDispatch();
 	const enqueueSnackbar = (...args) => dispatch(enqueueSnackbarAction(...args));
 	const closeSnackbar = (...args) => dispatch(closeSnackbarAction(...args));
@@ -293,7 +293,6 @@ export default function NavTabs(props) {
 				<></>
 			) : (
 				<IconButton
-					hidden={true}
 					onClick={takeScreenshot}
 					className={classes.ico}
 				>
