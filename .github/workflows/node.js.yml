@@ -23,4 +23,4 @@ jobs:
             git status
             npm i
             npm run build
-            forever restartall
+            supervisorctl restart mihorarioweb
