@@ -34,7 +34,7 @@ const Contenido = () => {
   return (
     <div className={classes.dialogContent}>
       <Typography variant="body1">
-        Si te gustó nuestro trabajo y deseas ayudarnos puedes conectarnos a
+        Si te gustó nuestro trabajo y deseas ayudarnos puedes contactarnos a
         nuestros correos o donar a nuestro Paypal.
       </Typography>
       <br />
