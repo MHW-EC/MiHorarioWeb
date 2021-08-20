@@ -5,7 +5,7 @@ let mongoose = require('mongoose'),
 let teorico = require('../models/teorico-schema');
 
 
-router.route('/').get((req, res) => {
+router.route('/').get((req, res, next) => {
     let xforwardedfor = req['headers']['x-forwarded-for']
     console.log("Colección: teorico, x-forwarded-for: " + xforwardedfor)
     teorico.find({}, "codigo nombre", (error, data) => {
@@ -18,7 +18,7 @@ router.route('/').get((req, res) => {
 });
 
 
-router.route('/:codigo').get((req, res) => {
+router.route('/:codigo').get((req, res, next) => {
     let xforwardedfor = req['headers']['x-forwarded-for']
     console.log("Colección: teorico, x-forwarded-for: " + xforwardedfor)
     //teorico.find({codigo:req.params.codigo}, null, { sort: 'paralelo'}, (error, data) => {

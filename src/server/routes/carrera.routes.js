@@ -4,7 +4,7 @@ let mongoose = require('mongoose'),
 
 let carrera = require('../models/carrera-schema');
 
-router.route('/').get((req, res) => {
+router.route('/').get((req, res, next) => {
 	let xforwardedfor = req['headers']['x-forwarded-for']
 	console.log("Colección: carrera, x-forwarded-for: "+xforwardedfor)
 	carrera.find((error, data) => {
