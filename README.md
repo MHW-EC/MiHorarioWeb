@@ -1,3 +1,5 @@
+:no_entry: [DEPRECATED] Active at https://github.com/MHW-EC
+
 # Mi Horario Web! (MHW)
 
 This project was built with React for the frontend and Express for the backend, as database we used MongoDB. 
